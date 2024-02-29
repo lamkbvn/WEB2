@@ -1,23 +1,4 @@
 <?php
-// $page = 1;
-// if (isset($_GET['search'])) {
-//     $sql = "SELECT * FROM product where title like '%" . $_GET['search'] . "%'";
-//     echo 'Cau lẹnh search: ' . $sql;
-// } else if (isset($_GET['page'])) {
-//     $page = $_GET["page"];
-// } else {
-//     $sql = "SELECT * FROM product";
-// }
-// $totalProducts = $connect->query($sql);
-// $showProductPerPage = 12;
-// $totalPages = ceil($totalProducts->num_rows / $showProductPerPage);
-
-// $from = ($page - 1) * $showProductPerPage;
-// $sql .= " limit $from, $showProductPerPage";
-
-// $query = $connect->query($sql);
-// $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
-// $result = $connect->query($sql);
 $sql = "SELECT * FROM product where status = 1";
 $totalProducts = $connect->query($sql);
 $showProductPerPage = 12;
@@ -47,7 +28,27 @@ if (isset($_GET['idCategory'])) {
     $priceMax = $_GET['price-max'];
     $sql .= " and price >= $priceMin and price <= $priceMax";
     echo '<br>price: ' . $sql;
+} else if (isset($_GET['sort'])) {
+    $sortOption = $_GET['sort'];
+    switch ($sortOption) {
+        case 1:
+            $orderBy = "";
+            break;
+        case 2:
+            $orderBy = "ORDER BY num_bought desc";
+            break;
+        case 3:
+            $orderBy = "ORDER BY star_feedback desc";
+            break;
+        case 4:
+            $orderBy = "ORDER BY price desc";
+            break;
+        case 5:
+            $orderBy = "ORDER BY price asc";
+            break;
+    }
 }
+$sql .= " $orderBy";
 $sql .= " limit $from, $showProductPerPage";
 $totalProducts = $connect->query($sql);
 $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
@@ -98,7 +99,7 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                         <div class="slider">
                             <div class="progress"></div>
                         </div>
-                        <form class="range-input" method="get">
+                        <form class="range-input" method="get" action="">
                             <input type="range" class="range-min" min="0" max="5000000" value="0" step="100000"
                                 name="price-min">
                             <input type="range" class="range-max" min="0" max="5000000" value="5000000" step="100000"
@@ -160,8 +161,8 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                                         <form class="range-input-all" method="get">
                                             <input type="range" class="range-min-all" min="0" max="5000000" value="0"
                                                 step="100000" name="price-min">
-                                            <input type="range" class="range-max-all" min="0" max="5000000" value="5000000"
-                                                step="100000" name="price-max">
+                                            <input type="range" class="range-max-all" min="0" max="5000000"
+                                                value="5000000" step="100000" name="price-max">
                                             <!-- <input type="submit" hidden> -->
                                         </form>
                                     </div>
@@ -234,14 +235,16 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                     </div> -->
                     <img src="../View/icon/icon-list-bottom.svg" alt="" />
                     <div class="hide-arrow-default"></div>
-                    <select class="list-item">
-                        <option>Klook giới thiệu</option>
-                        <option>Bán chạy</option>
-                        <option>Đánh giá cao nhất</option>
-                        <option>Giá(từ thấp đến cao)</option>
-                        <option>Giá(từ cao đến thấp)</option>
-                    </select>
-
+                    <form id="sortForm" class="form" method="get">
+                        <select class="list-item" name="sort" id="sortOption" onchange="sortBy()">
+                            <option value="1" <?=(isset($sortOption) && $sortOption == 1 ) ? 'selected': ''?>>Klook giới thiệu</option>
+                            <option value="2" <?=(isset($sortOption) && $sortOption == 2 ) ? 'selected': ''?>>Bán chạy</option>
+                            <option value="3" <?=(isset($sortOption) && $sortOption == 3 ) ? 'selected': ''?>>Đánh giá cao nhất</option>
+                            <option value="4" <?=(isset($sortOption) && $sortOption == 4 ) ? 'selected': ''?>>Giá (từ thấp đến cao)</option>
+                            <option value="5" <?=(isset($sortOption) && $sortOption == 5 ) ? 'selected': ''?>>Giá (từ cao đến thấp)</option>
+                        </select>
+                        <input type="submit" hidden>
+                    </form>
                 </div>
             </div>
         </div>

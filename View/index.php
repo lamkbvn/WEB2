@@ -172,6 +172,13 @@ $connect = new mysqli("localhost", "root", "", "web2");
       });
     });
   });
+// Hàm này được gọi khi người dùng thay đổi tùy chọn sắp xếp
+  function sortBy() {
+        // Lấy giá trị của tùy chọn sắp xếp
+        var selectedOption = document.getElementById("sortOption").value;
+        // Gửi biểu mẫu khi thay đổi tùy chọn
+        document.getElementById("sortForm").submit();
+    }
 
 
 
