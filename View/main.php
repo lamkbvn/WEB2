@@ -1,0 +1,407 @@
+<?php
+// $page = 1;
+// if (isset($_GET['search'])) {
+//     $sql = "SELECT * FROM product where title like '%" . $_GET['search'] . "%'";
+//     echo 'Cau lẹnh search: ' . $sql;
+// } else if (isset($_GET['page'])) {
+//     $page = $_GET["page"];
+// } else {
+//     $sql = "SELECT * FROM product";
+// }
+// $totalProducts = $connect->query($sql);
+// $showProductPerPage = 12;
+// $totalPages = ceil($totalProducts->num_rows / $showProductPerPage);
+
+// $from = ($page - 1) * $showProductPerPage;
+// $sql .= " limit $from, $showProductPerPage";
+
+// $query = $connect->query($sql);
+// $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
+// $result = $connect->query($sql);
+$sql = "SELECT * FROM product where status = 1";
+$totalProducts = $connect->query($sql);
+$showProductPerPage = 12;
+$page = 1;
+$totalPages = ceil($totalProducts->num_rows / $showProductPerPage);
+$from = ($page - 1) * $showProductPerPage;
+
+
+$result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
+
+if (!$result) {
+    echo "Lỗi khi truy vấn cơ sở dữ liệu: " . $connect->error;
+}
+$listCategory = mysqli_fetch_all($connect->query("select * from category"), MYSQLI_ASSOC);
+
+if (isset($_GET['idCategory'])) {
+    $idCategory = $_GET['idCategory'];
+    $sql .= " and id_category = $idCategory";
+    echo 'cate: ' . $sql;
+} else if (isset($_GET['keyword'])) {
+    $keyword = $_GET['keyword'];
+    $sql .= " and title like '%" . $_GET['keyword'] . "%'";
+    echo '<br>key: ' . $sql;
+
+} else if (isset($_GET['price-min'])) {
+    $priceMin = $_GET['price-min'];
+    $priceMax = $_GET['price-max'];
+    $sql .= " and price >= $priceMin and price <= $priceMax";
+    echo '<br>price: ' . $sql;
+}
+$sql .= " limit $from, $showProductPerPage";
+$totalProducts = $connect->query($sql);
+$result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
+?>
+<main class="main">
+    <div class="filter-row">
+        <div class="container">
+            <div class="filter-left">
+                <div class="all-category category">
+                    <span>Tất cả danh mục</span>
+                    <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-list-bottom" />
+                </div>
+                <div class="list-category">
+                    <?php foreach ($listCategory as $item): ?>
+                        <div class="category category-<?= $item['id'] ?>>">
+                            <a href="?option=showProduct&idCategory=<?= $item['id'] ?>">
+                                <?= $item['name_category'] ?>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="category checked">Ngam hoa anh dao</div>
+                <div class="category">Ngam ca voi</div>
+            </div>
+            <div class="separete-center"></div>
+            <div class="filter-right">
+                <div class="filter-date-price-group">
+                    <div class="all-category category filter-date">
+                        <span>Ngày tham gia</span>
+                        <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-list-bottom" />
+                    </div>
+                    <div class="all-category category filter-price">
+                        <span>Lọc theo giá</span>
+                        <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-list-bottom" />
+                    </div>
+                    <div class="wrapper">
+                        <div class="price-input">
+                            <div class="field">
+                                <span>Min</span>
+                                <input type="number" class="input-min" value="0">
+                            </div>
+                            <div class="separator">-</div>
+                            <div class="field">
+                                <span>Max</span>
+                                <input type="number" class="input-max" value="5000000">
+                            </div>
+                        </div>
+                        <div class="slider">
+                            <div class="progress"></div>
+                        </div>
+                        <form class="range-input" method="get">
+                            <input type="range" class="range-min" min="0" max="5000000" value="0" step="100000"
+                                name="price-min">
+                            <input type="range" class="range-max" min="0" max="5000000" value="5000000" step="100000"
+                                name="price-max">
+                            <!-- <input type="submit" hidden> -->
+                            <div class="row">
+                                <span class="btn-clear">Xoá</span>
+                                <button class="btn-show-result" type="submit">Xem kết quả</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="filter-all">
+                    <img src="../View/icon/Filter.svg" alt="" class="icon-filter" />
+                    <span>Lọc</span>
+                </div>
+                <div class="filter-advance">
+                    <div class="icon-kill">
+                        <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+                            <path d="M10 10L38 38" stroke="#ffffff" stroke-width="3.6" stroke-linecap="round"></path>
+                            <path d="M38 10L10 38" stroke="#ffffff" stroke-width="3.6" stroke-linecap="round"></path>
+                        </svg>
+                    </div>
+                    <div class="filter-header">
+                        <div class="title">Lọc</div>
+                    </div>
+                    <div class="filter-body">
+                        <div class="filter-content">
+                            <div class="filter-content-wrapper">
+                                <div class="filter-content-item">
+                                    <h3 class="title">Ngày tham gia</h3>
+                                    <div class="item">
+                                        <div class="quick-item">
+                                            <div class="category">Hôm nay</div>
+                                            <div class="category">Ngày mai</div>
+                                            <div class="category">Ngày khác</div>
+                                        </div>
+                                        <div class="select-date"></div>
+                                    </div>
+                                </div>
+                                <div class="filter-content-item">
+                                    <h3 class="title">Lọc theo giá</h3>
+                                    <div class="wrapper-filter-all">
+                                        <div class="price-input-all">
+                                            <div class="field-all">
+                                                <span>Min</span>
+                                                <input type="number" class="input-min-all" value="0">
+                                            </div>
+                                            <div class="separator-all">-</div>
+                                            <div class="field-all">
+                                                <span>Max</span>
+                                                <input type="number" class="input-max-all" value="5000000">
+                                            </div>
+                                        </div>
+                                        <div class="slider-all">
+                                            <div class="progress-all"></div>
+                                        </div>
+                                        <form class="range-input-all" method="get">
+                                            <input type="range" class="range-min-all" min="0" max="5000000" value="0"
+                                                step="100000" name="price-min">
+                                            <input type="range" class="range-max-all" min="0" max="5000000" value="5000000"
+                                                step="100000" name="price-max">
+                                            <!-- <input type="submit" hidden> -->
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="filter-content-item">
+                                    <h3 class="title">Danh mục</h3>
+                                    <div class="item">
+                                        <div class="quick-item content-wrap">
+                                            <div class="category">Du thuyền</div>
+                                            <div class="category">Massage & Suối nước nóng</div>
+                                            <div class="category">Hoạt động dưới nước</div>
+                                            <div class="category">Phiêu lưu & Khám phá thiên nhiên</div>
+                                            <div class="category">Trải nghiệm văn hoá</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="filter-content-item">
+                                    <h3 class="title">Thời lượng</h3>
+                                    <div class="item">
+                                        <div class="quick-item">
+                                            <div class="category">0-3 tiếng</div>
+                                            <div class="category">3-5 tiếng</div>
+                                            <div class="category">5-7 tiếng</div>
+                                            <div class="category">1 ngày</div>
+                                            <div class="category">2 ngày trở lên</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="filter-content-item">
+                                    <h3 class="title">Giờ khởi hành</h3>
+                                    <div class="item">
+                                        <div class="quick-item content-wrap">
+                                            <div class="category">Sáng sớm (05:00 - 09:00)</div>
+                                            <div class="category">Sáng (09:00 - 12:00)</div>
+                                            <div class="category">Chiều (12:00 - 16:00)</div>
+                                            <div class="category">Đêm (20:00 - 00:00)</div>
+                                            <div class="category">Đêm muộn & rạng sáng (00:00 - 05:00)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="filter-content-item">
+                                    <h3 class="title">Ngôn ngữ hướng dẫn</h3>
+                                    <div class="item">
+                                        <div class="quick-item">
+                                            <div class="category">Tiếng Việt</div>
+                                            <div class="category">Tiếng Anh</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-footer">
+                        <span class="btn-clear">Xoá</span>
+                        <button class="btn-show-result" type="submit">Xem kết quả</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="quantity-sort">
+            <div class="container">
+                <div class="quantity">
+                    <?= $totalProducts->num_rows ?> dịch vụ
+                </div>
+                <div class="sort">
+                    <span>Sắp xếp theo</span>
+                    <!-- <div class="list-item">
+                        <span>KLook giới thiệu</span>
+                        <img src="../View/icon/icon-list-bottom.svg" alt="" />
+                    </div> -->
+                    <img src="../View/icon/icon-list-bottom.svg" alt="" />
+                    <div class="hide-arrow-default"></div>
+                    <select class="list-item">
+                        <option>Klook giới thiệu</option>
+                        <option>Bán chạy</option>
+                        <option>Đánh giá cao nhất</option>
+                        <option>Giá(từ thấp đến cao)</option>
+                        <option>Giá(từ cao đến thấp)</option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+        <div class="list-product">
+            <div class="container">
+                <?php foreach ($result as $item): ?>
+                    <div class="card">
+                        <img src="../View/image/tourCheoThuyen.webp" alt="" class="img-product" />
+                        <h2 class="name-product">
+                            <?= $item['title'] ?>
+                        </h2>
+                        <div class="row-star">
+                            <img src="../View/icon/Star.svg" alt="" class="icon-star" />
+                            <span>(
+                                <?= $item['star_feedback'] ?>)
+                            </span>
+                            <div class="dot"></div>
+                            <span>
+                                <?= $item['num_bought'] ?> đã được đặt
+                            </span>
+                        </div>
+                        <div class="row-toggle">
+                            <div class="toggle">
+                                <span>Bán chạy</span>
+                            </div>
+                            <div class="toggle">
+                                <span>Xác nhận tức thời</span>
+                            </div>
+                        </div>
+                        <div class="row-price">
+                            <span class="price">
+                                <?= number_format($item['price'], 0, ',', '.') ?>đ
+                            </span>
+                            <span class="discount">giảm 42.000đ</span>
+                        </div>
+                        <div class="row-toggle">
+                            <div class="toggle">
+                                <span>Chính sách đảm bảo về giá</span>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach ?>
+            </div>
+        </div>
+        <div class="page-navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="">
+                        <img src="../View/icon/icon-left.svg" alt="" />
+                    </a>
+                </li>
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="active"><a href="">
+                            <?= $i ?>
+                        </a></li>
+                <?php endfor; ?>
+
+                <li>
+                    <a href=""><img src="../View/icon/icon-right.svg" alt="" class="icon-dynamic" /></a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="info-path">
+            <div class="container">
+                <p>Trang chủ > <span class="support-info"> Tour trải nghiệm</span></p>
+            </div>
+        </div>
+        <div class="question">
+            <div class="container">
+                <h2>Câu hỏi thường gặp về địa điểm phổ biến</h2>
+                <div class="list-question">
+                    <div class="one-question">
+                        <div class="container-one-question">
+                            <div class="top">
+                                <h3 class="title">Klook có bao nhiêu Tour & Trải nghiệm?</h3>
+                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            </div>
+                            <div class="content">
+                                Klook có 13095 Tour & Trải nghiệm tại các địa điểm nổi tiếng
+                            </div>
+                        </div>
+                    </div>
+                    <div class="one-question">
+                        <div class="container-one-question">
+                            <div class="top">
+                                <h3 class="title">Klook có bao nhiêu Tour & Trải nghiệm?</h3>
+                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            </div>
+                            <div class="content">
+                                Top Tour & Trải nghiệm tại các địa điểm nổi tiếng là:
+                                1.
+                                2.
+                                3.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="one-question">
+                        <div class="container-one-question">
+                            <div class="top">
+                                <h3 class="title">
+                                    Những Tour & Trải nghiệm phổ biến nhất là gì?
+                                </h3>
+                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            </div>
+                            <div class="content">
+                                Tour & Trải nghiệm được đánh giá cao tại các địa điểm nổi tiếng là:<br>
+                                1.<br>
+                                2.<br>
+                                3.<br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="one-question">
+                        <div class="container-one-question">
+                            <div class="top">
+                                <h3 class="title">
+                                    Những Tour & Trải nghiệm được đánh giá cao là gì?
+                                </h3>
+                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            </div>
+                            <div class="content">
+                                Tour & Trải nghiệm có giá hợp lý tại các địa điểm nổi tiếng là:<br>
+                                1.<br>
+                                2.<br>
+                                3.<br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="one-question">
+                        <div class="container-one-question">
+                            <div class="top">
+                                <h3 class="title">
+                                    Những Tour & Trải nghiệm được đánh giá cao là gì?
+                                </h3>
+                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            </div>
+                            <div class="content">
+                                Tour & Trải nghiệm được đánh giá cao tại các địa điểm nổi tiếng là:<br>
+                                1.<br>
+                                2.<br>
+                                3.<br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="one-question">
+                        <div class="container-one-question">
+                            <div class="top">
+                                <h3 class="title">Có Tour & Trải nghiệm nào mới nhất?</h3>
+                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            </div>
+                            <div class="content">
+                                Tour & Trải nghiệm mới nhất tại các địa điểm nổi tiếng là:<br>
+                                1.<br>
+                                2.<br>
+                                3.<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
