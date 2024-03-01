@@ -9,13 +9,6 @@ if (isset($_GET["page"])) {
     echo '   page now: ' . $page;
 }
 $from = ($page - 1) * $showProductPerPage;
-
-
-$result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
-
-if (!$result) {
-    echo "Lỗi khi truy vấn cơ sở dữ liệu: " . $connect->error;
-}
 $listCategory = mysqli_fetch_all($connect->query("select * from category"), MYSQLI_ASSOC);
 
 if (isset($_GET['idCategory'])) {
@@ -80,9 +73,9 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                     <?php endforeach; ?>
                 </div>
                 <div class="display-selected">
-                <?php foreach ($listCategory as $item): ?>
-                        <div class="category checked <?=( $item['id'] != $idCategory) ? "none" : ""?>">
-                            <?=( $item['id'] == $idCategory) ? $item['name_category'] : ""?>
+                    <?php foreach ($listCategory as $item): ?>
+                        <div class="category checked <?= ($item['id'] != $idCategory) ? "none" : "" ?>">
+                            <?= ($item['id'] == $idCategory) ? $item['name_category'] : "" ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -321,12 +314,29 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                 </a>
             </li>
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <li class="<?= ($_GET['page'] == $i || ($page == $i && !isset($_GET['page']))) ? 'active' : '' ?>">
-                    <a href="?option=showproduct$id_category=<?=$idCategory?>&page=<?= $i ?>">
-                        <?= $i ?>
-                    </a>
+                <li class="<?= ($page == $i) ? 'active' : '' ?>">
+                    <?php if (isset($_GET['idCategory'])): ?>
+                        <a href="?option=showproduct&idCategory=<?= $_GET['idCategory'] ?>&page=<?= $i ?>">
+                            <?= $i ?>
+                        </a>
+                    <?php elseif (isset($_GET['price-min'])): ?>
+                        <a
+                            href="?option=showproduct&price-min=<?= $_GET['price-min'] ?>&price-max=<?= $_GET['price-max'] ?>&page=<?= $i ?>">
+                            <?= $i ?>
+                        </a>
+                    <?php elseif (isset($_GET['keyword'])): ?>
+                        <a href="?option=showproduct&keyword=<?= $_GET['keyword'] ?>&page=<?= $i ?>">
+                            <?= $i ?>
+                        </a>
+                    <?php else: ?>
+                        <a href="?option=showproduct&page=<?= $i ?>">
+                            <?= $i ?>
+                        </a>
+                    <?php endif; ?>
                 </li>
             <?php endfor; ?>
+
+
 
 
             <li>
