@@ -3,7 +3,11 @@ $sql = "SELECT * FROM product where status = 1";
 $totalProducts = $connect->query($sql);
 $showProductPerPage = 12;
 $page = 1;
-$totalPages = ceil($totalProducts->num_rows / $showProductPerPage);
+echo 'page ban dau' . $page;
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+    echo '   page now: ' . $page;
+}
 $from = ($page - 1) * $showProductPerPage;
 
 
@@ -48,11 +52,16 @@ if (isset($_GET['idCategory'])) {
             break;
     }
 }
+$totalProductsForCountProductBeforePanigation = $connect->query($sql);
+$page = 1;
+
 $sql .= " $orderBy";
 $sql .= " limit $from, $showProductPerPage";
 $totalProducts = $connect->query($sql);
+$totalPages = ceil($totalProductsForCountProductBeforePanigation->num_rows / $showProductPerPage);
 $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
 ?>
+
 <main class="main">
     <div class="filter-row">
         <div class="container">
@@ -70,8 +79,13 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <div class="category checked">Ngam hoa anh dao</div>
-                <div class="category">Ngam ca voi</div>
+                <div class="display-selected">
+                <?php foreach ($listCategory as $item): ?>
+                        <div class="category checked <?=( $item['id'] != $idCategory) ? "none" : ""?>">
+                            <?=( $item['id'] == $idCategory) ? $item['name_category'] : ""?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
             <div class="separete-center"></div>
             <div class="filter-right">
@@ -117,7 +131,7 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                     <img src="../View/icon/Filter.svg" alt="" class="icon-filter" />
                     <span>Lọc</span>
                 </div>
-                <div class="filter-advance">
+                <form class="filter-advance" method="get">
                     <div class="icon-kill">
                         <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
                             <path d="M10 10L38 38" stroke="#ffffff" stroke-width="3.6" stroke-linecap="round"></path>
@@ -158,28 +172,29 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                                         <div class="slider-all">
                                             <div class="progress-all"></div>
                                         </div>
-                                        <form class="range-input-all" method="get">
+                                        <div class="range-input-all">
                                             <input type="range" class="range-min-all" min="0" max="5000000" value="0"
                                                 step="100000" name="price-min">
                                             <input type="range" class="range-max-all" min="0" max="5000000"
                                                 value="5000000" step="100000" name="price-max">
-                                            <!-- <input type="submit" hidden> -->
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="filter-content-item">
                                     <h3 class="title">Danh mục</h3>
                                     <div class="item">
                                         <div class="quick-item content-wrap">
-                                            <div class="category">Du thuyền</div>
-                                            <div class="category">Massage & Suối nước nóng</div>
-                                            <div class="category">Hoạt động dưới nước</div>
-                                            <div class="category">Phiêu lưu & Khám phá thiên nhiên</div>
-                                            <div class="category">Trải nghiệm văn hoá</div>
+                                            <?php foreach ($listCategory as $item): ?>
+                                                <div class="category category-<?= $item['id'] ?>>">
+                                                    <a href="?option=showProduct&idCategory=<?= $item['id'] ?>">
+                                                        <?= $item['name_category'] ?>
+                                                    </a>
+                                                </div>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="filter-content-item">
+                                <!-- <div class="filter-content-item">
                                     <h3 class="title">Thời lượng</h3>
                                     <div class="item">
                                         <div class="quick-item">
@@ -190,8 +205,8 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                                             <div class="category">2 ngày trở lên</div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="filter-content-item">
+                                </div> -->
+                                <!-- <div class="filter-content-item">
                                     <h3 class="title">Giờ khởi hành</h3>
                                     <div class="item">
                                         <div class="quick-item content-wrap">
@@ -211,7 +226,7 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                                             <div class="category">Tiếng Anh</div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -219,192 +234,204 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                         <span class="btn-clear">Xoá</span>
                         <button class="btn-show-result" type="submit">Xem kết quả</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-        <div class="quantity-sort">
-            <div class="container">
-                <div class="quantity">
-                    <?= $totalProducts->num_rows ?> dịch vụ
-                </div>
-                <div class="sort">
-                    <span>Sắp xếp theo</span>
-                    <!-- <div class="list-item">
+
+    </div>
+    <div class="quantity-sort">
+        <div class="container">
+            <div class="quantity">
+                <?= $totalProductsForCountProductBeforePanigation->num_rows ?> dịch vụ
+            </div>
+            <div class="sort">
+                <span>Sắp xếp theo</span>
+                <!-- <div class="list-item">
                         <span>KLook giới thiệu</span>
                         <img src="../View/icon/icon-list-bottom.svg" alt="" />
                     </div> -->
-                    <img src="../View/icon/icon-list-bottom.svg" alt="" />
-                    <div class="hide-arrow-default"></div>
-                    <form id="sortForm" class="form" method="get">
-                        <select class="list-item" name="sort" id="sortOption" onchange="sortBy()">
-                            <option value="1" <?=(isset($sortOption) && $sortOption == 1 ) ? 'selected': ''?>>Klook giới thiệu</option>
-                            <option value="2" <?=(isset($sortOption) && $sortOption == 2 ) ? 'selected': ''?>>Bán chạy</option>
-                            <option value="3" <?=(isset($sortOption) && $sortOption == 3 ) ? 'selected': ''?>>Đánh giá cao nhất</option>
-                            <option value="4" <?=(isset($sortOption) && $sortOption == 4 ) ? 'selected': ''?>>Giá (từ thấp đến cao)</option>
-                            <option value="5" <?=(isset($sortOption) && $sortOption == 5 ) ? 'selected': ''?>>Giá (từ cao đến thấp)</option>
-                        </select>
-                        <input type="submit" hidden>
-                    </form>
-                </div>
+                <img src="../View/icon/icon-list-bottom.svg" alt="" />
+                <div class="hide-arrow-default"></div>
+                <form id="sortForm" class="form" method="get">
+                    <select class="list-item" name="sort" id="sortOption" onchange="sortBy()">
+                        <option value="1" <?= (isset($sortOption) && $sortOption == 1) ? 'selected' : '' ?>>Klook giới
+                            thiệu</option>
+                        <option value="2" <?= (isset($sortOption) && $sortOption == 2) ? 'selected' : '' ?>>Bán chạy
+                        </option>
+                        <option value="3" <?= (isset($sortOption) && $sortOption == 3) ? 'selected' : '' ?>>Đánh giá
+                            cao
+                            nhất</option>
+                        <option value="4" <?= (isset($sortOption) && $sortOption == 4) ? 'selected' : '' ?>>Giá (từ
+                            thấp
+                            đến cao)</option>
+                        <option value="5" <?= (isset($sortOption) && $sortOption == 5) ? 'selected' : '' ?>>Giá (từ cao
+                            đến thấp)</option>
+                    </select>
+                    <input type="submit" hidden>
+                </form>
             </div>
         </div>
-        <div class="list-product">
-            <div class="container">
-                <?php foreach ($result as $item): ?>
-                    <div class="card">
-                        <img src="../View/image/tourCheoThuyen.webp" alt="" class="img-product" />
-                        <h2 class="name-product">
-                            <?= $item['title'] ?>
-                        </h2>
-                        <div class="row-star">
-                            <img src="../View/icon/Star.svg" alt="" class="icon-star" />
-                            <span>(
-                                <?= $item['star_feedback'] ?>)
-                            </span>
-                            <div class="dot"></div>
-                            <span>
-                                <?= $item['num_bought'] ?> đã được đặt
-                            </span>
+    </div>
+    <div class="list-product">
+        <div class="container">
+            <?php foreach ($result as $item): ?>
+                <div class="card">
+                    <img src="../View/image/tourCheoThuyen.webp" alt="" class="img-product" />
+                    <h2 class="name-product">
+                        <?= $item['title'] ?>
+                    </h2>
+                    <div class="row-star">
+                        <img src="../View/icon/Star.svg" alt="" class="icon-star" />
+                        <span>(
+                            <?= $item['star_feedback'] ?>)
+                        </span>
+                        <div class="dot"></div>
+                        <span>
+                            <?= $item['num_bought'] ?> đã được đặt
+                        </span>
+                    </div>
+                    <div class="row-toggle">
+                        <div class="toggle">
+                            <span>Bán chạy</span>
                         </div>
-                        <div class="row-toggle">
-                            <div class="toggle">
-                                <span>Bán chạy</span>
-                            </div>
-                            <div class="toggle">
-                                <span>Xác nhận tức thời</span>
-                            </div>
-                        </div>
-                        <div class="row-price">
-                            <span class="price">
-                                <?= number_format($item['price'], 0, ',', '.') ?>đ
-                            </span>
-                            <span class="discount">giảm 42.000đ</span>
-                        </div>
-                        <div class="row-toggle">
-                            <div class="toggle">
-                                <span>Chính sách đảm bảo về giá</span>
-                            </div>
+                        <div class="toggle">
+                            <span>Xác nhận tức thời</span>
                         </div>
                     </div>
-                <?php endforeach ?>
-            </div>
+                    <div class="row-price">
+                        <span class="price">
+                            <?= number_format($item['price'], 0, ',', '.') ?>đ
+                        </span>
+                        <span class="discount">giảm 42.000đ</span>
+                    </div>
+                    <div class="row-toggle">
+                        <div class="toggle">
+                            <span>Chính sách đảm bảo về giá</span>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach ?>
         </div>
-        <div class="page-navigation">
-            <ul class="pagination">
-                <li>
-                    <a href="">
-                        <img src="../View/icon/icon-left.svg" alt="" />
+    </div>
+    <div class="page-navigation">
+        <ul class="pagination">
+            <li>
+                <a href="">
+                    <img src="../View/icon/icon-left.svg" alt="" />
+                </a>
+            </li>
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <li class="<?= ($_GET['page'] == $i || ($page == $i && !isset($_GET['page']))) ? 'active' : '' ?>">
+                    <a href="?option=showproduct$id_category=<?=$idCategory?>&page=<?= $i ?>">
+                        <?= $i ?>
                     </a>
                 </li>
-                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                    <li class="active"><a href="">
-                            <?= $i ?>
-                        </a></li>
-                <?php endfor; ?>
+            <?php endfor; ?>
 
-                <li>
-                    <a href=""><img src="../View/icon/icon-right.svg" alt="" class="icon-dynamic" /></a>
-                </li>
-            </ul>
 
+            <li>
+                <a href=""><img src="../View/icon/icon-right.svg" alt="" class="icon-dynamic" /></a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="info-path">
+        <div class="container">
+            <p>Trang chủ > <span class="support-info"> Tour trải nghiệm</span></p>
         </div>
-        <div class="info-path">
-            <div class="container">
-                <p>Trang chủ > <span class="support-info"> Tour trải nghiệm</span></p>
-            </div>
-        </div>
-        <div class="question">
-            <div class="container">
-                <h2>Câu hỏi thường gặp về địa điểm phổ biến</h2>
-                <div class="list-question">
-                    <div class="one-question">
-                        <div class="container-one-question">
-                            <div class="top">
-                                <h3 class="title">Klook có bao nhiêu Tour & Trải nghiệm?</h3>
-                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
-                            </div>
-                            <div class="content">
-                                Klook có 13095 Tour & Trải nghiệm tại các địa điểm nổi tiếng
-                            </div>
+    </div>
+    <div class="question">
+        <div class="container">
+            <h2>Câu hỏi thường gặp về địa điểm phổ biến</h2>
+            <div class="list-question">
+                <div class="one-question">
+                    <div class="container-one-question">
+                        <div class="top">
+                            <h3 class="title">Klook có bao nhiêu Tour & Trải nghiệm?</h3>
+                            <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                        </div>
+                        <div class="content">
+                            Klook có 13095 Tour & Trải nghiệm tại các địa điểm nổi tiếng
                         </div>
                     </div>
-                    <div class="one-question">
-                        <div class="container-one-question">
-                            <div class="top">
-                                <h3 class="title">Klook có bao nhiêu Tour & Trải nghiệm?</h3>
-                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
-                            </div>
-                            <div class="content">
-                                Top Tour & Trải nghiệm tại các địa điểm nổi tiếng là:
-                                1.
-                                2.
-                                3.
-                            </div>
+                </div>
+                <div class="one-question">
+                    <div class="container-one-question">
+                        <div class="top">
+                            <h3 class="title">Klook có bao nhiêu Tour & Trải nghiệm?</h3>
+                            <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                        </div>
+                        <div class="content">
+                            Top Tour & Trải nghiệm tại các địa điểm nổi tiếng là:
+                            1.
+                            2.
+                            3.
                         </div>
                     </div>
-                    <div class="one-question">
-                        <div class="container-one-question">
-                            <div class="top">
-                                <h3 class="title">
-                                    Những Tour & Trải nghiệm phổ biến nhất là gì?
-                                </h3>
-                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
-                            </div>
-                            <div class="content">
-                                Tour & Trải nghiệm được đánh giá cao tại các địa điểm nổi tiếng là:<br>
-                                1.<br>
-                                2.<br>
-                                3.<br>
-                            </div>
+                </div>
+                <div class="one-question">
+                    <div class="container-one-question">
+                        <div class="top">
+                            <h3 class="title">
+                                Những Tour & Trải nghiệm phổ biến nhất là gì?
+                            </h3>
+                            <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                        </div>
+                        <div class="content">
+                            Tour & Trải nghiệm được đánh giá cao tại các địa điểm nổi tiếng là:<br>
+                            1.<br>
+                            2.<br>
+                            3.<br>
                         </div>
                     </div>
-                    <div class="one-question">
-                        <div class="container-one-question">
-                            <div class="top">
-                                <h3 class="title">
-                                    Những Tour & Trải nghiệm được đánh giá cao là gì?
-                                </h3>
-                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
-                            </div>
-                            <div class="content">
-                                Tour & Trải nghiệm có giá hợp lý tại các địa điểm nổi tiếng là:<br>
-                                1.<br>
-                                2.<br>
-                                3.<br>
-                            </div>
+                </div>
+                <div class="one-question">
+                    <div class="container-one-question">
+                        <div class="top">
+                            <h3 class="title">
+                                Những Tour & Trải nghiệm được đánh giá cao là gì?
+                            </h3>
+                            <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                        </div>
+                        <div class="content">
+                            Tour & Trải nghiệm có giá hợp lý tại các địa điểm nổi tiếng là:<br>
+                            1.<br>
+                            2.<br>
+                            3.<br>
                         </div>
                     </div>
-                    <div class="one-question">
-                        <div class="container-one-question">
-                            <div class="top">
-                                <h3 class="title">
-                                    Những Tour & Trải nghiệm được đánh giá cao là gì?
-                                </h3>
-                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
-                            </div>
-                            <div class="content">
-                                Tour & Trải nghiệm được đánh giá cao tại các địa điểm nổi tiếng là:<br>
-                                1.<br>
-                                2.<br>
-                                3.<br>
-                            </div>
+                </div>
+                <div class="one-question">
+                    <div class="container-one-question">
+                        <div class="top">
+                            <h3 class="title">
+                                Những Tour & Trải nghiệm được đánh giá cao là gì?
+                            </h3>
+                            <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                        </div>
+                        <div class="content">
+                            Tour & Trải nghiệm được đánh giá cao tại các địa điểm nổi tiếng là:<br>
+                            1.<br>
+                            2.<br>
+                            3.<br>
                         </div>
                     </div>
-                    <div class="one-question">
-                        <div class="container-one-question">
-                            <div class="top">
-                                <h3 class="title">Có Tour & Trải nghiệm nào mới nhất?</h3>
-                                <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
-                            </div>
-                            <div class="content">
-                                Tour & Trải nghiệm mới nhất tại các địa điểm nổi tiếng là:<br>
-                                1.<br>
-                                2.<br>
-                                3.<br>
-                            </div>
+                </div>
+                <div class="one-question">
+                    <div class="container-one-question">
+                        <div class="top">
+                            <h3 class="title">Có Tour & Trải nghiệm nào mới nhất?</h3>
+                            <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                        </div>
+                        <div class="content">
+                            Tour & Trải nghiệm mới nhất tại các địa điểm nổi tiếng là:<br>
+                            1.<br>
+                            2.<br>
+                            3.<br>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </main>

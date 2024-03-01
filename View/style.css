@@ -84,6 +84,9 @@
 .filter-row .category:hover {
   background-color: #e9e6e6;
 }
+.category.none {
+  display: none;
+}
 
 .filter-row .filter-left {
   display: flex;
@@ -94,7 +97,7 @@
   border: 1px solid #ff5b00;
   background-color: #fff0e5;
   color: #ff5b00;
-  padding: 0 11px;
+  padding: 0 12px;
 }
 
 .filter-row .filter-right {
@@ -135,6 +138,10 @@
 }
 .filter-left .list-category .category {
   margin-bottom: 10px;
+  width: auto;
+}
+.display-selected {
+  display: flex;
 }
 .filter-all {
   display: flex;
@@ -410,6 +417,7 @@ input[type="range"]::-moz-range-thumb {
   color: #212121;
 }
 .filter-advance {
+  display: block;
   width: 750px;
   max-height: 659px;
   background-color: #fff;
@@ -498,6 +506,12 @@ input[type="range"]::-moz-range-thumb {
 }
 .filter-content-item .quick-item.content-wrap .category {
   max-width: 500px;
+}
+.category a {
+  text-align: center;
+  color: #212121;
+  text-decoration: none;
+  width: max-content;
 }
 .filter-body,
 .filter-header {
@@ -622,8 +636,13 @@ input[type="range"]::-moz-range-thumb {
   list-style: none;
   color: #212121;
 }
+
 .page-navigation li a {
+  display: block;
   text-decoration: none;
+  color: #212121;
+  padding: 0 10px;
+
 }
 .pagination li.active {
   background-color: #ff5b00;
