@@ -1,0 +1,154 @@
+.user .display-detail{
+  width: 855px;
+  height : 705px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: -1px 5px 15px 0px rgb(227, 227, 227);
+
+}
+
+.user .display-detail .find-discount-group{
+  height: 60px;
+  display: flex;
+  margin-top: 20px;
+}
+
+.user .display-detail .find-discount-group .input-discount{
+  width: 350px;
+  padding: 12px;
+
+  border-top-left-radius: 10px ;
+  border-bottom-left-radius: 10px;
+}
+
+.user .display-detail .find-discount-group .btn-use{
+  width: 150px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px ;
+  background-color: var(--primary-color);
+  cursor: pointer;
+  color: aliceblue;
+}
+
+.user .display-detail .nav-discount{
+  display: flex;
+  column-gap: 40px;
+
+  width: 730px;
+
+  margin-top : 30px;
+  font-weight: 600;
+
+  border-bottom: 1px solid rgb(201, 199, 199);
+}
+
+.user .selected{
+  color: #ff5b00 !important;
+  border-bottom: 1px solid #ff5b00;
+}
+
+.user .display-detail .nav-discount a{
+  text-decoration: none;
+}
+
+.user .display-detail .no-find-discount{
+  margin-top:80px;
+  width: 700px;
+}
+
+.user .display-detail .no-find-discount .title-no-find1{
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+
+}
+
+.user .display-detail .no-find-discount .title-no-find2{
+  text-align: center;
+}
+
+.user .display-detail .find-discount {
+  width:860px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  column-gap: 10px;
+  margin-left: 5px;
+  overflow-y: scroll;
+  margin-top: 40px;
+}
+
+.user .display-detail .find-discount .discount-card{
+  width: 400px;
+  height: 115px;
+  border : 1px solid black;
+  border-radius: 10px;
+  
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  
+}
+
+.user .display-detail .find-discount .infor-card-main{
+  color: rgb(255, 254, 254);
+}
+
+.user .display-detail .find-discount .infor-card{
+  width: 250px;
+  height: 80px;
+
+  border : 1px solid black;
+  padding: 10px;
+  border-radius: 8px;
+
+  margin-left: 5px;
+
+  /* background-color: #ff5b00; */
+  background: linear-gradient(272.65deg, #FF922E 5.85%, rgba(236, 164, 55, 0.963646) 17.62%, rgba(246, 171, 55, 0.930042) 28.51%, rgba(232, 174, 81, 0.853668) 53.24%, rgba(233, 169, 67, 0.80631) 68.08%, rgba(233, 160, 40, 0.716166) 94.89%, rgba(236, 161, 34, 0.608662) 104.74%, rgba(240, 163, 27, 0.481827) 104.75%, rgba(244, 164, 20, 0.356436) 104.76%, rgba(248, 166, 12, 0.22) 104.77%, rgba(255, 168, 0, 0) 104.78%);
+  display: flex;
+}
+
+.user .display-detail .find-discount .cac-hinh-tron{
+  position: relative;
+  left: -10px;
+  gap  : 15px;
+}
+
+.user .display-detail .find-discount .hinhtron{
+  width: 15px;
+  height: 15px;
+
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+}
+
+.user .display-detail .find-discount .use-card{
+  width: 100px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.user .display-detail .find-discount .btn-use-card{
+  background-color: #f08044;
+  border-radius:  10px;
+  cursor: pointer;
+  color :aliceblue;
+}
+
+.user  .display-detail .find-discount .title-infor-card{
+  font-size: 20px;
+  font-weight:700;
+}
+
+
+.user .pointer{
+  cursor: pointer;
+}
