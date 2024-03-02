@@ -4,8 +4,8 @@ $totalProducts = $connect->query($sql);
 $showProductPerPage = 12;
 $page = 1;
 echo 'page ban dau' . $page;
-if (isset($_GET["page"])) {
-    $page = $_GET["page"];
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
     echo '   page now: ' . $page;
 }
 $from = ($page - 1) * $showProductPerPage;
@@ -25,11 +25,12 @@ if (isset($_GET['idCategory'])) {
     $priceMax = $_GET['price-max'];
     $sql .= " and price >= $priceMin and price <= $priceMax";
     echo '<br>price: ' . $sql;
-} else if (isset($_GET['sort'])) {
+}
+if (isset($_GET['sort'])) {
     $sortOption = $_GET['sort'];
+    echo '<br>sort: ' . $sortOption . ": " . $sql;
     switch ($sortOption) {
         case 1:
-            $orderBy = "";
             break;
         case 2:
             $orderBy = "ORDER BY num_bought desc";
@@ -38,10 +39,10 @@ if (isset($_GET['idCategory'])) {
             $orderBy = "ORDER BY star_feedback desc";
             break;
         case 4:
-            $orderBy = "ORDER BY price desc";
+            $orderBy = "ORDER BY price asc";
             break;
         case 5:
-            $orderBy = "ORDER BY price asc";
+            $orderBy = "ORDER BY price desc";
             break;
     }
 }
@@ -50,6 +51,7 @@ $page = 1;
 
 $sql .= " $orderBy";
 $sql .= " limit $from, $showProductPerPage";
+echo '<br> Cau lenh sql cuoi cung: ' . $sql;
 $totalProducts = $connect->query($sql);
 $totalPages = ceil($totalProductsForCountProductBeforePanigation->num_rows / $showProductPerPage);
 $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
@@ -61,7 +63,12 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
             <div class="filter-left">
                 <div class="all-category category">
                     <span>Tất cả danh mục</span>
-                    <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-list-bottom" />
+                    <!-- <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-list-bottom" /> -->
+                    <svg class="icon-list-bottom" width="13" height="9" viewBox="0 0 13 9" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.3 0L0 1.36364L6.5 9L13 1.36364L11.7 0L6.5 6L1.3 0Z" fill="#212121" />
+                    </svg>
+
                 </div>
                 <div class="list-category">
                     <?php foreach ($listCategory as $item): ?>
@@ -89,7 +96,10 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
                     </div>
                     <div class="all-category category filter-price">
                         <span>Lọc theo giá</span>
-                        <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-list-bottom" />
+                        <svg class="icon-list-bottom" width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.3 0L0 1.36364L6.5 9L13 1.36364L11.7 0L6.5 6L1.3 0Z" fill="#212121"/>
+</svg>
+
                     </div>
                     <div class="wrapper">
                         <div class="price-input">
@@ -308,43 +318,49 @@ $result = mysqli_fetch_all($totalProducts, MYSQLI_ASSOC);
     </div>
     <div class="page-navigation">
         <ul class="pagination">
-            <li>
-                <a href="">
-                    <img src="../View/icon/icon-left.svg" alt="" />
+            <?php
+            // Xây dựng liên kết phân trang với các tham số hiện có
+            $queryString = isset($_GET['idCategory']) ? '&idCategory=' . $_GET['idCategory'] : '';
+            $queryString .= isset($_GET['price-min']) ? '&price-min=' . $_GET['price-min'] : '';
+            $queryString .= isset($_GET['price-max']) ? '&price-max=' . $_GET['price-max'] : '';
+            $queryString .= isset($_GET['keyword']) ? '&keyword=' . $_GET['keyword'] : '';
+            $queryString .= isset($_GET['sort']) ? '&sort=' . $_GET['sort'] : '';
+            ?>
+            <li id="prevPage">
+                <?php if ($page > 1) {
+                    $page = $page - 1;
+                }
+
+                ?>
+                <a href="?option=showproduct&<?= $queryString ?>&page=<?= $page ?>">
+                    <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 1L1 8.5L10 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
                 </a>
             </li>
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <li class="<?= ($page == $i) ? 'active' : '' ?>">
-                    <?php if (isset($_GET['idCategory'])): ?>
-                        <a href="?option=showproduct&idCategory=<?= $_GET['idCategory'] ?>&page=<?= $i ?>">
-                            <?= $i ?>
-                        </a>
-                    <?php elseif (isset($_GET['price-min'])): ?>
-                        <a
-                            href="?option=showproduct&price-min=<?= $_GET['price-min'] ?>&price-max=<?= $_GET['price-max'] ?>&page=<?= $i ?>">
-                            <?= $i ?>
-                        </a>
-                    <?php elseif (isset($_GET['keyword'])): ?>
-                        <a href="?option=showproduct&keyword=<?= $_GET['keyword'] ?>&page=<?= $i ?>">
-                            <?= $i ?>
-                        </a>
-                    <?php else: ?>
-                        <a href="?option=showproduct&page=<?= $i ?>">
-                            <?= $i ?>
-                        </a>
-                    <?php endif; ?>
+                <li class="<?= ($_GET['page'] == $i || ($page == $i && !isset($_GET['page']))) ? 'active' : '' ?>">
+                    <a href="?option=showproduct<?= $queryString ?>&page=<?= $i ?>">
+                        <?= $i ?>
+                    </a>
                 </li>
             <?php endfor; ?>
-
-
-
-
-            <li>
-                <a href=""><img src="../View/icon/icon-right.svg" alt="" class="icon-dynamic" /></a>
+            <li id="nextPage">
+                <?php if ($page <= $totalPages && $page >= 1) {
+                    $page = $page + 1;
+                } ?>
+                <a href="?option=showproduct&<?= $queryString ?>&page=<?= $page ?>">
+                    <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
             </li>
         </ul>
-
     </div>
+
+
     <div class="info-path">
         <div class="container">
             <p>Trang chủ > <span class="support-info"> Tour trải nghiệm</span></p>

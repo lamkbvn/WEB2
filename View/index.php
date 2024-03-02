@@ -36,22 +36,26 @@ $connect = new mysqli("localhost", "root", "", "web2");
   const btnAllCatagory = document.querySelector('.all-category');
   btnAllCatagory.addEventListener("click", () => {
     console.log("da click");
+    svg = document.querySelector(".all-category .icon-list-bottom");
+    svg.classList.toggle('rotate');
     btnAllCatagory.classList.toggle('active');
     btnAllCatagory.classList.toggle('checked');
 
   })
-  console.log("hello1");
+
 
   const btnFilterPrice = document.querySelector('.filter-price');
   btnFilterPrice.addEventListener("click", () => {
     console.log("da click");
+    svg = document.querySelector(".filter-price .icon-list-bottom");
+    svg.classList.toggle('rotate');
     btnFilterPrice.classList.toggle('active');
     btnFilterPrice.classList.toggle('checked');
   })
   const backgroundDark = document.querySelector('.background-dark');
   const btnFilterAll = document.querySelector('.filter-all');
   btnFilterAll.addEventListener("click", () => {
-    console.log("da click");
+    
     btnFilterAll.classList.toggle('checked');
     backgroundDark.classList.toggle('active');
   })
@@ -172,14 +176,39 @@ $connect = new mysqli("localhost", "root", "", "web2");
       });
     });
   });
-// Hàm này được gọi khi người dùng thay đổi tùy chọn sắp xếp
+  // Hàm này được gọi khi người dùng thay đổi tùy chọn sắp xếp
   function sortBy() {
-        // Lấy giá trị của tùy chọn sắp xếp
-        var selectedOption = document.getElementById("sortOption").value;
-        // Gửi biểu mẫu khi thay đổi tùy chọn
-        document.getElementById("sortForm").submit();
-    }
+    // Lấy giá trị của tùy chọn sắp xếp
+    var selectedOption = document.getElementById("sortOption").value;
+    // Gửi biểu mẫu khi thay đổi tùy chọn
+    document.getElementById("sortForm").submit();
+  }
+  function updateURLParameter(url, param, value) {
+    var newURL = new URL(url);
+    newURL.searchParams.set(param, value);
+    return newURL.toString();
+  }
 
+  // Event listener when sort option is changed
+  document.getElementById('sortOption').addEventListener('change', function () {
+    var sortValue = this.value;
+    var currentURL = window.location.href;
+    var newURL = updateURLParameter(currentURL, 'sort', sortValue);
+    window.location.href = newURL;
+  });
+
+
+
+
+  //   document.getElementById('prevPage').addEventListener('click', function(e) {
+  //     e.preventDefault();
+  //     let currentPage = parseInt('<?php echo $page; ?>');
+  //     if (currentPage > 1) {
+  //         let prevPage = currentPage - 1;
+  //         let url = window.location.href.split('?')[0] + '?option=showproduct&page=' + prevPage;
+  //         window.location.href = url;
+  //     }
+  // });
 
 
 

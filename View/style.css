@@ -99,6 +99,13 @@
   color: #ff5b00;
   padding: 0 12px;
 }
+.filter-row .category.checked svg path {
+  fill: #ff5b00;
+}
+.icon-list-bottom.rotate {
+  transform: rotate(180deg);
+}
+
 
 .filter-row .filter-right {
   display: flex;
@@ -650,6 +657,14 @@ input[type="range"]::-moz-range-thumb {
 }
 .pagination li.active a {
   color: #fff;
+  padding: 0 10px;
+}
+#prevPage:hover, #nextPage:hover {
+  border: 1px solid #ff5b00;
+}
+#prevPage:hover svg path, #nextPage:hover svg path{
+  fill: none;
+  stroke: #ff5b00;
 }
 
 .info-path {
