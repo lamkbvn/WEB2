@@ -232,7 +232,9 @@
                         </div>
                     </div>
                 </div>
-                <form action="../Controller/controllerChitietTour.php" method="get" id="form-book-tour">
+                <form action="index.php" method="get" id="form-book-tour">
+                    <input type="hidden" name="controller" value="chi-tiet-tour">
+                    <input type="hidden" name="action" value="book-tour">
                     <input type="hidden" name="datePhp" value="0">
                     <input type="hidden" name="totalMoneyphp" value="0">
                     <h2>Vui lòng điền thông tin</h1>
