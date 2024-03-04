@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #cart-icon {
+    width: 50px;
+    height: 50px;
+    background-color: blue;
+}
+
+#moving-block {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    display: none;
+}
+
+</style>
+<body>
+    <div id="header">
+        <div id="cart-icon"></div>
+    </div>
+    <button id="add-to-cart-btn">Thêm vào giỏ hàng</button>
+
+<!-- Header có biểu tượng giỏ hàng -->
+
+
+</body>
+<script>
+    document.getElementById('add-to-cart-btn').addEventListener('click', function() {
+    var btn = this;
+    var cartIcon = document.getElementById('cart-icon');
+    
+    // Tính toán vị trí của biểu tượng giỏ hàng
+    var cartIconRect = cartIcon.getBoundingClientRect();
+    var cartIconX = cartIconRect.left + (cartIconRect.width / 2);
+    var cartIconY = cartIconRect.top + (cartIconRect.height / 2);
+    
+    // Tạo khối di chuyển
+    var movingBlock = document.createElement('div');
+    movingBlock.id = 'moving-block';
+    document.body.appendChild(movingBlock);
+
+    // Lấy kích thước của nút "Thêm vào giỏ hàng"
+    var btnRect = btn.getBoundingClientRect();
+    var btnX = btnRect.left + (btnRect.width / 2);
+    var btnY = btnRect.top + (btnRect.height / 2);
+    
+    // Thiết lập vị trí ban đầu cho khối di chuyển
+    movingBlock.style.left = btnX + 'px';
+    movingBlock.style.top = btnY + 'px';
+    movingBlock.style.display = 'block';
+    
+    // Di chuyển khối đến vị trí của biểu tượng giỏ hàng
+    setTimeout(function() {
+        movingBlock.style.transition = 'left 1s, top 1s';
+        movingBlock.style.left = cartIconX + 'px';
+        movingBlock.style.top = cartIconY + 'px';
+    }, 10);
+
+    // Xóa khối di chuyển sau khi hoàn thành
+    setTimeout(function() {
+        movingBlock.parentNode.removeChild(movingBlock);
+    }, 1000);
+});
+
+</script>
+</html>
