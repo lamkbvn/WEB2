@@ -196,7 +196,7 @@ $resultSqlListHot3 = $conn->query($sqlListHot3);
                                     <p class="highlighted-activities--desc"> <?php echo $row['content']; ?></p>
                                     <p class="highlighted-activities--title"><?php echo $row['title']; ?></p>
                                     <p class="highlighted-activities--price">Từ <?php echo $row['price']; ?></p>
-                                </div>
+                                </div>  
                             </div>
                     <?php
                         }
