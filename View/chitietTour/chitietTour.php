@@ -221,7 +221,9 @@
                             </div>
                         </div>
                         <div class="container-submit-option">
-                            <form name="formAddCart" id="submitAddcart" action="../Controller/controllerChitietTour.php" method="get">
+                            <form name="formAddCart" id="submitAddcart" action="/index.php" method="get">
+                                <input type="hidden" name="controller" value="chi-tiet-tour">
+                                <input type="hidden" name="action" value="add-cart">
                                 <input type="hidden" name="add-cart" value="1">
                                 <input type="hidden" name="numTicketphp" value="0">
                                 <input type="submit" name="add-cart" class="add-cart btn-submit-option" value="Thêm vào giỏ hàng">
@@ -309,7 +311,9 @@
                         <span class="star" data-value="5">&#9733;</span>
                     </div>
                 </div>
-                <form action="../Controller/controllerCmt.php" method="get">
+                <form action="index.php" method="get">
+                    <input type="hidden" name="controller" value="chi-tiet-tour">
+                    <input type="hidden" name="action" value="send-cmt">
                     <textarea class="text-cmt" name="text-cmt" rows="4" cols="92" placeholder="Viết bình luận..."></textarea>
                     <input type="hidden" id="rating-value" name="rating" value="0">
                     <input type="submit" name="send-cmt" value="Gửi" class="btn-sendCmt">
