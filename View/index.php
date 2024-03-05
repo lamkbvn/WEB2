@@ -15,6 +15,9 @@
 </head>
 
 <?php
+
+require_once('./handle_form.php');
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -196,7 +199,7 @@ $resultSqlListHot3 = $conn->query($sqlListHot3);
                                     <p class="highlighted-activities--desc"> <?php echo $row['content']; ?></p>
                                     <p class="highlighted-activities--title"><?php echo $row['title']; ?></p>
                                     <p class="highlighted-activities--price">Từ <?php echo $row['price']; ?></p>
-                                </div>  
+                                </div>
                             </div>
                     <?php
                         }
@@ -300,12 +303,11 @@ $resultSqlListHot3 = $conn->query($sqlListHot3);
                     <div class="explorer-collection--info">
                         <h4 class="explorer-collection--info__heading">Giảm 5% cho đơn hàng đầu tiên trên ứng dụng</h4>
                         <p class="explorer-collection--info__desc">Trải nghiệm tiện lợi với ứng dụng Klook. Sử dụng mã "BetterOnApp" để được giảm giá</p>
-                        <form  class="explorer-collection--send-email">
-                            <label for="email" class="explorer-collection--email-label">Nhận & gửi magic link đến email của bạn
-                            </label>
+                        <form id="explorer-collection--send-email" class="explorer-collection--send-email">
+                            <label for="email" class="explorer-collection--email-label">Nhận & gửi magic link đến email của bạn</label>
                             <div class="explorer-collection--place-input">
-                                <input type="email" placeholder="Email" name="email" class="explorer-collection--input">
-                                <button type="submit" class="explorer-collection--btn">Gửi</button>
+                                <input type="email" placeholder="Email" name="email" id="email" class="explorer-collection--input">
+                                <button type="button" id="submitBtn" class="explorer-collection--btn">Gửi</button>
                             </div>
                         </form>
                     </div>

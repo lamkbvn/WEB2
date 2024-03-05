@@ -614,7 +614,6 @@ body {
     width: 240px;
     padding-left: 25px;
     height: 40px;
-    color: #ccc;
     background: #fff;
     border-radius: 10px;
     border: none;
@@ -629,4 +628,10 @@ body {
     border: none;
     outline: none;
     color: #707070;
+}
+
+.explorer-collection--btn:hover {
+    background: #ff5b00;
+    color: #000;
+    cursor: pointer;
 }
