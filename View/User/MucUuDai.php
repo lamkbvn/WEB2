@@ -24,7 +24,7 @@
       <div class="textMuc">Mục ưu đãi</div>
     </div>
 
-    <?php include("Model/searchDiscount.php"); ?>
+    <?php include("Model/User/searchDiscount.php"); ?>
 
   </div>
 </body>
