@@ -75,7 +75,9 @@
 
 .user .preferential .count-credit{
   float :right;
-  padding-right: 3px;
+  text-align: center;
+  height: 21.6px;
+  width: 21.6px;
 }
 
 
@@ -108,18 +110,25 @@
 
 .user .muc label{
   text-align: center;
+  cursor: pointer;
 }
-.user .muc img{
+.user .muc svg{
   height: 21.6px;
   width: 21.6px;
   vertical-align: bottom;
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
 
 .user .muc:hover{
   background-color: rgb(203, 202, 202);
 }
 
-.user .select-icon{
+
+.user .select-muc{
   color: #ff5b00;
   fill: #ff5b00;
 }
