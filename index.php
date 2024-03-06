@@ -6,13 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="index.php?controller=chi-tiet-tour&action=xem-tour">xem tour</a>
+    <a href="index.php?controller=chi-tiet-tour&action='xem-tour'">xem tour</a>
 <?php 
-    include "Model/DBConfig.php";
-    $db = new Database;
-    $db->connect();
-
-
     if(isset($_GET['controller'])){
         $controller = $_GET['controller'];
     } else {
@@ -21,7 +16,7 @@
 
     switch($controller){
         case 'chi-tiet-tour':{
-            require_once('Controller/chitietTour/index.php');
+            header("Location: /Controller/chitietTour/index.php");
             break;
         }
     }

@@ -7,27 +7,16 @@
     <title>Trang chi tiết</title>
     <link rel="stylesheet" href="/css/styleKiet.css">
 </head>
-<?php
-    $con = mysqli_connect("localhost","root","");
-	if (!$con)
-	{
-		die('Could not connect: ' . mysqli_error());
-    } 
-    mysqli_select_db($con, "web_tour");
-    //mysqli_query($con, "INSERT INTO `category` (`id`, `name_category`) VALUES ('3', 'Tàu vũ trụ')");
-    //mysqli_close($con);
-?>
 <body>
     <?php 
-        $result = mysqli_query($con, "SELECT * FROM product WHERE id = '1'"); //sau này chèn product id bằng get
-        $rowTour = mysqli_fetch_array($result);
-        $result2 = mysqli_query($con, "SELECT * FROM feedback_travelplace WHERE product_id = '1'");
-        $resultIMG = mysqli_query($con, "SELECT * FROM image_product WHERE id_product = '1'");
+    
+        $result = $db->execute("SELECT * FROM product WHERE id = '1'");
+        $rowTour = $db->getData($result);
+        $result2 = $db->execute("SELECT * FROM feedback_travelplace WHERE product_id = '1'");
+        $resultIMG = $db->execute("SELECT * FROM image_product WHERE id = '8'");
         $rowIMG = $resultIMG->fetch_assoc();
         $imageData = $rowIMG['image'];
-
-        $sqll = "SELECT COUNT(*) AS total_rows FROM cart WHERE id_user='1'";
-        $numCart = $con->query($sqll);
+        $numCart = $db->execute("SELECT COUNT(*) AS total_rows FROM cart WHERE id_user='1'");
         $rowNumCart = $numCart->fetch_assoc();
         $totalRowsNumCart = $rowNumCart["total_rows"];
     ?>
@@ -221,12 +210,12 @@
                             </div>
                         </div>
                         <div class="container-submit-option">
-                            <form name="formAddCart" id="submitAddcart" action="/index.php" method="get">
+                            <form name="formAddCart" id="submitAddcart" > 
                                 <input type="hidden" name="controller" value="chi-tiet-tour">
                                 <input type="hidden" name="action" value="add-cart">
                                 <input type="hidden" name="add-cart" value="1">
                                 <input type="hidden" name="numTicketphp" value="0">
-                                <input type="submit" name="add-cart" class="add-cart btn-submit-option" value="Thêm vào giỏ hàng">
+                                <button type="button" name="add-cart" class="add-cart btn-submit-option">Thêm vào giỏ hàng</button>
                             </form>
                             <div id="dot"></div>
                         
@@ -323,7 +312,7 @@
                         // lấy tên người đăng
                         $idUser = $rowCmt['user_id'];
                         $numstar = $rowCmt['num_star'];
-                        $result3 = mysqli_query($con, "SELECT * FROM users WHERE id = $idUser");
+                        $result3 = $db->execute("SELECT * FROM users WHERE id = $idUser");
                         while($rowUser = mysqli_fetch_array($result3)) $nameUser = $rowUser['fullname'];
                         // lấy ngày
                         $date_create = strtotime($rowCmt['create_at']);
@@ -368,7 +357,6 @@
             </div>
         </div>
     </div>
-    <?php mysqli_close($con);?>
     <script src="/js/indexKiet.js"></script>
 </body>
 

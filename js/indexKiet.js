@@ -115,12 +115,13 @@ btnAddCart.addEventListener('click', function (e) {
         flag3++;
     }
     if(flag3==0){
-        e.preventDefault();
+        //e.preventDefault();
         // alert('e')
         animationAddCart(this);
-        setTimeout(function() {
-            document.getElementById('submitAddcart').submit();
-        }, 1000);
+        addToCart();
+        // setTimeout(function() {
+        //     document.getElementById('submitAddcart').submit();
+        // }, 1000);
     }
 })
 let formBookTour = document.getElementById('form-book-tour');
@@ -327,3 +328,25 @@ btnVoucher.addEventListener('click', function(){
         vouchers.style.transform = 'translate(0%, 0%) scale(1)';
     }, 50);
 })
+
+
+// AJAX add cart
+function addToCart() {
+    var formData = new FormData(document.getElementById('submitAddcart'));
+    var queryString = "";
+    for (var pair of formData.entries()) {
+        queryString += encodeURIComponent(pair[0]) + '=' + encodeURIComponent(pair[1]) + '&';
+    }
+    queryString = queryString.slice(0, -1); // Loại bỏ ký tự '&' cuối cùng
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Xử lý phản hồi từ server
+            console.log(this.responseText);
+            // Cập nhật giao diện nếu cần
+        }
+    };
+    xhr.open("GET", "/Controller/chitietTour/index.php?" + queryString, true);
+    xhr.send();
+}

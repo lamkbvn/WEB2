@@ -1,5 +1,5 @@
 <?php 
-    class Database{
+    class DBConfig{
         private $hostname = 'localhost';
         private $username = 'root';
         private $pass = '';
@@ -47,14 +47,14 @@
 
         // thêm giỏ hàng
         public function InsertCart($id_user, $id_product, $amount, $status){
-            $sql = "INSERT INTO cart(id_user, id_product, amount, status) VALUES ('$id_user', '$id_product', '$amount', '1')";
+            $sql = "INSERT INTO cart (id_user, id_product, amount, status) VALUES ('$id_user', '$id_product', '$amount', '$status')";
             return $this->execute($sql);
         }
 
         // thêm orrder
-        public function InsertOrder($id_user, $order_method_id, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount){
-            $sql = "INSERT INTO orders (id_user, order_method_id, fullname, email, phone_number, address, note, date_order, total_money, status)
-            VALUES ( '$id_user', '$order_method_id', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1')";
+        public function InsertOrder($id, $id_user, $order_method_id, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount){
+            $sql = "INSERT INTO orders (id, id_user, order_method_id, fullname, email, phone_number, address, note, date_order, total_money, status)
+            VALUES ('$id', '$id_user', '$order_method_id', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1')";
             return $this->execute($sql);
         }
 
