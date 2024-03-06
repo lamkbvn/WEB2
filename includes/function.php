@@ -20,7 +20,7 @@ function sendMail($to, $subject, $content)
 		$mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
 		//Recipients
-		$mail->setFrom('duylam468213@gmail.com', 'lam');
+		$mail->setFrom('duylam468213@gmail.com', 'Klook');
 		$mail->addAddress($to);     //Add a recipient
 
 		//Content
@@ -32,8 +32,6 @@ function sendMail($to, $subject, $content)
 		$mail->SMTPDebug = 0; // Change to 0 or false to disable debugging
 
 		$mail->send();
-
-		echo "Gửi thành công";
 	} catch (Exception $e) {
 		echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 	}
