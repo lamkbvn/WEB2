@@ -25,7 +25,7 @@
                     <div class="wrapper-body-left_body">
 
                         <?php
-                        include("../Controller/addValueToCart.php");
+                        include("../Model/addValueToCart.php");
                         ?>
 
                         <div class="shopping-cart-item">
