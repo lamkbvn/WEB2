@@ -79,7 +79,7 @@
   row-gap: 10px;
   column-gap: 10px;
   margin-left: 5px;
-  overflow-y: scroll;
+  overflow-y: auto;
   margin-top: 40px;
 }
 

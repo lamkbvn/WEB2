@@ -1,5 +1,5 @@
 <?php
-include('connectDatabase.php');
+include('./Model/connect/connectDatabase.php');
 $query = 'CREATE TABLE `discount`(
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `id_user` INT NOT NULL,

@@ -1,8 +1,15 @@
 <?php
-include("./Controller/connect/connectDatabase.php");
+//temp
+$hostname = "localhost";
+$username = "root";
+$password = "";
+$database = "mydb";
+$con = mysqli_connect($hostname, $username, $password);
+mysqli_select_db($con, $database);
+//temp
 $result = mysqli_query($con, "SELECT * FROM discount");
-if (isset($_GET['txtFindDiscount'])) {
-  $stringFind = $_GET['txtFindDiscount'];
+if (isset($_POST['searchTerm'])) {
+  $stringFind = $_POST['searchTerm'];
   $query = "SELECT * FROM discount where code like '%$stringFind%' ";
   $result = mysqli_query($con, $query);
 }
@@ -19,7 +26,6 @@ if (mysqli_num_rows($result) == 0) {
       ';
   return;
 }
-echo '<div class="find-discount">';
 while ($row = mysqli_fetch_array($result)) {
   // Tạo đối tượng DateTime cho hai mốc thời gian
   $now = new DateTime(); // Thời điểm hiện tại
@@ -66,5 +72,4 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
           ';
 }
-echo '</div>';
 ?>
