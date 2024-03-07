@@ -145,7 +145,7 @@
 }
 .filter-left .list-category .category {
   margin-bottom: 10px;
-  width: auto;
+  width: 192px;
 }
 .display-selected {
   display: flex;
@@ -519,6 +519,12 @@ input[type="range"]::-moz-range-thumb {
   color: #212121;
   text-decoration: none;
   width: max-content;
+}
+.category.checked {
+  border: 1px solid #ff5b00;
+  background-color: #fff0e5;
+  color: #ff5b00;
+  padding: 0 12px;
 }
 .filter-body,
 .filter-header {

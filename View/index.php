@@ -7,8 +7,8 @@ $connect = new mysqli("localhost", "root", "", "web2");
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./View/style.css" />
-  <link rel="stylesheet" href="../View/style.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="../../View/style.css?v=<?php echo time(); ?>">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <title>Klook</title>
 </head>
 
@@ -16,34 +16,114 @@ $connect = new mysqli("localhost", "root", "", "web2");
   <header class="header">
     <div class="container">header</div>
   </header>
-  <?php include "../View/big-image.php" ?>
-  <?php include "../View/main.php" ?>
+  <?php include "../../View/big-image.php" ?>
+  <?php include "../../View/main.php" ?>
   <footer class="footer">
     <div class="container">
       <p>© 2014-2024 Klook. All Rights Reserved.</p>
-      <img src="../View/icon/logoSGU.jpeg" alt="" class="icon-logo-SGU" />
+      <img src="../../View/icon/logoSGU.jpeg" alt="" class="icon-logo-SGU" />
     </div>
   </footer>
   <div class="background-dark"></div>
-  <!-- <script type="text/javascript" src="../View/js.js"></script> -->
-  <!-- <script src="/script.js"></script> -->
+
 
 </body>
 
 </html>
 
 <script>
+  $(document).ready(function () {
+    let currentPage = 1;
+    filterDataInForm();
+
+    function filterDataInForm() {
+      var action = 'getData';
+      var minPriceInForm = $('#price-min').val();
+      var maxPriceInForm = $('#price-max').val();
+      let page = currentPage;
+      console.log(`ngay sau khi gan: ${currentPage}`);
+
+      console.log("Min Price:", minPriceInForm);
+      console.log("Max Price:", maxPriceInForm);
+
+      var categories = getFilterInForm('category-advance');
+      console.log("Selected Categories:", categories);
+
+      $.ajax({
+        url: 'http://localhost/WEB2/Controller/showproduct/getData.php',
+        method: 'POST',
+        data: {
+          action: action,
+          minPrice: minPriceInForm,
+          maxPrice: maxPriceInForm,
+          categories: categories,
+          page: page // Truyền số trang hiện tại qua tham số page
+        },
+        success: function (response) {
+          $('.list-product').html(response);
+          $('.pagination').empty();
+          var totalPages = document.getElementById('total-pages').getAttribute('data-total');
+          let pagi = '';
+          for (let i = 1; i <= totalPages; i++) {
+            pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' +
+              i +
+              '</li>';
+          }
+          $('.pagination').append(pagi);
+
+          // Gán sự kiện click cho các nút phân trang mới
+          $('.pagination-click').click(function (e) {
+            e.preventDefault();
+            currentPage = parseInt($(this).text());
+            filterDataInForm(); // Gọi lại hàm filterDataInForm() để tải dữ liệu của trang mới
+          });
+          //  cập nhật lại cái số lượng sản phẩm lọc được
+          var totalProducts = document.getElementById('total-products').getAttribute('data-total');
+          console.log(totalProducts);
+          $('.quantity-sort .quantity').html(totalProducts + " dịch vụ");
+        }
+      });
+    }
+
+    function getFilterInForm(className) {
+      var selectedFilters = [];
+      $('.' + className + '.checked').each(function () {
+        selectedFilters.push($(this).data('value'));
+      });
+      return selectedFilters;
+    }
+
+    $('.filter-footer .btn-show-result').click(function (e) {
+      e.preventDefault();
+      toggleFilterAndBackground();
+      filterDataInForm();
+    });
+  });
+
+  // =========================
   const btnAllCatagory = document.querySelector('.all-category');
+  document.addEventListener('DOMContentLoaded', function () {
+    var categories = document.querySelectorAll('.category');
+
+    categories.forEach(function (category) {
+      if (!category.classList.contains("all-category") && category.classList.contains("category")) {
+        category.addEventListener('click', function () {
+          this.classList.toggle('checked');
+        });
+      }
+    });
+  });
+
+
   btnAllCatagory.addEventListener("click", () => {
     console.log("da click");
     svg = document.querySelector(".all-category .icon-list-bottom");
     svg.classList.toggle('rotate');
-    btnAllCatagory.classList.toggle('active');
     btnAllCatagory.classList.toggle('checked');
+    btnAllCatagory.classList.toggle('active');
+
 
   })
-
-
   const btnFilterPrice = document.querySelector('.filter-price');
   btnFilterPrice.addEventListener("click", () => {
     console.log("da click");
@@ -53,21 +133,23 @@ $connect = new mysqli("localhost", "root", "", "web2");
     btnFilterPrice.classList.toggle('checked');
   })
   const backgroundDark = document.querySelector('.background-dark');
+  const btnIconKill = document.querySelector('.icon-kill');
+
   const btnFilterAll = document.querySelector('.filter-all');
   btnFilterAll.addEventListener("click", () => {
-    
+
     btnFilterAll.classList.toggle('checked');
     backgroundDark.classList.toggle('active');
   })
-  const btnIconKill = document.querySelector('.icon-kill');
-  btnIconKill.addEventListener("click", () => {
+
+  function toggleFilterAndBackground() {
     btnFilterAll.classList.toggle('checked');
     backgroundDark.classList.toggle('active');
-  })
-  backgroundDark.addEventListener("click", () => {
-    btnFilterAll.classList.toggle('checked');
-    backgroundDark.classList.toggle('active');
-  })
+  }
+  btnIconKill.addEventListener("click", toggleFilterAndBackground);
+  backgroundDark.addEventListener("click", toggleFilterAndBackground);
+
+
   // ==============================
   const rangeInput = document.querySelectorAll(".range-input input"),
     priceInput = document.querySelectorAll(".price-input input"),
@@ -152,8 +234,22 @@ $connect = new mysqli("localhost", "root", "", "web2");
       }
     });
   });
+  // ========================== js nút xoá các giá trị form =========
+  function deleteFormValues() {
+    console.log("Đã xóa");
 
-  // ==========================
+    // Xóa giá trị của các input
+    document.querySelector("#price-min").value = 0;
+    document.querySelector("#price-max").value = 5000000;
+
+    // Đặt lại vị trí của thanh trượt range và thanh tiến trình
+    // rangeAll.style.left = "0%";
+    // rangeAll.style.right = "100%";
+  }
+
+
+
+  // ========================== js phần câu hỏi ==============
 
   document.addEventListener('DOMContentLoaded', function () {
     const questions = document.querySelectorAll('.container-one-question');
@@ -176,56 +272,5 @@ $connect = new mysqli("localhost", "root", "", "web2");
       });
     });
   });
-  // Hàm này được gọi khi người dùng thay đổi tùy chọn sắp xếp
-  function sortBy() {
-    // Lấy giá trị của tùy chọn sắp xếp
-    var selectedOption = document.getElementById("sortOption").value;
-    // Gửi biểu mẫu khi thay đổi tùy chọn
-    document.getElementById("sortForm").submit();
-  }
-  function updateURLParameter(url, param, value) {
-    var newURL = new URL(url);
-    newURL.searchParams.set(param, value);
-    return newURL.toString();
-  }
 
-  // Event listener when sort option is changed
-  document.getElementById('sortOption').addEventListener('change', function () {
-    var sortValue = this.value;
-    var currentURL = window.location.href;
-    var newURL = updateURLParameter(currentURL, 'sort', sortValue);
-    window.location.href = newURL;
-  });
-
-
-
-
-  //   document.getElementById('prevPage').addEventListener('click', function(e) {
-  //     e.preventDefault();
-  //     let currentPage = parseInt('<?php echo $page; ?>');
-  //     if (currentPage > 1) {
-  //         let prevPage = currentPage - 1;
-  //         let url = window.location.href.split('?')[0] + '?option=showproduct&page=' + prevPage;
-  //         window.location.href = url;
-  //     }
-  // });
-
-
-
-  // =========== để đấy làm sau
-  // const rangeInputs = document.querySelectorAll(".range-input input[type='range']");
-  // const form = document.querySelector(".range-input");
-
-  // rangeInputs.forEach(input => {
-  //   input.addEventListener("input", () => {
-  //     form.dispatchEvent(new Event('submit'));
-  //   });
-  // });
-
-  // form.addEventListener('submit', (event) => {
-  //   event.preventDefault(); // Ngăn chặn hành động mặc định của việc gửi form
-  //   // Tại đây, bạn có thể thực hiện việc truy vấn dữ liệu hoặc xử lý dữ liệu trước khi gửi form đi.
-  //   console.log('Dữ liệu đã được gửi: ', new FormData(form)); // Ví dụ: Gửi dữ liệu bằng cách sử dụng FormData
-  // });
-  // =================
 </script>

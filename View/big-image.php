@@ -5,7 +5,7 @@
         <div class="search">
             <form action="" method="get">
                 <div class="icon">
-                    <img src="../View/icon/search-icon.svg" alt="" srcset="" />
+                    <img src="../../View/icon/search-icon.svg" alt="" srcset="" />
                 </div>
                 <form action="big-image.php" method="get">
                 <input type="text" placeholder="Tìm kiếm" class="search-input" name="keyword" />

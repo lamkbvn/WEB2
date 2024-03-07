@@ -1,0 +1,83 @@
+<?php
+include "../../Model/DBConfig.php";
+$db = new DBConfig;
+$db->connect();
+if (isset($_POST['action'])) {
+    $page = 1;
+    $showProductPerPage = 12;
+    $totalPages = 0;
+    $sql = "SELECT * FROM product WHERE status = 1"; // Bắt đầu câu truy vấn với điều kiện luôn đúng
+    if(isset($_POST['categories']) && !empty($_POST['categories'])) {
+        // Chuyển mảng categories thành chuỗi ngăn cách bằng dấu ','
+        $categories = implode(",", $_POST['categories']);
+        // Thêm điều kiện vào câu truy vấn
+        $sql .= " AND id_category IN ($categories)";
+    }
+    if(isset($_POST['minPrice']) && isset($_POST['maxPrice'])) {
+        $minPrice = $_POST['minPrice'];
+        $maxPrice = $_POST['maxPrice'];
+
+        // Thêm điều kiện vào câu truy vấn
+        $sql .= " AND price >= $minPrice and price <= $maxPrice";
+        $result = $db->getAllDataBySql($sql);
+        $countProduct = $db->num_row();
+        $totalPages = ceil($countProduct / 12);
+    }
+    if(isset($_POST['page'])) {
+        $page = $_POST['page'];
+        $from = ($page - 1) * $showProductPerPage;
+        $sql .= " limit $from, $showProductPerPage";
+    }
+    else {
+        echo 'khong nhan duoc price';
+    }
+    
+    $result = $db->getAllDataBySql($sql);
+}
+?>
+
+<?php if($countProduct > 0 ) {?>
+    <div class="container">
+        <?php foreach ($result as $item): ?>
+            <div class="card">
+                <img src="../../View/image/tourCheoThuyen.webp" alt="" class="img-product" />
+                <h2 class="name-product">
+                    <?= $item['title'] ?>
+                </h2>
+                <div class="row-star">
+                    <img src="../View/icon/Star.svg" alt="" class="icon-star" />
+                    <span>(
+                        <?= $item['star_feedback'] ?>)
+                    </span>
+                    <div class="dot"></div>
+                    <span>
+                        <?= $item['num_bought'] ?> đã được đặt
+                    </span>
+                </div>
+                <div class="row-toggle">
+                    <div class="toggle">
+                        <span>Bán chạy</span>
+                    </div>
+                    <div class="toggle">
+                        <span>Xác nhận tức thời</span>
+                    </div>
+                </div>
+                <div class="row-price">
+                    <span class="price">
+                        <?= number_format($item['price'], 0, ',', '.') ?>đ
+                    </span>
+                    <span class="discount">giảm 42.000đ</span>
+                </div>
+                <div class="row-toggle">
+                    <div class="toggle">
+                        <span>Chính sách đảm bảo về giá</span>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach ?>
+        <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
+        <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
+    </div>
+<?php } else { ?>
+    <h3>Không tìm thấy sản phẩm</h3>
+<?php } ?>
