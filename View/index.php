@@ -34,20 +34,24 @@ $connect = new mysqli("localhost", "root", "", "web2");
 <script>
   $(document).ready(function () {
     let currentPage = 1;
+    var currentAction = 'getData';
+
     filterDataInForm();
 
     function filterDataInForm() {
-      var action = 'getData';
+      var action = currentAction;
       var minPriceInForm = $('#price-min').val();
       var maxPriceInForm = $('#price-max').val();
-      let page = currentPage;
-      console.log(`ngay sau khi gan: ${currentPage}`);
+      var page = currentPage;
 
-      console.log("Min Price:", minPriceInForm);
-      console.log("Max Price:", maxPriceInForm);
-
-      var categories = getFilterInForm('category-advance');
-      console.log("Selected Categories:", categories);
+      var categories = [];
+      if (action === "getData") {
+        categories = getFilterInForm('category-advance');
+      } else if (action === "categoryFilter") {
+        // Thực hiện các thao tác khác nếu cần cho action categoryFilter
+        console.log("Đã chọn categoryFilter");
+        categories = getFilterInForm('category-out-form');
+      }
 
       $.ajax({
         url: 'http://localhost/WEB2/Controller/showproduct/getData.php',
@@ -57,30 +61,54 @@ $connect = new mysqli("localhost", "root", "", "web2");
           minPrice: minPriceInForm,
           maxPrice: maxPriceInForm,
           categories: categories,
-          page: page // Truyền số trang hiện tại qua tham số page
+          page: page
         },
         success: function (response) {
-          $('.list-product').html(response);
-          $('.pagination').empty();
-          var totalPages = document.getElementById('total-pages').getAttribute('data-total');
-          let pagi = '';
-          for (let i = 1; i <= totalPages; i++) {
-            pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' +
-              i +
-              '</li>';
-          }
-          $('.pagination').append(pagi);
+          // Xử lý dữ liệu response tùy thuộc vào action
+          if (action === "getData") {
+            $('.list-product').html(response);
+            $('.pagination').empty();
+            var totalPages = document.getElementById('total-pages').getAttribute('data-total');
+            let pagi = '';
+            for (let i = 1; i <= totalPages; i++) {
+              pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
+            }
+            $('.pagination').append(pagi);
 
-          // Gán sự kiện click cho các nút phân trang mới
-          $('.pagination-click').click(function (e) {
-            e.preventDefault();
-            currentPage = parseInt($(this).text());
-            filterDataInForm(); // Gọi lại hàm filterDataInForm() để tải dữ liệu của trang mới
-          });
-          //  cập nhật lại cái số lượng sản phẩm lọc được
-          var totalProducts = document.getElementById('total-products').getAttribute('data-total');
-          console.log(totalProducts);
-          $('.quantity-sort .quantity').html(totalProducts + " dịch vụ");
+            // Gán sự kiện click cho các nút phân trang mới
+            $('.pagination-click').click(function (e) {
+              e.preventDefault();
+              currentPage = parseInt($(this).text());
+              filterDataInForm();
+            });
+
+            // Cập nhật lại số lượng sản phẩm lọc được
+            var totalProducts = document.getElementById('total-products').getAttribute('data-total');
+            $('.quantity-sort .quantity').html(totalProducts + " dịch vụ");
+            // Các thao tác khác
+          } else if (action === "categoryFilter") {
+            // Thực hiện các thao tác khác cho action categoryFilter
+            $('.list-product').html(response);
+            $('.pagination').empty();
+            var totalPages = document.getElementById('total-pages').getAttribute('data-total');
+            let pagi = '';
+            for (let i = 1; i <= totalPages; i++) {
+              pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
+            }
+            $('.pagination').append(pagi);
+
+            // Gán sự kiện click cho các nút phân trang mới
+            $('.pagination-click').click(function (e) {
+              e.preventDefault();
+              currentPage = parseInt($(this).text());
+              filterDataInForm();
+            });
+
+            // Cập nhật lại số lượng sản phẩm lọc được
+            var totalProducts = document.getElementById('total-products').getAttribute('data-total');
+            $('.quantity-sort .quantity').html(totalProducts + " dịch vụ");
+          }
+
         }
       });
     }
@@ -90,15 +118,47 @@ $connect = new mysqli("localhost", "root", "", "web2");
       $('.' + className + '.checked').each(function () {
         selectedFilters.push($(this).data('value'));
       });
+      console.log("mang id la: " );
+      console.log(selectedFilters);
       return selectedFilters;
     }
 
+    // Gán sự kiện click cho các phần tử có lớp là category-out-form
+    $(document).on('click', '.category-out-form', function (e) {
+      e.preventDefault();
+      console.log("Đã click vào category-out-form");
+      currentAction = 'categoryFilter'; // Cập nhật action
+      filterDataInForm(); // Gọi lại hàm filterDataInForm() để tải dữ liệu mới sau khi click
+    });
+
+    // Gán sự kiện click cho nút hiển thị kết quả
     $('.filter-footer .btn-show-result').click(function (e) {
       e.preventDefault();
       toggleFilterAndBackground();
+      currentAction = 'getData'; // Cập nhật action
       filterDataInForm();
     });
   });
+
+  // function getCategoryOutForm(className) {
+  // // Khởi tạo idCategory với giá trị mặc định
+  // let idCategory = null;
+
+  // // Lặp qua tất cả các phần tử có class là className và có class là 'checked'
+  // document.querySelectorAll('.' + className + '.checked').forEach(category => {
+  //     // Sử dụng sự kiện 'click' để lắng nghe khi người dùng click vào phần tử
+  //     category.addEventListener('click', () => {
+  //         // Lấy giá trị của thuộc tính 'data-value' từ phần tử và gán cho idCategory
+  //         idCategory = category.getAttribute('data-value');
+  //         // In ra console để kiểm tra
+  //         console.log('Category ID:', idCategory);
+  //         // Thực hiện các hành động khác với idCategory ở đây
+  //     });
+  // });
+
+  // Trả về giá trị của idCategory
+  // return idCategory;
+  // }
 
   // =========================
   const btnAllCatagory = document.querySelector('.all-category');

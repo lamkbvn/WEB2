@@ -3,40 +3,62 @@ include "../../Model/DBConfig.php";
 $db = new DBConfig;
 $db->connect();
 if (isset($_POST['action'])) {
-    $page = 1;
-    $showProductPerPage = 12;
-    $totalPages = 0;
-    $sql = "SELECT * FROM product WHERE status = 1"; // Bắt đầu câu truy vấn với điều kiện luôn đúng
-    if(isset($_POST['categories']) && !empty($_POST['categories'])) {
-        // Chuyển mảng categories thành chuỗi ngăn cách bằng dấu ','
-        $categories = implode(",", $_POST['categories']);
-        // Thêm điều kiện vào câu truy vấn
-        $sql .= " AND id_category IN ($categories)";
-    }
-    if(isset($_POST['minPrice']) && isset($_POST['maxPrice'])) {
-        $minPrice = $_POST['minPrice'];
-        $maxPrice = $_POST['maxPrice'];
+    if ($_POST['action'] == "getData") {
+        $page = 1;
+        $showProductPerPage = 12;
+        $totalPages = 0;
+        $sql = "SELECT * FROM product WHERE status = 1"; // Bắt đầu câu truy vấn với điều kiện luôn đúng
+        if (isset($_POST['categories']) && !empty($_POST['categories'])) {
+            // Chuyển mảng categories thành chuỗi ngăn cách bằng dấu ','
+            $categories = implode(",", $_POST['categories']);
+            // Thêm điều kiện vào câu truy vấn
+            $sql .= " AND id_category IN ($categories)";
+        }
+        if (isset($_POST['minPrice']) && isset($_POST['maxPrice'])) {
+            $minPrice = $_POST['minPrice'];
+            $maxPrice = $_POST['maxPrice'];
 
-        // Thêm điều kiện vào câu truy vấn
-        $sql .= " AND price >= $minPrice and price <= $maxPrice";
+            // Thêm điều kiện vào câu truy vấn
+            $sql .= " AND price >= $minPrice and price <= $maxPrice";
+            $result = $db->getAllDataBySql($sql);
+            $countProduct = $db->num_row();
+            $totalPages = ceil($countProduct / 12);
+        }
+        if (isset($_POST['page'])) {
+            $page = $_POST['page'];
+            $from = ($page - 1) * $showProductPerPage;
+            $sql .= " limit $from, $showProductPerPage";
+        } else {
+            echo 'khong nhan duoc price';
+        }
+
         $result = $db->getAllDataBySql($sql);
-        $countProduct = $db->num_row();
-        $totalPages = ceil($countProduct / 12);
+    } else if ($_POST['action'] == "categoryFilter") {
+        echo "categoryFilter";
+        $page = 1;
+        $showProductPerPage = 12;
+        $totalPages = 0;
+        $sql = "SELECT * FROM product WHERE status = 1";
+        if (isset($_POST['categories']) && !empty($_POST['categories'])) {
+            $categories = implode(",", $_POST['categories']);
+            $sql .= " AND id_category IN ($categories)";
+            $result = $db->getAllDataBySql($sql);
+            $countProduct = $db->num_row();
+            $totalPages = ceil($countProduct / 12);
+        }
+        if (isset($_POST['page'])) {
+            $page = $_POST['page'];
+            $from = ($page - 1) * $showProductPerPage;
+            $sql .= " limit $from, $showProductPerPage";
+        }
+        $result = $db->getAllDataBySql($sql);
+
     }
-    if(isset($_POST['page'])) {
-        $page = $_POST['page'];
-        $from = ($page - 1) * $showProductPerPage;
-        $sql .= " limit $from, $showProductPerPage";
-    }
-    else {
-        echo 'khong nhan duoc price';
-    }
-    
-    $result = $db->getAllDataBySql($sql);
+
 }
 ?>
 
-<?php if($countProduct > 0 ) {?>
+<?php if ($countProduct > 0) { ?>
     <div class="container">
         <?php foreach ($result as $item): ?>
             <div class="card">
@@ -45,7 +67,7 @@ if (isset($_POST['action'])) {
                     <?= $item['title'] ?>
                 </h2>
                 <div class="row-star">
-                    <img src="../View/icon/Star.svg" alt="" class="icon-star" />
+                    <img src="../../View/icon/Star.svg" alt="" class="icon-star" />
                     <span>(
                         <?= $item['star_feedback'] ?>)
                     </span>
@@ -77,7 +99,15 @@ if (isset($_POST['action'])) {
         <?php endforeach ?>
         <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
         <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
+        <?php if ($_POST['action'] == "categoryFilter"): ?>
+            <div id="idCategory" data-total="<?php echo $idCategory; ?>"></div>
+        <?php endif; ?>
+
+
+
     </div>
 <?php } else { ?>
     <h3>Không tìm thấy sản phẩm</h3>
+    <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
+    <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
 <?php } ?>

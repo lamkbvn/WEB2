@@ -13,7 +13,8 @@
                 </div>
                 <div class="list-category">
                     <?php foreach ($listCategory as $item): ?>
-                        <div class="category category-<?= $item['id'] ?>>">
+                        <div class="category category-<?= $item['id'] ?> category-out-form"
+                        data-value="<?= $item['id'] ?>">
                             <a href="#">
                                 <?= $item['name_category'] ?>
                             </a>
@@ -21,11 +22,6 @@
                     <?php endforeach; ?>
                 </div>
                 <div class="display-selected">
-                    <?php foreach ($listCategory as $item): ?>
-                        <div class="category checked <?= ($item['id'] != $idCategory) ? "none" : "" ?>">
-                            <?= ($item['id'] == $idCategory) ? $item['name_category'] : "" ?>
-                        </div>
-                    <?php endforeach; ?>
                 </div>
             </div>
             <div class="separete-center"></div>
@@ -33,7 +29,7 @@
                 <div class="filter-date-price-group">
                     <div class="all-category category filter-date">
                         <span>Ngày tham gia</span>
-                        <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-list-bottom" />
+                        <img src="../../View/icon/icon-list-bottom.svg" alt="" class="icon-list-bottom" />
                     </div>
                     <div class="all-category category filter-price">
                         <span>Lọc theo giá</span>
@@ -258,7 +254,7 @@
                     </div>
                 </div>
             <?php endforeach ?>
-            <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
+            <div id="total-pages" data-total="<?=$totalPages != 0 ? $totalPages : 0 ?>"></div>
             <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
         </div>
 
