@@ -16,13 +16,15 @@
     <div class="side-bar-main">
       <div class="profile">
         <img src="./IMAGEofLam/person.svg" alt="" class="profile-image-user">
-        <?php $nameuser = 'lam pro vip';
-        echo '<div class ="profile-name-user">' . $nameuser . '</div>'
-          ?>
-        <div class="profile-edit-profile">
-          <label for="">Chỉnh sửa</label>
-          <img src="./IMAGEofLam/chevron-compact-right.svg" alt="" class="image-edit-profile">
+        <div class="profile-name-user">
+          <?php include('./Controller/User/inforUser/nameUser.php') ?>
         </div>
+        <a href="index.php?pageuser=cs">
+          <div class="profile-edit-profile">
+            <label for="">Chỉnh sửa</label>
+            <img src="./IMAGEofLam/chevron-compact-right.svg" alt="" class="image-edit-profile">
+          </div>
+        </a>
       </div>
       <div class="preferential line-black-light">
         <a href="index.php?pageuser=mud">
@@ -133,11 +135,12 @@
     </div>
 
     <div class="display-detail">
-      <?php include("Model/User/displayDetail.php"); ?>
+      <?php include("./Controller/User/displayDetail.php"); ?>
     </div>
   </section>
 </body>
 
 <script src="./js/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 </html>
