@@ -1,0 +1,82 @@
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  padding-bottom: 4px;
+  border: 1px solid black;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  width: 300px;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+.popup .close {
+  position: absolute;
+  right: 15px;
+  top: 0px;
+  transform: rotate(45deg);
+  font-size: 35pt;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+}
+.popup .close:hover {
+  color: #ff4700;
+}
+
+.popup h3 {
+  text-align: center;
+  margin: 20px;
+  font-size: 22px;
+}
+
+.popup label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.popup input[type='text'],
+.popup input[type='password'] {
+  display: block;
+  background-color: #eaeaea;
+  margin-bottom: 6px;
+  padding: 6px;
+  border: 1px solid #787878;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.popup .btnLogin {
+  background-color: #ff5b00;
+  color: #fff;
+  border: none;
+  margin-top: 15px;
+  font-size: 16px;
+  text-align: center;
+  display: block;
+  margin-bottom: 6px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.popup .linkSignup {
+  text-align: center;
+}
+
+.popup .linkSignup span {
+  font-size: 13px;
+}
+
+.popup .linkSignup a {
+  cursor: pointer;
+  font-size: 13px;
+  color: #ff4700;
+}
