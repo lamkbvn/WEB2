@@ -43,6 +43,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
       var minPriceInForm = $('#price-min').val();
       var maxPriceInForm = $('#price-max').val();
       var page = currentPage;
+      var sort = getSelectedSortOption();
 
       var categories = [];
       if (action === "getData") {
@@ -61,7 +62,8 @@ $connect = new mysqli("localhost", "root", "", "web2");
           minPrice: minPriceInForm,
           maxPrice: maxPriceInForm,
           categories: categories,
-          page: page
+          page: page,
+          sort: sort
         },
         success: function (response) {
           // Xử lý dữ liệu response tùy thuộc vào action
@@ -122,6 +124,16 @@ $connect = new mysqli("localhost", "root", "", "web2");
       console.log(selectedFilters);
       return selectedFilters;
     }
+    function getSelectedSortOption() {
+    const selectElement = document.getElementById('sortOption');
+    if (selectElement) {
+        return selectElement.value;
+    }
+    else {
+      console.log("Khong lay duoc sortOption de gui thong qua ajax")
+    }
+    return null; // Trả về null nếu không tìm thấy phần tử select
+}
 
     // Gán sự kiện click cho các phần tử có lớp là category-out-form
     $(document).on('click', '.category-out-form', function (e) {
@@ -138,6 +150,12 @@ $connect = new mysqli("localhost", "root", "", "web2");
       currentAction = 'getData'; // Cập nhật action
       filterDataInForm();
     });
+    
+    $(document).on('change', '#sortOption', function (e) {
+    e.preventDefault();
+    console.log("Đã chọn một option từ select");
+    filterDataInForm(); // Thực thi hàm filterDataInForm() sau khi chọn option
+});
   });
 
   // function getCategoryOutForm(className) {

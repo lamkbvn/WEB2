@@ -24,6 +24,28 @@ if (isset($_POST['action'])) {
             $countProduct = $db->num_row();
             $totalPages = ceil($countProduct / 12);
         }
+        if (isset($_POST['sort'])) {
+            $sort = $_POST['sort'];
+            switch($sort) {
+                case 1: 
+                    break;
+                case 2: 
+                    $sql .= " order by num_bought desc";
+                    break;
+                case 3: 
+                    $sql .= " order by star_feedback desc";
+                    break;
+                case 4:
+                    $sql .= " order by price asc";
+                    break;
+                case 5:
+                    $sql .= " order by price desc";
+                    break;
+            }
+        }
+        else {
+            echo 'khong nhan duoc bien sort';
+        }
         if (isset($_POST['page'])) {
             $page = $_POST['page'];
             $from = ($page - 1) * $showProductPerPage;
@@ -45,6 +67,29 @@ if (isset($_POST['action'])) {
             $result = $db->getAllDataBySql($sql);
             $countProduct = $db->num_row();
             $totalPages = ceil($countProduct / 12);
+        }
+        if (isset($_POST['sort'])) {
+            $sort = $_POST['sort'];
+            switch($sort) {
+                case 1: 
+                    break;
+                case 2: 
+                    $sql .= " order by num_bought desc";
+                    break;
+                case 3: 
+                    $sql .= " order by star_feedback desc";
+                    break;
+                case 4:
+                    $sql .= " order by price asc";
+                    break;
+                case 5:
+                    $sql .= " order by price desc";
+                    break;
+            }
+
+        }
+        else {
+            echo 'khong nhan duoc bien sort';
         }
         if (isset($_POST['page'])) {
             $page = $_POST['page'];
@@ -99,6 +144,7 @@ if (isset($_POST['action'])) {
         <?php endforeach ?>
         <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
         <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
+        <div id="option-sort" data-total="<?php echo $sort; ?>"></div>
         <?php if ($_POST['action'] == "categoryFilter"): ?>
             <div id="idCategory" data-total="<?php echo $idCategory; ?>"></div>
         <?php endif; ?>
@@ -110,4 +156,5 @@ if (isset($_POST['action'])) {
     <h3>Không tìm thấy sản phẩm</h3>
     <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
     <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
+    <div id="option-sort" data-total="<?php echo $sort; ?>"></div>
 <?php } ?>

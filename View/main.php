@@ -196,7 +196,7 @@
                 <img src="../../View/icon/icon-list-bottom.svg" alt="" />
                 <div class="hide-arrow-default"></div>
                 <form id="sortForm" class="form" method="get">
-                    <select class="list-item" name="sort" id="sortOption" onchange="sortBy()">
+                    <select class="list-item" name="sort" id="sortOption">
                         <option value="1" <?= (isset($sortOption) && $sortOption == 1) ? 'selected' : '' ?>>Klook giới
                             thiệu</option>
                         <option value="2" <?= (isset($sortOption) && $sortOption == 2) ? 'selected' : '' ?>>Bán chạy
@@ -210,7 +210,6 @@
                         <option value="5" <?= (isset($sortOption) && $sortOption == 5) ? 'selected' : '' ?>>Giá (từ cao
                             đến thấp)</option>
                     </select>
-                    <input type="submit" hidden>
                 </form>
             </div>
         </div>
