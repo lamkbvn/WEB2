@@ -3,7 +3,9 @@
 		<div class="container">
 			<div class="nav-top--inner">
 				<div class="nav-top--left">
-					<img src="css/icons/8939fe11b96fc40d9c65ca88a0ad1fd1.png" alt="" class="nav-top--logo">
+					<a href="index.php?controller=trang-chu">
+						<img src="css/icons/8939fe11b96fc40d9c65ca88a0ad1fd1.png" alt="" class="nav-top--logo">
+					</a>
 					<div class="nav-top--find">
 						<img src="css/icons/find-magnifier-search-zoom-look-svgrepo-com.svg" class="nav-top--find__icon" />
 						<input type="text" class="nav-top--find__input" placeholder="Tìm theo điểm đến, hoạt động">
@@ -11,10 +13,10 @@
 				</div>
 				<div class="nav-top--right">
 					<div class="nav-top--right__inner">
-						<div class="nav-top--right__panner">Mở ứng dụng</div>
-						<div class="nav-top--right__panner">Xem gần đây</div>
-						<div class="nav-top--right__panner">Đăng kí</div>
-						<div class="nav-top--right__panner login-btn">Đăng nhập</div>
+						<a href="#!" class="nav-top--right__panner">Mở ứng dụng</a>
+						<a href="#!" class="nav-top--right__panner">Xem gần đây</a>
+						<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner">Đăng kí</a>
+						<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn">Đăng nhập</a>
 					</div>
 				</div>
 			</div>
