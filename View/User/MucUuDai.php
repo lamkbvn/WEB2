@@ -21,7 +21,10 @@
       <div class="textMuc">Mục ưu đãi</div>
     </div>
     <div class="find-discount">
-      <?php include("./Controller/User/searchDiscount.php"); ?>
+      <?php
+      include("../Model/DBConfig.php");
+      searchDiscount($con);
+      ?>
     </div>
   </div>
 </body>

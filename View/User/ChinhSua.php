@@ -30,7 +30,7 @@
           <div class="btn-on-edit" onclick="onEditProfile(event)">Chỉnh sửa</div>
         </div>
         <div class="content-muc-edit row2 name-user">
-          <?php include('./Controller/User/inforUser/nameUser.php') ?>
+          <?php nameUser($con, $idUser) ?>
         </div>
         <div method="get " class="row3">
           <div class="header-edit">

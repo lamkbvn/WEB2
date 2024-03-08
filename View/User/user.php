@@ -17,29 +17,31 @@
       <div class="profile">
         <img src="./IMAGEofLam/person.svg" alt="" class="profile-image-user">
         <div class="profile-name-user">
-          <?php include('./Controller/User/inforUser/nameUser.php') ?>
+          <?php
+          nameUser($con, $idUser);
+          ?>
         </div>
-        <a href="index.php?pageuser=cs">
-          <div class="profile-edit-profile">
-            <label for="">Chỉnh sửa</label>
-            <img src="./IMAGEofLam/chevron-compact-right.svg" alt="" class="image-edit-profile">
-          </div>
-        </a>
+        <div class="profile-edit-profile cs" onclick="selectPageUser(event)">
+          <label for="" class="cs">Chỉnh sửa</label>
+          <img class="cs" src="./IMAGEofLam/chevron-compact-right.svg" alt="" class="image-edit-profile">
+        </div>
       </div>
       <div class="preferential line-black-light">
-        <div class="muc">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stack"
-            viewBox="0 0 16 16">
+        <!-- <a href="index.php?pageuser=mud"> -->
+        <div class="muc mud" onclick="selectPageUser(event)">
+          <svg class="mud" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-stack" viewBox="0 0 16 16">
             <path
               d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.6.6 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.6.6 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.6.6 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535z" />
             <path
               d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.6.6 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0z" />
-          </svg> <label for="" class="">Mã ưu đãi</label>
-          <svg class="them-ma-uu-dai" viewBox="0 0 16 16">
+          </svg> <label for="" class="mud">Mã ưu đãi</label>
+          <svg class="them-ma-uu-dai mud" viewBox="0 0 16 16">
             <path
               d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
           </svg>
         </div>
+        <!-- </a> -->
         <div class="muc">
           <svg viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0" />
@@ -61,28 +63,24 @@
       </div>
 
       <div class="other line-black-light">
-        <a href="index.php?pageuser=dh">
-          <div class="muc">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list"
-              viewBox="0 0 16 16">
-              <path
-                d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
-              <path
-                d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
-            </svg> <label for="">Đơn hàng</label>
-          </div>
-        </a>
-        <a href="index.php?pageuser=dg">
-          <div class="muc">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-chat-left-dots" viewBox="0 0 16 16">
-              <path
-                d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
-              <path
-                d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
-            </svg> <label for="">Đánh giá</label>
-          </div>
-        </a>
+        <div class="muc dh" onclick="selectPageUser(event)">
+          <svg class="dh" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-card-list" viewBox="0 0 16 16">
+            <path
+              d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
+            <path
+              d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
+          </svg> <label for="" class="dh">Đơn hàng</label>
+        </div>
+        <div class="muc dg" onclick="selectPageUser(event)">
+          <svg class="dg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+            <path
+              d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+            <path
+              d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+          </svg> <label for="" class="dg">Đánh giá</label>
+        </div>
         <div class="muc">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card"
             viewBox="0 0 16 16">
@@ -133,12 +131,12 @@
     </div>
 
     <div class="display-detail">
-      <?php include("./Controller/User/displayDetail.php"); ?>
     </div>
   </section>
 </body>
 
 <script src="./js/script.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="./js/user.js"></script>
+<script src="./js/jquery.js"></script>
 
 </html>

@@ -50,8 +50,10 @@ function changeNameProfile(string){
   console.log(nameChange);
   $.ajax({
       type: 'POST',
-      url: './Controller/User/inforUser/nameUser.php',
-      data: { nameChange: nameChange },
+      url: './Controller/User.php',
+      data: {
+        action : 'nameUser',
+        nameChange: nameChange },
       success: function(response) {
           $('.profile-name-user').html(response);
       }
