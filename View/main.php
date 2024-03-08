@@ -1,5 +1,5 @@
 <main class="main">
-    <div class="filter-row">
+    <div class="filter-row" id="filter-row-anchor-for-pagination">
         <div class="container">
             <div class="filter-left">
                 <div class="all-category category">
@@ -13,8 +13,7 @@
                 </div>
                 <div class="list-category">
                     <?php foreach ($listCategory as $item): ?>
-                        <div class="category category-<?= $item['id'] ?> category-out-form"
-                        data-value="<?= $item['id'] ?>">
+                        <div class="category category-<?= $item['id'] ?> category-out-form" data-value="<?= $item['id'] ?>">
                             <a href="#">
                                 <?= $item['name_category'] ?>
                             </a>
@@ -185,7 +184,7 @@
     <div class="quantity-sort">
         <div class="container">
             <div class="quantity">
-                
+
             </div>
             <div class="sort">
                 <span>Sắp xếp theo</span>
@@ -253,7 +252,7 @@
                     </div>
                 </div>
             <?php endforeach ?>
-            <div id="total-pages" data-total="<?=$totalPages != 0 ? $totalPages : 0 ?>"></div>
+            <div id="total-pages" data-total="<?= $totalPages != 0 ? $totalPages : 0 ?>"></div>
             <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
         </div>
 
@@ -261,22 +260,27 @@
 
     <div class="page-navigation">
         <ul class="pagination">
-            <li id="prevPage">
-                <a href="#">
+            <a href="#filter-row-anchor-for-pagination">
+
+                <li id="prevPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10 1L1 8.5L10 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                </a>
-            </li>
-            <li id="nextPage">
-                <a href="#">
+                </li>
+            </a>
+
+            <a href="#filter-row-anchor-for-pagination">
+
+                <li id="nextPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                </a>
-            </li>
+                </li>
+            </a>
+
+
         </ul>
 
     </div>

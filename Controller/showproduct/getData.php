@@ -26,13 +26,13 @@ if (isset($_POST['action'])) {
         }
         if (isset($_POST['sort'])) {
             $sort = $_POST['sort'];
-            switch($sort) {
-                case 1: 
+            switch ($sort) {
+                case 1:
                     break;
-                case 2: 
+                case 2:
                     $sql .= " order by num_bought desc";
                     break;
-                case 3: 
+                case 3:
                     $sql .= " order by star_feedback desc";
                     break;
                 case 4:
@@ -42,8 +42,7 @@ if (isset($_POST['action'])) {
                     $sql .= " order by price desc";
                     break;
             }
-        }
-        else {
+        } else {
             echo 'khong nhan duoc bien sort';
         }
         if (isset($_POST['page'])) {
@@ -56,7 +55,6 @@ if (isset($_POST['action'])) {
 
         $result = $db->getAllDataBySql($sql);
     } else if ($_POST['action'] == "categoryFilter") {
-        echo "categoryFilter";
         $page = 1;
         $showProductPerPage = 12;
         $totalPages = 0;
@@ -70,13 +68,13 @@ if (isset($_POST['action'])) {
         }
         if (isset($_POST['sort'])) {
             $sort = $_POST['sort'];
-            switch($sort) {
-                case 1: 
+            switch ($sort) {
+                case 1:
                     break;
-                case 2: 
+                case 2:
                     $sql .= " order by num_bought desc";
                     break;
-                case 3: 
+                case 3:
                     $sql .= " order by star_feedback desc";
                     break;
                 case 4:
@@ -87,8 +85,7 @@ if (isset($_POST['action'])) {
                     break;
             }
 
-        }
-        else {
+        } else {
             echo 'khong nhan duoc bien sort';
         }
         if (isset($_POST['page'])) {
@@ -153,8 +150,17 @@ if (isset($_POST['action'])) {
 
     </div>
 <?php } else { ?>
-    <h3>Không tìm thấy sản phẩm</h3>
-    <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
-    <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
-    <div id="option-sort" data-total="<?php echo $sort; ?>"></div>
+    <div class="container">
+        <h3 class="not-found-product">Không tìm thấy sản phẩm</h3>
+        <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
+        <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
+        <div id="option-sort" data-total="<?php echo $sort; ?>"></div>
+    </div>
+    <style>
+        .not-found-product {
+            font-size: 16px;
+            color: #212121;
+            font-weight: 400;
+        }
+    </style>
 <?php } ?>

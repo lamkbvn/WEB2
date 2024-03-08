@@ -632,12 +632,17 @@ input[type="range"]::-moz-range-thumb {
   color: #ff5b00;
 }
 /* ============= Page navigation =============== */
-.page-navigation .pagination {
+.page-navigation .pagination  {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 42px;
   gap: 5px;
+  transition: all 0.4s;
+
+}
+.page-navigation .pagination  a{
+  transition: all 0.4s;
 }
 .page-navigation li {
   width: 36px;

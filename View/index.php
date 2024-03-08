@@ -33,8 +33,9 @@ $connect = new mysqli("localhost", "root", "", "web2");
 
 <script>
   $(document).ready(function () {
-    let currentPage = 1;
+    var currentPage = 1;
     var currentAction = 'getData';
+    var totalPagesGlobal = 0;
 
     filterDataInForm();
 
@@ -71,11 +72,31 @@ $connect = new mysqli("localhost", "root", "", "web2");
             $('.list-product').html(response);
             $('.pagination').empty();
             var totalPages = document.getElementById('total-pages').getAttribute('data-total');
-            let pagi = '';
-            for (let i = 1; i <= totalPages; i++) {
-              pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
+            totalPagesGlobal = totalPages;
+            if (totalPagesGlobal > 0) {
+              let pagi = '';
+              pagi += `<a href="#filter-row-anchor-for-pagination"> <li id="prevPage">
+                
+                    <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 1L1 8.5L10 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                
+            </li></a>`;
+              for (let i = 1; i <= totalPages; i++) {
+                pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
+              }
+              pagi += `<a href="#filter-row-anchor-for-pagination"><li id="nextPage">
+                
+                    <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                
+            </li></a>`;
+              $('.pagination').append(pagi);
             }
-            $('.pagination').append(pagi);
+
 
             // Gán sự kiện click cho các nút phân trang mới
             $('.pagination-click').click(function (e) {
@@ -93,11 +114,33 @@ $connect = new mysqli("localhost", "root", "", "web2");
             $('.list-product').html(response);
             $('.pagination').empty();
             var totalPages = document.getElementById('total-pages').getAttribute('data-total');
-            let pagi = '';
-            for (let i = 1; i <= totalPages; i++) {
-              pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
+            totalPagesGlobal = totalPages;
+            if (totalPagesGlobal > 0) {
+              let pagi = '';
+              pagi += `<a href="#filter-row-anchor-for-pagination"><li id="prevPage">
+                
+
+                    <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 1L1 8.5L10 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                
+            </li></a>`;
+              for (let i = 1; i <= totalPages; i++) {
+                pagi += '<li class="pagination-click' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
+              }
+              pagi += `<a href="filter-row-anchor-for-pagination"><li id="nextPage">
+                
+
+                    <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    
+            </li></a>s`;
+              $('.pagination').append(pagi);
             }
-            $('.pagination').append(pagi);
+
 
             // Gán sự kiện click cho các nút phân trang mới
             $('.pagination-click').click(function (e) {
@@ -120,20 +163,20 @@ $connect = new mysqli("localhost", "root", "", "web2");
       $('.' + className + '.checked').each(function () {
         selectedFilters.push($(this).data('value'));
       });
-      console.log("mang id la: " );
+      console.log("mang id la: ");
       console.log(selectedFilters);
       return selectedFilters;
     }
     function getSelectedSortOption() {
-    const selectElement = document.getElementById('sortOption');
-    if (selectElement) {
+      const selectElement = document.getElementById('sortOption');
+      if (selectElement) {
         return selectElement.value;
+      }
+      else {
+        console.log("Khong lay duoc sortOption de gui thong qua ajax")
+      }
+      return null; // Trả về null nếu không tìm thấy phần tử select
     }
-    else {
-      console.log("Khong lay duoc sortOption de gui thong qua ajax")
-    }
-    return null; // Trả về null nếu không tìm thấy phần tử select
-}
 
     // Gán sự kiện click cho các phần tử có lớp là category-out-form
     $(document).on('click', '.category-out-form', function (e) {
@@ -150,12 +193,31 @@ $connect = new mysqli("localhost", "root", "", "web2");
       currentAction = 'getData'; // Cập nhật action
       filterDataInForm();
     });
-    
+
     $(document).on('change', '#sortOption', function (e) {
-    e.preventDefault();
-    console.log("Đã chọn một option từ select");
-    filterDataInForm(); // Thực thi hàm filterDataInForm() sau khi chọn option
-});
+      e.preventDefault();
+      console.log("Đã chọn một option từ select");
+      filterDataInForm(); // Thực thi hàm filterDataInForm() sau khi chọn option
+    });
+    $(document).on('click', '#nextPage', function (e) {
+      // e.preventDefault();
+      if (currentPage < totalPagesGlobal) {
+        currentPage++;
+        filterDataInForm(); // Thực thi hàm filterDataInForm() sau khi chọn option
+      } else {
+        console.log("Không nhận được totalPagesGlobal hoặc currentPage lớn hơn totalPagesGlobal")
+      }
+    });
+
+    $(document).on('click', '#prevPage', function (e) {
+      // e.preventDefault();
+      if (currentPage > 1) {
+        currentPage--;
+        filterDataInForm(); // Thực thi hàm filterDataInForm() sau khi chọn option
+      } else {
+        console.log("currentPage nhỏ hơn 1")
+      }
+    });
   });
 
   // function getCategoryOutForm(className) {
