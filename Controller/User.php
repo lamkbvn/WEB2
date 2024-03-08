@@ -113,7 +113,6 @@ if (isset($_POST['action'])) {
 
 // display Detail
 if (isset($_POST['pageuser'])) {
-  echo $_POST['pageuser'];
   switch ($_POST['pageuser']) {
     case 'mud':
       include("../View/User/MucUuDai.php");
