@@ -31,6 +31,7 @@
 
 	.nav-admin-item {
 		padding: 15px 20px;
+		padding-right: 50px;
 		max-width: 240px;
 		color: #202224;
 		font-size: 14px;
@@ -41,7 +42,101 @@
 		align-items: center;
 		gap: 5px;
 	}
+
+	.header-admin {
+		padding: 16px 0px;
+		padding-left: 250px;
+		background: #fff;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.header-left {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+	}
+
+	.header-left--icon {}
+
+	.header-left--find {
+		position: relative;
+
+	}
+
+	.header-left--find-icon {
+		position: absolute;
+		top: 12px;
+		left: 12px;
+	}
+
+	.header-left--find--input {
+		border-radius: 19px;
+		border: 0.6px solid #D5D5D5;
+		background: #F5F6FA;
+		width: 388px;
+		height: 38px;
+		flex-shrink: 0;
+	}
+
+	.header-right {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+		margin-right: 50px;
+	}
+
+	.header-right--nofi {}
+
+	.header-right--nofi--ico {}
+
+	.header-right--nofi--text {}
+
+	.header-right--profile {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 20px;
+	}
+
+	.header-right--profile-avatar {}
+
+	.header-right--profile-info {}
+
+	.header-right--profile--title {}
+
+	.header-right--profile--desc {}
+
+	.more-profile {}
 </style>
+
+<header class="header-admin">
+	<div class="header-left">
+		<img src="css/icons/hamberger-admin.svg" alt="" class="header-left--icon">
+		<div class="header-left--find">
+			<img src="css/icons/search-admin.svg" alt="" class="header-left--find-icon">
+			<input type="text" class="header-left--find--input">
+		</div>
+	</div>
+
+	<div class="header-right">
+		<div class="header-right--nofi">
+			<img src="css/icons/nofi-admin.svg" alt="" class="header-right--nofi--icon">
+			<div class="header-right--nofi--text"></div>
+		</div>
+		<div class="header-right--profile">
+			<img src="css/icons/avatar-admin.png" alt="" class="header-right--profile-avatar">
+			<div class="header-right--profile-info">
+				<p class="header-right--profile--title">ten</p>
+				<p class="header-right--profile--desc">adsd</p>
+			</div>
+			<img src="css/icons/more-info-admin.svg" alt="" class="more-profile">
+		</div>
+	</div>
+</header>
 
 <div class="navigation">
 	<a href="index.php?controller=trang-admin&action=list" class="nav-item--logo">
