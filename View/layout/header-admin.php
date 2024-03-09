@@ -122,6 +122,7 @@
 		</div>
 	</div>
 
+
 	<div class="header-right">
 		<div class="header-right--nofi">
 			<img src="css/icons/nofi-admin.svg" alt="" class="header-right--nofi--icon">
@@ -137,7 +138,7 @@
 		</div>
 	</div>
 </header>
-
+<!-- 
 <div class="navigation">
 	<a href="index.php?controller=trang-admin&action=list" class="nav-item--logo">
 		<img src="css/icons/Logo-admin.svg" alt=""></a>
@@ -146,6 +147,7 @@
 			<img src="css/icons/trangchu-admin-icon.svg" alt="" class="nav-admin-item--icon">
 			<p class="nav-admin-item--title">Trang chủ</p>
 		</a>
+	
 		<a href="index.php?controller=trang-admin&action=add" class="nav-admin-item">
 			<img src="css/icons/favorites-admin-icon.svg" alt="" class="nav-admin-item--icon">
 			<p class="nav-admin-item--title">Thêm mới</p>
@@ -163,4 +165,14 @@
 			<p class="nav-admin-item--title">Sản phẩm</p>
 		</a>
 	</div>
-</div>
+</div> -->
+
+
+<!-- View/admin/indexAdmin.php -->
+<ul>
+	<li><a href="#" id="add_user">Add User</a></li>
+	<li><a href="#" id="admin">Admin</a></li>
+</ul>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="js/ajax.js"></script>

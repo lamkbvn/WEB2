@@ -5,11 +5,9 @@ if (isset($_GET['action'])) {
 	$action = '';
 }
 
-
 $alert;
 
 switch ($action) {
-
 	case 'add': {
 			if (isset($_POST['add_user'])) {
 				$id_role = $_POST['id_role'];
@@ -31,12 +29,6 @@ switch ($action) {
 			break;
 		}
 
-	case 'list': {
-			$listUsersTable = "users";
-			$data = $db->getAllData($listUsersTable);
-			require_once('View/admin/list.php');
-			break;
-		}
 	case 'edit': {
 			if (isset($_GET['id'])) {
 				$id = $_GET['id'];
@@ -76,6 +68,8 @@ switch ($action) {
 		}
 
 	case 'admin': {
+			$listUsersTable = "users";
+			$data = $db->getAllData($listUsersTable);
 			require_once('View/admin/indexAdmin.php');
 			break;
 		}
