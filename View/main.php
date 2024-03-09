@@ -257,7 +257,6 @@
         </div>
 
     </div>
-
     <div class="page-navigation">
         <ul class="pagination">
             <a href="#filter-row-anchor-for-pagination">
@@ -284,9 +283,6 @@
         </ul>
 
     </div>
-
-
-
     <div class="info-path">
         <div class="container">
             <p>Trang chủ > <span class="support-info"> Tour trải nghiệm</span></p>

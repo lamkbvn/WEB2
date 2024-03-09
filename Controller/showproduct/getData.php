@@ -14,6 +14,10 @@ if (isset($_POST['action'])) {
             // Thêm điều kiện vào câu truy vấn
             $sql .= " AND id_category IN ($categories)";
         }
+        if(isset($_POST['keyword'])) {
+            $keyword = $_POST['keyword'];
+            $sql .= " AND title LIKE '%$keyword%'";
+        }
         if (isset($_POST['minPrice']) && isset($_POST['maxPrice'])) {
             $minPrice = $_POST['minPrice'];
             $maxPrice = $_POST['maxPrice'];
@@ -155,6 +159,9 @@ if (isset($_POST['action'])) {
         <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
         <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
         <div id="option-sort" data-total="<?php echo $sort; ?>"></div>
+        <?php if ($_POST['action'] == "categoryFilter"): ?>
+            <div id="idCategory" data-total="<?php echo $idCategory; ?>"></div>
+        <?php endif; ?>
     </div>
     <style>
         .not-found-product {

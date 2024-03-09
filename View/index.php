@@ -45,6 +45,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
       var maxPriceInForm = $('#price-max').val();
       var page = currentPage;
       var sort = getSelectedSortOption();
+      var keyword = getKeywordOutForm();
 
       var categories = [];
       if (action === "getData") {
@@ -64,7 +65,8 @@ $connect = new mysqli("localhost", "root", "", "web2");
           maxPrice: maxPriceInForm,
           categories: categories,
           page: page,
-          sort: sort
+          sort: sort,
+          keyword: keyword
         },
         success: function (response) {
           // Xử lý dữ liệu response tùy thuộc vào action
@@ -76,7 +78,6 @@ $connect = new mysqli("localhost", "root", "", "web2");
             if (totalPagesGlobal > 0) {
               let pagi = '';
               pagi += `<a href="#filter-row-anchor-for-pagination"> <li id="prevPage">
-                
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10 1L1 8.5L10 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
@@ -87,7 +88,6 @@ $connect = new mysqli("localhost", "root", "", "web2");
                 pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
               }
               pagi += `<a href="#filter-row-anchor-for-pagination"><li id="nextPage">
-                
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
@@ -117,27 +117,23 @@ $connect = new mysqli("localhost", "root", "", "web2");
             totalPagesGlobal = totalPages;
             if (totalPagesGlobal > 0) {
               let pagi = '';
-              pagi += `<a href="#filter-row-anchor-for-pagination"><li id="prevPage">
-                
-
+              pagi += `<a href="#filter-row-anchor-for-pagination">
+              <li id="prevPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10 1L1 8.5L10 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                
             </li></a>`;
               for (let i = 1; i <= totalPages; i++) {
-                pagi += '<li class="pagination-click' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
+                pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
               }
               pagi += `<a href="filter-row-anchor-for-pagination"><li id="nextPage">
-                
-
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
                     
-            </li></a>s`;
+            </li></a>`;
               $('.pagination').append(pagi);
             }
 
@@ -167,6 +163,11 @@ $connect = new mysqli("localhost", "root", "", "web2");
       console.log(selectedFilters);
       return selectedFilters;
     }
+    function getKeywordOutForm() {
+      let keyword = document.querySelector("#keyword-outform").value.trim();
+      return keyword;
+    }
+
     function getSelectedSortOption() {
       const selectElement = document.getElementById('sortOption');
       if (selectElement) {
@@ -186,6 +187,19 @@ $connect = new mysqli("localhost", "root", "", "web2");
       filterDataInForm(); // Gọi lại hàm filterDataInForm() để tải dữ liệu mới sau khi click
     });
 
+    $(document).on('keypress', '#keyword-outform', function (e) {
+      if (e.which === 13) { // Kiểm tra xem phím được nhấn có phải là phím "Enter" không
+        e.preventDefault();
+        console.log("Đã nhấn phím Enter trên trường nhập liệu");
+        currentAction = 'getData'; // Cập nhật action
+        filterDataInForm(); // Gọi lại hàm filterDataInForm() để tải dữ liệu mới sau khi nhấn phím "Enter"
+      }
+      else {
+        console.log("khong nhan duoc enter key-word outform");
+      }
+    });
+
+
     // Gán sự kiện click cho nút hiển thị kết quả
     $('.filter-footer .btn-show-result').click(function (e) {
       e.preventDefault();
@@ -200,7 +214,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
       filterDataInForm(); // Thực thi hàm filterDataInForm() sau khi chọn option
     });
     $(document).on('click', '#nextPage', function (e) {
-      // e.preventDefault();
+      e.preventDefault();
       if (currentPage < totalPagesGlobal) {
         currentPage++;
         filterDataInForm(); // Thực thi hàm filterDataInForm() sau khi chọn option
@@ -210,7 +224,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
     });
 
     $(document).on('click', '#prevPage', function (e) {
-      // e.preventDefault();
+      e.preventDefault();
       if (currentPage > 1) {
         currentPage--;
         filterDataInForm(); // Thực thi hàm filterDataInForm() sau khi chọn option
