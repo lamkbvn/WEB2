@@ -41,19 +41,21 @@ $connect = new mysqli("localhost", "root", "", "web2");
 
     function filterDataInForm() {
       var action = currentAction;
-      var minPriceInForm = $('#price-min').val();
-      var maxPriceInForm = $('#price-max').val();
       var page = currentPage;
       var sort = getSelectedSortOption();
       var keyword = getKeywordOutForm();
 
       var categories = [];
       if (action === "getData") {
+        var minPriceInForm = $('#price-min').val();
+        var maxPriceInForm = $('#price-max').val();
         categories = getFilterInForm('category-advance');
       } else if (action === "categoryFilter") {
         // Thực hiện các thao tác khác nếu cần cho action categoryFilter
         console.log("Đã chọn categoryFilter");
         categories = getFilterInForm('category-out-form');
+        var minPriceInForm = $('#price-min-out-form').val();
+        var maxPriceInForm = $('#price-max-out-form').val();
       }
 
       $.ajax({
@@ -207,6 +209,13 @@ $connect = new mysqli("localhost", "root", "", "web2");
       currentAction = 'getData'; // Cập nhật action
       filterDataInForm();
     });
+    $('.btn-show-result-out-form').click(function (e) {
+      e.preventDefault();
+      currentAction = 'categoryFilter'; // Cập nhật action
+      filterDataInForm();
+      document.querySelector(".filter-date-price-group .filter-price").classList.remove("active");
+      document.querySelector(".filter-date-price-group .filter-price").classList.remove("checked");
+    });
 
     $(document).on('change', '#sortOption', function (e) {
       e.preventDefault();
@@ -234,25 +243,6 @@ $connect = new mysqli("localhost", "root", "", "web2");
     });
   });
 
-  // function getCategoryOutForm(className) {
-  // // Khởi tạo idCategory với giá trị mặc định
-  // let idCategory = null;
-
-  // // Lặp qua tất cả các phần tử có class là className và có class là 'checked'
-  // document.querySelectorAll('.' + className + '.checked').forEach(category => {
-  //     // Sử dụng sự kiện 'click' để lắng nghe khi người dùng click vào phần tử
-  //     category.addEventListener('click', () => {
-  //         // Lấy giá trị của thuộc tính 'data-value' từ phần tử và gán cho idCategory
-  //         idCategory = category.getAttribute('data-value');
-  //         // In ra console để kiểm tra
-  //         console.log('Category ID:', idCategory);
-  //         // Thực hiện các hành động khác với idCategory ở đây
-  //     });
-  // });
-
-  // Trả về giá trị của idCategory
-  // return idCategory;
-  // }
 
   // =========================
   const btnAllCatagory = document.querySelector('.all-category');
@@ -396,10 +386,39 @@ $connect = new mysqli("localhost", "root", "", "web2");
     document.querySelector("#price-min").value = 0;
     document.querySelector("#price-max").value = 5000000;
 
+    unCheckedClasshasCheckedByCategoryInFilterAdvance();
+
     // Đặt lại vị trí của thanh trượt range và thanh tiến trình
-    // rangeAll.style.left = "0%";
-    // rangeAll.style.right = "100%";
+    rangeAll.style.left = "1%";
+    rangeAll.style.right = "1%";
+    document.querySelector(".range-min-all").value = 0;
+    document.querySelector(".range-max-all").value = 5000000;
+
   }
+  function deleteFormValuesOutForm() {
+    console.log("Đã xóa out form");
+
+    // Xóa giá trị của các input
+    document.querySelector("#price-min-out-form").value = 0;
+    document.querySelector("#price-max-out-form").value = 5000000;
+
+    // unCheckedClasshasCheckedByCategoryInFilterAdvance();
+
+    // Đặt lại vị trí của thanh trượt range và thanh tiến trình
+    range.style.left = "1%";
+    range.style.right = "1%";
+    document.querySelector(".range-min").value = 0;
+    document.querySelector(".range-max").value = 5000000;
+
+  }
+  function unCheckedClasshasCheckedByCategoryInFilterAdvance() {
+  document.querySelectorAll('.category-advance').forEach((e) => {
+    if (e.classList.contains("checked")) {
+      e.classList.remove("checked");
+    }
+  });
+}
+
 
 
 

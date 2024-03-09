@@ -13,7 +13,7 @@
                 </div>
                 <div class="list-category">
                     <?php foreach ($listCategory as $item): ?>
-                        <div class="category category-<?= $item['id'] ?> category-out-form" data-value="<?= $item['id'] ?>">
+                        <div class="category category-<?= $item['id'] ?> category-out-form checked" data-value="<?= $item['id'] ?>">
                             <a href="#">
                                 <?= $item['name_category'] ?>
                             </a>
@@ -42,12 +42,12 @@
                         <div class="price-input">
                             <div class="field">
                                 <span>Min</span>
-                                <input type="number price-min-out-form" class="input-min" value="0">
+                                <input type="number price-min-out-form" class="input-min" value="0" id="price-min-out-form">
                             </div>
                             <div class="separator">-</div>
                             <div class="field">
                                 <span>Max</span>
-                                <input type="number price-max-out-form" class="input-max" value="5000000">
+                                <input type="number price-max-out-form" class="input-max" value="5000000" id="price-max-out-form">
                             </div>
                         </div>
                         <div class="slider">
@@ -60,8 +60,8 @@
                                 name="price-max">
                             <!-- <input type="submit" hidden> -->
                             <div class="row">
-                                <span class="btn-clear">Xoá</span>
-                                <button class="btn-show-result" type="submit">Xem kết quả</button>
+                                <span class="btn-clear" onclick="deleteFormValuesOutForm()">Xoá</span>
+                                <button class="btn-show-result btn-show-result-out-form" type="button">Xem kết quả</button>
                             </div>
                         </form>
                     </div>

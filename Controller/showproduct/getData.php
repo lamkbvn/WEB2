@@ -63,6 +63,13 @@ if (isset($_POST['action'])) {
         $showProductPerPage = 12;
         $totalPages = 0;
         $sql = "SELECT * FROM product WHERE status = 1";
+        if (isset($_POST['minPrice']) && isset($_POST['maxPrice'])) {
+            $minPrice = $_POST['minPrice'];
+            $maxPrice = $_POST['maxPrice'];
+
+            // Thêm điều kiện vào câu truy vấn
+            $sql .= " AND price >= $minPrice and price <= $maxPrice";
+        }
         if (isset($_POST['categories']) && !empty($_POST['categories'])) {
             $categories = implode(",", $_POST['categories']);
             $sql .= " AND id_category IN ($categories)";
