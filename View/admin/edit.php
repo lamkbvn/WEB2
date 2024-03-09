@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
 <style>
 	.container {
 		display: flex;
@@ -68,9 +60,10 @@
 		gap: 30px;
 	}
 </style>
+
 <body>
 	<?php
-	require_once("View/layout/header-admin.php");
+
 	?>
 	<div class="container">
 		<div class="themuser">

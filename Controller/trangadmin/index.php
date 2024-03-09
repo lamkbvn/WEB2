@@ -23,9 +23,11 @@ switch ($action) {
 				// Gọi phương thức InsertData để chèn dữ liệu vào cơ sở dữ liệu
 				if ($db->insertUserData($id_role, $user_name, $fullname, $email, $password, $phone_number, $create_at, $status, $address)) {
 					$alert = 'add_success';
+					header('location: index.php?controller=trang-admin&action=headeradmin');
 				}
 			}
 			require_once('View/admin/add.php');
+
 			break;
 		}
 
@@ -46,7 +48,7 @@ switch ($action) {
 					$status = $_POST['status'];
 					$address = $_POST['address'];
 					if ($db->updateEditData($id, $id_role, $user_name, $fullname, $email, $password, $phone_number, $create_at, $status, $address)) {
-						header('location: index.php?controller=trang-admin&action=list');
+						header('location: index.php?controller=trang-admin&action=headeradmin');
 					}
 				}
 			}
@@ -60,17 +62,32 @@ switch ($action) {
 				$listUsersTable = "users";
 
 				if ($dataID = $db->deleteUser($listUsersTable, $id)) {
-					header('location: index.php?controller=trang-admin&action=list');
+					header('location: index.php?controller=trang-admin&action=headeradmin');
 				}
 			}
 			require_once('View/admin/list.php');
 			break;
 		}
 
-	case 'admin': {
+	case 'indexAdmin': {
 			$listUsersTable = "users";
 			$data = $db->getAllData($listUsersTable);
 			require_once('View/admin/indexAdmin.php');
+			break;
+		}
+	case 'headeradmin': {
+			$listUsersTable = "users";
+			$data = $db->getAllData($listUsersTable);
+			require_once('View/admin/header-admin.php');
+			break;
+		}
+
+	case 'products': {
+			require_once('View/admin/products.php');
+			break;
+		}
+	case 'thongke': {
+			require_once('View/admin/thongke.php');
 			break;
 		}
 }
