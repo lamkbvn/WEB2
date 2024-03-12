@@ -77,25 +77,31 @@ $connect = new mysqli("localhost", "root", "", "web2");
             $('.pagination').empty();
             var totalPages = document.getElementById('total-pages').getAttribute('data-total');
             totalPagesGlobal = totalPages;
-            if (totalPagesGlobal > 0) {
+            if (totalPagesGlobal > 1) {
               let pagi = '';
-              pagi += `<a href="#filter-row-anchor-for-pagination"> <li id="prevPage">
+              if(currentPage > 1) {
+                pagi += `<a href="#filter-row-anchor-for-pagination"> <li id="prevPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10 1L1 8.5L10 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
                 
             </li></a>`;
+              }
+              
               for (let i = 1; i <= totalPages; i++) {
                 pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
               }
-              pagi += `<a href="#filter-row-anchor-for-pagination"><li id="nextPage">
+              if(currentPage < totalPages) {
+                pagi += `<a href="#filter-row-anchor-for-pagination"><li id="nextPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
                 
             </li></a>`;
+              }
+              
               $('.pagination').append(pagi);
             }
 
@@ -117,25 +123,31 @@ $connect = new mysqli("localhost", "root", "", "web2");
             $('.pagination').empty();
             var totalPages = document.getElementById('total-pages').getAttribute('data-total');
             totalPagesGlobal = totalPages;
-            if (totalPagesGlobal > 0) {
+            if (totalPagesGlobal > 1) {
               let pagi = '';
-              pagi += `<a href="#filter-row-anchor-for-pagination">
+              if(currentPage > 1) {
+                pagi += `<a href="#filter-row-anchor-for-pagination">
               <li id="prevPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10 1L1 8.5L10 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
             </li></a>`;
+              }
+              
               for (let i = 1; i <= totalPages; i++) {
                 pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
               }
-              pagi += `<a href="filter-row-anchor-for-pagination"><li id="nextPage">
+              if(currentPage < totalPages) {
+                pagi += `<a href="filter-row-anchor-for-pagination"><li id="nextPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
                     
             </li></a>`;
+              }
+              
               $('.pagination').append(pagi);
             }
 

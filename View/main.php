@@ -26,10 +26,7 @@
             <div class="separete-center"></div>
             <div class="filter-right">
                 <div class="filter-date-price-group">
-                    <div class="all-category category filter-date">
-                        <span>Ngày tham gia</span>
-                        <img src="../../View/icon/icon-list-bottom.svg" alt="" class="icon-list-bottom" />
-                    </div>
+                    
                     <div class="all-category category filter-price">
                         <span>Lọc theo giá</span>
                         <svg class="icon-list-bottom" width="13" height="9" viewBox="0 0 13 9" fill="none"
@@ -84,7 +81,7 @@
                     <div class="filter-body">
                         <div class="filter-content">
                             <div class="filter-content-wrapper">
-                                <div class="filter-content-item">
+                                <!-- <div class="filter-content-item">
                                     <h3 class="title">Ngày tham gia</h3>
                                     <div class="item">
                                         <div class="quick-item">
@@ -94,7 +91,7 @@
                                         </div>
                                         <div class="select-date"></div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="filter-content-item">
                                     <h3 class="title">Lọc theo giá</h3>
                                     <div class="wrapper-filter-all">
