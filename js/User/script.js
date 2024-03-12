@@ -45,9 +45,3 @@ function useDiscount(event){
   let parent =  button.parentNode;
   console.log(parent.querySelector('.code-use-card').value);
 }
-
-
-
-
-
-

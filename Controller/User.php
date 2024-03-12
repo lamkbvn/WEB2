@@ -9,15 +9,14 @@ $database = "mydb";
 $con = mysqli_connect($hostname, $username, $password);
 mysqli_select_db($con, $database);
 
-
 // function searchDiscounts-----------------------
 if (!function_exists('searchDiscount')) {
-  function searchDiscount($con)
+  function searchDiscount($con, $idUser)
   {
-    $result = mysqli_query($con, "SELECT * FROM discount");
+    $result = mysqli_query($con, "SELECT * FROM discount as d,discountuser as du where id_user = " . $idUser . " and du.id_discount = d.id  ");
     if (isset($_POST['searchTerm'])) {
       $stringFind = $_POST['searchTerm'];
-      $query = "SELECT * FROM discount where code like '%$stringFind%' ";
+      $query = "SELECT * FROM discount as d,discountuser as du where code like '%$stringFind%'and date_end > CURRENT_DATE and id_user = " . $idUser . " and du.id_discount = d.id  ";
       $result = mysqli_query($con, $query);
     }
     if (mysqli_num_rows($result) == 0) {
@@ -34,9 +33,10 @@ if (!function_exists('searchDiscount')) {
       return;
     }
     while ($row = mysqli_fetch_array($result)) {
+      $timezone = new DateTimeZone('Asia/Ho_Chi_Minh');
       // Tạo đối tượng DateTime cho hai mốc thời gian
-      $now = new DateTime(); // Thời điểm hiện tại
-      $futureDate = new DateTime($row['date_end']); // Mốc thời gian trong tương lai
+      $now = new DateTime('now', $timezone); // Thời điểm hiện tại
+      $futureDate = new DateTime($row['date_end'] . ' 23:59:59'); // Mốc thời gian trong tương lai
       if ($futureDate < $now) {
         continue;
       }
@@ -45,6 +45,7 @@ if (!function_exists('searchDiscount')) {
 
       // Lấy số ngày còn lại từ DateInterval
       $daysRemaining = $interval->days;
+      $hoursRemaining = $interval->h;
       echo '
               <div class="discount-card">
               <div class="infor-card">
@@ -56,7 +57,7 @@ if (!function_exists('searchDiscount')) {
                   ' . $row['description'] . '
                   </div>
                   <div class="hansudung">
-                    Hạn sử dụng : Còn lại ' . $daysRemaining . ' ngày
+                    Hạn sử dụng : Còn lại ' . ($daysRemaining > 0 ? $daysRemaining : $hoursRemaining / 3) . ($daysRemaining > 0 ? ' ngày' : ' giờ') . '
                   </div>
                 </div>
               </div>
@@ -87,14 +88,14 @@ if (!function_exists('searchDiscount')) {
 if (!function_exists('nameUser')) {
   function nameUser($con, $idUser)
   {
-    $sql = 'select * from users where id = ' . $idUser;
+    $sql = 'select * from nguoidung where id = ' . $idUser;
     $result = mysqli_query($con, $sql);
     $row = mysqli_fetch_array($result);
 
     $fullnameprofile = $row['fullname'];
     if (isset($_POST['nameChange'])) {
       $fullnameprofile = $_POST['nameChange'];
-      $sql = 'Update users SET fullname = "' . $fullnameprofile . '"  WHERE id = ' . $idUser;
+      $sql = 'Update nguoidung SET fullname = "' . $fullnameprofile . '"  WHERE id = ' . $idUser;
       mysqli_query($con, $sql);
     }
     echo $fullnameprofile;
@@ -108,7 +109,7 @@ if (isset($_POST['action'])) {
   if ($_POST['action'] == 'nameUser')
     nameUser($con, $idUser);
   if ($_POST['action'] == 'searchDiscount')
-    searchDiscount($con);
+    searchDiscount($con, $idUser);
 }
 
 // display Detail

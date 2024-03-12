@@ -106,7 +106,7 @@
     </div>
   </div>
 
-  <script src="js/chinhsua.js"></script>
+  <script src="js/User/chinhsua.js"></script>
 </body>
 
 

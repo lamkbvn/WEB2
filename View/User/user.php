@@ -135,8 +135,7 @@
   </section>
 </body>
 
-<script src="./js/script.js"></script>
-<script src="./js/user.js"></script>
-<script src="./js/jquery.js"></script>
+<script src="./js/User/script.js"></script>
+<script src="./js/User/jquery.js"></script>
 
 </html>

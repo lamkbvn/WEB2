@@ -1,26 +1,29 @@
-function updateUserInfo() {
-  var userId = document.getElementById("userId").value;
-  var newInfo = document.getElementById("newInfo").value;
+// script.js
 
-  // Thay đổi url thành địa chỉ tuyệt đối của máy chủ và tài nguyên xử lý yêu cầu
-  var url = "http://127.0.0.1:5500/index.html?userId=" + encodeURIComponent(userId) + "&newInfo=" + encodeURIComponent(newInfo);
+// Dữ liệu mẫu (có thể đến từ server hoặc cơ sở dữ liệu)
+var data = {
+  labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5'],
+  datasets: [
+      {
+          label: 'Doanh số bán hàng',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          data: [65, 59, 80, 81, 56]
+      }
+  ]
+};
 
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-      if (this.readyState == 4) {
-          if (this.status == 200) {
-              var responseData = userId;
-              displayResult(responseData);
-          } else {
-              displayResult("Đã xảy ra lỗi. Mã lỗi: " + this.status);
+// Lấy thẻ canvas và vẽ biểu đồ
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: data,
+  options: {
+      scales: {
+          y: {
+              beginAtZero: true
           }
       }
-  };
-
-  xhttp.open("GET", url, true);
-  xhttp.send();
-}
-
-function displayResult(result) {
-  document.getElementById("result").innerHTML = result;
-}
+  }
+});
