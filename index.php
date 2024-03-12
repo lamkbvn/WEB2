@@ -16,7 +16,7 @@
 
     switch($controller){
         case 'chi-tiet-tour':{
-            header("Location: /Controller/chitietTour/index.php");
+            header("Location: /Controller/User/chitietTour/index.php");
             break;
         }
     }

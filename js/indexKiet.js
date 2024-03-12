@@ -347,6 +347,7 @@ function addToCart() {
             // Cập nhật giao diện nếu cần
         }
     };
-    xhr.open("GET", "/Controller/chitietTour/index.php?" + queryString, true);
+    xhr.open("GET", "/Controller/User/chitietTour/index.php?" + queryString, true);
     xhr.send();
 }
+

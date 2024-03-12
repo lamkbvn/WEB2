@@ -12,7 +12,7 @@
     
         $result = $db->execute("SELECT * FROM product WHERE id = '1'");
         $rowTour = $db->getData($result);
-        $result2 = $db->execute("SELECT * FROM feedback_travelplace WHERE product_id = '1'");
+        $result2 = $db->execute("SELECT * FROM feedback WHERE product_id = '1'");
         $resultIMG = $db->execute("SELECT * FROM image_product WHERE id = '8'");
         $rowIMG = $resultIMG->fetch_assoc();
         $imageData = $rowIMG['image'];
@@ -312,7 +312,7 @@
                         // lấy tên người đăng
                         $idUser = $rowCmt['user_id'];
                         $numstar = $rowCmt['num_star'];
-                        $result3 = $db->execute("SELECT * FROM users WHERE id = $idUser");
+                        $result3 = $db->execute("SELECT * FROM nguoidung WHERE id = $idUser");
                         while($rowUser = mysqli_fetch_array($result3)) $nameUser = $rowUser['fullname'];
                         // lấy ngày
                         $date_create = strtotime($rowCmt['create_at']);

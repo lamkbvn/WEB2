@@ -6,10 +6,10 @@ if(isset($_GET['action'])){
     $action = '';
 }
     
-include ("../../Model/DBConfig.php");
+include ("../../../Model/DBConfig.php");
 $db = new DBConfig();
 $db->connect();
-require_once('../../View/chitietTour/chitietTour.php');
+require_once('../../../View/User/chitietTour/chitietTour.php');
 switch($action){
     case 'book-tour':{
         if (isset($_REQUEST['buy-now'])) {

@@ -3,7 +3,7 @@
         private $hostname = 'localhost';
         private $username = 'root';
         private $pass = '';
-        private $dbname = 'web_tour';
+        private $dbname = 'web2';
 
         private $con = NULL;
         private $result = NULL;
@@ -20,6 +20,10 @@
         //thực thi câu truy vấn
         public function execute($sql){
             $this->result = $this->con->query($sql);
+            // if (!$this->result) {
+            //     // Nếu câu truy vấn không thành công, in ra thông báo lỗi
+            //     echo "Lỗi: " . mysqli_error($this->con);
+            // }
             return $this->result;
         }
 
@@ -67,8 +71,27 @@
 
         // thêm bình luận
         public function InsertCmt($user_id, $product_id, $cmt, $create_at, $num_star){
-            $sql = "INSERT INTO feedback_travelplace (user_id, product_id, note, create_at, num_star)
+            $sql = "INSERT INTO feedback (user_id, product_id, note, create_at, num_star)
             VALUES ('$user_id', '$product_id', '$cmt', '$create_at', '$num_star')";
+            return $this->execute($sql);
+        }
+
+        // phần của admin
+        // thêm tour mới
+        public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $datecreate, $acount){
+            $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, soLuongConLai, star_feedback)
+            VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$acount', '0')";
+            return $this->execute($sql);
+        }
+        // thêm ảnh
+        public function InsertImg($id_product, $id_user, $img){
+            $sql = "INSERT INTO image_product (id_product, id_user, image) VALUES ('$id_product', '$id_user', '$img')";
+            return $this->execute($sql);
+        }
+
+        // thêm quyền
+        public function InsertRoleLinhDong($idRole, $id_CN, $HD, $name){
+            $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucnang, HD, name) values ('$idRole', '$id_CN', '$HD', '$name')";
             return $this->execute($sql);
         }
     }
