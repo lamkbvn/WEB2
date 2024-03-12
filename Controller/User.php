@@ -2,13 +2,6 @@
 //gia su da dang nhap thanh cong vo user 1
 $idUser = 1;
 
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$database = "mydb";
-$con = mysqli_connect($hostname, $username, $password);
-mysqli_select_db($con, $database);
-
 // function searchDiscounts-----------------------
 if (!function_exists('searchDiscount')) {
   function searchDiscount($con, $idUser)
