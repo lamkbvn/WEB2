@@ -1,12 +1,14 @@
 <?php
 include_once("Model/DBConfig.php");
-
 $db = new Database;
 $db->connect();
+
+require_once('includes/handle_mail.php');
 
 ?>
 
 <body>
+
     <?php
     require_once("View/layout/header.php");
     ?>
