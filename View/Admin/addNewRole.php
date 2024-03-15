@@ -19,16 +19,7 @@
             <input type="text" id="name_role" name="name_role">
             <span class="nameRoleValidation">Dữ liệu không hợp lệ</span>
         </div>
-        <div class="box_select_role">
-            <label for="">Chọn loại quyền</label>
-            <select name="selectRole">
-                <?php
-                foreach ($rowsRole as $rowRole) {
-                    echo "<option value='" . $rowRole['id'] . "'>" . $rowRole['decription'] . "</option>";
-                }
-                ?>
-            </select>
-        </div>
+        
         <!-- <input type="hidden" name="id_chucNang" value="<?php // echo $rowCN['id']; ?>"> -->
         <table border="1">
             <tr>

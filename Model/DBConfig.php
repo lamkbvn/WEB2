@@ -16,6 +16,12 @@
             } else mysqli_set_charset($this->con, 'utf8');
             return $this->con;
         }
+        public function close() {
+            if ($this->con !== null) {
+                $this->con->close();
+                $this->con = null;
+            }
+        }
 
         //thực thi câu truy vấn
         public function execute($sql){
@@ -90,8 +96,16 @@
         }
 
         // thêm quyền
-        public function InsertRoleLinhDong($idRole, $id_CN, $HD, $name){
-            $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucnang, HD, name) values ('$idRole', '$id_CN', '$HD', '$name')";
+        public function InsertRole($name){
+            $sql = "INSERT INTO role (decription) VALUES ('$name')";
+            return $this->execute($sql);
+        }
+        public function InsertRoleLinhDong($idRole, $id_CN, $HD){
+            $selectId = "SELECT id FROM role ORDER BY id DESC LIMIT 1";
+            $result = $this->execute($selectId);
+            $row = $result->fetch_assoc();
+            $last_role_id = $row["id"] + 1;
+            $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucnang, HD, name) values ('$last_role_id', '$id_CN', '$HD')";
             return $this->execute($sql);
         }
     }

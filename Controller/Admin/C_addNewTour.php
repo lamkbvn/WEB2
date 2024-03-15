@@ -60,3 +60,5 @@ if (isset($_REQUEST['btnAddTour'])) {
         $db->InsertImg($id, '3', $img3);
     }
 }
+$db->close();
+?>

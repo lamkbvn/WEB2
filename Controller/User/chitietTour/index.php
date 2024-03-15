@@ -54,4 +54,5 @@ switch($action){
         break;
     }
 }
+$db->close();
 ?>
