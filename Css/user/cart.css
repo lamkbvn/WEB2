@@ -148,7 +148,7 @@ header h1 {
   height: 88px;
   margin-right: 15px;
   border-radius: 5px;
-  background-image: url('../IMG/mg1.png');
+  background-image: url('../../IMG/mg1.png');
   background-size: cover;
   background-position: center;
 }
