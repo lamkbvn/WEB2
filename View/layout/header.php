@@ -1,3 +1,13 @@
+<?php
+
+if (isset($_POST['loggedIn']) && $_POST['loggedIn'] == true) {
+	// Lấy thông tin người dùng đã đăng nhập, ví dụ tên người dùng
+	$username = "User"; // Thay thế bằng thông tin người dùng thực tế
+	echo $username;
+}
+
+?>
+
 <div class="nav">
 	<div class="nav-top">
 		<div class="container">

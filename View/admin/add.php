@@ -1,107 +1,46 @@
-<style>
-	.container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100vh;
-	}
-
-	.themuser {
-		width: 400px;
-		padding: 20px;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-		background-color: #f9f9f9;
-		margin-left: 200px;
-	}
-
-	.themuser h3 {
-		text-align: center;
-		margin-bottom: 20px;
-	}
-
-	.themuser form label {
-		display: block;
-		margin-bottom: 5px;
-	}
-
-	.themuser form input[type="text"],
-	.themuser form input[type="email"],
-	.themuser form input[type="password"],
-	.themuser form input[type="date"] {
-		width: 100%;
-		padding: 8px;
-		margin-bottom: 10px;
-		border: 1px solid #ccc;
-		border-radius: 4px;
-		box-sizing: border-box;
-	}
-
-	.themuser form input[type="submit"] {
-		width: 100%;
-		padding: 10px;
-		border: none;
-		border-radius: 4px;
-		background-color: #4CAF50;
-		color: white;
-		cursor: pointer;
-	}
-
-	.themuser form input[type="submit"]:hover {
-		background-color: #45a049;
-	}
-
-	.alert {
-		color: green;
-		text-align: center;
-	}
-
-	.form--inner {
-		display: flex;
-		gap: 30px;
-	}
-</style>
 <body>
-	<?php
-	// Kiểm tra xem file đã được bao gồm trước đó chưa
-	?>
-	<div class="container">
-		<div class="themuser">
-			<h3>Thêm thành viên mới</h3>
-			<form action="" method="POST" class="form">
+
+	<div class="add-user-box">
+		<h2 class="add-user--heading">Thêm người dùng</h2>
+		<div class="add-user--inner">
+			<form action="" method="POST" class="form--add-user">
 				<div class="form--inner">
-					<div class="flex">
-						<label for="id_role">ID Role:</label><br>
-						<input type="text" id="id_role" name="id_role"><br>
+					<div class="form--inner-left">
+						<div class="form--inner--fill">
+							<label class="add-user--label" for="fullname">Họ Tên:</label><br>
+							<input placeholder="Họ tên" class="add-user--input" type="text" id="fullname" name="fullname"><br>
 
-						<label for="user_name">Tên Người Dùng:</label><br>
-						<input type="text" id="user_name" name="user_name"><br>
+						</div>
+						<div class="form--inner--fill">
+							<label class="add-user--label" for="email">Email:</label><br>
+							<input placeholder="Email" class="add-user--input" type="email" id="email" name="email"><br>
 
-						<label for="fullname">Họ Tên:</label><br>
-						<input type="text" id="fullname" name="fullname"><br>
+						</div>
+						<div class="form--inner--fill">
+							<label class="add-user--label" for="phone_number">Số Điện Thoại:</label><br>
+							<input placeholder="Phone number" class="add-user--input" type="text" id="phone_number" name="phone_number"><br>
 
-						<label for="email">Email:</label><br>
-						<input type="email" id="email" name="email"><br>
-
-						<label for="password">Mật Khẩu:</label><br>
-						<input type="password" id="password" name="password"><br>
+						</div>
 					</div>
-					<div class="flex">
+					<div class="form--inner--right">
+						<div class="form--inner--fill">
+							<label class="add-user--label" for="status">Trạng Thái:</label><br>
+							<input placeholder="Trạng thái" class="add-user--input" type="text" id="status" name="status"><br>
 
-						<label for="phone_number">Số Điện Thoại:</label><br>
-						<input type="text" id="phone_number" name="phone_number"><br>
+						</div>
+						<div class="form--inner--fill">
+							<label class="add-user--label" for="status">Địa Chỉ:</label><br>
+							<input placeholder="Địa chỉ" class="add-user--input" type="text" id="address" name="address"><br>
 
-						<label for="create_at">Ngày Tạo:</label><br>
-						<input type="date" id="create_at" name="create_at"><br>
+						</div>
 
-						<label for="status">Trạng Thái:</label><br>
-						<input type="text" id="status" name="status"><br>
-
-						<label for="address">Địa Chỉ:</label><br>
-						<input type="text" id="address" name="address"><br><br>
+						<div class="form--inner--fill">
+							<label class="add-user--label" for="id_acount">id_acount</label><br>
+							<input placeholder="1" class="add-user--input" type="text" id="id_acount" name="id_acount"><br><br>
+						</div>
 					</div>
 				</div>
-				<input type="submit" name="add_user" value="Thêm">
+				<input placeholder="" class="add-user--btn" type="submit" name="add_user" value="Thêm">
 			</form>
 			<?php
 			if (isset($alert) && $alert == 'add_success') {
@@ -114,5 +53,25 @@
 
 	</div>
 </body>
+<script>
+	// Sử dụng jQuery cho Ajax
+	$(document).ready(function() {
+		$("#add-user-btn").click(function() {
+			// Lấy dữ liệu từ form
+			var formData = $("#add-user-form").serialize();
+
+			// Gửi dữ liệu bằng Ajax
+			$.ajax({
+				type: "POST",
+				url: "Controller/trangadmin/index.php", // Đường dẫn tới file PHP xử lý dữ liệu
+				data: formData,
+				success: function(response) {
+					// Xử lý phản hồi từ máy chủ
+					alert(response); // Hiển thị thông báo
+				}
+			});
+		});
+	});
+</script>
 
 </html>

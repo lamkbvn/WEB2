@@ -12,7 +12,7 @@ switch ($action) {
 			break;
 		}
 	case 'login': {
-			require_once('View/trangchu/login.php');
+			require_once('View/user/signup_login.php');
 			break;
 		}
 	default: {

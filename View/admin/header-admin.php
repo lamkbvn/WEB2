@@ -38,48 +38,36 @@
 	</header>
 
 	<div class="navigation">
-		<a href="#" onclick="loadPage('?controller=trang-admin&action=indexAdmin')" id="nav-item--logo">
-			<img src="css/icons/Logo-admin.svg" alt=""></a>
+		<a href="index.php?controller=trang-admin&action=indexAdmin" id="nav-item--logo">
+			<img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo"></a>
 		<div class="nav-admin-list">
-			<a href="#" onclick="loadPage('?controller=trang-admin&action=indexAdmin')" id="page1" class="nav-admin-item">
-				<img src="css/icons/trangchu-admin-icon.svg" alt="" class="nav-admin-item--icon">
+
+			<a href="index.php?controller=trang-admin&action=indexAdmin" id="page3" class="nav-admin-item">
+				<img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
 				<p class="nav-admin-item--title">Trang chủ</p>
 			</a>
-			<a href="#" onclick="loadPage('?controller=trang-admin&action=add')" id="page2" class="nav-admin-item">
-				<img src="css/icons/favorites-admin-icon.svg" alt="" class="nav-admin-item--icon">
-				<p class="nav-admin-item--title">Thêm mới</p>
-			</a>
-			<a href="#" onclick="loadPage('?controller=trang-admin&action=thongke')" id="page3" class="nav-admin-item">
+
+			<!-- <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item indexAdmin">
+				<img src="css/icons/trangchu-admin-icon.svg" alt="" class="nav-admin-item--icon">
+				<p class="nav-admin-item--title">Trang chủ</p>
+			</a> -->
+
+			<a href="index.php?controller=trang-admin&action=thongke" id="page3" class="nav-admin-item">
 				<img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
 				<p class="nav-admin-item--title">thong ke</p>
 			</a>
+
+			<a href="index.php?controller=trang-admin&action=thongke" id="page3" class="nav-admin-item">
+				<img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+				<p class="nav-admin-item--title">thong ke</p>
+			</a>
+
 		</div>
 	</div>
 	<div id="content">
 	</div>
 
-	<script>
-		$(document).ready(function() {
-			// Mặc định tải trang indexAdmin khi trang được tải
-			loadPage('?controller=trang-admin&action=indexAdmin');
-		});
 
-		function loadPage(page) {
-			$.ajax({
-				url: page,
-				type: 'GET',
-				success: function(response) {
-					$('#content').html(response);
-					// Thay đổi URL trên trình duyệt mà không làm tải lại trang
-					history.pushState({}, null, page);
-				},
-				error: function(xhr, status, error) {
-					console.error(xhr.responseText);
-				}
-			});
-			return false; // Ngăn chặn trình duyệt chuyển hướng khi nhấp vào liên kết
-		}
-	</script>
 </body>
 
 </html>

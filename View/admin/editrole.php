@@ -62,12 +62,9 @@
 </style>
 
 <body>
-	<?php
-
-	?>
 	<div class="container">
 		<div class="themuser">
-			<h3>Sửa thành viên</h3>
+			<h3>Sửa quyền</h3>
 			<form action="" method="POST" class="form">
 				<div class="form--inner">
 					<div class="flex">
@@ -83,8 +80,6 @@
 
 					</div>
 					<div class="flex">
-
-
 						<label for="create_at">Ngày Tạo:</label><br>
 						<input type="date" id="create_at" name="create_at"><br>
 

@@ -1,18 +1,15 @@
 <?php
-include_once("Model/DBConfig.php");
-$db = new Database;
-$db->connect();
-
-require_once('includes/handle_mail.php');
-
 ?>
 
 <body>
-
     <?php
     require_once("View/layout/header.php");
-    ?>
+    require_once('includes/handle_mail.php');
+    // header.php
+   
 
+
+    ?>
     <header class="header">
         <div class="header-inner">
             <img src="css/icons/previous-svgrepo-com.svg" alt="" class="header-previous header-icon" />
@@ -199,6 +196,32 @@ require_once('includes/handle_mail.php');
     </div>
 
 </body>
-<script src="../js/animate.js"></script>
+<script src="js/animate.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#submitBtn').on('click', function() {
+            var email = $('#email').val();
+            if (email.trim() !== '') {
+                $.ajax({
+                    type: 'POST',
+                    url: 'includes/handle_mail.php',
+                    data: {
+                        email: email
+                    },
+                    success: function(response) {
+                        alert("gui thanh cong")
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            } else {
+                alert('Vui lòng nhập địa chỉ email.');
+            }
+        });
+    });
+</script>
 
 </html>

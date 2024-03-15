@@ -5,26 +5,42 @@ if (isset($_GET['action'])) {
 	$action = '';
 }
 
+if (isset($_GET['controller']) == 'trang-admin') {
+	require_once("View/admin/header-admin.php");
+}
+
+
 $alert;
+
 
 switch ($action) {
 	case 'add': {
 			if (isset($_POST['add_user'])) {
-				$id_role = $_POST['id_role'];
-				$user_name = $_POST['user_name'];
 				$fullname = $_POST['fullname'];
 				$email = $_POST['email'];
-				$password = $_POST['password'];
 				$phone_number = $_POST['phone_number'];
 				$create_at = $_POST['create_at'];
 				$status = $_POST['status'];
 				$address = $_POST['address'];
+				$id_acount = $_POST['id_acount'];
 
 				// Gọi phương thức InsertData để chèn dữ liệu vào cơ sở dữ liệu
-				if ($db->insertUserData($id_role, $user_name, $fullname, $email, $password, $phone_number, $create_at, $status, $address)) {
+				if ($db->insertUserData($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)) {
 					$alert = 'add_success';
-					header('location: index.php?controller=trang-admin&action=headeradmin');
+					header('location: index.php?controller=trang-admin&action=indexAdmin');
 				}
+			}
+
+			if (isset($_POST['add_user'])) {
+				// Thực hiện kiểm tra và xử lý dữ liệu ở đây
+				// Ví dụ:
+				$fullname = $_POST['fullname'];
+				$email = $_POST['email'];
+				$phone_number = $_POST['phone_number'];
+				// Kiểm tra và xử lý dữ liệu...
+
+				// Sau khi xử lý, trả về phản hồi cho Ajax
+				echo "Dữ liệu đã được xử lý thành công!";
 			}
 			require_once('View/admin/add.php');
 
@@ -34,21 +50,19 @@ switch ($action) {
 	case 'edit': {
 			if (isset($_GET['id'])) {
 				$id = $_GET['id'];
-				$listUsersTable = "users";
+				$listUsersTable = "nguoidung";
 				$dataID = $db->getDataId($listUsersTable, $id);
-
 				if (isset($_POST['edit_user'])) {
-					$id_role = $_POST['id_role'];
-					$user_name = $_POST['user_name'];
 					$fullname = $_POST['fullname'];
 					$email = $_POST['email'];
-					$password = $_POST['password'];
 					$phone_number = $_POST['phone_number'];
 					$create_at = $_POST['create_at'];
 					$status = $_POST['status'];
 					$address = $_POST['address'];
-					if ($db->updateEditData($id, $id_role, $user_name, $fullname, $email, $password, $phone_number, $create_at, $status, $address)) {
-						header('location: index.php?controller=trang-admin&action=headeradmin');
+					$id_acount = $_POST['id_acount'];
+
+					if ($db->updateEditData($id, $fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)) {
+						header('location: index.php?controller=trang-admin&action=indexAdmin');
 					}
 				}
 			}
@@ -56,27 +70,70 @@ switch ($action) {
 			break;
 		}
 
+	case 'editrole': {
+			if (isset($_GET['id'])) {
+				$id = $_GET['id'];
+				$listUsersTable = "nguoidung";
+				$dataID = $db->getDataId($listUsersTable, $id);
+				if (isset($_POST['edit_user'])) {
+					$fullname = $_POST['fullname'];
+					$email = $_POST['email'];
+					$phone_number = $_POST['phone_number'];
+					$create_at = $_POST['create_at'];
+					$status = $_POST['status'];
+					$address = $_POST['address'];
+					$id_acount = $_POST['id_acount'];
+
+					if ($db->updateEditData($id, $fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)) {
+						header('location: index.php?controller=trang-admin&action=indexAdmin');
+					}
+				}
+			}
+			require_once('View/admin/editrole.php');
+			break;
+		}
+
+
 	case 'delete': {
 			if (isset($_GET['id'])) {
 				$id = $_GET['id'];
-				$listUsersTable = "users";
+				$listUsersTable = "nguoidung";
 
 				if ($dataID = $db->deleteUser($listUsersTable, $id)) {
-					header('location: index.php?controller=trang-admin&action=headeradmin');
+					header('location: index.php?controller=trang-admin&action=indexAdmin');
 				}
 			}
-			require_once('View/admin/list.php');
+			break;
+		}
+
+	case 'banuser': {
+			if (isset($_GET['id'])) {
+				$id = $_GET['id'];
+				$dataID = $db->blockUser($id);
+			}
+			header('location: index.php?controller=trang-admin&action=indexAdmin');
+
+			break;
+		}
+
+	case 'unbanuser': {
+			if (isset($_GET['id'])) {
+				$id = $_GET['id'];
+				$dataID = $db->unblockUser($id);
+			}
+			header('location: index.php?controller=trang-admin&action=indexAdmin');
+
 			break;
 		}
 
 	case 'indexAdmin': {
-			$listUsersTable = "users";
+			$listUsersTable = "nguoidung";
 			$data = $db->getAllData($listUsersTable);
 			require_once('View/admin/indexAdmin.php');
 			break;
 		}
 	case 'headeradmin': {
-			$listUsersTable = "users";
+			$listUsersTable = "nguoidung";
 			$data = $db->getAllData($listUsersTable);
 			require_once('View/admin/header-admin.php');
 			break;

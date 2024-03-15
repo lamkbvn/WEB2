@@ -4,7 +4,7 @@ class Database
 	private $hostname = 'localhost';
 	private $username = 'root';
 	private $pass = '';
-	private $dbname = 'web_tour';
+	private $dbname = 'web2';
 
 	private $conn = NULL;
 	private $result = NULL;
@@ -78,17 +78,17 @@ class Database
 	}
 
 	// thêm user
-	public function insertUserData($id_role, $user_name, $fullname, $email, $password, $phone_number, $create_at, $status, $address)
+	public function insertUserData($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)
 	{
-		$sql = "INSERT INTO users (id_role, user_name, fullname, email, password, phone_number, create_at, status, address) 
-        VALUES ('$id_role', '$user_name', '$fullname', '$email', '$password', '$phone_number', '$create_at', '$status', '$address')";
+		$sql = "INSERT INTO nguoidung (fullname, email, phone_number, create_at, status, address, id_acount) 
+        VALUES ('$fullname', '$email', '$phone_number', '$create_at', '$status', '$address', '$id_acount')";
 		return $this->execute($sql);
 	}
 
 	// edit user
-	public function updateEditData($id, $id_role, $user_name, $fullname, $email, $password, $phone_number, $create_at, $status, $address)
+	public function updateEditData($id, $fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)
 	{
-		$sql = "UPDATE users SET id_role='$id_role', user_name='$user_name', fullname='$fullname', email='$email', password='$password', phone_number='$phone_number', create_at='$create_at', status='$status', address='$address' WHERE id='$id'";
+		$sql = "UPDATE nguoidung SET fullname='$fullname', email='$email', phone_number='$phone_number', create_at='$create_at', status='$status', address='$address', id_acount='$id_acount' WHERE id='$id'";
 		return $this->execute($sql);
 	}
 
@@ -96,6 +96,83 @@ class Database
 	public function deleteUser($table, $id)
 	{
 		$sql = "DELETE FROM $table Where id = '$id'";
+		return $this->execute($sql);
+	}
+
+	// index.php
+
+	// Hàm blockUser() để cập nhật trạng thái của tài khoản
+	function blockUser($id)
+	{
+		// Chuẩn bị câu truy vấn SQL UPDATE
+		$sql = "UPDATE nguoidung SET status = 0 WHERE id = '$id'";
+		$this->execute($sql);
+	}
+
+	function unblockUser($id)
+	{
+		// Chuẩn bị câu truy vấn SQL UPDATE
+		$sql = "UPDATE nguoidung SET status = 1 WHERE id = '$id'";
+		$this->execute($sql);
+	}
+
+	// Get the last inserted ID
+	public function getLastInsertId()
+	{
+		return $this->conn->insert_id;
+	}
+
+
+	// thêm giỏ hàng
+	public function InsertCart($id_user, $id_product, $amount, $status)
+	{
+		$sql = "INSERT INTO cart (id_user, id_product, amount, status) VALUES ('$id_user', '$id_product', '$amount', '$status')";
+		return $this->execute($sql);
+	}
+
+	// thêm orrder
+	public function InsertOrder($id, $id_user, $order_method_id, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount)
+	{
+		$sql = "INSERT INTO orders (id, id_user, order_method_id, fullname, email, phone_number, address, note, date_order, total_money, status)
+	VALUES ('$id', '$id_user', '$order_method_id', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1')";
+		return $this->execute($sql);
+	}
+
+	// thêm detailOrder
+	public function InsertDetailOrder($id_user, $price, $amount, $totalmoney, $dateGo)
+	{
+		$sql = "INSERT INTO orders (id_user, price, amount, total_money, date_go)
+	VALUES ( '$id_user', '$price', '$amount', '$totalmoney', '$dateGo')";
+		return $this->execute($sql);
+	}
+
+	// thêm bình luận
+	public function InsertCmt($user_id, $product_id, $cmt, $create_at, $num_star)
+	{
+		$sql = "INSERT INTO feedback (user_id, product_id, note, create_at, num_star)
+	VALUES ('$user_id', '$product_id', '$cmt', '$create_at', '$num_star')";
+		return $this->execute($sql);
+	}
+
+	// phần của admin
+	// thêm tour mới
+	public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $datecreate, $acount)
+	{
+		$sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, soLuongConLai, star_feedback)
+	VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$acount', '0')";
+		return $this->execute($sql);
+	}
+	// thêm ảnh
+	public function InsertImg($id_product, $id_user, $img)
+	{
+		$sql = "INSERT INTO image_product (id_product, id_user, image) VALUES ('$id_product', '$id_user', '$img')";
+		return $this->execute($sql);
+	}
+
+	// thêm quyền
+	public function InsertRoleLinhDong($idRole, $id_CN, $HD, $name)
+	{
+		$sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucnang, HD, name) values ('$idRole', '$id_CN', '$HD', '$name')";
 		return $this->execute($sql);
 	}
 }

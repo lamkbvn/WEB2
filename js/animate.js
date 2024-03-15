@@ -77,25 +77,4 @@ setInterval(changePlaceholder, 4000);
 //     });
 // });
 
-document.addEventListener("DOMContentLoaded", function () {
-    var submitBtn = document.getElementById("submitBtn");
-    submitBtn.addEventListener("click", function () {
-        var emailValue = document.getElementById("email").value;
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "handle_form.php", true);
-        xhr.setRequestHeader(
-            "Content-Type",
-            "application/x-www-form-urlencoded"
-        );
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    alert("Gửi thành công!"); // Hiển thị thông báo thành công
-                } else {
-                    alert("Gửi không thành công!"); // Hiển thị thông báo lỗi nếu có
-                }
-            }
-        };
-        xhr.send("email=" + encodeURIComponent(emailValue));
-    });
-});
+

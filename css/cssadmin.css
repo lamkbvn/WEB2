@@ -3,23 +3,31 @@ a {
     display: inline-block;
 }
 
+body {
+    background: #f5f6fa;
+}
+
 .navigation {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
     background: #fff;
     position: absolute;
     top: 0;
     left: 0;
+    padding: 0px 10px 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #nav-item--logo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-left: 40px;
-    margin-top: 20px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item--logo {
+    height: 40px;
 }
 
 .nav-admin-list {
@@ -27,26 +35,29 @@ a {
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    margin-top: 90px;
+    gap: 10px;
 }
 
 .nav-admin-item {
-    padding: 15px 20px;
-    padding-right: 50px;
-    max-width: 240px;
-    color: #202224;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
+    width: 120px;
+    padding: 20px 30px 20px 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
+    justify-content: flex-start;
+    align-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    transition: all linear 0.1s;
+}
+
+.nav-admin-item:hover {
+    background: #4880ff;
+    color: #fff;
 }
 
 .header-admin {
-    padding: 16px 0px;
-    padding-left: 250px;
+    padding: 10px 0px;
+    padding-left: 20px;
+    margin-left: 190px;
     background: #fff;
     display: flex;
     justify-content: space-between;
@@ -69,7 +80,7 @@ a {
 
 .header-left--find-icon {
     position: absolute;
-    top: 12px;
+    top: 8px;
     left: 12px;
 }
 
@@ -78,7 +89,7 @@ a {
     border: 0.6px solid #d5d5d5;
     background: #f5f6fa;
     width: 388px;
-    height: 38px;
+    height: 30px;
     flex-shrink: 0;
 }
 
@@ -123,50 +134,209 @@ a {
 
 /* user table */
 .user--table {
-    margin-top: 15px;
-    margin-left: 180px; /* Cách lề bên trái 200px */
-    margin-right: 50px; /* Cách lề bên phải 50px */
-    overflow-x: auto; /* Cho phép cuộn ngang khi bảng vượt quá kích thước */
-    width: calc(
-        100% - 230px
-    ); /* Chiều rộng của .user--table sẽ chiếm hết phần còn lại của màn hình sau khi trừ đi 200px ở bên trái và 50px ở bên phải */
-    background-color: #fff;
+    margin-left: 204px;
+    margin-right: 50px;
+    overflow-x: auto;
+    width: calc(100% - 248px);
     padding: 15px;
 }
 
 .custom-table {
-    width: 100%; /* Bảng tự động mở rộng để lấp đầy phần còn lại của .user--table */
-    border-collapse: collapse;
+    margin-top: 25px;
+    width: 100%;
+    background: #fff;
+    border-radius: 15px;
+}
+
+.table-header,
+.table-cell {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
 }
 
 .table-head {
-    background-color: #f2f2f2;
+    color: #202224;
+    font-size: 18px;
+    font-weight: 600;
 }
 
-.table-row:nth-child(even) {
-    background-color: #f2f2f2;
+.table-row--head {
 }
 
-.table-row:hover {
-    background-color: #ddd;
+.table-header {
+    padding: 10px;
+}
+
+.table-body {
+}
+
+.table-row {
 }
 
 .table-cell {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    white-space: nowrap; /* Đảm bảo text không bị ngắt dòng */
+    padding: 5px;
 }
 
-.edit-btn,
-.delete-btn {
-    /* CSS cho các nút Edit và Delete */
+.table-btn {
+    width: 50px;
+    padding: 10px 0px;
+    border-radius: 10px;
+    color: #000;
+    transition: all linear 0.1s;
+}
+
+.edit-btn:hover {
+    background: #4caf50;
+    color: #fff;
+}
+
+.delete-btn:hover {
+    color: #fff;
+    background: #ff3333;
+}
+
+.edit-role:hover {
+    color: #fff;
+    background: #ffd700;
+}
+
+.unban-user:hover {
+    color: #fff;
+    background: #3399ff;
+}
+
+.ban-user:hover {
+    color: #fff;
+    background: #ff5733;
+}
+
+.list-feature {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 50px;
+    margin-top: 20px;
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+}
+
+.filter-container select,
+.filter-container input[type="text"],
+.filter-container button {
+    margin-right: 10px;
+}
+
+.list-feature-item {
     text-decoration: none;
-    color: #333;
+    color: #000; /* Màu chữ tùy chọn */
+    display: flex;
+    align-items: center;
+}
+
+.list-feature-item img {
     margin-right: 5px;
 }
 
-.edit-btn:hover,
-.delete-btn:hover {
-    color: #f00;
+.add-user-btn {
+    background: #4880ff;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.list-feature-item--icon {
+    color: #fff;
+}
+
+/* add user */
+
+.add-user-box {
+    margin-left: 204px;
+    margin-right: 50px;
+    overflow-x: auto;
+    width: calc(100% - 248px);
+    padding: 15px;
+}
+
+.add-user--heading {
+    color: #202224;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.add-user--inner {
+    width: 1140px;
+    background: #fff;
+    margin-top: 20px;
+}
+
+.form--add-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px;
+}
+
+.form--inner {
+    gap: 30px;
+    display: flex;
+}
+
+.form--inner--fill {
+}
+
+.form--inner-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.form--inner--right {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.add-user--label {
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.add-user--input {
+    width: 300px;
+    height: 30px;
+    border-radius: 10px;
+    background: #f5f6fa;
+    border: none;
+    outline: none;
+    padding: 0px 20px;
+    margin-top: 10px;
+}
+
+.add-user--btn {
+    width: 274px;
+    height: 56px;
+    border-radius: 12px;
+    opacity: 0.9;
+    background: #4880ff;
+    color: #fff;
+    border: none;
+    outline: none;
+}
+
+.alert {
+    color: green;
+    text-align: center;
 }
