@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../Css/cart.css" />
+    <link rel="stylesheet" href="../../Css/user/cart.css" />
 </head>
 
 <body>
@@ -25,7 +25,7 @@
                     <div class="wrapper-body-left_body">
 
                         <?php
-                        include("../Model/addValueToCart.php");
+                        include("../../Model/user/addValueToCart.php");
                         ?>
 
                         <div class="shopping-cart-item">
@@ -126,6 +126,6 @@
         </div>
     </div>
 </body>
-<script src="../Js/cart.js"></script>
+<script src="../../Js/user/cart.js"></script>
 
 </html>
