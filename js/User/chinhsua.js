@@ -15,7 +15,6 @@ function offEditProfile(event){
 }
 
 
-
 function sendRequest(event) {
 
   let textHo = document.querySelector('.textHo').value;
