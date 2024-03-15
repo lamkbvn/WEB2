@@ -18,7 +18,7 @@
         <img src="./IMAGEofLam/person.svg" alt="" class="profile-image-user">
         <div class="profile-name-user">
           <?php
-          nameUser($con, $idUser);
+          nameUser($idUser);
           ?>
         </div>
         <div class="profile-edit-profile cs" onclick="selectPageUser(event)">

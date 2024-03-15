@@ -8,93 +8,227 @@ $database = "mydb";
 $con = mysqli_connect($hostname, $username, $password);
 mysqli_select_db($con, $database);
 
-//----------------CREATE TABLE-----------------------
-$query = '
-CREATE TABLE `order_detail`(
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `id_order` INT NOT NULL,
-  `id_product` INT NOT NULL,
-  `price` INT NOT NULL,
-  `amount` INT NOT NULL,
-  `total_money` INT NOT NULL,
-  `date_go` DATE NOT NULL
-);
-';
+class DBConfig
+{
+  private $hostname = 'localhost';
+  private $username = 'root';
+  private $pass = '';
+  private $dbname = 'mydb';
 
-//mysqli_query($con, $query);
-
-
-
-// ------------INSERT INTO TABLE------------------
-
-$columnsNguoiDung = 'fullname , email , phone_number , create_at ,status, address , id_account';
-
-$columnsProvincial = 'name_province';
-
-$columnsDiscountUser = 'id_user,id_discount';
-
-$columnsImageProduct = 'id_product,id_user,image,decription';
-
-$columnsCart = 'id_user,id_product,amount,status';
-
-$columnsOrderDetail = 'id_order,id_product,price,amount,total_money,date_go';
-
-$columnsFeedBack = 'user_id,product_id,note,create_at,update_at,num_star';
-
-$columnsDiscount = 'discount_name , percent ,description , date_start,date_end,status';
-
-$columnsPhanQuyenLinhDong = 'id_category,id_user,id_provincial ,title,price,content,create_at,update_at,status,num_bought,star_feedback,address,soLuongConLai';
-
-$columnsChucNang = 'decription';
-
-$columnsRole = 'decription';
-
-$columnsOrder = 'id_user,fullname.';
-
-$columnsCategory = 'name_category';
-
-$columnsAccount = 'user_name,password ,id_role,status';
-
-
-
-$inforColumns = ' 2, "Giảm 35%" ,"Đơn tối thiểu đ15tr" ,"B35P" ,0.1 ,"2024-03-01" , "2024-04-03" ,1';
-
-$sql = "
-INSERT INTO `order_detail` (`id_order`, `id_product`, `price`, `amount`, `total_money`, `date_go`) VALUES
-(1, 3, 1700000, 2, 3400000, '2024-03-10'),
-(2, 6, 2100000, 1, 2100000, '2024-03-10'),
-(3, 9, 1800000, 3, 5400000, '2024-03-11'),
-(4, 12, 2500000, 1, 2500000, '2024-03-11'),
-(5, 15, 1900000, 2, 3800000, '2024-03-12'),
-(6, 18, 2100000, 1, 2100000, '2024-03-12'),
-(7, 21, 2300000, 2, 4600000, '2024-03-13'),
-(8, 24, 2000000, 1, 2000000, '2024-03-13'),
-(9, 27, 1800000, 3, 5400000, '2024-03-14'),
-(10, 30, 2400000, 1, 2400000, '2024-03-14'),
-(11, 33, 2200000, 2, 4400000, '2024-03-15'),
-(12, 36, 2600000, 1, 2600000, '2024-03-15'),
-(13, 39, 1700000, 2, 3400000, '2024-03-16'),
-(14, 2, 2000000, 1, 2000000, '2024-03-16'),
-(15, 5, 1800000, 3, 5400000, '2024-03-17'),
-(16, 8, 2300000, 1, 2300000, '2024-03-17'),
-(17, 11, 2100000, 2, 4200000, '2024-03-18'),
-(18, 14, 1900000, 1, 1900000, '2024-03-18'),
-(19, 17, 2200000, 2, 4400000, '2024-03-19'),
-(20, 20, 2000000, 1, 2000000, '2024-03-19');
-
-";
-
-//mysqli_query($con, $sql);
-
-if (!function_exists('insertToTable')) {
-  function insertToTable($con, $nameTable, $nameColumns, $inforColumns)
+  private $con = NULL;
+  private $result = NULL;
+  // kết nối csdl
+  public function connect()
   {
-    $query = 'INSERT INTO ' . $nameTable . '(' . $nameColumns . ') VALUES(' . $inforColumns . ')';
-    mysqli_query($con, $query);
+    $this->con = new mysqli($this->hostname, $this->username, $this->pass, $this->dbname);
+    if (!$this->con) {
+      echo "ket noi that bai";
+      exit();
+    } else
+      mysqli_set_charset($this->con, 'utf8');
+    return $this->con;
+  }
+
+  public function disconnect()
+  {
+    $this->con->close();
+  }
+
+  //thực thi câu truy vấn
+  public function execute($sql)
+  {
+    $this->result = $this->con->query($sql);
+    // if (!$this->result) {
+    // Nếu câu truy vấn không thành công, in ra thông báo lỗi
+    //     echo "Lỗi: " . mysqli_error($this->con);
+    // }
+    return $this->result;
+  }
+
+  //lấy dữ liệu
+  public function getData()
+  {
+    if ($this->result) {
+      $data = mysqli_fetch_array($this->result);
+    } else {
+      $data = 0;
+    }
+    return $data;
+  }
+
+  //lấy toàn bộ dữ liệu
+  public function getAllData()
+  {
+    if (!$this->result) {
+      $data = 0;
+    } else {
+      while ($datas = $this->getData()) {
+        $data[] = $datas;
+      }
+    }
+    return $data;
+  }
+
+  // thêm giỏ hàng
+  public function InsertCart($id_user, $id_product, $amount, $status)
+  {
+    $sql = "INSERT INTO cart (id_user, id_product, amount, status) VALUES ('$id_user', '$id_product', '$amount', '$status')";
+    return $this->execute($sql);
+  }
+
+  // thêm orrder
+  public function InsertOrder($id, $id_user, $order_method_id, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount)
+  {
+    $sql = "INSERT INTO orders (id, id_user, order_method_id, fullname, email, phone_number, address, note, date_order, total_money, status)
+      VALUES ('$id', '$id_user', '$order_method_id', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1')";
+    return $this->execute($sql);
+  }
+
+  // thêm detailOrder
+  public function InsertDetailOrder($id_user, $price, $amount, $totalmoney, $dateGo)
+  {
+    $sql = "INSERT INTO orders (id_user, price, amount, total_money, date_go)
+      VALUES ( '$id_user', '$price', '$amount', '$totalmoney', '$dateGo')";
+    return $this->execute($sql);
+  }
+
+  // thêm bình luận
+  public function InsertCmt($user_id, $product_id, $cmt, $create_at, $num_star)
+  {
+    $sql = "INSERT INTO feedback (user_id, product_id, note, create_at, num_star)
+      VALUES ('$user_id', '$product_id', '$cmt', '$create_at', '$num_star')";
+    return $this->execute($sql);
+  }
+
+  // phần của admin
+  // thêm tour mới
+  public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $datecreate, $acount)
+  {
+    $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, soLuongConLai, star_feedback)
+      VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$acount', '0')";
+    return $this->execute($sql);
+  }
+  // thêm ảnh
+  public function InsertImg($id_product, $id_user, $img)
+  {
+    $sql = "INSERT INTO image_product (id_product, id_user, image) VALUES ('$id_product', '$id_user', '$img')";
+    return $this->execute($sql);
+  }
+
+  // thêm quyền
+  public function InsertRoleLinhDong($idRole, $id_CN, $HD, $name)
+  {
+    $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucnang, HD, name) values ('$idRole', '$id_CN', '$HD', '$name')";
+    return $this->execute($sql);
+  }
+
+  public function resultThongKe($orderby)
+  {
+    $sql = 'SELECT * FROM product';
+    if ($orderby == 'ASC')
+      $sql = $sql . ' ORDER BY num_bought';
+    if ($orderby == 'DESC')
+      $sql = $sql . ' ORDER BY num_bought DESC';
+    $result = $this->execute($sql);
+    while ($row = mysqli_fetch_array($result)) {
+      echo '
+      <tr>
+        <td> ' . $row['id'] . '</td>
+        <td class ="nameTour">' . $row['title'] . '</td>
+        <td>' . $row['price'] . '</td>
+        <td class = "num-bought">' . $row['num_bought'] . '</td>
+        <td>' . $row['star_feedback'] . '</td>
+        <td class ="slcl">' . $row['soLuongConLai'] . '</td>
+      </tr>';
+    }
+  }
+
+  public function resultNameUser($idUser, $nameChange)
+  {
+    $sql = 'select * from nguoidung where id = ' . $idUser;
+    $result = mysqli_query($this->con, $sql);
+    $row = mysqli_fetch_array($result);
+
+    $fullnameprofile = $row['fullname'];
+    if ($nameChange != '') {
+      $fullnameprofile = $_POST['nameChange'];
+      $sql = 'Update nguoidung SET fullname = "' . $fullnameprofile . '"  WHERE id = ' . $idUser;
+      mysqli_query($this->con, $sql);
+    }
+    echo $fullnameprofile;
+  }
+
+  public function resultSearchDiscount($searchTerm, $idUser)
+  {
+    $result = mysqli_query($this->con, "SELECT * FROM discount as d,discountuser as du where id_user = " . $idUser . " and du.id_discount = d.id  ");
+    if ($searchTerm != '') {
+      $stringFind = $searchTerm;
+      $query = "SELECT * FROM discount as d,discountuser as du where code like '%$stringFind%'and date_end > CURRENT_DATE and id_user = " . $idUser . " and du.id_discount = d.id  ";
+      $result = mysqli_query($this->con, $query);
+    }
+
+    if (mysqli_num_rows($result) == 0) {
+      echo '
+          <div class="no-find-discount">
+            <div class="title-no-find1">
+              Mã mời khuyến mãi mới
+            </div>
+            <div class="title-no-find2">
+              Bạn có mã ưu đãi? Nhập vào để lưu ở bên trên.Hoặc bạn có thể mời bạn bè sử dụng Klook và kiếm điểm thưởng.
+            </div>
+          </div>
+          ';
+      return;
+    }
+    while ($row = mysqli_fetch_array($result)) {
+      $timezone = new DateTimeZone('Asia/Ho_Chi_Minh');
+      // Tạo đối tượng DateTime cho hai mốc thời gian
+      $now = new DateTime('now', $timezone); // Thời điểm hiện tại
+      $futureDate = new DateTime($row['date_end'] . ' 23:59:59'); // Mốc thời gian trong tương lai
+      if ($futureDate < $now) {
+        continue;
+      }
+      // Tính khoảng thời gian giữa hai mốc
+      $interval = $now->diff($futureDate);
+
+      // Lấy số ngày còn lại từ DateInterval
+      $daysRemaining = $interval->days;
+      $hoursRemaining = $interval->h;
+      echo '
+              <div class="discount-card">
+              <div class="infor-card">
+                <div class="infor-card-main">
+                  <div class="title-infor-card">
+                    ' . $row['discount_name'] . '
+                  </div>
+                  <div class="detail-infor-card">
+                  ' . $row['description'] . '
+                  </div>
+                  <div class="hansudung">
+                    Hạn sử dụng : Còn lại ' . ($daysRemaining > 0 ? $daysRemaining : $hoursRemaining / 3) . ($daysRemaining > 0 ? ' ngày' : ' giờ') . '
+                  </div>
+                </div>
+              </div>
+              <div class="cac-hinh-tron">
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+              </div>
+              <div class="use-card">
+                <div class="title-use-card">
+                  Mã ưu đãi
+                </div>
+                <div class="code-use-card">
+                ' . $row['code'] . '
+                </div>
+                <button class="btn-use-card" onclick ="useDiscount(event)">Sử dụng</button>
+              </div>
+            </div>
+              ';
+    }
   }
 }
-
-
-//------------------------------------------
 
 ?>

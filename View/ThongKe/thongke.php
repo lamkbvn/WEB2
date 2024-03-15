@@ -88,7 +88,7 @@
   <div class="side-bar">side bar</div>
   <div class="content">
   <div class="filter">
-    <select name="all" id="category">
+    <select name="all" id="category" class = "category">
       <option value="0">Tất cả</option>
       <option value="1">Tour</option>
       <option value="2">Du thuyền</option>
@@ -104,7 +104,7 @@
       <label for="input-date-end">Ngày kết thúc : </label>
       <input type="date" name="input-date-end" id="input-date-end" class="input-date-end" onchange = "selectDateEnd(event)">
     </div>
-    <div class="submit">Lọc</div>
+    <div class="submit" onclick = "filterThongKe(event)">Lọc</div>
   </div>
   <div class="typeData">
     <select name="sapxep" id="sapxep" onchange = "OrderBy(event)">
@@ -129,7 +129,7 @@
       </tr>
     </thead>
     <tbody class = "bodyTable">
-      <?php thongKe($con) ?>
+      <?php thongKe() ?>
     </tbody>
   </table>
   <div class = "chartData hide" style = "width = 400px;">

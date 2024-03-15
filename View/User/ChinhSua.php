@@ -30,7 +30,9 @@
           <div class="btn-on-edit" onclick="onEditProfile(event)">Chỉnh sửa</div>
         </div>
         <div class="content-muc-edit row2 name-user">
-          <?php nameUser($con, $idUser) ?>
+          <?php
+          require_once('../Model/DBConfig.php');
+          nameUser($idUser) ?>
         </div>
         <div method="get " class="row3">
           <div class="header-edit">

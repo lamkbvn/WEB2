@@ -23,7 +23,7 @@
     <div class="find-discount">
       <?php
       include("../Model/DBConfig.php");
-      searchDiscount($con, $idUser);
+      searchDiscount($idUser);
       ?>
     </div>
   </div>

@@ -2,13 +2,6 @@
 function selectDateStart(event){
   let inputStart = event.target ;
   console.log(inputStart.value) ;
-  let currentDate = new Date();
-  let nowDate = currentDate.getFullYear()  + '-' + (currentDate.getMonth() + 1).toString().padStart(2,'0') + '-' + currentDate.getDate().toString().padStart(2,'0');
-  if(inputStart.value < nowDate)
-  {
-    inputStart.value = null;
-    alert('Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại');
-  }
 }
 
 function selectDateEnd(event){
@@ -27,6 +20,31 @@ function selectDateEnd(event){
   }
 }
 
+function filterThongKe(event){
+  let button = event.target;
+  let parent = button.parentNode;
+  console.log(parent);
+  let category = parent.querySelector('.category');
+  let selectCategory = category.options[category.selectedIndex].innerText;
+  let dateStart = parent.querySelector('.input-date-start').value;
+  let dateEnd = parent.querySelector('.input-date-end').value;
+
+  $.ajax({
+      type: 'POST',
+      url : './Controller/ThongKe.php',
+      data :{
+        action : 'filter',
+        selectCategory : selectCategory,
+        dateStart : dateStart,
+        dateEnd : dateEnd
+      },
+      success : function(response){
+        $('.bodyTable').html(response);
+        DrawChartData();
+      }
+  });
+
+}
 
 
 let btnTableData = document.querySelector('.btnTableData');
