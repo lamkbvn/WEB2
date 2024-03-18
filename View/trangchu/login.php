@@ -42,10 +42,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
                 </div>
 
                 <button type="submit" name="login">Log In</button>
+
             </form>
         </div>
-    </div>
 
+        <div class="form-container sign-up">
+            <form method="">
+                <h1>Create Account</h1>
+
+                <input type="hidden" name="action" value="signup">
+                <!-- Các trường nhập -->
+                <input type="text" id="fullname_signup" placeholder="Full Name">
+                <span id="spanFullname" class="error_msg " style="color: red;"></span>
+
+                <input type="text" id="user_name_signup" placeholder="User Name">
+                <span id="spanUsername" class="error_msg" style="color: red;"></span>
+
+                <input type="password" id="password_signup" placeholder="Password">
+                <span id="spanPw" class="error_msg " style="color: red;"></span>
+
+
+                <input type="email" id="email_signup" placeholder="Email">
+                <span id="spanEmail" class="error_msg " style="color: red;"></span>
+
+                <input type="tel" id="phone_number_signup" placeholder="Phone Number" />
+                <span id="spanPhone" class="error_msg " style="color: red;"></span>
+
+                <input type="text" id="address_signup" placeholder="Address" />
+                <span id="spanAddress" class="error_msg " style="color: red;"></span>
+
+                <!-- Nút Submit -->
+                <button type='button'>Sign Up</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="hidden" id="login">Log In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Register with your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const container = document.getElementById("container");
+        const signupBtn = document.getElementById("signup");
+        const loginBtn = document.getElementById("login");
+
+        signupBtn.addEventListener("click", () => {
+            container.classList.add("active");
+        });
+
+        loginBtn.addEventListener("click", () => {
+            container.classList.remove("active");
+        });
+    </script>
     <script src="Js/user/validation.js"></script>
 </body>
 

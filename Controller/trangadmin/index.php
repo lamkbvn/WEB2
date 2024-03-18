@@ -1,9 +1,17 @@
 <?php
+
+
+if ($_GET['controller'] == 'trang-admin') {
+	include_once("View/admin/header-admin.php");
+}
+
+
 if (isset($_GET['action'])) {
 	$action = $_GET['action'];
 } else {
 	$action = '';
 }
+
 
 $alert;
 
