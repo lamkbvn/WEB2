@@ -1,13 +1,3 @@
-<?php
-
-if (isset($_POST['loggedIn']) && $_POST['loggedIn'] == true) {
-	// Lấy thông tin người dùng đã đăng nhập, ví dụ tên người dùng
-	$username = "User"; // Thay thế bằng thông tin người dùng thực tế
-	echo $username;
-}
-
-?>
-
 <div class="nav">
 	<div class="nav-top">
 		<div class="container">
@@ -25,8 +15,22 @@ if (isset($_POST['loggedIn']) && $_POST['loggedIn'] == true) {
 					<div class="nav-top--right__inner">
 						<a href="#!" class="nav-top--right__panner">Mở ứng dụng</a>
 						<a href="#!" class="nav-top--right__panner">Xem gần đây</a>
-						<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner">Đăng kí</a>
-						<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn">Đăng nhập</a>
+						<?php
+						session_start();
+
+						if (isset($_SESSION['objuser'])) {
+							echo  $_SESSION['objuser'][0];
+							echo '<img src="css/icons/avatar-admin.png" />';
+							echo '<a href="includes/session/del_session.php">Thoát</a>';
+
+
+							// Ẩn liên kết "Đăng kí" và "Đăng nhập"
+						} else {
+							echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner">Đăng kí</a>';
+							echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn">Đăng nhập</a>';
+						}
+						?>
+
 					</div>
 				</div>
 			</div>

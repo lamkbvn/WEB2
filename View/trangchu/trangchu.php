@@ -5,9 +5,6 @@
     <?php
     require_once("View/layout/header.php");
     require_once('includes/handle_mail.php');
-    // header.php
-   
-
 
     ?>
     <header class="header">

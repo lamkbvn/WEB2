@@ -5,11 +5,6 @@ if (isset($_GET['action'])) {
 	$action = '';
 }
 
-if (isset($_GET['controller']) == 'trang-admin') {
-	require_once("View/admin/header-admin.php");
-}
-
-
 $alert;
 
 

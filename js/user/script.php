@@ -1,4 +1,4 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script type="text/javascript">
     // Hàm xử lý đăng ký
@@ -52,9 +52,7 @@
                     data: data,
                     success: function(response) {
                         alert(response);
-                        console.log(data);
                         if (response == "Đăng nhập thành công!") {
-                            // Chuyển hướng tới index.php
                             window.location.href = "index.php";
                         }
                     }
@@ -62,4 +60,4 @@
             }
         });
     }
-</script>
+</script> -->
