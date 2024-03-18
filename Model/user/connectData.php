@@ -1,7 +1,7 @@
 <?php
 session_start(); // Start session if not already started
 
-require_once 'DBConfig.php'; // Include the DBConfig class
+require_once '../DBConfig.php'; // Include the DBConfig class
 
 $db = new DBConfig(); // Create an instance of DBConfig class
 

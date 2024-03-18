@@ -1,0 +1,167 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  background-color: #ccc;
+  padding: 5px;
+  margin: 20px 0;
+}
+
+.header h1 {
+  color: #333;
+  text-align: center;
+}
+
+.navbar {
+  background-color: #333;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  border-radius: 5px;
+}
+
+.navbar a:hover {
+  background-color: #555;
+}
+
+.navbar a.active {
+  background-color: #555;
+}
+
+.navbar a:hover {
+  background-color: #555;
+}
+
+.navbar a.active {
+  background-color: #555;
+}
+
+.account-settings {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.account-settings h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.account-settings form {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.account-settings table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.account-settings th,
+.account-settings td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.account-settings th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.account-settings th:first-child,
+.account-settings td:first-child {
+  width: 50px;
+}
+
+.account-settings th:nth-child(2),
+.account-settings td:nth-child(2) {
+  width: 100px;
+}
+
+.account-settings th:nth-child(3),
+.account-settings td:nth-child(3) {
+  width: 150px;
+}
+
+.account-settings th:nth-child(4),
+.account-settings td:nth-child(4) {
+  width: 200px;
+}
+
+.account-settings th:nth-child(5),
+.account-settings td:nth-child(5) {
+  width: 250px;
+}
+
+.account-settings th:nth-child(6),
+.account-settings td:nth-child(6) {
+  width: 300px;
+}
+
+.account-settings th:nth-child(7),
+.account-settings td:nth-child(7) {
+  width: 100px;
+}
+
+.account-settings th:nth-child(8),
+.account-settings td:nth-child(8) {
+  width: 100px;
+}
+
+.account-settings th:nth-child(9),
+.account-settings td:nth-child(9) {
+  width: 100px;
+}
+
+.account-settings th:nth-child(10),
+.account-settings td:nth-child(10) {
+  width: 100px;
+}
+
+.account-settings th:nth-child(11) {
+  width: 200px;
+}
+
+.account-settings th:last-child,
+.account-settings td:last-child {
+  text-align: center;
+}
+
+.account-settings th:last-child button,
+.account-settings td:last-child button {
+  margin-right: 10px;
+}

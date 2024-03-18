@@ -103,7 +103,18 @@
             $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucnang, HD, name) values ('$idRole', '$id_CN', '$HD', '$name')";
             return $this->execute($sql);
         }
-    }
+        
+    //     //tải tất cả bình luận
+    //     function loadall_feedback($product_id){
+    //         global $db;
+    //         $sql="select * from feedback where 1";
+    //         if($product_id>0) $sql.=" AND product_id='".$product_id."'";
+    //         $sql.=" order by id desc";
+        
+    //         $listbl=$db->getAllData($sql);
+    //         return $listbl;
+    //     }
+     }
 
 
 ?>
