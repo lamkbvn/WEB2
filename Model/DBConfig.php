@@ -100,12 +100,12 @@
             $sql = "INSERT INTO role (decription) VALUES ('$name')";
             return $this->execute($sql);
         }
-        public function InsertRoleLinhDong($idRole, $id_CN, $HD){
+        public function InsertRoleLinhDong($id_CN, $HD){
             $selectId = "SELECT id FROM role ORDER BY id DESC LIMIT 1";
             $result = $this->execute($selectId);
             $row = $result->fetch_assoc();
-            $last_role_id = $row["id"] + 1;
-            $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucnang, HD, name) values ('$last_role_id', '$id_CN', '$HD')";
+            $last_role_id = $row["id"];
+            $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucNang, HD) values ('$last_role_id', '$id_CN', '$HD')";
             return $this->execute($sql);
         }
     }

@@ -24,22 +24,22 @@ if(isset($_REQUEST['addRole'])){
         if(isset($_POST['view'][$idCN])){
             $HD = "View";
             $db->InsertRole($nameRole);
-            $db->InsertRoleLinhDong($idRole, $idCN, $HD);
+            $db->InsertRoleLinhDong($idCN, $HD);
         } 
         if(isset($_POST['add'][$idCN])){
             $HD = "Add";
             $db->InsertRole($nameRole);
-            $db->InsertRoleLinhDong($idRole, $idCN, $HD);
+            $db->InsertRoleLinhDong($idCN, $HD);
         } 
         if(isset($_POST['delete'][$idCN])){
             $HD = "Delete";
             $db->InsertRole($nameRole);
-            $db->InsertRoleLinhDong($idRole, $idCN, $HD);
+            $db->InsertRoleLinhDong($idCN, $HD);
         } 
         if(isset($_POST['edit'][$idCN])){
             $HD = "Edit";
             $db->InsertRole($nameRole);
-            $db->InsertRoleLinhDong($idRole, $idCN, $HD);
+            $db->InsertRoleLinhDong($idCN, $HD);
         }
     }
         
