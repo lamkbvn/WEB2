@@ -1,18 +1,19 @@
 <?php
 
+
 // session_start();
 ob_start();
 
-// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
-//     $username = $_POST['username'];
-//     $password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-//     $objuser = array($username, $password);
+    $objuser = array($username, $password);
 
-//     $_SESSION['objuser'] = $objuser;
+    $_SESSION['objuser'] = $objuser;
 
-//     header('location: index.php?controller=trang-chu');
-// }
+    header('location: index.php?controller=trang-chu');
+}
 ?>
 
 <!DOCTYPE html>
@@ -106,5 +107,8 @@ ob_start();
     </script>
     <script src="js/user/validation.js"></script>
 </body>
-
+<?php 
+// require_once("Controller/login_register/login.php");
+require_once('Controller/login_register/register.php');
+?>
 </html>

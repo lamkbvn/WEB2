@@ -14,6 +14,7 @@
                 email_signup: $("#email_signup").val(),
                 address_signup: $("#address_signup").val(),
                 action: "signup",
+                btnRegister: 1
             };
 
             // Kiểm tra validation ở đây

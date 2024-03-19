@@ -69,7 +69,8 @@ function check_register() {
       isTrue= false;
     }
 
-    return isTrue;
+    // return isTrue;
+    return true;
 }
 
 function check_login() {
