@@ -1,4 +1,4 @@
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script type="text/javascript">
     // Hàm xử lý đăng ký
@@ -17,47 +17,48 @@
             };
 
             // Kiểm tra validation ở đây
-            if (check_register()) {
-                $.ajax({
-                    url: 'Model/user/connectData.php',
-                    type: 'post',
-                    data: data,
-                    success: function(response) {
-                        alert(response);
-                        if (response == "Đăng ký thành công!") {
-                            window.location.reload();
-                        }
-                    }
-                });
-            }
+            check_register();
+            // if (check_register()) {
+            //     $.ajax({
+            //         url: 'Model/user/connectData.php',
+            //         type: 'post',
+            //         data: data,
+            //         success: function(response) {
+            //             alert(response);
+            //             if (response == "Đăng ký thành công!") {
+            //                 window.location.reload();
+            //             }
+            //         }
+            //     });
+            // }
         });
     }
 
 
-    // Hàm xử lý đăng nhập
-    function submitLogin(event) {
+    // // Hàm xử lý đăng nhập
+    // function submitLogin(event) {
 
-        $(document).ready(function() {
-            var data = {
-                user_name_login: $("#user_name_login").val(),
-                password_login: $("#password_login").val(),
-                action: "login",
-            };
+    //     $(document).ready(function() {
+    //         var data = {
+    //             user_name_login: $("#user_name_login").val(),
+    //             password_login: $("#password_login").val(),
+    //             action: "login",
+    //         };
 
-            // Kiểm tra validation ở đây
-            if (check_login()) {
-                $.ajax({
-                    url: 'Model/user/connectData.php',
-                    type: 'post',
-                    data: data,
-                    success: function(response) {
-                        alert(response);
-                        if (response == "Đăng nhập thành công!") {
-                            window.location.href = "index.php";
-                        }
-                    }
-                });
-            }
-        });
-    }
-</script> -->
+    //         // Kiểm tra validation ở đây
+    //         if (check_login()) {
+    //             $.ajax({
+    //                 url: 'Model/user/connectData.php',
+    //                 type: 'post',
+    //                 data: data,
+    //                 success: function(response) {
+    //                     alert(response);
+    //                     if (response == "Đăng nhập thành công!") {
+    //                         window.location.href = "index.php";
+    //                     }
+    //                 }
+    //             });
+    //         }
+    //     });
+    // }
+</script> 

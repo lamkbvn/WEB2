@@ -32,12 +32,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             <form action="" method="post">
                 <h1>Sign In</h1>
                 <div class="form--inner--fill">
-                    <label class="add-user--label" for="fullname">Tài khoản:</label><br>
+                    <!-- <label class="add-user--label" for="fullname">Tài khoản:</label><br> -->
                     <input type="text" name="username" id="user_name_login" placeholder="User Name">
 
                 </div>
                 <div class="form--inner--fill">
-                    <label class="add-user--label" for="email">Mật khẩu:</label><br>
+                    <!-- <label class="add-user--label" for="email">Mật khẩu:</label><br> -->
                     <input type="password" name="password" id="password_login" placeholder="Password">
                 </div>
 
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
                 <span id="spanAddress" class="error_msg " style="color: red;"></span>
 
                 <!-- Nút Submit -->
-                <button type='button'>Sign Up</button>
+                <button type='button' onclick="submitRegister()">Sign Up</button>
             </form>
         </div>
         <div class="toggle-container">
@@ -80,16 +80,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
                 <div class="toggle-panel toggle-left">
                     <h1>Welcome Back!</h1>
                     <p>Enter your personal details to use all of site features</p>
-                    <button class="hidden" id="login">Log In</button>
+                    <button class="hiddenLoc" id="login">Log In</button>
                 </div>
                 <div class="toggle-panel toggle-right">
                     <h1>Hello, Friend!</h1>
                     <p>Register with your personal details to use all of site features</p>
-                    <button class="hidden" id="register">Sign Up</button>
+                    <button class="hiddenLoc" id="signup">Sign Up</button>
                 </div>
             </div>
         </div>
     </div>
+    <?php require '/WEB2/js/user/script.php'?>
     <script>
         const container = document.getElementById("container");
         const signupBtn = document.getElementById("signup");
@@ -103,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             container.classList.remove("active");
         });
     </script>
-    <script src="Js/user/validation.js"></script>
+    <script src="js/user/validation.js"></script>
 </body>
 
 </html>
