@@ -1,7 +1,12 @@
+let inputStartTemp = document.querySelector('.input-date-start');
 
 function selectDateStart(event){
   let inputStart = event.target ;
-  console.log(inputStart.value) ;
+  let inputEnd = inputStart.parentNode.parentNode.querySelector('.input-date-end');
+  let temp = inputStart.value;
+  if(inputEnd.value <  inputStart.value && inputEnd.value != '')
+      alert('Ngày bắt đầu phải nhỏ hơn ngày kết thúc');
+  // console.log(inputStart.value) ;
 }
 
 function selectDateEnd(event){
@@ -14,37 +19,9 @@ function selectDateEnd(event){
   }
 
   if(inputEnd.value <  inputStart.value)
-  {
-    inputEnd.value = null;
     alert('Ngày kết thúc phải lớn hơn ngày bắt đầu');
-  }
 }
 
-function filterThongKe(event){
-  let button = event.target;
-  let parent = button.parentNode;
-  console.log(parent);
-  let category = parent.querySelector('.category');
-  let selectCategory = category.options[category.selectedIndex].innerText;
-  let dateStart = parent.querySelector('.input-date-start').value;
-  let dateEnd = parent.querySelector('.input-date-end').value;
-
-  $.ajax({
-      type: 'POST',
-      url : './Controller/ThongKe.php',
-      data :{
-        action : 'filter',
-        selectCategory : selectCategory,
-        dateStart : dateStart,
-        dateEnd : dateEnd
-      },
-      success : function(response){
-        $('.bodyTable').html(response);
-        DrawChartData();
-      }
-  });
-
-}
 
 
 let btnTableData = document.querySelector('.btnTableData');
@@ -55,60 +32,64 @@ let tableData = document.querySelector('.tableData');
 let chartData = document.querySelector('.chartData');
 
 
-function typeData(event){
-  let button  = event.target.value;
-  if(button == 0)
+function filterThongKe(event){
+  let button = event.target;
+  let parent = button.parentNode.parentNode.parentNode.parentNode;
+  let category = parent.querySelector('.category');//chọn loại sản phẩm
+  let selectCategory = category.selectedIndex;
+  let dateStart = parent.querySelector('.input-date-start').value;//chọn ngày bắt đầu
+  let dateEnd = parent.querySelector('.input-date-end').value;//chọn ngày kết thú
+
+  //chọn kiểu sắp xếp
+  let orderby ;
+  let buttonOrderBy = parent.querySelector('.sapxep');
+  buttonOrderBy.classList.remove('hide');
+  if(buttonOrderBy.value == 0)
+    orderby = 'ASC';
+  else if(buttonOrderBy.value == 1)
+    orderby = 'DESC';
+
+  //chọn  kiểu hiển thị dữ liệu
+  let buttonTypeData  = parent.querySelector('.kieudulieu');
+  buttonTypeData.classList.remove('hide');
+  if(buttonTypeData.value == 0)
   {
     if(tableData.classList.contains('hide')){
       tableData.classList.remove('hide');
       chartData.classList.add('hide');
     }
   }
-  else if(button == 1)
+  else if(buttonTypeData.value == 1)
   {
     if(chartData.classList.contains('hide')){
       chartData.classList.remove('hide');
       tableData.classList.add('hide');
-      DrawChartData();
     }
   }
-}
 
-let myChart = null;
-function OrderBy(event){
-  let button  = event.target.value;
-  let orderby ;
-  if(button == 0)
-    orderby = 'ASC';
-  else if(button == 1)
-    orderby = 'DESC';
+  console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData.value);
+  let displayTitleTable = document.querySelector('.titleTable');
+  displayTitleTable.classList.remove('hide');
   $.ajax({
-    type: 'POST',
-    url : './Controller/ThongKe.php',
-    data:{
-      action : 'thongKe',
-      orderby : orderby
-    },
-    success: function(response) {
-      $('.bodyTable').html(response);
-      DrawChartData();
-  }
+      type: 'POST',
+      url : './Controller/ThongKe.php',
+      data :{
+        action : 'thongKe',
+        selectCategory : selectCategory,
+        dateStart : dateStart,
+        dateEnd : dateEnd,
+        orderby : orderby
+      },
+      success : function(response){
+        $('.bodyTable').html(response);
+        DrawChartData();
+      }
   });
 
 }
 
-function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
-
+let myChart = null;
 function DrawChartData(){
-
-
   let nameTour = document.querySelectorAll('.nameTour');
   let numBought = document.querySelectorAll('.num-bought');
 
@@ -133,7 +114,7 @@ function DrawChartData(){
       datasets: [{
         label: "số lượng đã bán",
         data: convertnumBought,
-        backgroundColor: Array.from({ length: convertnumBought.length }, () => getRandomColor()),
+        backgroundColor: '#49EFE9',
         borderWidth: 1
       }]
     },

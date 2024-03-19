@@ -9,6 +9,9 @@
 
 
 <style>
+  .abc{
+    color : red;
+  }
   .header{
     width: 100%;
     height: 50px;
@@ -26,10 +29,15 @@
   }
 
   .filter{
-    display: flex;
+    /* display: flex; */
     margin-top:  10px;
     margin-bottom: 10px;
   }
+
+  fieldset{
+  display : flex;
+}
+
 
   .date-start{
     margin-left : 50px;
@@ -88,7 +96,9 @@
   <div class="side-bar">side bar</div>
   <div class="content">
   <div class="filter">
-    <select name="all" id="category" class = "category">
+  <fieldset>
+    <legend>Lọc</legend>
+    <select name="all" id="category" class = "category" onclick = "filterThongKe(event)">
       <option value="0">Tất cả</option>
       <option value="1">Tour</option>
       <option value="2">Du thuyền</option>
@@ -96,40 +106,38 @@
       <option value="4">Phiêu lưu và khám phá thiên nhiên</option>
       <option value="5">Trải nghiệm văn hóa</option>
     </select>
-    <div class="date-start">
+    <div class="date-start" onchange = "filterThongKe(event)">
       <label for="input-date-start">Ngày bắt đầu : </label>
       <input type="date" name="input-date-start" id="input-date-start" class="input-date-start" onchange = "selectDateStart(event)">
     </div>
-    <div class="date-end">
+    <div class="date-end" onchange = "filterThongKe(event)">
       <label for="input-date-end">Ngày kết thúc : </label>
       <input type="date" name="input-date-end" id="input-date-end" class="input-date-end" onchange = "selectDateEnd(event)">
     </div>
-    <div class="submit" onclick = "filterThongKe(event)">Lọc</div>
+  </fieldset>
   </div>
   <div class="typeData">
-    <select name="sapxep" id="sapxep" onchange = "OrderBy(event)">
+    <select name="sapxep" id="sapxep" class="sapxep hide" onclick = "filterThongKe(event)">
       <option value="-1">Chọn kiểu sắp xếp</option>
       <option value="0">Sắp xếp tăng dần</option>
       <option value="1">Sắp xếp giảm dần</option>
     </select>
-    <select name="kieudulieu" id="kieudulieu" onchange = "typeData(event)">
+    <select name="kieudulieu" id="kieudulieu" class="kieudulieu hide" onchange = "filterThongKe(event)">
       <option value="0">Bảng</option>
       <option value="1">Biểu đồ</option>
     </select>
   </div>
   <table border="1" class = "tableData">
-    <thead>
+    <thead class = "titleTable hide">
       <tr>
-        <th>ID</th>
         <th>Tên</th>
         <th>Price</th>
-        <th>Num bought</th>
-        <th>Star feedback</th>
-        <th>SLCL</th>
+        <th>Amount</th>
+        <th>total money</th>
+        <th>date go</th>
       </tr>
     </thead>
     <tbody class = "bodyTable">
-      <?php thongKe() ?>
     </tbody>
   </table>
   <div class = "chartData hide" style = "width = 400px;">

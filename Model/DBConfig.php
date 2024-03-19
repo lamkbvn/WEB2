@@ -1,12 +1,5 @@
 <?php
 
-//--------------- database connection--------//
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$database = "mydb";
-$con = mysqli_connect($hostname, $username, $password);
-mysqli_select_db($con, $database);
 
 class DBConfig
 {
@@ -43,6 +36,17 @@ class DBConfig
     //     echo "Lỗi: " . mysqli_error($this->con);
     // }
     return $this->result;
+  }
+
+  public function foreignKey($tableChil, $columnChil, $tableParent, $columnParent)
+  {
+    $sql = 'alter table ' . $tableChil .
+      ' add constraint fk_' . $columnChil . '_' . $columnParent .
+      ' foreign key (' . $columnChil . ') ' .
+      ' references ' . $tableParent . '(' . $columnParent . ')';
+    $result = $this->execute($sql);
+    if ($result)
+      echo 'thanh cong';
   }
 
   //lấy dữ liệu
@@ -122,23 +126,54 @@ class DBConfig
     return $this->execute($sql);
   }
 
-  public function resultThongKe($orderby)
+  public function resultThongKe($orderby, $selectCategory, $dateStart, $dateEnd)
   {
-    $sql = 'SELECT * FROM product';
+    $sql = 'SELECT p.title ,p.price , od.amount , od.total_money , od.date_go
+            FROM product as p , order_detail as od
+            where p.id = od.id_product ';
+    if ($selectCategory != 0)
+      $sql = $sql . ' and p.id_category = ' . $selectCategory;
+    if ($dateStart != '') {
+      $sql = $sql . ' and od.date_go >= ? ';
+    }
+    if ($dateEnd != '') {
+      $sql = $sql . ' and od.date_go <= ? ';
+    }
     if ($orderby == 'ASC')
-      $sql = $sql . ' ORDER BY num_bought';
+      $sql = $sql . ' ORDER BY od.amount';
     if ($orderby == 'DESC')
-      $sql = $sql . ' ORDER BY num_bought DESC';
-    $result = $this->execute($sql);
+      $sql = $sql . ' ORDER BY od.amount DESC';
+    $result = null;
+    if ($dateStart != '' && $dateEnd == '') {
+      // Chuẩn bị câu lệnh SQL và bind tham số
+      $stmt = $this->con->prepare($sql);
+      $stmt->bind_param("s", $dateStart);
+
+      // Thực thi câu lệnh SQL
+      $stmt->execute();
+
+      // Lấy kết quả
+      $result = $stmt->get_result();
+    } elseif ($dateEnd != '') {
+      // Chuẩn bị câu lệnh SQL và bind tham số
+      $stmt = $this->con->prepare($sql);
+      $stmt->bind_param("ss", $dateStart, $dateEnd);
+
+      // Thực thi câu lệnh SQL
+      $stmt->execute();
+
+      // Lấy kết quả
+      $result = $stmt->get_result();
+    } else
+      $result = $this->execute($sql);
     while ($row = mysqli_fetch_array($result)) {
       echo '
       <tr>
-        <td> ' . $row['id'] . '</td>
         <td class ="nameTour">' . $row['title'] . '</td>
         <td>' . $row['price'] . '</td>
-        <td class = "num-bought">' . $row['num_bought'] . '</td>
-        <td>' . $row['star_feedback'] . '</td>
-        <td class ="slcl">' . $row['soLuongConLai'] . '</td>
+        <td class = "num-bought">' . $row['amount'] . '</td>
+        <td>' . $row['total_money'] . '</td>
+        <td class ="slcl">' . $row['date_go'] . '</td>
       </tr>';
     }
   }
@@ -229,6 +264,8 @@ class DBConfig
               ';
     }
   }
+
+
 }
 
 ?>
