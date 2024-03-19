@@ -1,7 +1,7 @@
 <?php
 
 
-if ($_GET['controller'] == 'trang-admin') {
+if (isset($_GET['controller']) && $_GET['controller'] == 'trang-admin') {
 	include_once("View/admin/header-admin.php");
 }
 

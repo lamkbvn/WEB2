@@ -5,9 +5,7 @@ if (isset($_GET['action'])) {
 	$action = '';
 }
 
-
 switch ($action) {
-
 	case 'shoping': {
 			if (isset($_POST['login'])) {
 				header('location: index.php?controller=trang-admin&action=indexAdmin');
@@ -35,6 +33,8 @@ switch ($action) {
 		}
 
 	default: {
+			$listUsersTable = "product";
+			$dataHotProduct = $db->getAllData($listUsersTable);
 			require_once('View/trangchu/trangchu.php');
 			break;
 		}

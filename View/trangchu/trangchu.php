@@ -5,7 +5,6 @@
     <?php
     require_once("View/layout/header.php");
     require_once('includes/handle_mail.php');
-
     ?>
     <header class="header">
         <div class="header-inner">
@@ -110,17 +109,28 @@
             <div class="highlighted-activities--inner">
                 <h3 class="highlighted-activities--heading">Các hoạt động nổi bật</h3>
                 <div class="highlighted-activities--list">
-
-                    <div class="highlighted-activities--item">
-                        <img src="" alt="" class="highlighted-activities--img">
-                        <div class="highlighted-activities--info">
-                            <p class="highlighted-activities--desc"> </p>
-                            <p class="highlighted-activities--title"></p>
-                            <p class="highlighted-activities--price">Từ </p>
-                        </div>
-                    </div>
-
+                    <?php $count = 0; ?>
+                    <?php foreach ($dataHotProduct as $product) : ?>
+                        <?php if ($count < 4) : ?>
+                            <div class="highlighted-activities--item">
+                                <img src="<?php echo $product['id']; ?>" alt="<?php echo $product['title']; ?>" class="highlighted-activities--img">
+                                <div class="highlighted-activities--info">
+                                    <p class="highlighted-activities--desc"><?php echo $product['content']; ?></p>
+                                    <p class="highlighted-activities--title"><?php echo $product['title']; ?></p>
+                                    <p class="highlighted-activities--price">Từ <?php echo $product['price']; ?></p>
+                                </div>
+                            </div>
+                            <?php $count++; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
+
+                <?php if (count($dataHotProduct) > 4) : ?>
+                    <button id="load-more">Xem thêm</button>
+                <?php endif; ?>
+
+
+
             </div>
         </div>
     </div>
@@ -191,6 +201,35 @@
             </div>
         </div>
     </div>
+    <div class="blog-page">
+        <div class="container">
+            <div class="blog-page--inner">
+                <div class="blog-page--list">
+                    <div class="blog-page--item">
+                        <img src="css/icons/blog-page-01.png" alt="" class="blog-page--img">
+                        <h4 class="blog-page--heading">Xem blog của Klook</h4>
+                        <p class="blog-page--desc">Klook gợi ý cho bạn các xu hướng du lịch, lịch trình chi tiết và các mẹo hữu ích</p>
+                        <button class="blog-page--btn">Xem ngay</button>
+                    </div>
+                    <div class="blog-page--item">
+                        <img src="css/icons/blog-page-01.png" alt="" class="blog-page--img">
+                        <h4 class="blog-page--heading">Xem blog của Klook</h4>
+                        <p class="blog-page--desc">Klook gợi ý cho bạn các xu hướng du lịch, lịch trình chi tiết và các mẹo hữu ích</p>
+                        <button class="blog-page--btn">Xem ngay</button>
+                    </div>
+                    <div class="blog-page--item">
+                        <img src="css/icons/blog-page-01.png" alt="" class="blog-page--img">
+                        <h4 class="blog-page--heading">Xem blog của Klook</h4>
+                        <p class="blog-page--desc">Klook gợi ý cho bạn các xu hướng du lịch, lịch trình chi tiết và các mẹo hữu ích</p>
+                        <button class="blog-page--btn">Xem ngay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+    require_once("View/layout/footer.php");
+    ?>
 
 </body>
 <script src="js/animate.js"></script>

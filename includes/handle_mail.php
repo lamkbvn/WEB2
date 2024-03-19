@@ -7,8 +7,6 @@ require_once(__DIR__ . "/function.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
 	$email = $_POST['email'];
-	sendMail($email, 'title', '11111111111111111');
+	sendMail($email, 'title', 'dass');
 } else {
 }
-
-

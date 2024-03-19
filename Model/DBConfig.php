@@ -102,38 +102,33 @@ class Database
 		return $this->execute($sql);
 	}
 
-	// index.php
-
-	// Hàm blockUser() để cập nhật trạng thái của tài khoản
+	// block user
 	function blockUser($id)
 	{
-		// Chuẩn bị câu truy vấn SQL UPDATE
 		$sql = "UPDATE nguoidung SET status = 0 WHERE id = '$id'";
 		$this->execute($sql);
 	}
 
+	//unblock user
 	function unblockUser($id)
 	{
-		// Chuẩn bị câu truy vấn SQL UPDATE
 		$sql = "UPDATE nguoidung SET status = 1 WHERE id = '$id'";
 		$this->execute($sql);
 	}
-	// Kiểm tra xem $username và $password có tồn tại trong bảng acount hay không
-	public function checkCredentials($username, $password)
+
+	public function getDataWithLimit($tableName, $startFrom, $limit)
 	{
-		// Sử dụng câu truy vấn để lấy thông tin từ bảng acount
-		$sql = "SELECT * FROM acount WHERE user_name = '$username' AND password = '$password'";
 
-		// Thực thi câu truy vấn
-		$this->execute($sql);
+		$query = "SELECT * FROM $tableName LIMIT $startFrom, $limit";
+		$result = $this->conn->query($query);
+		$data = array();
 
-		// Kiểm tra số lượng bản ghi trả về từ câu truy vấn
-		if ($this->num_rows() != 0) {
-			// Nếu có bản ghi tồn tại, tức là tài khoản hợp lệ
-			return true;
-		} else {
-			// Ngược lại, tài khoản không hợp lệ
-			return false;
+		if ($result->num_rows > 0) {
+			while ($row = $result->fetch_assoc()) {
+				$data[] = $row;
+			}
 		}
+
+		return $data;
 	}
 }
