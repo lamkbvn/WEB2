@@ -43,37 +43,31 @@ function check_register() {
         document.getElementById("spanPw").innerText =
             "Mật khẩu không đủ mạnh. Mật khẩu cần tối thiểu 8 kí tự";
 
-        document.getElementById("password_signup").focus();
         isTrue= false;
     }
     if (!validatePhone(phone)) {
         document.getElementById("spanPhone").innerText =
             "Số điện thoại không hợp lệ. Vui lòng nhập lại số điện thoại.";
 
-        document.getElementById("phone_number_signup").focus();
         isTrue= false;
     }
     if (!validateEmail(mail)) {
         document.getElementById("spanEmail").innerText =
             "Email không hợp lệ. Vui lòng nhập lại email.";
 
-        document.getElementById("email_signup").focus();
         isTrue= false;
     }
-    // if (!validateName(user_name)) {
-    //   document.getElementById('spanUsername').innerText =
-    //     'Tên đăng nhập không hợp lệ';
+    if (!validateName(user_name)) {
+      document.getElementById('spanUsername').innerText =
+        'Tên đăng nhập không hợp lệ';
 
-    //   document.getElementById('user_name_signup').focus();
-    //   isTrue= false;
-    // }
-    // if (!validateName(fullname)) {
-    //   document.getElementById('spanFullname_signup').innerText =
-    //     'Tên đăng kí không hợp lệ';
-
-    //   document.getElementById('fullname_signup').focus();
-    //   isTrue= false;
-    // }
+      isTrue= false;
+    }
+    if (!validateName(fullname)) {
+      document.getElementById('spanFullname_signup').innerText =
+        'Tên đăng kí không hợp lệ';
+      isTrue= false;
+    }
 
     return isTrue;
 }

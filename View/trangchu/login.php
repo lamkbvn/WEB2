@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
                 <input type="hidden" name="action" value="signup">
                 <!-- Các trường nhập -->
                 <input type="text" id="fullname_signup" placeholder="Full Name">
-                <span id="spanFullname" class="error_msg " style="color: red;"></span>
+                <span id="spanFullname_signup" class="error_msg " style="color: red;"></span>
 
                 <input type="text" id="user_name_signup" placeholder="User Name">
                 <span id="spanUsername" class="error_msg" style="color: red;"></span>

@@ -136,4 +136,27 @@ class Database
 			return false;
 		}
 	}
+
+	// register
+	public function registerAcount($user_name, $password, $id_role, $status)
+	{
+		$sql = "INSERT INTO acount (user_name, password, id_role, status) VALUES ('$user_name', '$password', '$id_role', '$status')";
+		return $this->execute($sql);
+	}
+	public function registerNguoiDung($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)
+	{
+		$selectId = "SELECT id FROM acount ORDER BY id DESC LIMIT 1";
+		$result = $this->execute($selectId);
+		$row = $result->fetch_assoc();
+		$last_role_id = $row["id"];
+		$sql = "INSERT INTO nguoidung (fullname, email, phone_number, create_at, status, address, id_acount) VALUES ('$fullname', '$email', '$phone_number', '$create_at', '$status', '$address', '$last_role_id')";
+		return $this->execute($sql);
+	}
+
+	// check login
+	public function checkLogin($user_name, $password){
+		$sql = "SELECT * FROM users WHERE user_name = '$user_name' AND password = '$password'";
+		return $this->execute($sql);
+	}	
+	
 }
