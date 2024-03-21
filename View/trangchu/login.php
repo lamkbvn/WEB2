@@ -2,18 +2,8 @@
 
 
 // session_start();
-ob_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
 
-    $objuser = array($username, $password);
-
-    $_SESSION['objuser'] = $objuser;
-
-    header('location: index.php?controller=trang-chu');
-}
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             </form>
         </div>
 
-        <div class="form-container sign-up">
+        <div class=" form-container sign-up">
             <form method="post">
                 <h1>Create Account</h1>
 
@@ -91,29 +81,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             </div>
         </div>
     </div>
+
     <?php
 
     require_once("js/user/script.php")
 
     ?>
-    <script>
-        const container = document.getElementById("container");
-        const signupBtn = document.getElementById("signup");
-        const loginBtn = document.getElementById("login");
 
-        signupBtn.addEventListener("click", () => {
-            container.classList.add("active");
-        });
-
-        loginBtn.addEventListener("click", () => {
-            container.classList.remove("active");
-        });
-    </script>
     <script src="js/user/validation.js"></script>
 </body>
 <?php
-// require_once("Controller/login_register/login.php");
-require_once('Controller/login_register/register.php');
 ?>
 
 </html>
+
+
+<script>
+    const container = document.getElementById("container");
+    const signupBtn = document.getElementById("signup");
+    const loginBtn = document.getElementById("login");
+
+    signupBtn.addEventListener("click", () => {
+        container.classList.add("active");
+    });
+
+    loginBtn.addEventListener("click", () => {
+        container.classList.remove("active");
+    });
+</script>

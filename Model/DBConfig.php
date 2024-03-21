@@ -148,31 +148,26 @@ class Database
 		return $this->execute($sql);
 	}
 
-	// check login
-	public function checkLogin($user_name, $password)
+	public function checkLogin($username, $password)
 	{
-		$sql = "SELECT * FROM users WHERE user_name = '$user_name' AND password = '$password'";
-		return $this->execute($sql);
-	}
-	
-	public function checkCredentials($username, $password)
-	{
-		// Escape các ký tự đặc biệt để tránh SQL Injection
-		$escaped_username = $this->conn->real_escape_string($username);
-		$escaped_password = $this->conn->real_escape_string($password);
+		$sql = "SELECT * FROM acount WHERE user_name = '$username' AND password = '$password'";
 
-		// Tạo câu truy vấn SQL
-		$sql = "SELECT * FROM acount WHERE user_name = '$escaped_username' AND password = '$escaped_password'";
-
-		// Thực thi truy vấn
 		$result = $this->execute($sql);
-
-		// Kiểm tra kết quả trả về
-		if ($result->num_rows > 0) {
-			// Nếu tìm thấy kết quả, trả về true
+		if ($this->num_rows() > 0) {
 			return true;
 		} else {
-			// Nếu không tìm thấy kết quả, trả về false
+			return false;
+		}
+	}
+
+	// Thêm phương thức kiểm tra tài khoản đã tồn tại vào lớp Database
+	public function checkExistingAccount($username)
+	{
+		$sql = "SELECT * FROM acount WHERE user_name = '$username'";
+		$result = $this->execute($sql);
+		if ($this->num_rows() > 0) {
+			return true;
+		} else {
 			return false;
 		}
 	}
