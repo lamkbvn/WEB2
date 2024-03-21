@@ -132,21 +132,6 @@ class Database
 		return $data;
 	}
 
-	// register
-	public function registerAcount($user_name, $password, $id_role, $status)
-	{
-		$sql = "INSERT INTO acount (user_name, password, id_role, status) VALUES ('$user_name', '$password', '$id_role', '$status')";
-		return $this->execute($sql);
-	}
-	public function registerNguoiDung($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)
-	{
-		$selectId = "SELECT id FROM acount ORDER BY id DESC LIMIT 1";
-		$result = $this->execute($selectId);
-		$row = $result->fetch_assoc();
-		$last_role_id = $row["id"];
-		$sql = "INSERT INTO nguoidung (fullname, email, phone_number, create_at, status, address, id_acount) VALUES ('$fullname', '$email', '$phone_number', '$create_at', '$status', '$address', '$last_role_id')";
-		return $this->execute($sql);
-	}
 
 	public function checkLogin($username, $password)
 	{
@@ -160,15 +145,33 @@ class Database
 		}
 	}
 
-	// Thêm phương thức kiểm tra tài khoản đã tồn tại vào lớp Database
-	public function checkExistingAccount($username)
+	public function getAllAccounts()
 	{
-		$sql = "SELECT * FROM acount WHERE user_name = '$username'";
-		$result = $this->execute($sql);
-		if ($this->num_rows() > 0) {
-			return true;
-		} else {
-			return false;
+		$sql = "SELECT * FROM acount";
+		$this->execute($sql);
+
+		$accounts = array();
+
+		while ($row = $this->getData()) {
+			$accounts[] = $row;
 		}
+
+		return $accounts;
+	}
+
+	public function registerAcount($username, $password, $id_role, $status)
+	{
+		$sql = "INSERT INTO acount (user_name, password, id_role, status) VALUES ('$username', '$password', '$id_role', '$status')";
+		return $this->execute($sql);
+	}
+
+	public function registerNguoiDung($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)
+	{
+		$selectId = "SELECT id FROM acount ORDER BY id DESC LIMIT 1";
+		$result = $this->execute($selectId);
+		$row = $result->fetch_assoc();
+		$last_role_id = $row["id"];
+		$sql = "INSERT INTO nguoidung (fullname, email, phone_number, create_at, status, address, id_acount) VALUES ('$fullname', '$email', '$phone_number', '$create_at', '$status', '$address', '$last_role_id')";
+		return $this->execute($sql);
 	}
 }
