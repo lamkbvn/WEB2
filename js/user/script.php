@@ -1,4 +1,4 @@
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script type="text/javascript">
     // Hàm xử lý đăng ký
@@ -14,12 +14,13 @@
                 email_signup: $("#email_signup").val(),
                 address_signup: $("#address_signup").val(),
                 action: "signup",
+                btnRegister: 1
             };
 
             // Kiểm tra validation ở đây
             if (check_register()) {
                 $.ajax({
-                    url: 'Model/user/connectData.php',
+                    url: 'Controller/login_register/register.php',
                     type: 'post',
                     data: data,
                     success: function(response) {
@@ -34,7 +35,7 @@
     }
 
 
-    // Hàm xử lý đăng nhập
+    // // Hàm xử lý đăng nhập
     function submitLogin(event) {
 
         $(document).ready(function() {
@@ -47,7 +48,7 @@
             // Kiểm tra validation ở đây
             if (check_login()) {
                 $.ajax({
-                    url: 'Model/user/connectData.php',
+                    url: 'Controller/login_register/login.php',
                     type: 'post',
                     data: data,
                     success: function(response) {
@@ -60,4 +61,4 @@
             }
         });
     }
-</script> -->
+</script> 
