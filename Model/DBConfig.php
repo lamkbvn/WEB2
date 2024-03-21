@@ -149,9 +149,31 @@ class Database
 	}
 
 	// check login
-	public function checkLogin($user_name, $password){
+	public function checkLogin($user_name, $password)
+	{
 		$sql = "SELECT * FROM users WHERE user_name = '$user_name' AND password = '$password'";
 		return $this->execute($sql);
-	}	
+	}
 	
+	public function checkCredentials($username, $password)
+	{
+		// Escape các ký tự đặc biệt để tránh SQL Injection
+		$escaped_username = $this->conn->real_escape_string($username);
+		$escaped_password = $this->conn->real_escape_string($password);
+
+		// Tạo câu truy vấn SQL
+		$sql = "SELECT * FROM acount WHERE user_name = '$escaped_username' AND password = '$escaped_password'";
+
+		// Thực thi truy vấn
+		$result = $this->execute($sql);
+
+		// Kiểm tra kết quả trả về
+		if ($result->num_rows > 0) {
+			// Nếu tìm thấy kết quả, trả về true
+			return true;
+		} else {
+			// Nếu không tìm thấy kết quả, trả về false
+			return false;
+		}
+	}
 }

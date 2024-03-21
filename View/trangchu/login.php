@@ -48,32 +48,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         </div>
 
         <div class="form-container sign-up">
-            <form method="">
+            <form method="post">
                 <h1>Create Account</h1>
 
                 <input type="hidden" name="action" value="signup">
                 <!-- Các trường nhập -->
-                <input type="text" id="fullname_signup" placeholder="Full Name">
+                <input type="text" id="fullname_signup" name="fullname_signup" placeholder="Full Name">
                 <span id="spanFullname_signup" class="error_msg " style="color: red;"></span>
 
-                <input type="text" id="user_name_signup" placeholder="User Name">
+                <input type="text" id="user_name_signup" name="user_name_signup" placeholder="User Name">
                 <span id="spanUsername" class="error_msg" style="color: red;"></span>
 
-                <input type="password" id="password_signup" placeholder="Password">
+                <input type="password" id="password_signup" name="password_signup" placeholder="Password">
                 <span id="spanPw" class="error_msg " style="color: red;"></span>
 
 
-                <input type="email" id="email_signup" placeholder="Email">
+                <input type="email" id="email_signup" name="email_signup" placeholder="Email">
                 <span id="spanEmail" class="error_msg " style="color: red;"></span>
 
-                <input type="tel" id="phone_number_signup" placeholder="Phone Number" />
+                <input type="tel" id="phone_number_signup" name="phone_number_signup" placeholder="Phone Number" />
                 <span id="spanPhone" class="error_msg " style="color: red;"></span>
 
-                <input type="text" id="address_signup" placeholder="Address" />
+                <input type="text" id="address_signup" name="address_signup" placeholder="Address" />
                 <span id="spanAddress" class="error_msg " style="color: red;"></span>
 
                 <!-- Nút Submit -->
-                <button type='button' onclick="submitRegister()">Sign Up</button>
+                <button type='submit' name="btnRegister">Sign Up</button>
             </form>
         </div>
         <div class="toggle-container">
@@ -91,7 +91,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             </div>
         </div>
     </div>
-    <?php require '/WEB2/js/user/script.php'?>
+    <?php
+
+    require_once("js/user/script.php")
+
+    ?>
     <script>
         const container = document.getElementById("container");
         const signupBtn = document.getElementById("signup");
@@ -107,8 +111,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     </script>
     <script src="js/user/validation.js"></script>
 </body>
-<?php 
+<?php
 // require_once("Controller/login_register/login.php");
 require_once('Controller/login_register/register.php');
 ?>
+
 </html>
