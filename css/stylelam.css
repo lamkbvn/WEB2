@@ -5,7 +5,6 @@
 }
 
 body {
-    height: 3000px;
     font-family: "Open Sans", sans-serif;
 }
 
@@ -33,7 +32,6 @@ h4 {
     width: 100%;
     margin: 0 auto;
     z-index: 999;
-    margin-top: 80px;
 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
@@ -165,7 +163,7 @@ h4 {
 }
 
 .header-inner {
-    /* background-image: url(https://res.klook.com/image/upload/fl_lossy.progressive,q_90/c_fill,,w_2560,/v1670577664/banner/rtw7fgqatgoc1vpcpamb.webp); */
+    background-image: url(../css/icons/header.webp);
     background-size: cover;
     background-repeat: no-repeat;
     height: 480px;
@@ -295,7 +293,6 @@ h4 {
     gap: 20px;
     transition: transform 0.5s ease;
     padding: 20px 20px 20px 0px;
-    overflow: hidden;
 }
 
 .attractive-offer--item {

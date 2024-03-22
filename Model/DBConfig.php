@@ -167,11 +167,7 @@ class Database
 
 	public function registerNguoiDung($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)
 	{
-		$selectId = "SELECT id FROM acount ORDER BY id DESC LIMIT 1";
-		$result = $this->execute($selectId);
-		$row = $result->fetch_assoc();
-		$last_role_id = $row["id"];
-		$sql = "INSERT INTO nguoidung (fullname, email, phone_number, create_at, status, address, id_acount) VALUES ('$fullname', '$email', '$phone_number', '$create_at', '$status', '$address', '$last_role_id')";
+		$sql = "INSERT INTO nguoidung (fullname, email, phone_number, create_at, status, address, id_acount) VALUES ('$fullname', '$email', '$phone_number', '$create_at', '$status', '$address', '$id_acount')";
 		return $this->execute($sql);
 	}
 }
