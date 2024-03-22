@@ -19,22 +19,22 @@ CREATE TABLE `discountUser`(
 );
 CREATE TABLE `image_product`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `id_product` INT NOT NULL,
+    `id_product` BIGINT NOT NULL,
     `id_user` INT NOT NULL,
-    `image` BLOB NOT NULL,
+    `image` LONGBLOB NOT NULL,
     `decription` VARCHAR(255) NOT NULL
 );
 CREATE TABLE `cart`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_user` INT NOT NULL,
-    `id_product` INT NOT NULL,
+    `id_product` BIGINT NOT NULL,
     `amount` INT NOT NULL,
     `status` INT NOT NULL
 );
 CREATE TABLE `order_detail`(
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_order` INT NOT NULL,
-    `id_product` INT NOT NULL,
+    `id_product` BIGINT NOT NULL,
     `price` INT NOT NULL,
     `amount` INT NOT NULL,
     `total_money` INT NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE `feedback`(
     `note` VARCHAR(255) NOT NULL,
     `create_at` DATETIME NOT NULL,
     `update_at` DATE NOT NULL,
-    `num_star` INT NOT NULL
+    `num_star` FLOAT NOT NULL
 );
 CREATE TABLE `discount`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -65,7 +65,7 @@ CREATE TABLE `PhanQuyenLinhDong`(
     `HD` VARCHAR(255) NOT NULL
 );
 CREATE TABLE `product`(
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_category` INT NOT NULL,
     `id_user` INT NOT NULL,
     `id_provincial` INT NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE `role`(
     `decription` VARCHAR(255) NOT NULL
 );
 CREATE TABLE `orders`(
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_user` INT NOT NULL,
     `fullname` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
@@ -114,6 +114,36 @@ CREATE TABLE `Acount`(
     `status` INT NOT NULL
 );
 
+INSERT INTO 'role' ('id', 'decription') VALUES
+(1, 'Admin'),
+(2, 'Quản lý khách hàng'),
+(3, 'Quản lý bình luận'),
+(4, 'Quản lý tour'),
+(5, 'Quản lý doanh thu');
+
+INSERT INTO 'ChucNang' ('id', 'decription') VALUES
+(1, 'Quản lý khách hàng'),
+(2, 'Quản lý bình luận'),
+(3, 'Quản lý tour'),
+(4, 'Quản lý doanh thu');
+
+INSERT INTO 'PhanQuyenLinhDong' ('id_role', 'id_chucNang', 'HD') VALUES
+(1, 1, 'View'),
+(1, 1, 'Edit'),
+(1, 1, 'Delete'),
+(1, 1, 'Add'),
+(2, 2, 'View'),
+(2, 2, 'Edit'),
+(2, 2, 'Delete'),
+(2, 2, 'Add'),
+(3, 3, 'View'),
+(3, 3, 'Edit'),
+(3, 3, 'Delete'),
+(3, 3, 'Add'),
+(4, 4, 'View'),
+(4, 4, 'Edit'),
+(4, 4, 'Delete'),
+(4, 4, 'Add');
 
 INSERT INTO `product` (`id`, `id_category`, `id_user`, `id_provincial`, `title`, `price`, `content`, `create_at`, `update_at`, `status`, `num_bought`, `star_feedback`, `address`, `soLuongConLai`) VALUES
 (1, 1, 5, 1, 'Tour Đảo Cô Tô', 1900000, 'Khám phá vẻ đẹp hoang sơ của Cô Tô', '2024-03-09', '2024-03-09', 1, 55, 4.40, 'Quảng Ninh', 30),

@@ -69,9 +69,9 @@
         }
 
         // thêm detailOrder
-        public function InsertDetailOrder($id_user, $id_pro, $price, $amount, $totalmoney, $dateGo){
+        public function InsertDetailOrder($id_order, $id_pro, $price, $amount, $totalmoney, $dateGo){
             $sql = "INSERT INTO order_detail (id_order, id_product, price, amount, total_money, date_go)
-            VALUES ( '$id_user', '$id_pro', '$price', '$amount', '$totalmoney', '$dateGo')";
+            VALUES ( '$id_order', '$id_pro', '$price', '$amount', '$totalmoney', '$dateGo')";
             return $this->execute($sql);
         }
 
@@ -82,6 +82,15 @@
             return $this->execute($sql);
         }
 
+        // cập nhật số sao của sản phẩm
+        public function updateStarOfTour($product_id){
+            $sql = "SELECT ROUND(AVG(num_star), 1) AS avgStar FROM feedback WHERE product_id = '$product_id'";
+            $result = $this->execute($sql);
+            $row = $result->fetch_assoc();
+            $avgStar = $row["avgStar"];
+            $update_sql = "UPDATE product SET star_feedback = '$avgStar' WHERE id = '$product_id'";
+            return $this->execute($update_sql);
+        }
         // phần của admin
         // thêm tour mới
         public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $address, $datecreate, $acount){
