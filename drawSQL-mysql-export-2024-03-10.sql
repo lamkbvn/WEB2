@@ -55,7 +55,7 @@ CREATE TABLE `discount`(
     `percent` DOUBLE(8, 2) NOT NULL,
     `date_start` DATE NOT NULL,
     `date_end` DATE NOT NULL,
-    `decription` VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
     `status` INT NOT NULL,
     `code` VARCHAR(255) NOT NULL
 );
