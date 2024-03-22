@@ -56,7 +56,8 @@ CREATE TABLE `discount`(
     `date_start` DATE NOT NULL,
     `date_end` DATE NOT NULL,
     `decription` VARCHAR(255) NOT NULL,
-    `status` INT NOT NULL
+    `status` INT NOT NULL,
+    `code` VARCHAR(255) NOT NULL
 );
 CREATE TABLE `PhanQuyenLinhDong`(
     `id_role` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
