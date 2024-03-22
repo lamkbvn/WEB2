@@ -24,9 +24,10 @@ switch($action){
             $sdt = $_REQUEST['sodienthoai'];
             $diachi = $_REQUEST['diachi'];
             $note = $_REQUEST['note-book-tour'];
+            $soLuong = $_REQUEST['numTicketphp'];
             $id = date('dmyHis');
             $db->InsertOrder($id, 1, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, 1);
-            // $db->InsertDetailOrder(1, 1, )
+            $db->InsertDetailOrder(1, 1, $rowTour['price'], $soLuong, $rowTour['price'] * $soLuong,  $dateBook);
             //nếu muốn dùng idOrder để truyền vào DetailOrder thì dùng biến id này
             echo "<script>window.location.href='../chitietTour/buyTour.php';</script>";
             // exit();

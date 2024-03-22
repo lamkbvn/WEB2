@@ -9,6 +9,7 @@ for (var i = 0; i < chosseTour.length; i++) {
 
 // chọn số lượng vé
 let numTicketphp = document.getElementsByName('numTicketphp')[0];
+let numTicketphp2 = document.getElementsByName('numTicketphp')[1];
 let totalMoneyphp = document.getElementsByName('totalMoneyphp')[0];// cập nhật tiền để dùng php
 let btnPlus = document.getElementById('btn-plus');
 let btnMinus = document.getElementById('btn-minus');
@@ -18,12 +19,14 @@ btnPlus.addEventListener('click', function (e) {
     num++;
     numTicket.textContent = num;
     numTicketphp.value = num;
+    numTicketphp2.value = num;
     capnhatTongTien();
 });
 btnMinus.addEventListener('click', function (e) {
     if (num > 0) {
         num--;
         numTicket.textContent = num;
+        numTicketphp2.value = num;
         numTicketphp.value = num;
         capnhatTongTien();
     }

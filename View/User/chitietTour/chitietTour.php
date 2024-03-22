@@ -224,6 +224,7 @@
                     </div>
                 </div>
                 <form action="buyTour.php" method="get" id="form-book-tour">
+                    <input type="hidden" name="numTicketphp" value="0">
                     <input type="hidden" name="controller" value="chi-tiet-tour">
                     <input type="hidden" name="action" value="book-tour">
                     <input type="hidden" name="datePhp" value="0">
