@@ -59,7 +59,7 @@ CREATE TABLE `discount`(
     `status` INT NOT NULL
 );
 CREATE TABLE `PhanQuyenLinhDong`(
-    `id_role` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id_role` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_chucNang` INT NOT NULL,
     `HD` VARCHAR(255) NOT NULL,
     `name` VARCHAR(255) NOT NULL
