@@ -6,7 +6,7 @@ class DBConfig
   private $hostname = 'localhost';
   private $username = 'root';
   private $pass = '';
-  private $dbname = 'mydb';
+  private $dbname = 'web2';
 
   private $con = NULL;
   private $result = NULL;
