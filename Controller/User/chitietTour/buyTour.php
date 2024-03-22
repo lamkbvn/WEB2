@@ -5,7 +5,7 @@ if(isset($_GET['action'])){
 } else {
     $action = '';
 }
-    
+     
 include ("../../../Model/DBConfig.php");
 $db = new DBConfig();
 $db->connect();
@@ -25,9 +25,10 @@ switch($action){
             $diachi = $_REQUEST['diachi'];
             $note = $_REQUEST['note-book-tour'];
             $id = date('dmyHis');
-            $db->InsertOrder($id, 1, 1, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, 1);
+            $db->InsertOrder($id, 1, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, 1);
+            // $db->InsertDetailOrder(1, 1, )
             //nếu muốn dùng idOrder để truyền vào DetailOrder thì dùng biến id này
-            echo "<script>window.location.href='../chitietTour/index.php';</script>";
+            echo "<script>window.location.href='../chitietTour/buyTour.php';</script>";
             // exit();
         } 
         break;
@@ -38,7 +39,7 @@ switch($action){
             $currentDate = date("Y-m-d H:i:s");
             $star = $_REQUEST['rating'];
             $db->InsertCmt(1, 1, $cmt, $currentDate, $star);
-            echo "<script>window.location.href='../chitietTour/index.php';</script>";
+            echo "<script>window.location.href='../chitietTour/buyTour.php';</script>";
             // exit();
         }
         break;

@@ -62,16 +62,16 @@
         }
 
         // thêm orrder
-        public function InsertOrder($id, $id_user, $order_method_id, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount){
-            $sql = "INSERT INTO orders (id, id_user, order_method_id, fullname, email, phone_number, address, note, date_order, total_money, status)
-            VALUES ('$id', '$id_user', '$order_method_id', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1')";
+        public function InsertOrder($id, $id_user, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount){
+            $sql = "INSERT INTO orders (id, id_user, fullname, email, phone_number, address, note, date_order, total_money, status, id_discount)
+            VALUES ('$id', '$id_user', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1', '$id_discount')";
             return $this->execute($sql);
         }
 
         // thêm detailOrder
-        public function InsertDetailOrder($id_user, $price, $amount, $totalmoney, $dateGo){
-            $sql = "INSERT INTO orders (id_user, price, amount, total_money, date_go)
-            VALUES ( '$id_user', '$price', '$amount', '$totalmoney', '$dateGo')";
+        public function InsertDetailOrder($id_user, $id_pro, $price, $amount, $totalmoney, $dateGo){
+            $sql = "INSERT INTO order_detail (id_order, id_product, price, amount, total_money, date_go)
+            VALUES ( '$id_user', '$id_pro', '$price', '$amount', '$totalmoney', '$dateGo')";
             return $this->execute($sql);
         }
 
@@ -84,9 +84,9 @@
 
         // phần của admin
         // thêm tour mới
-        public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $datecreate, $acount){
-            $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, soLuongConLai, star_feedback)
-            VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$acount', '0')";
+        public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $address, $datecreate, $acount){
+            $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, address, soLuongConLai, star_feedback)
+            VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$address', '$acount', '0')";
             return $this->execute($sql);
         }
         // thêm ảnh

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang chi tiết</title>
-    <link rel="stylesheet" href="css/styleKiet.css">
+    <link rel="stylesheet" href="../../../css/styleKiet.css">
 </head>
 <body>
     <?php 
@@ -37,7 +37,7 @@
                     <div class="box-container-search">
                         <input class="search-header" type="text" placeholder="Tìm kiếm">
                         <span class="container-iconSearch">
-                            <img src="/images/search.png" width="20" alt="">
+                            <img src="../../../images/search.png" width="20" alt="">
                         </span>
                     </div>
                     
@@ -61,7 +61,7 @@
                         </li>
                         <li>
                             <a href="" class="option-header-right">
-                                <img src="/images/avatar.png" width="38" alt="">
+                                <img src="../../../images/avatar.png" width="38" alt="">
                             </a>
                         </li>
                     </ul>
@@ -78,7 +78,7 @@
             <div class="review-box">
                 <div class="rate-box">
                     <div class="star-tour">
-                    <?php echo $rowTour['star_feedback'] ?> <img src="/images/star.webp" width="14" alt="">
+                    <?php echo $rowTour['star_feedback'] ?> <img src="../../../images/star.webp" width="14" alt="">
                     </div>
                     <div class="count-cmt">
                         (1k+ đánh giá)
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="love-btn">
-                    <img src="/images/heart.png" width="16" alt="">
+                    <img src="../../../images/heart.png" width="16" alt="">
                     Yêu thích
                 </div>
             </div>
@@ -98,10 +98,10 @@
                 </div>
                 <div class="small-images">
                     <div class="small-image">
-                        <img src="/images/smallimg1.webp" height="234" alt="Small Image 1">
+                        <img src="../../../images/smallimg1.webp" height="234" alt="Small Image 1">
                     </div>
                     <div class="small-image">
-                        <img src="/images/smallimg2.webp" height="234" alt="Small Image 2">
+                        <img src="../../../images/smallimg2.webp" height="234" alt="Small Image 2">
                     </div>
                 </div>
             </div>
@@ -223,7 +223,7 @@
                         </div>
                     </div>
                 </div>
-                <form action="index.php" method="get" id="form-book-tour">
+                <form action="buyTour.php" method="get" id="form-book-tour">
                     <input type="hidden" name="controller" value="chi-tiet-tour">
                     <input type="hidden" name="action" value="book-tour">
                     <input type="hidden" name="datePhp" value="0">
@@ -265,15 +265,15 @@
                         <?php echo $rowTour['content'] ?>
                     </p>
                     <div class="container-img-content">
-                        <img src="/images/smallimg1.webp" width="848" height="444" alt="" class="img-tour">
+                        <img src="../../../images/smallimg1.webp" width="848" height="444" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                     <div class="container-img-content">
-                        <img src="/images/smallimg1.webp" width="848" height="444" alt="" class="img-tour">
+                        <img src="../../../images/smallimg1.webp" width="848" height="444" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                     <div class="container-img-content">
-                        <img src="/images/smallimg1.webp" width="848" height="444" alt="" class="img-tour">
+                        <img src="../../../images/smallimg1.webp" width="848" height="444" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                 </div>
@@ -300,7 +300,7 @@
                         <span class="star" data-value="5">&#9733;</span>
                     </div>
                 </div>
-                <form action="index.php" method="get">
+                <form action="buyTour.php" method="get">
                     <input type="hidden" name="controller" value="chi-tiet-tour">
                     <input type="hidden" name="action" value="send-cmt">
                     <textarea class="text-cmt" name="text-cmt" rows="4" cols="92" placeholder="Viết bình luận..."></textarea>
@@ -332,7 +332,7 @@
                 ?>
                 <div class="comment-data">
                     <div class="header-cmt">
-                        <img src="/images/avatar.png" width="43" alt="" class="avatar-cmt">
+                        <img src="../../../images/avatar.png" width="43" alt="" class="avatar-cmt">
                         <div class="container-name-date-cmt">
                             <div class="name-cmt"><?php echo $nameUser; ?></div>
                             <div class="box-star-cmt">
@@ -357,7 +357,7 @@
             </div>
         </div>
     </div>
-    <script src="/js/indexKiet.js"></script>
+    <script src="../../../js/indexKiet.js"></script>
 </body>
 
 </html>

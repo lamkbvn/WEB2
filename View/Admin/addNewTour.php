@@ -19,7 +19,7 @@
 </style>
 
 <body>
-    <form id="formAddTour" action="/Controller/Admin/C_addNewTour.php" method="post" enctype="multipart/form-data">
+    <form id="formAddTour" action="C_addNewTour.php" method="post" enctype="multipart/form-data">
         <div class="containFieldAddTour">
             <label for="title">Tiêu đề</label> <br>
             <input id="title" name="title" type="text">

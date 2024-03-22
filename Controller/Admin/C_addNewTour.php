@@ -1,5 +1,5 @@
 <?php
-include("/WEB2/Model/DBConfig.php");
+include("../../Model/DBConfig.php");
 $db = new DBConfig();
 $db->connect();
 
@@ -43,7 +43,7 @@ if (isset($_REQUEST['btnAddTour'])) {
     $acount = $_REQUEST['acount'];
     $category = $_REQUEST['category'];
 
-    $db->InsertTour($id, $category, 1, $provincial, $title, $price, $content, $currentDate, $acount);
+    $db->InsertTour($id, $category, 1, $provincial, $title, $price, $content, $address, $currentDate, $acount);
     
     if (!empty($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
         $img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
