@@ -159,11 +159,10 @@ h4 {
 /* header */
 
 .header {
-    margin-top: 120px;
 }
 
 .header-inner {
-    /* background-image: url(https://res.klook.com/image/upload/fl_lossy.progressive,q_90/c_fill,,w_2560,/v1670577664/banner/rtw7fgqatgoc1vpcpamb.webp); */
+    background-image: url(../css/icons/header.webp);
     background-size: cover;
     background-repeat: no-repeat;
     height: 480px;

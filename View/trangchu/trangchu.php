@@ -28,7 +28,6 @@
     <div class="attractive-offer">
         <div class="container">
             <div class="attractive-offer--inner">
-                <img class="attractive-offer__pre attractive-offer-img" onclick="previousSlide()" src="css/icons/previous-back-svgrepo-com (1).svg" />
                 <h3 class="attractive-offer--heading">Ưu đãi hấp dẫn</h3>
                 <ul class="attractive-offer--list">
                     <li class="attractive-offer--item">
@@ -62,7 +61,6 @@
                         <button class="attractive-offer--btn">Xem thêm</button>
                     </li>
                 </ul>
-                <img src="css/icons/previous-back-svgrepo-com (1).svg" class="attractive-offer__next attractive-offer-img" onclick="nextSlide()" />
             </div>
         </div>
     </div>
@@ -126,7 +124,6 @@
                 </div>
 
                 <?php if (count($dataHotProduct) > 4) : ?>
-                    <button id="load-more">Xem thêm</button>
                 <?php endif; ?>
 
 
