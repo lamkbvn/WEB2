@@ -22,6 +22,7 @@ if (
 	$id_role = "1";
 	$status = "1";
 	$create_at = "1";
+	$id_acount = 1;
 	$usernameExists = false;
 	foreach ($accounts as $account) {
 		if ($account['user_name'] === $username) {
@@ -33,7 +34,7 @@ if (
 		echo "exists";
 	} else {
 		$db->registerAcount($username, $password, $id_role, $status);
-
+		$db->registerNguoiDung($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount);
 		echo "valid";
 	}
 } else {

@@ -1,11 +1,3 @@
-<?php
-
-
-// session_start();
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,23 +9,17 @@
 </head>
 
 <body>
-
     <div class="container" id="container">
         <div class="form-container sign-in">
             <form action="" method="post">
                 <h1>Sign In</h1>
                 <div class="form--inner--fill">
-                    <!-- <label class="add-user--label" for="fullname">Tài khoản:</label><br> -->
                     <input type="text" name="username" id="user_name_login" placeholder="User Name">
-
                 </div>
                 <div class="form--inner--fill">
-                    <!-- <label class="add-user--label" for="email">Mật khẩu:</label><br> -->
                     <input type="password" name="password" id="password_login" placeholder="Password">
                 </div>
-
                 <button type="submit" name="login">Log In</button>
-
             </form>
         </div>
         <div class="form-container sign-up">
@@ -124,44 +110,45 @@
         }
 
         // Kiểm tra Tên người dùng
-        if (username === '') {
-            username_error.textContent = 'Vui lòng nhập tên người dùng';
+        if (username.length < 6) {
+            username_error.textContent = 'Tên người dùng phải có ít nhất 6 ký tự';
             valid = false;
         } else {
             username_error.textContent = '';
         }
 
         // Kiểm tra Mật khẩu
-        if (password === '') {
-            password_error.textContent = 'Vui lòng nhập mật khẩu';
+        if (password.length < 6) {
+            password_error.textContent = 'Mật khẩu phải có ít nhất 6 ký tự';
             valid = false;
         } else {
             password_error.textContent = '';
         }
 
         // Kiểm tra Email
-        if (email === '') {
-            email_error.textContent = 'Vui lòng nhập địa chỉ email';
+        if (!/^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
+            email_error.textContent = 'Email không hợp lệ';
             valid = false;
         } else {
             email_error.textContent = '';
         }
 
         // Kiểm tra Số điện thoại
-        if (phone === '') {
-            phone_error.textContent = 'Vui lòng nhập số điện thoại';
+        if (!/^\d{10,11}$/.test(phone)) {
+            phone_error.textContent = 'Số điện thoại không hợp lệ';
             valid = false;
         } else {
             phone_error.textContent = '';
         }
 
         // Kiểm tra Địa chỉ
-        if (address === '') {
-            address_error.textContent = 'Vui lòng nhập địa chỉ';
+        if (address.length < 6) {
+            address_error.textContent = 'Địa chỉ phải có ít nhất 6 ký tự';
             valid = false;
         } else {
             address_error.textContent = '';
         }
+
 
         return valid;
     }
