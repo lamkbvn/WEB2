@@ -1,6 +1,6 @@
 <?php
 include "../../Model/DBConfig.php";
-$db = new DBConfig;
+$db = new Database;
 $db->connect();
 if (isset($_POST['action'])) {
     if ($_POST['action'] == "getData") {
@@ -115,7 +115,7 @@ if (isset($_POST['action'])) {
     <div class="container">
         <?php foreach ($result as $item): ?>
             <div class="card">
-                <img src="../../View/image/tourCheoThuyen.webp" alt="" class="img-product" />
+                <img src="View/image/tourCheoThuyen.webp" alt="" class="img-product" />
                 <h2 class="name-product">
                     <?= $item['title'] ?>
                 </h2>

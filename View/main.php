@@ -214,12 +214,12 @@
         <div class="container">
             <?php foreach ($result as $item): ?>
                 <div class="card">
-                    <img src="../../View/image/tourCheoThuyen.webp" alt="" class="img-product" />
+                    <img src="View/image/tourCheoThuyen.webp" alt="" class="img-product" />
                     <h2 class="name-product">
                         <?= $item['title'] ?>
                     </h2>
                     <div class="row-star">
-                        <img src="../../View/icon/Star.svg" alt="" class="icon-star" />
+                        <img src="View/icon/Star.svg" alt="" class="icon-star" />
                         <span>(
                             <?= $item['star_feedback'] ?>)
                         </span>

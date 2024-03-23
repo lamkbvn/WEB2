@@ -1,5 +1,13 @@
 <?php
 $connect = new mysqli("localhost", "root", "", "web2");
+echo "da vo dc index cua file View ";
+
+if($connect == null) {
+  echo "loi ket noi, khong ket noi dc database trong file index View";
+}
+else {
+  echo "da ket noi db thahnh cong trong file index View";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,7 +15,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../../View/style.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="View/style.css?v=<?php echo time(); ?>">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <title>Klook</title>
 </head>
@@ -16,12 +24,12 @@ $connect = new mysqli("localhost", "root", "", "web2");
   <header class="header">
     <div class="container">header</div>
   </header>
-  <?php include "../../View/big-image.php" ?>
-  <?php include "../../View/main.php" ?>
+  <?php include "View/big-image.php" ?>
+  <?php include "View/main.php" ?>
   <footer class="footer">
     <div class="container">
       <p>© 2014-2024 Klook. All Rights Reserved.</p>
-      <img src="../../View/icon/logoSGU.jpeg" alt="" class="icon-logo-SGU" />
+      <img src="View/icon/logoSGU.jpeg" alt="" class="icon-logo-SGU" />
     </div>
   </footer>
   <div class="background-dark"></div>
