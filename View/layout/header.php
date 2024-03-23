@@ -7,7 +7,8 @@
 						<img src="css/icons/8939fe11b96fc40d9c65ca88a0ad1fd1.png" alt="" class="nav-top--logo">
 					</a>
 					<div class="nav-top--find">
-						<img src="css/icons/find-magnifier-search-zoom-look-svgrepo-com.svg" class="nav-top--find__icon" />
+						<img src="css/icons/find-magnifier-search-zoom-look-svgrepo-com.svg"
+							class="nav-top--find__icon" />
 						<input type="text" class="nav-top--find__input" placeholder="Tìm theo điểm đến, hoạt động">
 					</div>
 				</div>
@@ -18,8 +19,8 @@
 						<?php
 						session_start();
 
-						if (isset($_SESSION['objuser'])) {
-							echo  $_SESSION['objuser'][0];
+						if (isset ($_SESSION['objuser'])) {
+							echo $_SESSION['objuser'][0];
 							echo '<img src="css/icons/avatar-admin.png" />';
 							echo '<a href="includes/session/del_session.php">Thoát</a>';
 
@@ -40,12 +41,20 @@
 		<div class="container">
 			<div class="nav-bottom--inner">
 				<ul class="nav-bottom--list">
-					<li class="nav-bottom--item">Bạn muốn đi đâu</li>
-					<li class="nav-bottom--item">Tour</li>
-					<li class="nav-bottom--item">Du thuyền</li>
-					<li class="nav-bottom--item">Hoạt động dưới nước</li>
-					<li class="nav-bottom--item">Phiêu lưu và khám phá thiên nhiên</li>
-					<li class="nav-bottom--item">Trải nghiệm văn hoá</li>
+					<a
+						href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=0">
+							<li class="nav-bottom--item">
+								Tất cả danh mục
+							</li>
+					</a>
+					<?php foreach ($listCategory as $item): ?>
+						<a
+							href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=<?= $item['id'] ?>">
+							<li class="nav-bottom--item">
+								<?= $item['name_category'] ?>
+							</li>
+						</a>
+					<?php endforeach; ?>
 				</ul>
 			</div>
 		</div>

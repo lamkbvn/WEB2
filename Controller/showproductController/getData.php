@@ -120,7 +120,7 @@ if (isset($_POST['action'])) {
                     <?= $item['title'] ?>
                 </h2>
                 <div class="row-star">
-                    <img src="../../View/icon/Star.svg" alt="" class="icon-star" />
+                    <img src="View/icon/Star.svg" alt="" class="icon-star" />
                     <span>(
                         <?= $item['star_feedback'] ?>)
                     </span>

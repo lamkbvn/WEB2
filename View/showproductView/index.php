@@ -1,13 +1,5 @@
 <?php
 $connect = new mysqli("localhost", "root", "", "web2");
-echo "da vo dc index cua file View ";
-
-if($connect == null) {
-  echo "loi ket noi, khong ket noi dc database trong file index View";
-}
-else {
-  echo "da ket noi db thahnh cong trong file index View";
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,17 +7,19 @@ else {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="View/style.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="View/showProductView/style.css?v=<?php echo time(); ?>">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <title>Klook</title>
 </head>
 
 <body>
-  <header class="header">
+  <!-- <header class="header">
     <div class="container">header</div>
-  </header>
-  <?php include "View/big-image.php" ?>
-  <?php include "View/main.php" ?>
+  </header> -->
+  <?php include "View/layout/header-showproduct.php" ?>
+  <?php include "View/showproductView/big-image.php" ?>
+  <?php include "View/showproductView/main.php" ?>
   <footer class="footer">
     <div class="container">
       <p>© 2014-2024 Klook. All Rights Reserved.</p>
@@ -54,12 +48,11 @@ else {
       var keyword = getKeywordOutForm();
 
       var categories = [];
-      if (action === "getData") {
+      if (action === "getData") { // xử lí lọc nâng cao
         var minPriceInForm = $('#price-min').val();
         var maxPriceInForm = $('#price-max').val();
         categories = getFilterInForm('category-advance');
-      } else if (action === "categoryFilter") {
-        // Thực hiện các thao tác khác nếu cần cho action categoryFilter
+      } else if (action === "categoryFilter") { // xử lí lọc theo danh mục bên ngoài
         console.log("Đã chọn categoryFilter");
         categories = getFilterInForm('category-out-form');
         var minPriceInForm = $('#price-min-out-form').val();
@@ -67,7 +60,7 @@ else {
       }
 
       $.ajax({
-        url: 'http://localhost/WEB2/Controller/showproduct/getData.php',
+        url: 'http://localhost/WEB2/Controller/showproductController/getData.php',
         method: 'POST',
         data: {
           action: action,
@@ -87,7 +80,7 @@ else {
             totalPagesGlobal = totalPages;
             if (totalPagesGlobal > 1) {
               let pagi = '';
-              if(currentPage > 1) {
+              if (currentPage > 1) {
                 pagi += `<a href="#filter-row-anchor-for-pagination"> <li id="prevPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10 1L1 8.5L10 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
@@ -96,11 +89,11 @@ else {
                 
             </li></a>`;
               }
-              
+
               for (let i = 1; i <= totalPages; i++) {
                 pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
               }
-              if(currentPage < totalPages) {
+              if (currentPage < totalPages) {
                 pagi += `<a href="#filter-row-anchor-for-pagination"><li id="nextPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
@@ -109,7 +102,7 @@ else {
                 
             </li></a>`;
               }
-              
+
               $('.pagination').append(pagi);
             }
 
@@ -133,7 +126,7 @@ else {
             totalPagesGlobal = totalPages;
             if (totalPagesGlobal > 1) {
               let pagi = '';
-              if(currentPage > 1) {
+              if (currentPage > 1) {
                 pagi += `<a href="#filter-row-anchor-for-pagination">
               <li id="prevPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,11 +135,11 @@ else {
                     </svg>
             </li></a>`;
               }
-              
+
               for (let i = 1; i <= totalPages; i++) {
                 pagi += '<li class="pagination-click ' + (i == currentPage ? 'active' : '') + '">' + i + '</li>';
               }
-              if(currentPage < totalPages) {
+              if (currentPage < totalPages) {
                 pagi += `<a href="filter-row-anchor-for-pagination"><li id="nextPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
@@ -155,7 +148,7 @@ else {
                     
             </li></a>`;
               }
-              
+
               $('.pagination').append(pagi);
             }
 
@@ -206,6 +199,7 @@ else {
       e.preventDefault();
       console.log("Đã click vào category-out-form");
       currentAction = 'categoryFilter'; // Cập nhật action
+      currentPage = 1;
       filterDataInForm(); // Gọi lại hàm filterDataInForm() để tải dữ liệu mới sau khi click
     });
 
@@ -214,6 +208,7 @@ else {
         e.preventDefault();
         console.log("Đã nhấn phím Enter trên trường nhập liệu");
         currentAction = 'getData'; // Cập nhật action
+        currentPage = 1;
         filterDataInForm(); // Gọi lại hàm filterDataInForm() để tải dữ liệu mới sau khi nhấn phím "Enter"
       }
       else {
@@ -232,6 +227,7 @@ else {
     $('.btn-show-result-out-form').click(function (e) {
       e.preventDefault();
       currentAction = 'categoryFilter'; // Cập nhật action
+      currentPage = 1;
       filterDataInForm();
       document.querySelector(".filter-date-price-group .filter-price").classList.remove("active");
       document.querySelector(".filter-date-price-group .filter-price").classList.remove("checked");
@@ -240,6 +236,7 @@ else {
     $(document).on('change', '#sortOption', function (e) {
       e.preventDefault();
       console.log("Đã chọn một option từ select");
+      currentPage = 1;
       filterDataInForm(); // Thực thi hàm filterDataInForm() sau khi chọn option
     });
     $(document).on('click', '#nextPage', function (e) {
@@ -266,27 +263,93 @@ else {
 
   // =========================
   const btnAllCatagory = document.querySelector('.all-category');
+  // Cái hàm này là check bên ngoài category thì bên trong nó cx mất
+  //  và khi mất thì cái nút all category nó phải k có class checked nữa
   document.addEventListener('DOMContentLoaded', function () {
     var categories = document.querySelectorAll('.category');
 
     categories.forEach(function (category) {
       if (!category.classList.contains("all-category") && category.classList.contains("category")) {
         category.addEventListener('click', function () {
-          this.classList.toggle('checked');
+          let dataValue = this.getAttribute("data-value");
+          console.log("data la: " + dataValue);
+
+          // Lấy ra các phần tử có thuộc tính data-value bằng giá trị dataValue
+          let elementsWithDataValue = document.querySelectorAll('[data-value="' + dataValue + '"]');
+
+          elementsWithDataValue.forEach(function (element) {
+            // Xử lý các phần tử tìm thấy ở đây
+            element.classList.toggle('checked');
+          });
+
+          checked_activeForBtnAllCatagory();
+
         });
       }
     });
   });
 
 
+  function checked_activeForBtnAllCatagory() {
+    let categories = document.querySelectorAll(".filter-left .list-category .category-out-form");
+    let allChecked = true;
+
+    categories.forEach(function (category) {
+      if (!category.classList.contains("checked")) {
+        allChecked = false;
+        return; // Nếu có một category không được chọn thì thoát khỏi vòng lặp
+      }
+    });
+
+    if (allChecked) {
+      // btnAllCatagory.classList.add('active');
+      btnAllCatagory.classList.add('checked');
+    } else {
+      // btnAllCatagory.classList.remove('active');
+      btnAllCatagory.classList.remove('checked');
+    }
+  }
+
+
+  function checkedForCategoryInClassListCategory() {
+    // Lấy ra phần tử div chứa giá trị data-value-from-url
+    let optionCategory = document.querySelector('.optionCategory-get-from-url');
+
+    let dataValueGetFromUrl = optionCategory.getAttribute("data-value-from-url"); // Lấy giá trị từ URL
+    var categories = document.querySelectorAll('.category');
+    categories.forEach(function (category) {
+      if (!category.classList.contains("all-category") && category.classList.contains("category")) {
+        let dataValue = category.getAttribute("data-value");
+
+        if (dataValueGetFromUrl == 0) {
+          // Nếu giá trị từ URL là 0, thêm lớp 'checked' cho tất cả các category
+          category.classList.add("checked");
+        } else {
+          if (dataValue == dataValueGetFromUrl) {
+            category.classList.add("checked");
+          } else {
+            category.classList.remove("checked");
+          }
+        }
+      }
+    });
+    console.log("giá trị lấy được từ URL là: " + dataValueGetFromUrl);
+  }
+
+
+  checkedForCategoryInClassListCategory();
+
+
+  // Gọi hàm để kiểm tra và thêm/loại bỏ class active và checked cho btnAllCatagory
+  checked_activeForBtnAllCatagory();
+
+
   btnAllCatagory.addEventListener("click", () => {
     console.log("da click");
     svg = document.querySelector(".all-category .icon-list-bottom");
     svg.classList.toggle('rotate');
-    btnAllCatagory.classList.toggle('checked');
+    checked_activeForBtnAllCatagory();
     btnAllCatagory.classList.toggle('active');
-
-
   })
   const btnFilterPrice = document.querySelector('.filter-price');
   btnFilterPrice.addEventListener("click", () => {
@@ -432,12 +495,12 @@ else {
 
   }
   function unCheckedClasshasCheckedByCategoryInFilterAdvance() {
-  document.querySelectorAll('.category-advance').forEach((e) => {
-    if (e.classList.contains("checked")) {
-      e.classList.remove("checked");
-    }
-  });
-}
+    document.querySelectorAll('.category-advance').forEach((e) => {
+      if (e.classList.contains("checked")) {
+        e.classList.remove("checked");
+      }
+    });
+  }
 
 
 

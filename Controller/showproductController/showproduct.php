@@ -9,7 +9,6 @@
     if(isset($_GET['keyword'])) {
         
     }
-    echo "da vao dc cap 2";
-    require_once("View/index.php");
+    require_once("View/showproductView/index.php");
 
 ?>

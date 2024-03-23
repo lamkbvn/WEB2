@@ -13,7 +13,8 @@
                 </div>
                 <div class="list-category">
                     <?php foreach ($listCategory as $item): ?>
-                        <div class="category category-<?= $item['id'] ?> category-out-form checked" data-value="<?= $item['id'] ?>">
+                        <div class="category category-<?= $item['id'] ?> category-out-form checked"
+                            data-value="<?= $item['id'] ?>">
                             <a href="#">
                                 <?= $item['name_category'] ?>
                             </a>
@@ -21,12 +22,32 @@
                     <?php endforeach; ?>
                 </div>
                 <div class="display-selected">
+                    <?php
+                    if (isset ($_GET['category'])) {
+                        $category = $_GET['category'];
+                        foreach ($listCategory as $item):
+                            if ($item['id'] == $category): ?>
+                                <div class="category category-<?= $item['id'] ?> category-out-form checked"
+                                    data-value="<?= $item['id'] ?>">
+                                    <a href="#">
+                                        <?= $item['name_category'] ?>
+                                    </a>
+                                </div>
+                                <?php
+                                break; // Dừng vòng lặp sau khi đã tìm thấy danh mục
+                            endif;
+                        endforeach;
+                    }
+                    ?>
+
                 </div>
+                <div class="optionCategory-get-from-url" data-value-from-url="<?=$_GET['category']?>"></div>
+
             </div>
             <div class="separete-center"></div>
             <div class="filter-right">
                 <div class="filter-date-price-group">
-                    
+
                     <div class="all-category category filter-price">
                         <span>Lọc theo giá</span>
                         <svg class="icon-list-bottom" width="13" height="9" viewBox="0 0 13 9" fill="none"
@@ -39,12 +60,14 @@
                         <div class="price-input">
                             <div class="field">
                                 <span>Min</span>
-                                <input type="number price-min-out-form" class="input-min" value="0" id="price-min-out-form">
+                                <input type="number price-min-out-form" class="input-min" value="0"
+                                    id="price-min-out-form">
                             </div>
                             <div class="separator">-</div>
                             <div class="field">
                                 <span>Max</span>
-                                <input type="number price-max-out-form" class="input-max" value="5000000" id="price-max-out-form">
+                                <input type="number price-max-out-form" class="input-max" value="5000000"
+                                    id="price-max-out-form">
                             </div>
                         </div>
                         <div class="slider">
@@ -58,14 +81,15 @@
                             <!-- <input type="submit" hidden> -->
                             <div class="row">
                                 <span class="btn-clear" onclick="deleteFormValuesOutForm()">Xoá</span>
-                                <button class="btn-show-result btn-show-result-out-form" type="button">Xem kết quả</button>
+                                <button class="btn-show-result btn-show-result-out-form" type="button">Xem kết
+                                    quả</button>
                             </div>
                         </form>
                     </div>
 
                 </div>
                 <div class="filter-all">
-                    <img src="../../View/icon/Filter.svg" alt="" class="icon-filter" />
+                    <img src="View/icon/Filter.svg" alt="" class="icon-filter" />
                     <span>Lọc</span>
                 </div>
                 <form class="filter-advance" method="get">
@@ -189,21 +213,21 @@
                         <span>KLook giới thiệu</span>
                         <img src="../View/icon/icon-list-bottom.svg" alt="" />
                     </div> -->
-                <img src="../../View/icon/icon-list-bottom.svg" alt="" />
+                <img src="View/icon/icon-list-bottom.svg" alt="" />
                 <div class="hide-arrow-default"></div>
                 <form id="sortForm" class="form" method="get">
                     <select class="list-item" name="sort" id="sortOption">
-                        <option value="1" <?= (isset($sortOption) && $sortOption == 1) ? 'selected' : '' ?>>Klook giới
+                        <option value="1" <?= (isset ($sortOption) && $sortOption == 1) ? 'selected' : '' ?>>Klook giới
                             thiệu</option>
-                        <option value="2" <?= (isset($sortOption) && $sortOption == 2) ? 'selected' : '' ?>>Bán chạy
+                        <option value="2" <?= (isset ($sortOption) && $sortOption == 2) ? 'selected' : '' ?>>Bán chạy
                         </option>
-                        <option value="3" <?= (isset($sortOption) && $sortOption == 3) ? 'selected' : '' ?>>Đánh giá
+                        <option value="3" <?= (isset ($sortOption) && $sortOption == 3) ? 'selected' : '' ?>>Đánh giá
                             cao
                             nhất</option>
-                        <option value="4" <?= (isset($sortOption) && $sortOption == 4) ? 'selected' : '' ?>>Giá (từ
+                        <option value="4" <?= (isset ($sortOption) && $sortOption == 4) ? 'selected' : '' ?>>Giá (từ
                             thấp
                             đến cao)</option>
-                        <option value="5" <?= (isset($sortOption) && $sortOption == 5) ? 'selected' : '' ?>>Giá (từ cao
+                        <option value="5" <?= (isset ($sortOption) && $sortOption == 5) ? 'selected' : '' ?>>Giá (từ cao
                             đến thấp)</option>
                     </select>
                 </form>
@@ -293,7 +317,7 @@
                     <div class="container-one-question">
                         <div class="top">
                             <h3 class="title">Klook có bao nhiêu Tour & Trải nghiệm?</h3>
-                            <img src="../../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            <img src="View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
                         </div>
                         <div class="content">
                             Klook có 13095 Tour & Trải nghiệm tại các địa điểm nổi tiếng
@@ -304,7 +328,7 @@
                     <div class="container-one-question">
                         <div class="top">
                             <h3 class="title">Klook có bao nhiêu Tour & Trải nghiệm?</h3>
-                            <img src="../../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            <img src="View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
                         </div>
                         <div class="content">
                             Top Tour & Trải nghiệm tại các địa điểm nổi tiếng là:
@@ -320,7 +344,7 @@
                             <h3 class="title">
                                 Những Tour & Trải nghiệm phổ biến nhất là gì?
                             </h3>
-                            <img src="../../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            <img src="View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
                         </div>
                         <div class="content">
                             Tour & Trải nghiệm được đánh giá cao tại các địa điểm nổi tiếng là:<br>
@@ -336,7 +360,7 @@
                             <h3 class="title">
                                 Những Tour & Trải nghiệm được đánh giá cao là gì?
                             </h3>
-                            <img src="../../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            <img src="View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
                         </div>
                         <div class="content">
                             Tour & Trải nghiệm có giá hợp lý tại các địa điểm nổi tiếng là:<br>
@@ -352,7 +376,7 @@
                             <h3 class="title">
                                 Những Tour & Trải nghiệm được đánh giá cao là gì?
                             </h3>
-                            <img src="../../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            <img src="View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
                         </div>
                         <div class="content">
                             Tour & Trải nghiệm được đánh giá cao tại các địa điểm nổi tiếng là:<br>
@@ -366,7 +390,7 @@
                     <div class="container-one-question">
                         <div class="top">
                             <h3 class="title">Có Tour & Trải nghiệm nào mới nhất?</h3>
-                            <img src="../../View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
+                            <img src="View/icon/icon-list-bottom.svg" alt="" class="icon-dynamic" />
                         </div>
                         <div class="content">
                             Tour & Trải nghiệm mới nhất tại các địa điểm nổi tiếng là:<br>
