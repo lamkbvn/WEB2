@@ -36,6 +36,9 @@ switch ($action) {
 	case "showproduct": // cua Huu Loc
 		require_once ('Controller/showproductController/showproduct.php');
 		break;
+	case "userprofile":
+		require_once ('View/User/user.php');
+		break;
 	default: {
 		if (isset ($db)) {
 			$listUsersTable = "product";
