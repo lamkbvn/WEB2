@@ -82,7 +82,7 @@ CREATE TABLE `product`(
 );
 CREATE TABLE `ChucNang`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `decription` INT NOT NULL
+    `decription` VARCHAR(255) NOT NULL
 );
 CREATE TABLE `role`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -115,11 +115,10 @@ CREATE TABLE `Acount`(
 );
 
 INSERT INTO 'role' ('id', 'decription') VALUES
-(1, 'Admin'),
-(2, 'Quản lý khách hàng'),
-(3, 'Quản lý bình luận'),
-(4, 'Quản lý tour'),
-(5, 'Quản lý doanh thu');
+(1, 'Quản lý khách hàng'),
+(2, 'Quản lý bình luận'),
+(3, 'Quản lý tour'),
+(4, 'Quản lý doanh thu');
 
 INSERT INTO 'ChucNang' ('id', 'decription') VALUES
 (1, 'Quản lý khách hàng'),
