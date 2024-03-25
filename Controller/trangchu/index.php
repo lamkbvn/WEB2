@@ -39,7 +39,7 @@ switch ($action) {
 	case "userprofile":
 		require_once ('View/User/user.php');
 		break;
-	default: {
+	case '': {
 		if (isset ($db)) {
 			$listUsersTable = "product";
 			$dataHotProduct = $db->getAllData($listUsersTable);
