@@ -350,7 +350,7 @@ function addToCart() {
             // Cập nhật giao diện nếu cần
         }
     };
-    xhr.open("GET", "/WEB2/Controller/User/chitietTour/buyTour.php?" + queryString, true);
+    xhr.open("GET", "/WEB2/Controller/chitietTour/buyTour.php?" + queryString, true);
     xhr.send();
 }
 

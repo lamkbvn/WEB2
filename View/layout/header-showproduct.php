@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="nav-top--inner">
 				<div class="nav-top--left">
-					<a href="index.php?controller=trang-chu">
+					<a href="/WEB2/index.php?controller=trang-chu">
 						<img src="css/icons/8939fe11b96fc40d9c65ca88a0ad1fd1.png" alt="" class="nav-top--logo">
 					</a>
 					<!-- <div class="nav-top--find">
@@ -15,6 +15,14 @@
 					<div class="nav-top--right__inner">
 						<a href="#!" class="nav-top--right__panner">Mở ứng dụng</a>
 						<a href="#!" class="nav-top--right__panner">Xem gần đây</a>
+						<?php 
+						$numCart = $db->execute("SELECT COUNT(*) AS total_rows FROM cart WHERE id_user='1'");
+						$rowNumCart = $numCart->fetch_assoc();
+						$totalRowsNumCart = $rowNumCart["total_rows"];
+						?>
+						<a href="" id="cartIcon" class="option-header-right nav-top--right__panner">Giỏ hàng
+                            <div id="numCart"><?php echo $totalRowsNumCart;?></div>
+                        </a>
 						<?php
 						session_start();
 
