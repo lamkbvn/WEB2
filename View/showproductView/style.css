@@ -781,7 +781,7 @@ input[type="range"]::-moz-range-thumb {
 }
 #cartIcon{
   position: relative;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 #numCart{

@@ -21,12 +21,20 @@ switch ($action) {
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_POST['login'])) {
 			$username = $_POST['username'];
 			$password = $_POST['password'];
-			if ($db->checkLogin($username, $password)) {
+			$resuiltCheckLogin = $db->checkLogin($username, $password);
+			$rowCheckLogin = $resuiltCheckLogin->fetch_assoc();
+			if ($rowCheckLogin) {
 				$objuser = array($username, $password);
 				$_SESSION['objuser'] = $objuser;
+				$idUser = $rowCheckLogin['id'];
+				$_SESSION['idUserLogin'] = $idUser;
+				$flagLogin = 1;
+				$_SESSION['isLogin'] = $flagLogin;
 				header('Location: index.php?controller=trang-chu');
 				exit();
 			} else {
+				$flagLogin = 0;
+				$_SESSION['isLogin'] = $flagLogin;
 				echo "Tên người dùng hoặc mật khẩu không đúng.";
 			}
 		}
@@ -44,7 +52,6 @@ switch ($action) {
 			$listUsersTable = "product";
 			$dataHotProduct = $db->getAllData($listUsersTable);
 			$listCategory = $db->getAllData("category");
-
 			require_once ('View/trangchu/trangchu.php');
 			break;
 		}

@@ -152,13 +152,7 @@ class Database
   public function checkLogin($username, $password)
   {
     $sql = "SELECT * FROM acount WHERE user_name = '$username' AND password = '$password'";
-
-    $result = $this->execute($sql);
-    if ($this->num_rows() > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return $this->execute($sql);
   }
 
   public function getAllAccounts()

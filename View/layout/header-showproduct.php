@@ -4,7 +4,7 @@
 			<div class="nav-top--inner">
 				<div class="nav-top--left">
 					<a href="/WEB2/index.php?controller=trang-chu">
-						<img src="css/icons/8939fe11b96fc40d9c65ca88a0ad1fd1.png" alt="" class="nav-top--logo">
+						<img src="/WEB2/css/icons/8939fe11b96fc40d9c65ca88a0ad1fd1.png" alt="" class="nav-top--logo">
 					</a>
 					<!-- <div class="nav-top--find">
 						<img src="css/icons/find-magnifier-search-zoom-look-svgrepo-com.svg" class="nav-top--find__icon" />
@@ -15,21 +15,31 @@
 					<div class="nav-top--right__inner">
 						<a href="#!" class="nav-top--right__panner">Mở ứng dụng</a>
 						<a href="#!" class="nav-top--right__panner">Xem gần đây</a>
-						<?php 
-						$numCart = $db->execute("SELECT COUNT(*) AS total_rows FROM cart WHERE id_user='1'");
+						<?php
+						session_start();
+						if(isset($_SESSION['idUserLogin'])){
+							$idUser = $_SESSION['idUserLogin'];
+						}
+						$numCart = $db->execute("SELECT COUNT(*) AS total_rows FROM cart WHERE id_user='$idUser'");
 						$rowNumCart = $numCart->fetch_assoc();
 						$totalRowsNumCart = $rowNumCart["total_rows"];
 						?>
-						<a href="" id="cartIcon" class="option-header-right nav-top--right__panner">Giỏ hàng
-                            <div id="numCart"><?php echo $totalRowsNumCart;?></div>
-                        </a>
 						<?php
-						session_start();
+						if (isset($_SESSION['isLogin'])) {
+							if ($_SESSION['isLogin'] == 1) {
+								echo '<a href="#" id="cartIcon" class="option-header-right nav-top--right__panner">Giỏ hàng
+          								<div id="numCart">';
+								// Embedding PHP to display $totalRowsNumCart
+								echo $totalRowsNumCart;
+								echo '</div>
+      								</a>';
+							}
+						}
 
 						if (isset($_SESSION['objuser'])) {
 							echo  $_SESSION['objuser'][0];
 							echo '<img src="css/icons/avatar-admin.png" />';
-							echo '<a href="includes/session/del_session.php">Thoát</a>';
+							echo '<a href="/WEB2/includes/session/del_session.php">Thoát</a>';
 
 
 							// Ẩn liên kết "Đăng kí" và "Đăng nhập"

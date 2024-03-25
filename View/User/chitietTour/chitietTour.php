@@ -12,15 +12,17 @@
         if(isset($_REQUEST['id'])){
             $idTour = $_REQUEST['id'];
         }
+        //session_start();
+        
         $result = $db->execute("SELECT * FROM product WHERE id = '$idTour'");
         $rowTour = $db->getData();
         $result2 = $db->execute("SELECT * FROM feedback WHERE product_id = '$idTour'");
         //$resultIMG = $db->execute("SELECT * FROM image_product WHERE id = '8'");
         // $rowIMG = $resultIMG->fetch_assoc();
         // $imageData = $rowIMG['image'];
-        $numCart = $db->execute("SELECT COUNT(*) AS total_rows FROM cart WHERE id_user='1'");
-        $rowNumCart = $numCart->fetch_assoc();
-        $totalRowsNumCart = $rowNumCart["total_rows"];
+        // $numCart = $db->execute("SELECT COUNT(*) AS total_rows FROM cart WHERE id_user=''");
+        // $rowNumCart = $numCart->fetch_assoc();
+        // $totalRowsNumCart = $rowNumCart["total_rows"];
     ?>
     <div class="nen-den"></div>
     <div class="container">
