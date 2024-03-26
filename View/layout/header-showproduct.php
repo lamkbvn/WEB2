@@ -124,7 +124,7 @@
 							}
 						}
 
-						if (isset($_SESSION['objuser'])) {
+						if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin'])) {
 							echo '<div class ="tennguoidung nav-top--right__panner"> ' . $db->getTenNguoiDung() . '</div>';
 							echo '
 							<div class = "header-avatar">
