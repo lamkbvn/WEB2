@@ -5,16 +5,14 @@
                 <div class="all-category category">
                     <span>Tất cả danh mục</span>
                     <!-- <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-list-bottom" /> -->
-                    <svg class="icon-list-bottom" width="13" height="9" viewBox="0 0 13 9" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
+                    <svg class="icon-list-bottom" width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1.3 0L0 1.36364L6.5 9L13 1.36364L11.7 0L6.5 6L1.3 0Z" fill="#212121" />
                     </svg>
 
                 </div>
                 <div class="list-category">
-                    <?php foreach ($listCategory as $item): ?>
-                        <div class="category category-<?= $item['id'] ?> category-out-form checked"
-                            data-value="<?= $item['id'] ?>">
+                    <?php foreach ($listCategory as $item) : ?>
+                        <div class="category category-<?= $item['id'] ?> category-out-form checked" data-value="<?= $item['id'] ?>">
                             <a href="#">
                                 <?= $item['name_category'] ?>
                             </a>
@@ -23,17 +21,16 @@
                 </div>
                 <div class="display-selected">
                     <?php
-                    if (isset ($_GET['category'])) {
+                    if (isset($_GET['category'])) {
                         $category = $_GET['category'];
-                        foreach ($listCategory as $item):
-                            if ($item['id'] == $category): ?>
-                                <div class="category category-<?= $item['id'] ?> category-out-form checked"
-                                    data-value="<?= $item['id'] ?>">
+                        foreach ($listCategory as $item) :
+                            if ($item['id'] == $category) : ?>
+                                <div class="category category-<?= $item['id'] ?> category-out-form checked" data-value="<?= $item['id'] ?>">
                                     <a href="#">
                                         <?= $item['name_category'] ?>
                                     </a>
                                 </div>
-                                <?php
+                    <?php
                                 break; // Dừng vòng lặp sau khi đã tìm thấy danh mục
                             endif;
                         endforeach;
@@ -41,7 +38,7 @@
                     ?>
 
                 </div>
-                <div class="optionCategory-get-from-url" data-value-from-url="<?=$_GET['category']?>"></div>
+                <div class="optionCategory-get-from-url" data-value-from-url="<?= $_GET['category'] ?>"></div>
 
             </div>
             <div class="separete-center"></div>
@@ -50,8 +47,7 @@
 
                     <div class="all-category category filter-price">
                         <span>Lọc theo giá</span>
-                        <svg class="icon-list-bottom" width="13" height="9" viewBox="0 0 13 9" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
+                        <svg class="icon-list-bottom" width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1.3 0L0 1.36364L6.5 9L13 1.36364L11.7 0L6.5 6L1.3 0Z" fill="#212121" />
                         </svg>
 
@@ -60,24 +56,20 @@
                         <div class="price-input">
                             <div class="field">
                                 <span>Min</span>
-                                <input type="number price-min-out-form" class="input-min" value="0"
-                                    id="price-min-out-form">
+                                <input type="number price-min-out-form" class="input-min" value="0" id="price-min-out-form">
                             </div>
                             <div class="separator">-</div>
                             <div class="field">
                                 <span>Max</span>
-                                <input type="number price-max-out-form" class="input-max" value="5000000"
-                                    id="price-max-out-form">
+                                <input type="number price-max-out-form" class="input-max" value="5000000" id="price-max-out-form">
                             </div>
                         </div>
                         <div class="slider">
                             <div class="progress"></div>
                         </div>
                         <form class="range-input" method="get" action="">
-                            <input type="range" class="range-min" min="0" max="5000000" value="0" step="100000"
-                                name="price-min">
-                            <input type="range" class="range-max" min="0" max="5000000" value="5000000" step="100000"
-                                name="price-max">
+                            <input type="range" class="range-min" min="0" max="5000000" value="0" step="100000" name="price-min">
+                            <input type="range" class="range-max" min="0" max="5000000" value="5000000" step="100000" name="price-max">
                             <!-- <input type="submit" hidden> -->
                             <div class="row">
                                 <span class="btn-clear" onclick="deleteFormValuesOutForm()">Xoá</span>
@@ -127,18 +119,15 @@
                                             <div class="separator-all">-</div>
                                             <div class="field-all">
                                                 <span>Max</span>
-                                                <input type="number" class="input-max-all" value="5000000"
-                                                    id="price-max">
+                                                <input type="number" class="input-max-all" value="5000000" id="price-max">
                                             </div>
                                         </div>
                                         <div class="slider-all">
                                             <div class="progress-all"></div>
                                         </div>
                                         <div class="range-input-all">
-                                            <input type="range" class="range-min-all" min="0" max="5000000" value="0"
-                                                step="100000" name="price-min">
-                                            <input type="range" class="range-max-all" min="0" max="5000000"
-                                                value="5000000" step="100000" name="price-max">
+                                            <input type="range" class="range-min-all" min="0" max="5000000" value="0" step="100000" name="price-min">
+                                            <input type="range" class="range-max-all" min="0" max="5000000" value="5000000" step="100000" name="price-max">
                                         </div>
                                     </div>
                                 </div>
@@ -146,9 +135,8 @@
                                     <h3 class="title">Danh mục</h3>
                                     <div class="item">
                                         <div class="quick-item content-wrap">
-                                            <?php foreach ($listCategory as $item): ?>
-                                                <div class="category category-<?= $item['id'] ?> category-advance"
-                                                    data-value="<?= $item['id'] ?>">
+                                            <?php foreach ($listCategory as $item) : ?>
+                                                <div class="category category-<?= $item['id'] ?> category-advance" data-value="<?= $item['id'] ?>">
                                                     <a href="#">
                                                         <?= $item['name_category'] ?>
                                                     </a>
@@ -217,17 +205,17 @@
                 <div class="hide-arrow-default"></div>
                 <form id="sortForm" class="form" method="get">
                     <select class="list-item" name="sort" id="sortOption">
-                        <option value="1" <?= (isset ($sortOption) && $sortOption == 1) ? 'selected' : '' ?>>Klook giới
+                        <option value="1" <?= (isset($sortOption) && $sortOption == 1) ? 'selected' : '' ?>>Klook giới
                             thiệu</option>
-                        <option value="2" <?= (isset ($sortOption) && $sortOption == 2) ? 'selected' : '' ?>>Bán chạy
+                        <option value="2" <?= (isset($sortOption) && $sortOption == 2) ? 'selected' : '' ?>>Bán chạy
                         </option>
-                        <option value="3" <?= (isset ($sortOption) && $sortOption == 3) ? 'selected' : '' ?>>Đánh giá
+                        <option value="3" <?= (isset($sortOption) && $sortOption == 3) ? 'selected' : '' ?>>Đánh giá
                             cao
                             nhất</option>
-                        <option value="4" <?= (isset ($sortOption) && $sortOption == 4) ? 'selected' : '' ?>>Giá (từ
+                        <option value="4" <?= (isset($sortOption) && $sortOption == 4) ? 'selected' : '' ?>>Giá (từ
                             thấp
                             đến cao)</option>
-                        <option value="5" <?= (isset ($sortOption) && $sortOption == 5) ? 'selected' : '' ?>>Giá (từ cao
+                        <option value="5" <?= (isset($sortOption) && $sortOption == 5) ? 'selected' : '' ?>>Giá (từ cao
                             đến thấp)</option>
                     </select>
                 </form>
@@ -236,8 +224,8 @@
     </div>
     <div class="list-product">
         <div class="container">
-            <?php foreach ($result as $item): ?>
-                <div class="card">
+            <?php foreach ($result as $item) : ?>
+                <!-- <a class="card" href="index.php?controller=chi-tiet-tour&action=xem-tour">
                     <img src="View/image/tourCheoThuyen.webp" alt="" class="img-product" />
                     <h2 class="name-product">
                         <?= $item['title'] ?>
@@ -271,7 +259,7 @@
                             <span>Chính sách đảm bảo về giá</span>
                         </div>
                     </div>
-                </div>
+                </a> -->
             <?php endforeach ?>
             <div id="total-pages" data-total="<?= $totalPages != 0 ? $totalPages : 0 ?>"></div>
             <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
@@ -284,8 +272,7 @@
 
                 <li id="prevPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 1L1 8.5L10 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
+                        <path d="M10 1L1 8.5L10 16" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </li>
             </a>
@@ -294,8 +281,7 @@
 
                 <li id="nextPage">
                     <svg width="11" height="17" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
+                        <path d="M1 1L10 8.5L1 16" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </li>
             </a>

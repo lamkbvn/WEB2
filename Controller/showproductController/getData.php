@@ -14,7 +14,7 @@ if (isset($_POST['action'])) {
             // Thêm điều kiện vào câu truy vấn
             $sql .= " AND id_category IN ($categories)";
         }
-        if(isset($_POST['keyword'])) {
+        if (isset($_POST['keyword'])) {
             $keyword = $_POST['keyword'];
             $sql .= " AND title LIKE '%$keyword%'";
         }
@@ -95,7 +95,6 @@ if (isset($_POST['action'])) {
                     $sql .= " order by price desc";
                     break;
             }
-
         } else {
             echo 'khong nhan duoc bien sort';
         }
@@ -105,16 +104,14 @@ if (isset($_POST['action'])) {
             $sql .= " limit $from, $showProductPerPage";
         }
         $result = $db->getAllDataBySql($sql);
-
     }
-
 }
 ?>
 
 <?php if ($countProduct > 0) { ?>
     <div class="container">
-        <?php foreach ($result as $item): ?>
-            <div class="card">
+        <?php foreach ($result as $item) : ?>
+            <a class="card" >
                 <img src="View/image/tourCheoThuyen.webp" alt="" class="img-product" />
                 <h2 class="name-product">
                     <?= $item['title'] ?>
@@ -148,12 +145,22 @@ if (isset($_POST['action'])) {
                         <span>Chính sách đảm bảo về giá</span>
                     </div>
                 </div>
-            </div>
+            </a>
         <?php endforeach ?>
+        <script>
+            let tours = document.getElementsByClassName('card');
+            for (let i = 0; i < tours.length; i++) {
+                console.log(tours[i])
+                tours[i].addEventListener('click', function() {
+
+                    window.location.href = "Controller/chitietTour/buyTour.php";
+                });
+            }
+        </script>
         <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
         <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
         <div id="option-sort" data-total="<?php echo $sort; ?>"></div>
-        <?php if ($_POST['action'] == "categoryFilter"): ?>
+        <?php if ($_POST['action'] == "categoryFilter") : ?>
             <div id="idCategory" data-total="<?php echo $idCategory; ?>"></div>
         <?php endif; ?>
 
@@ -166,7 +173,7 @@ if (isset($_POST['action'])) {
         <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
         <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>
         <div id="option-sort" data-total="<?php echo $sort; ?>"></div>
-        <?php if ($_POST['action'] == "categoryFilter"): ?>
+        <?php if ($_POST['action'] == "categoryFilter") : ?>
             <div id="idCategory" data-total="<?php echo $idCategory; ?>"></div>
         <?php endif; ?>
     </div>

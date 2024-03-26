@@ -21,15 +21,33 @@ switch ($action) {
 			if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
 				$username = $_POST['username'];
 				$password = $_POST['password'];
-				if ($db->checkLogin($username, $password)) {
-					$objuser = array($username, $password);
-					$_SESSION['objuser'] = $objuser;
+				$user = $db->checkLogin($username, $password);
+				$nguoidungs = $db->getDataNguoiDung();
+				$userIdFromNguoiDung;
+				$userNameFromNguoiDung;
+				if ($user !== false) {
+					$userId = $user['id'];
+					foreach ($nguoidungs as $nguoidung) {
+						if ($nguoidung['id_acount'] == $userId) {
+							$userIdFromNguoiDung = $nguoidung['id_acount'];
+							$userNameFromNguoiDung = $nguoidung['fullname'];
+							break;
+						}
+					}
+
+					$_SESSION['objuser'] = array(
+						'id' => $userId,
+						'userNguoiDung' => $userNameFromNguoiDung,
+						'username' => $username,
+						'password' => $password
+					);
 					header('Location: index.php?controller=trang-chu');
 					exit();
 				} else {
 					echo "Tên người dùng hoặc mật khẩu không đúng.";
 				}
 			}
+
 			require_once('View/trangchu/login.php');
 			break;
 		}
@@ -39,7 +57,7 @@ switch ($action) {
 	case "userprofile":
 		require_once('View/User/user.php');
 		break;
-	default: {
+	case '': {
 			if (isset($db)) {
 				$listUsersTable = "product";
 				$dataHotProduct = $db->getAllData($listUsersTable);

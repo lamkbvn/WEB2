@@ -196,9 +196,9 @@
                     if (response.trim() === "exists") {
                         alert("Tài khoản đã tồn tại, vui lòng nhập lại!"); // Thông báo tài khoản đã tồn tại
                     } else if (response.trim() === "valid") {
-                        alert("Tài khoản đúng!");
+                        alert("Đăng kí thành công");
                     } else {
-                        alert("Đã xảy ra lỗi!");
+                        alert("Vui lòng nhập đầy đủ thông tin");
                     }
                 },
 

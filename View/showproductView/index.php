@@ -20,6 +20,23 @@ $connect = new mysqli("localhost", "root", "", "web2");
   <?php include "View/layout/header-showproduct.php" ?>
   <?php include "View/showproductView/big-image.php" ?>
   <?php include "View/showproductView/main.php" ?>
+
+  <?php
+  // cua Kiet
+  if (isset($_GET['controller'])) {
+    $controller = $_GET['controller'];
+  } else {
+    $controller = '';
+  }
+
+  switch ($controller) {
+    case 'chi-tiet-tour': {
+        header("Location: Controller/chitietTour/buyTour.php");
+        break;
+      }
+  }
+
+  ?>
   <footer class="footer">
     <div class="container">
       <p>© 2014-2024 Klook. All Rights Reserved.</p>
@@ -34,7 +51,9 @@ $connect = new mysqli("localhost", "root", "", "web2");
 </html>
 
 <script>
-  $(document).ready(function () {
+ 
+  //===========================
+  $(document).ready(function() {
     var currentPage = 1;
     var currentAction = 'getData';
     var totalPagesGlobal = 0;
@@ -71,7 +90,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
           sort: sort,
           keyword: keyword
         },
-        success: function (response) {
+        success: function(response) {
           // Xử lý dữ liệu response tùy thuộc vào action
           if (action === "getData") {
             $('.list-product').html(response);
@@ -108,7 +127,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
 
 
             // Gán sự kiện click cho các nút phân trang mới
-            $('.pagination-click').click(function (e) {
+            $('.pagination-click').click(function(e) {
               e.preventDefault();
               currentPage = parseInt($(this).text());
               filterDataInForm();
@@ -154,7 +173,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
 
 
             // Gán sự kiện click cho các nút phân trang mới
-            $('.pagination-click').click(function (e) {
+            $('.pagination-click').click(function(e) {
               e.preventDefault();
               currentPage = parseInt($(this).text());
               filterDataInForm();
@@ -171,13 +190,14 @@ $connect = new mysqli("localhost", "root", "", "web2");
 
     function getFilterInForm(className) {
       var selectedFilters = [];
-      $('.' + className + '.checked').each(function () {
+      $('.' + className + '.checked').each(function() {
         selectedFilters.push($(this).data('value'));
       });
       console.log("mang id la: ");
       console.log(selectedFilters);
       return selectedFilters;
     }
+
     function getKeywordOutForm() {
       let keyword = document.querySelector("#keyword-outform").value.trim();
       return keyword;
@@ -187,15 +207,14 @@ $connect = new mysqli("localhost", "root", "", "web2");
       const selectElement = document.getElementById('sortOption');
       if (selectElement) {
         return selectElement.value;
-      }
-      else {
+      } else {
         console.log("Khong lay duoc sortOption de gui thong qua ajax")
       }
       return null; // Trả về null nếu không tìm thấy phần tử select
     }
 
     // Gán sự kiện click cho các phần tử có lớp là category-out-form
-    $(document).on('click', '.category-out-form', function (e) {
+    $(document).on('click', '.category-out-form', function(e) {
       e.preventDefault();
       console.log("Đã click vào category-out-form");
       currentAction = 'categoryFilter'; // Cập nhật action
@@ -203,28 +222,27 @@ $connect = new mysqli("localhost", "root", "", "web2");
       filterDataInForm(); // Gọi lại hàm filterDataInForm() để tải dữ liệu mới sau khi click
     });
 
-    $(document).on('keypress', '#keyword-outform', function (e) {
+    $(document).on('keypress', '#keyword-outform', function(e) {
       if (e.which === 13) { // Kiểm tra xem phím được nhấn có phải là phím "Enter" không
         e.preventDefault();
         console.log("Đã nhấn phím Enter trên trường nhập liệu");
         currentAction = 'getData'; // Cập nhật action
         currentPage = 1;
         filterDataInForm(); // Gọi lại hàm filterDataInForm() để tải dữ liệu mới sau khi nhấn phím "Enter"
-      }
-      else {
+      } else {
         console.log("khong nhan duoc enter key-word outform");
       }
     });
 
 
     // Gán sự kiện click cho nút hiển thị kết quả
-    $('.filter-footer .btn-show-result').click(function (e) {
+    $('.filter-footer .btn-show-result').click(function(e) {
       e.preventDefault();
       toggleFilterAndBackground();
       currentAction = 'getData'; // Cập nhật action
       filterDataInForm();
     });
-    $('.btn-show-result-out-form').click(function (e) {
+    $('.btn-show-result-out-form').click(function(e) {
       e.preventDefault();
       currentAction = 'categoryFilter'; // Cập nhật action
       currentPage = 1;
@@ -233,13 +251,13 @@ $connect = new mysqli("localhost", "root", "", "web2");
       document.querySelector(".filter-date-price-group .filter-price").classList.remove("checked");
     });
 
-    $(document).on('change', '#sortOption', function (e) {
+    $(document).on('change', '#sortOption', function(e) {
       e.preventDefault();
       console.log("Đã chọn một option từ select");
       currentPage = 1;
       filterDataInForm(); // Thực thi hàm filterDataInForm() sau khi chọn option
     });
-    $(document).on('click', '#nextPage', function (e) {
+    $(document).on('click', '#nextPage', function(e) {
       e.preventDefault();
       if (currentPage < totalPagesGlobal) {
         currentPage++;
@@ -249,7 +267,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
       }
     });
 
-    $(document).on('click', '#prevPage', function (e) {
+    $(document).on('click', '#prevPage', function(e) {
       e.preventDefault();
       if (currentPage > 1) {
         currentPage--;
@@ -265,19 +283,19 @@ $connect = new mysqli("localhost", "root", "", "web2");
   const btnAllCatagory = document.querySelector('.all-category');
   // Cái hàm này là check bên ngoài category thì bên trong nó cx mất
   //  và khi mất thì cái nút all category nó phải k có class checked nữa
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     var categories = document.querySelectorAll('.category');
 
-    categories.forEach(function (category) {
+    categories.forEach(function(category) {
       if (!category.classList.contains("all-category") && category.classList.contains("category")) {
-        category.addEventListener('click', function () {
+        category.addEventListener('click', function() {
           let dataValue = this.getAttribute("data-value");
           console.log("data la: " + dataValue);
 
           // Lấy ra các phần tử có thuộc tính data-value bằng giá trị dataValue
           let elementsWithDataValue = document.querySelectorAll('[data-value="' + dataValue + '"]');
 
-          elementsWithDataValue.forEach(function (element) {
+          elementsWithDataValue.forEach(function(element) {
             // Xử lý các phần tử tìm thấy ở đây
             element.classList.toggle('checked');
           });
@@ -294,7 +312,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
     let categories = document.querySelectorAll(".filter-left .list-category .category-out-form");
     let allChecked = true;
 
-    categories.forEach(function (category) {
+    categories.forEach(function(category) {
       if (!category.classList.contains("checked")) {
         allChecked = false;
         return; // Nếu có một category không được chọn thì thoát khỏi vòng lặp
@@ -317,7 +335,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
 
     let dataValueGetFromUrl = optionCategory.getAttribute("data-value-from-url"); // Lấy giá trị từ URL
     var categories = document.querySelectorAll('.category');
-    categories.forEach(function (category) {
+    categories.forEach(function(category) {
       if (!category.classList.contains("all-category") && category.classList.contains("category")) {
         let dataValue = category.getAttribute("data-value");
 
@@ -478,6 +496,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
     document.querySelector(".range-max-all").value = 5000000;
 
   }
+
   function deleteFormValuesOutForm() {
     console.log("Đã xóa out form");
 
@@ -494,6 +513,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
     document.querySelector(".range-max").value = 5000000;
 
   }
+
   function unCheckedClasshasCheckedByCategoryInFilterAdvance() {
     document.querySelectorAll('.category-advance').forEach((e) => {
       if (e.classList.contains("checked")) {
@@ -507,10 +527,10 @@ $connect = new mysqli("localhost", "root", "", "web2");
 
   // ========================== js phần câu hỏi ==============
 
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     const questions = document.querySelectorAll('.container-one-question');
-    questions.forEach(function (question) {
-      question.addEventListener('click', function () {
+    questions.forEach(function(question) {
+      question.addEventListener('click', function() {
         const content = this.querySelector('.content');
         const iconDynamic = this.querySelector(".icon-dynamic");
 
@@ -528,5 +548,4 @@ $connect = new mysqli("localhost", "root", "", "web2");
       });
     });
   });
-
 </script>
