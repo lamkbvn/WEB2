@@ -489,6 +489,9 @@ h4 {
 }
 
 .product-hot-item {
+    background-image: url('/WEB2/images/bg_ranking_card.webp');
+    background-size: cover; /* Phù hợp hình ảnh vào kích thước của div */
+    background-position: center;
     margin-top: 20px;
     display: flex;
     justify-content: space-around;
@@ -519,7 +522,7 @@ h4 {
 
 .sub-hot-list {
     padding: 20px 0;
-    border: 1px solid #ccc;
+    border-top: 1px solid #f4d3d3;
     display: flex;
     flex-direction: column;
     gap: 15px;

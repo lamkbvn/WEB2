@@ -111,11 +111,11 @@
                     <?php foreach ($dataHotProduct as $product) : ?>
                         <?php if ($count < 4) : ?>
                             <div class="highlighted-activities--item">
-                                <img src="<?php echo $product['id']; ?>" alt="<?php echo $product['title']; ?>" class="highlighted-activities--img">
+                                <img src="/WEB2/images/bigimg.webp<?php //echo $product['id']; ?>" alt="<?php echo $product['title']; ?>" class="highlighted-activities--img">
                                 <div class="highlighted-activities--info">
                                     <p class="highlighted-activities--desc"><?php echo $product['content']; ?></p>
                                     <p class="highlighted-activities--title"><?php echo $product['title']; ?></p>
-                                    <p class="highlighted-activities--price">Từ <?php echo $product['price']; ?></p>
+                                    <p class="highlighted-activities--price">Từ <?php echo number_format($product['price'], 0, ',', '.')."đ"; ?></p>
                                 </div>
                             </div>
                             <?php $count++; ?>
@@ -141,10 +141,24 @@
                         <h3 class="product-hot-item--heading">Hoạt Động Du Lịch Việt Nam Bán Chạy</h3>
                         <div class="sub-hot-list">
                             <div class="sub-hot-item">
-                                <img src="" alt="" class="sub-hot-item--img">
+                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
                                 <div class="sub-hot-item--info">
-                                    <h4 class="sub-hot-item--heading"></h4>
-                                    <p class="sub-hot-item--desc"></p>
+                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
+                                </div>
+                            </div>
+                            <div class="sub-hot-item">
+                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
+                                <div class="sub-hot-item--info">
+                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World BanaHill Đà nẵng</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
+                                </div>
+                            </div>
+                            <div class="sub-hot-item">
+                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
+                                <div class="sub-hot-item--info">
+                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
                                 </div>
                             </div>
                         </div>
@@ -152,12 +166,25 @@
                     <div class="product-hot-item">
                         <h3 class="product-hot-item--heading">Hoạt Động Du Lịch Việt Nam Bán Chạy</h3>
                         <div class="sub-hot-list">
-
                             <div class="sub-hot-item">
-                                <img src="" alt="" class="sub-hot-item--img">
+                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
                                 <div class="sub-hot-item--info">
-                                    <h4 class="sub-hot-item--heading"></h4>
-                                    <p class="sub-hot-item--desc"></p>
+                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
+                                </div>
+                            </div>
+                            <div class="sub-hot-item">
+                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
+                                <div class="sub-hot-item--info">
+                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World BanaHill Đà nẵng</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
+                                </div>
+                            </div>
+                            <div class="sub-hot-item">
+                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
+                                <div class="sub-hot-item--info">
+                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
                                 </div>
                             </div>
                         </div>
@@ -166,10 +193,24 @@
                         <h3 class="product-hot-item--heading">Hoạt Động Du Lịch Việt Nam Bán Chạy</h3>
                         <div class="sub-hot-list">
                             <div class="sub-hot-item">
-                                <img src="" alt="" class="sub-hot-item--img">
+                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
                                 <div class="sub-hot-item--info">
-                                    <h4 class="sub-hot-item--heading"></h4>
-                                    <p class="sub-hot-item--desc"></p>
+                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
+                                </div>
+                            </div>
+                            <div class="sub-hot-item">
+                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
+                                <div class="sub-hot-item--info">
+                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World BanaHill Đà nẵng</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
+                                </div>
+                            </div>
+                            <div class="sub-hot-item">
+                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
+                                <div class="sub-hot-item--info">
+                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
                                 </div>
                             </div>
                         </div>
