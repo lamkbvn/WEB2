@@ -10,7 +10,7 @@
 
 	.header-avatar .item{
 		height: 40px;
-		width : 83%;
+		width : 145px;
 		text-align : center;
 		display: flex;
 		align-items : center;
@@ -68,10 +68,11 @@
 						<a href="#!" class="nav-top--right__panner">Mở ứng dụng</a>
 						<a href="#!" class="nav-top--right__panner">Xem gần đây</a>
 						<?php
-						session_start();
-
+						if (session_status() == PHP_SESSION_NONE) {
+							session_start();
+						}
 						if (isset ($_SESSION['objuser'])) {
-							echo $_SESSION['objuser'][0];
+							echo '<div class ="tennguoidung"> ' . $db->getTenNguoiDung() . '</div>';
 							echo '
 							<div class = "header-avatar">
 								<img src="css/icons/avatar-admin.png" />
@@ -120,11 +121,11 @@
 							</li>
 					</a>
 					<?php foreach ($listCategory as $item): ?>
-						<a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=<?= $item['id'] ?>">
-							<li class="nav-bottom--item">
-								<?= $item['name_category'] ?>
-							</li>
-						</a>
+																		<a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=<?= $item['id'] ?>">
+																			<li class="nav-bottom--item">
+																				<?= $item['name_category'] ?>
+																			</li>
+																		</a>
 					<?php endforeach; ?>
 				</ul>
 			</div>

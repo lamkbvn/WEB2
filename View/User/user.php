@@ -12,7 +12,18 @@
 </head>
 
 <body>
-  <?php require_once ("Controller/User.php"); ?>
+
+  <?php
+  $db = new Database();
+  $db->connect();
+  $listCategory = $db->getAllData("category");
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
+  require_once ("View/layout/header-showproduct.php");
+  require_once ("Controller/User.php");
+  $db->disconnect();
+  ?>
   <section class="user">
     <div class="side-bar-main">
       <div class="profile">
