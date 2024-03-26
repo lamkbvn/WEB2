@@ -1,52 +1,50 @@
 <style>
-
-	a{
-		color : black;
+	a {
+		color: black;
 	}
 
-	.header-avatar img{
+	.header-avatar img {
 		cursor: pointer;
 	}
 
-	.header-avatar .item{
+	.header-avatar .item {
 		height: 40px;
-		width : 83%;
-		text-align : center;
+		width: 83%;
+		text-align: center;
 		display: flex;
-		align-items : center;
-		column-gap : 3px;
+		align-items: center;
+		column-gap: 3px;
 		padding: 0px 10px;
-		font-size : 16px;
+		font-size: 16px;
 	}
 
-	.item svg{
-		width : 20px;
-		height : 20px;
+	.item svg {
+		width: 20px;
+		height: 20px;
 	}
 
-	.header-avatar .item:hover{
+	.header-avatar .item:hover {
 		background: #f5f5f5;
 	}
 
-	.drop-user-side-bar{
-		border-radius : 10px;
+	.drop-user-side-bar {
+		border-radius: 10px;
 		box-shadow: -1px 5px 15px 0px rgb(171, 171, 171);
-		width : 165px;
-		height : 100px;
+		width: 165px;
+		height: 100px;
 		position: absolute;
-		right : 230px;
+		right: 230px;
 		display: flex;
-		justify-content : center;
-		flex-direction : column ;
-		background : white ;
+		justify-content: center;
+		flex-direction: column;
+		background: white;
 		cursor: pointer;
-		display : none;
+		display: none;
 	}
 
-	.header-avatar:hover .drop-user-side-bar{
-		display : flex;
+	.header-avatar:hover .drop-user-side-bar {
+		display: flex;
 	}
-
 </style>
 
 <div class="nav">
@@ -58,8 +56,7 @@
 						<img src="css/icons/8939fe11b96fc40d9c65ca88a0ad1fd1.png" alt="" class="nav-top--logo">
 					</a>
 					<div class="nav-top--find">
-						<img src="css/icons/find-magnifier-search-zoom-look-svgrepo-com.svg"
-							class="nav-top--find__icon" />
+						<img src="css/icons/find-magnifier-search-zoom-look-svgrepo-com.svg" class="nav-top--find__icon" />
 						<input type="text" class="nav-top--find__input" placeholder="Tìm theo điểm đến, hoạt động">
 					</div>
 				</div>
@@ -70,8 +67,8 @@
 						<?php
 						session_start();
 
-						if (isset ($_SESSION['objuser'])) {
-							echo $_SESSION['objuser'][0];
+						if (isset($_SESSION['objuser'])) {
+							echo '<div class ="tennguoidung"> ' . $db->getTenNguoiDung() . '</div>';
 							echo '
 							<div class = "header-avatar">
 								<img src="css/icons/avatar-admin.png" />
@@ -113,19 +110,17 @@
 		<div class="container">
 			<div class="nav-bottom--inner">
 				<ul class="nav-bottom--list">
-					<a
-						href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=0">
-							<li class="nav-bottom--item">
-								Tất cả danh mục
-							</li>
+					<a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=0">
+						<li class="nav-bottom--item">
+							Tất cả danh mục
+						</li>
 					</a>
-					<?php foreach ($listCategory as $item): ?>
-																						<a
-																							href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=<?= $item['id'] ?>">
-																							<li class="nav-bottom--item">
-																								<?= $item['name_category'] ?>
-																							</li>
-																						</a>
+					<?php foreach ($listCategory as $item) : ?>
+						<a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=<?= $item['id'] ?>">
+							<li class="nav-bottom--item">
+								<?= $item['name_category'] ?>
+							</li>
+						</a>
 					<?php endforeach; ?>
 				</ul>
 			</div>
