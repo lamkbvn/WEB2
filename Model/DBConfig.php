@@ -34,6 +34,15 @@ class Database
     return $this->result;
   }
 
+  public function getTenNguoiDung()
+  {
+    $idUser = $_SESSION['idUserLogin'];
+    $sql = 'select * from nguoidung where id = ' . $idUser;
+    $this->result = $this->conn->query($sql);
+    $name = $this->getData();
+    return $name['fullname'];
+  }
+
   public function foreignKey($tableChil, $columnChil, $tableParent, $columnParent)
   {
     $sql = 'alter table ' . $tableChil .
@@ -152,14 +161,7 @@ class Database
   public function checkLogin($username, $password)
   {
     $sql = "SELECT * FROM acount WHERE user_name = '$username' AND password = '$password'";
-
-    $result = $this->execute($sql);
-    if ($this->num_rows() > 0) {
-      $row = $result->fetch_assoc();
-      return $row;
-    } else {
-      return false;
-    }
+    return $this->execute($sql);
   }
 
   public function getDataNguoiDung()
@@ -269,11 +271,10 @@ class Database
     $avgStar = $row["avgStar"];
     $update_sql = "UPDATE product SET star_feedback = '$avgStar' WHERE id = '$product_id'";
     return $this->execute($update_sql);
-  }
-  // phần của admin
-  // thêm tour mới
-  public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $address, $datecreate, $acount)
-  {
+}
+// phần của admin
+// thêm tour mới
+public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $address, $datecreate, $acount){
     $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, address, soLuongConLai, star_feedback)
     VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$address', '$acount', '0')";
     return $this->execute($sql);

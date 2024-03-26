@@ -111,7 +111,7 @@ if (isset($_POST['action'])) {
 <?php if ($countProduct > 0) { ?>
     <div class="container">
         <?php foreach ($result as $item) : ?>
-            <a class="card" >
+            <a class="card" id='<?php echo $item['id'] ?>'>
                 <img src="View/image/tourCheoThuyen.webp" alt="" class="img-product" />
                 <h2 class="name-product">
                     <?= $item['title'] ?>
@@ -152,8 +152,8 @@ if (isset($_POST['action'])) {
             for (let i = 0; i < tours.length; i++) {
                 console.log(tours[i])
                 tours[i].addEventListener('click', function() {
-
-                    window.location.href = "Controller/chitietTour/buyTour.php";
+                    let id = tours[i].id;
+                    window.location.href = "Controller/chitietTour/buyTour.php?id="+id;
                 });
             }
         </script>

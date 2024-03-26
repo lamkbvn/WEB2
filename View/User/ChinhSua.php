@@ -31,7 +31,7 @@
         </div>
         <div class="content-muc-edit row2 name-user">
           <?php
-          require_once('../Model/DBConfig.php');
+          require_once ('../Model/DBConfig.php');
           nameUser($idUser) ?>
         </div>
         <div method="get " class="row3">
@@ -44,7 +44,7 @@
             <input type="text" name="textHo" placeholder="Nhập họ" class="textHo">
             <input type="text" name="textTen" placeholder="Nhập tên" class="textTen">
           </div>
-          <button class="btn-luu" onclick="sendRequest(event)">Lưu</button>
+          <button class="btn-luu" onclick="changeNameProfile(event)">Lưu</button>
         </div>
       </div>
 
