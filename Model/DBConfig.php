@@ -354,6 +354,23 @@ public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, 
     }
   }
 
+  public function resultEmailUser($idUser, $emailChange)
+  {
+    $sql = 'select * from nguoidung where id = ' . $idUser;
+    $result = mysqli_query($this->conn, $sql);
+    $row = mysqli_fetch_array($result);
+
+    $fullemailprofile = $row['email'];
+    if ($emailChange != '') {
+      $fullemailprofile = $_POST['emailChange'];
+      $sql = 'Update nguoidung SET email = "' . $fullemailprofile . '"  WHERE id = ' . $idUser;
+      mysqli_query($this->conn, $sql);
+    }
+    echo $fullemailprofile;
+  }
+
+
+
   public function resultNameUser($idUser, $nameChange)
   {
     $sql = 'select * from nguoidung where id = ' . $idUser;
@@ -367,6 +384,21 @@ public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, 
       mysqli_query($this->conn, $sql);
     }
     echo $fullnameprofile;
+  }
+
+  public function resultsdtUser($idUser, $sdtChange)
+  {
+    $sql = 'select * from nguoidung where id = ' . $idUser;
+    $result = mysqli_query($this->conn, $sql);
+    $row = mysqli_fetch_array($result);
+
+    $sdtprofile = $row['phone_number'];
+    if ($sdtChange != '') {
+      $sdtprofile = $_POST['sdtChange'];
+      $sql = 'Update nguoidung SET phone_number = ' . $sdtprofile . '  WHERE id = ' . $idUser;
+      mysqli_query($this->conn, $sql);
+    }
+    echo $sdtprofile;
   }
 
   public function resultSearchDiscount($searchTerm, $idUser)

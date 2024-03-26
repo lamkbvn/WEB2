@@ -32,13 +32,16 @@
         <div class="content-muc-edit row2 name-user">
           <?php
           require_once ('../Model/DBConfig.php');
-          nameUser($idUser) ?>
+          if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+          }
+          nameUser($_SESSION['idUserLogin']) ?>
         </div>
         <div method="get " class="row3">
           <div class="header-edit">
             <span class="header-edit-ho">Họ</span>
             <span class="header-edit-ten">Tên</span>
-            <span class="header-edit-btn-off-edit" onclick="offEditProfile(event)">Hủy</span>
+            <span class="header-edit-btn-off-edit" onclick="offEditProfile1(event)">Hủy</span>
           </div>
           <div class="content-edit">
             <input type="text" name="textHo" placeholder="Nhập họ" class="textHo">
@@ -49,62 +52,56 @@
       </div>
 
       <div class="muc-edit">
-        <div class="row1">
-          <div class="chitiet-muc-edit">Danh xưng</div>
+      <div class="row1">
+          <div class="chitiet-muc-edit">Email</div>
           <div class="btn-on-edit" onclick="onEditProfile(event)">Chỉnh sửa</div>
         </div>
-        <div class="content-muc-edit row2">Chưa có</div>
-        <div method="get " class="row3">
-          <div class="header-edit">
-            <span class="header-edit-danh-xung">Danh xưng</span>
-            <span class="header-edit-btn-off-edit" onclick="offEditProfile(event)">Hủy</span>
-          </div>
-          <div class="content-edit">
-            <select name="danhxung" id="danhxung" class="danhxung" placeholder="Please select">
-              <option value="1">Anh</option>
-              <option value="1">Chị</option>
-            </select>
-          </div>
-          <button type="submit" class="btn-luu">Lưu</button>
+        <div class="content-muc-edit row2 email-user">
+        <?php
+        require_once ('../Model/DBConfig.php');
+        if (session_status() == PHP_SESSION_NONE) {
+          session_start();
+        }
+        emailUser($_SESSION['idUserLogin']) ?>
         </div>
-      </div>
-
-      <div class="muc-edit">
-        <div class="row1">
-          <div class="chitiet-muc-edit">Ngày sinh</div>
-          <div class="btn-on-edit" onclick="onEditProfile(event)">Chỉnh sửa</div>
-        </div>
-        <div class="content-muc-edit row2">Chưa có</div>
-        <div method="get " class="row3">
-          <div class="header-edit">
-            <span class="header-edit-ngay-sinh">Ngày sinh</span>
-            <span class="header-edit-btn-off-edit" onclick="offEditProfile(event)">Hủy</span>
-          </div>
-          <div class="content-edit">
-            <input type="date" name="ngaysinh" id="ngaysinh" class="ngaysinh">
-          </div>
-          <button type="submit" class="btn-luu">Lưu</button>
-        </div>
-      </div>
-
-      <div class="muc-edit">
-        <div class="row1">
-          <div class="chitiet-muc-edit">Quốc gia/Khu vực bạn cư trú</div>
-          <div class="btn-on-edit" onclick="onEditProfile(event)">Chỉnh sửa</div>
-        </div>
-        <div class="content-muc-edit row2">Chưa có</div>
         <div class="row3">
           <div class="header-edit">
-            <span class="header-edit-quoc-gia">Quốc gia/Khu vực bạn cư trú</span>
-            <span class="header-edit-btn-off-edit" onclick="offEditProfile(event)">Hủy</span>
+            <span class="header-edit-email">Email</span>
+            <span class="header-edit-btn-off-edit" onclick="offEditProfile1(event)">Hủy</span>
           </div>
           <div class="content-edit">
-            <input type="text" name="quocgia" id="quocgia" class="quocgia">
+            <input type="text" name="emailProfile" id="emailProfile" class="emailProfile" placeholder ="nhap email moi">
+            <div class="errorMes" style = "margin-top : 5px;"></div>
           </div>
-          <button class="btn-luu">Lưu</button>
+          <button class="btn-luu" onclick="changeEmailProfile(event)">Lưu</button>
         </div>
       </div>
 
+      <div class="muc-edit">
+        <div class="row1">
+          <div class="chitiet-muc-edit">Số điện thoại</div>
+          <div class="btn-on-edit" onclick="onEditProfile(event)">Chỉnh sửa</div>
+        </div>
+        <div class="content-muc-edit row2 sdt-user">
+        <?php
+        require_once ('../Model/DBConfig.php');
+        if (session_status() == PHP_SESSION_NONE) {
+          session_start();
+        }
+        sdtUser($_SESSION['idUserLogin']) ?>
+        </div>
+        <div class="row3">
+          <div class="header-edit">
+            <span class="header-edit-sdt">Số điện thoại</span>
+            <span class="header-edit-btn-off-edit" onclick="offEditProfile1(event)">Hủy</span>
+          </div>
+          <div class="content-edit">
+            <input type="text" name="sdt" id="sdt" class="sdt">
+            <div class="errorMes" style = "margin-top : 5px;"></div>
+          </div>
+          <button class="btn-luu" onclick = "changesdtProfile(event)">Lưu</button>
+        </div>
+      </div>
     </div>
   </div>
 

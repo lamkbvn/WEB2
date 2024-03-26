@@ -30,7 +30,10 @@
         <img src="./IMAGEofLam/person.svg" alt="" class="profile-image-user">
         <div class="profile-name-user">
           <?php
-          nameUser($idUser);
+          if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+          }
+          nameUser($_SESSION['idUserLogin']);
           ?>
         </div>
         <div class="profile-edit-profile cs" onclick="selectPageUser(event)">

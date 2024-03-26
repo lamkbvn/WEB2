@@ -22,8 +22,11 @@
     </div>
     <div class="find-discount">
       <?php
-      include("../Model/DBConfig.php");
-      searchDiscount($idUser);
+      include ("../Model/DBConfig.php");
+      if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+      }
+      searchDiscount($_SESSION['idUserLogin']);
       ?>
     </div>
   </div>
