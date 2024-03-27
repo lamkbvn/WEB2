@@ -75,7 +75,7 @@
     <!-- Include your JavaScript files -->
     <script src="../../Js/user/signup_login.js"></script>
     <script src="../../Js/user/validation.js"></script>
-    <script src="../../Js/user/signup_login.js"></script>
+
 </body>
 
 </html>

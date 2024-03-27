@@ -31,6 +31,13 @@
             return $this->result;
         }
 
+        public function close() {
+            if ($this->con !== null) {
+                $this->con->close();
+                $this->con = null;
+            }
+        }
+
         //lấy dữ liệu
         public function getData(){
             if($this->result){
@@ -64,10 +71,12 @@
             return $this->execute($sql);
         }
 
+        
+
         // thêm orrder
-        public function InsertOrder($id, $id_user, $order_method_id, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount){
-            $sql = "INSERT INTO orders (id, id_user, order_method_id, fullname, email, phone_number, address, note, date_order, total_money, status)
-            VALUES ('$id', '$id_user', '$order_method_id', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1')";
+        public function InsertOrder($id, $id_user, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount){
+            $sql = "INSERT INTO orders (id, id_user, fullname, email, phone_number, address, note, date_order, total_money, status, id_discount)
+            VALUES ('$id', '$id_user', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1', '$id_discount')";
             return $this->execute($sql);
         }
 
@@ -104,17 +113,53 @@
             return $this->execute($sql);
         }
         
-    //     //tải tất cả bình luận
-    //     function loadall_feedback($product_id){
-    //         global $db;
-    //         $sql="select * from feedback where 1";
-    //         if($product_id>0) $sql.=" AND product_id='".$product_id."'";
-    //         $sql.=" order by id desc";
-        
-    //         $listbl=$db->getAllData($sql);
-    //         return $listbl;
-    //     }
-     }
+        // Xóa bình luận dựa trên ID
+            public function deleteComment($commentId){
+            $this->connect();
 
+            // Chuẩn bị truy vấn xóa
+            $sql = "DELETE FROM feedback WHERE id = $commentId";
+            $result = $this->execute($sql);
+
+            return $result;
+        }
+        public function deleteVoucher($VoucherId){
+            $this->connect();
+
+            // Chuẩn bị truy vấn xóa
+            $sql = "DELETE FROM discount WHERE id = $VoucherId";
+            $result = $this->execute($sql);
+
+            return $result;
+        }
+
+        public function updateVoucher($id, $discount_name,$code,$percent,$date_start,$date_end,$description)
+	    {
+            $sql = "UPDATE discount SET discount_name='$discount_name', code='$code', percent='$percent', date_start='$date_start', date_end='$date_end', description='$description' WHERE id='$id'";
+            return $this->execute($sql);
+	    }
+        public function insertVoucher( $discount_name,$code,$percent,$date_start,$date_end,$description)
+	    {
+            $sql = "INSERT INTO discount ( discount_name,code,percent,date_start,date_end,description) 
+            VALUES ( '$discount_name', '$code', '$percent', '$date_start', '$date_end', '$description')";
+            return $this->execute($sql);
+	    }
+        // Add this method to your DBConfig class
+public function getVoucherDetailsById($voucherId) {
+    if($voucherId > 0) {
+        $sql = "SELECT * FROM discount WHERE id = $voucherId";
+        $result = $this->execute($sql);
+
+        if($result && $result->num_rows > 0) {
+           
+            $voucherDetails = $result->fetch_assoc();
+            return $voucherDetails;
+        }
+    }
+    return false; 
+}
+
+    } 
+    
 
 ?>

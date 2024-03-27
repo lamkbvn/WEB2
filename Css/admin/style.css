@@ -11,7 +11,7 @@ body {
 
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -28,40 +28,34 @@ body {
   text-align: center;
 }
 
-.navbar {
-  background-color: #333;
-  padding: 1rem;
-  border-radius: 5px;
-}
-
-.navbar ul {
+.container {
   display: flex;
-  justify-content: center;
+}
+
+.sidebar {
+  width: 126px;
+  height: 280px;
+  background-color: #f0f0f0;
+}
+
+.sidebar ul {
+  padding: 0;
+}
+
+.sidebar ul li {
   list-style-type: none;
+  margin: 0;
+  padding: 10px;
 }
 
-.navbar a {
-  color: #fff;
+.sidebar ul li a {
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  margin: 0 0.5rem;
-  border-radius: 5px;
+  color: #333;
 }
 
-.navbar a:hover {
-  background-color: #555;
-}
-
-.navbar a.active {
-  background-color: #555;
-}
-
-.navbar a:hover {
-  background-color: #555;
-}
-
-.navbar a.active {
-  background-color: #555;
+.content {
+  flex: 1;
+  padding: 20px;
 }
 
 .account-settings {
@@ -93,13 +87,29 @@ body {
 .account-settings th,
 .account-settings td {
   padding: 10px;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid #ccc;
 }
 
 .account-settings th {
   background-color: #f2f2f2;
   font-weight: bold;
+}
+
+.account-settings a input[value='Xóa'] {
+  padding: 2px;
+  border-radius: 6px;
+  background: #ff0027;
+  color: white;
+  border: none;
+}
+.account-settings a input[value='Sửa'] {
+  padding: 2px;
+  border-radius: 6px;
+  background: #1f7abc;
+  color: white;
+  border: none;
+  margin-right: 5px;
 }
 
 .account-settings th:first-child,
@@ -109,32 +119,17 @@ body {
 
 .account-settings th:nth-child(2),
 .account-settings td:nth-child(2) {
-  width: 100px;
-}
-
-.account-settings th:nth-child(3),
-.account-settings td:nth-child(3) {
-  width: 150px;
-}
-
-.account-settings th:nth-child(4),
-.account-settings td:nth-child(4) {
-  width: 200px;
-}
-
-.account-settings th:nth-child(5),
-.account-settings td:nth-child(5) {
-  width: 250px;
+  width: 180px;
 }
 
 .account-settings th:nth-child(6),
 .account-settings td:nth-child(6) {
-  width: 300px;
+  width: 170px;
 }
 
 .account-settings th:nth-child(7),
 .account-settings td:nth-child(7) {
-  width: 100px;
+  width: 170px;
 }
 
 .account-settings th:nth-child(8),
