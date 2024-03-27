@@ -78,7 +78,8 @@
 		color: #fff;
 		font-size: 9px;
 	}
-	.dangxuat svg{
+
+	.dangxuat svg {
 		margin-left: 3px;
 	}
 </style>
@@ -124,13 +125,13 @@
 							}
 						}
 
-						if (isset($_SESSION['objuser'])) {
+						if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin'])) {
 							echo '<div class ="tennguoidung nav-top--right__panner"> ' . $db->getTenNguoiDung() . '</div>';
 							echo '
 							<div class = "header-avatar">
 								<img src="/WEB2/images/avatar.png" width = "34" />
 								<div class = "drop-user-side-bar">
-									<a href="index.php?controller=trang-chu&action=userprofile">
+									<a href="index.php?controller=trang-chu&action=userprofile&pageuser=cs">
 										<div class = "trangcanhan item">
 										<img src="/WEB2/IMAGEofLam/person.svg" width = "22" />
 											<div class = "text">Trang cá nhân</div>

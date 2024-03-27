@@ -1,3 +1,4 @@
+
 <?php
 class Database
 {
@@ -164,23 +165,6 @@ class Database
     return $this->execute($sql);
   }
 
-  public function getDataNguoiDung()
-  {
-    $sql = "SELECT * FROM nguoidung";
-
-    $result = $this->execute($sql);
-    $data = array();
-    if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-      }
-    }
-
-    // Trả về dữ liệu
-    return $data;
-  }
-
-
   public function getAllAccounts()
   {
     $sql = "SELECT * FROM acount";
@@ -203,16 +187,14 @@ class Database
 
   public function registerNguoiDung($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)
   {
-    $selectId = "SELECT id FROM acount ORDER BY id DESC LIMIT 1";
-    $result = $this->execute($selectId);
-    $row = $result->fetch_assoc();
-    $last_role_id = $row["id"];
-    $sql = "INSERT INTO nguoidung (fullname, email, phone_number, create_at, status, address, id_acount) VALUES ('$fullname', '$email', '$phone_number', '$create_at', '$status', '$address', '$last_role_id')";
+    $sql = "INSERT INTO nguoidung (fullname, email, phone_number, create_at, status, address, id_acount) VALUES ('$fullname', '$email', '$phone_number', '$create_at', '$status', '$address', '$id_acount')";
     return $this->execute($sql);
   }
+
   public function num_row()
   { // co them s-> thieus 
     if ($this->result) {
+
       $num = mysqli_num_rows($this->result);
     } else {
       $num = 0;
@@ -271,10 +253,11 @@ class Database
     $avgStar = $row["avgStar"];
     $update_sql = "UPDATE product SET star_feedback = '$avgStar' WHERE id = '$product_id'";
     return $this->execute($update_sql);
-}
-// phần của admin
-// thêm tour mới
-public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $address, $datecreate, $acount){
+  }
+  // phần của admin
+  // thêm tour mới
+  public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $address, $datecreate, $acount)
+  {
     $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, address, soLuongConLai, star_feedback)
     VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$address', '$acount', '0')";
     return $this->execute($sql);
