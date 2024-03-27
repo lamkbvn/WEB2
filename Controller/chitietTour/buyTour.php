@@ -1,18 +1,21 @@
 <?php 
 
-if(isset($_GET['action'])){
-    $action = $_GET['action'];
+if(isset($_REQUEST['action'])){
+    $action = $_REQUEST['action'];
 } else {
     $action = '';
 }
-     
+session_start();
+if (isset($_SESSION['idUserLogin'])) {
+    $idUser = $_SESSION['idUserLogin'];
+}     
 include ("../../Model/DBConfig.php");
 $db = new Database();
 $db->connect();
 require_once('../../View/User/chitietTour/chitietTour.php');
 switch($action){
     case 'book-tour':{
-        if (isset($_REQUEST['buy-now'])) {
+        if (isset($_REQUEST['buy-now'])&& isset($_REQUEST['id'])) {
             // Xử lý khi người dùng nhấn nút "Mua ngay"
             //date này là date book tour
             $dateBook = $_REQUEST['datePhp'];
@@ -26,31 +29,39 @@ switch($action){
             $note = $_REQUEST['note-book-tour'];
             $soLuong = $_REQUEST['numTicketphp'];
             $id = date('dmyHis');
-            $db->InsertOrder($id, 1, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, 1);
-            $db->InsertDetailOrder($id, 1, $rowTour['price'], $soLuong, $rowTour['price'] * $soLuong,  $dateBook);
+            $idPro = $_REQUEST['id'];
+            $db->InsertOrder($id, $idUser, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, 1);
+            $db->InsertDetailOrder($id, $idPro, $rowTour['price'], $soLuong, $rowTour['price'] * $soLuong,  $dateBook);
             //nếu muốn dùng idOrder để truyền vào DetailOrder thì dùng biến id này
-            echo "<script>window.location.href='../chitietTour/buyTour.php';</script>";
+            echo "<script>window.location.href='../chitietTour/buyTour.php?id=$idPro';</script>";
             // exit();
         } 
         break;
     }
     case 'send-cmt':{
-        if (isset($_REQUEST['send-cmt'])) {
+        if (isset($_REQUEST['send-cmt']) && isset($_REQUEST['id'])) {
             $cmt = $_REQUEST['text-cmt'];
             $currentDate = date("Y-m-d H:i:s");
             $star = $_REQUEST['rating'];
-            $db->InsertCmt(1, 1, $cmt, $currentDate, $star);
+            $idPro = $_REQUEST['id'];
+            $db->InsertCmt($idUser, $idPro, $cmt, $currentDate, $star);
             $db->updateStarOfTour(1);
-            echo "<script>window.location.href='../chitietTour/buyTour.php';</script>";
+            echo "<script>window.location.href='../chitietTour/buyTour.php?id=$idPro';</script>";
             // exit();
         }
         break;
     }
     case 'add-cart':{
+        
         if (isset($_REQUEST['add-cart'])) {
+            if(isset($_REQUEST['id'])){
+                // echo "<script>alert('a');</script>";
+                $idPro = $_REQUEST['id'];
+                $numTicket = $_REQUEST['numTicketphp'];
+                $db->InsertCart($idUser, $idPro, $numTicket, 1);
+            }
             // Xử lý khi người dùng nhấn nút "Thêm vào giỏ hàng"
-            $numTicket = $_REQUEST['numTicketphp'];
-            $db->InsertCart(1, 1, $numTicket, 1);
+            
             // echo "<script>window.location.href='../chitietTour/index.php';</script>";
             // exit();
         }

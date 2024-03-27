@@ -31,7 +31,7 @@ switch ($action) {
 					$_SESSION['idUserLogin'] = $idUser;
 					$flagLogin = 1;
 					$_SESSION['isLogin'] = $flagLogin;
-					header('Location: index.php?controller=trang-chu');
+					header("Location: index.php?controller=trang-chu");
 					exit();
 				} else {
 					$flagLogin = 0;

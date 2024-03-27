@@ -346,7 +346,7 @@ function addToCart() {
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             // Xử lý phản hồi từ server
-            console.log(this.responseText);
+            console.log(queryString);
             // Cập nhật giao diện nếu cần
         }
     };

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang chi tiết</title>
     <link rel="stylesheet" href="../../css/styleKiet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <?php 
@@ -208,12 +209,13 @@
                             </div>
                         </div>
                         <div class="container-submit-option">
-                            <form name="formAddCart" id="submitAddcart" > 
+                            <form action="buyTour.php" name="formAddCart" id="submitAddcart" > 
                                 <input type="hidden" name="controller" value="chi-tiet-tour">
                                 <input type="hidden" name="action" value="add-cart">
+                                <input type="hidden" name="id" value='<?php echo $idTour;?>'>
                                 <input type="hidden" name="add-cart" value="1">
                                 <input type="hidden" name="numTicketphp" value="0">
-                                <button type="button" name="add-cart" class="add-cart btn-submit-option">Thêm vào giỏ hàng</button>
+                                <button type="button" class="add-cart btn-submit-option">Thêm vào giỏ hàng</button>
                             </form>
                             <div id="dot"></div>
                         
@@ -227,6 +229,7 @@
                     <input type="hidden" name="action" value="book-tour">
                     <input type="hidden" name="datePhp" value="0">
                     <input type="hidden" name="totalMoneyphp" value="0">
+                    <input type="hidden" name="id" value='<?php echo $idTour;?>'>
                     <h2>Vui lòng điền thông tin</h1>
                     <div class="container-field">    
                         <label for="">Họ tên</label> </br>
@@ -302,6 +305,7 @@
                 <form action="buyTour.php" method="get">
                     <input type="hidden" name="controller" value="chi-tiet-tour">
                     <input type="hidden" name="action" value="send-cmt">
+                    <input type="hidden" name="id" value='<?php echo $idTour;?>'>
                     <textarea class="text-cmt" name="text-cmt" rows="4" cols="92" placeholder="Viết bình luận..."></textarea>
                     <input type="hidden" id="rating-value" name="rating" value="0">
                     <input type="submit" name="send-cmt" value="Gửi" class="btn-sendCmt">
@@ -309,9 +313,9 @@
                 <?php 
                     while($rowCmt = mysqli_fetch_array($result2)){
                         // lấy tên người đăng
-                        $idUser = $rowCmt['user_id'];
+                        $idUserCMT = $rowCmt['user_id'];
                         $numstar = $rowCmt['num_star'];
-                        $result3 = $db->execute("SELECT * FROM nguoidung WHERE id = $idUser");
+                        $result3 = $db->execute("SELECT * FROM nguoidung WHERE id = $idUserCMT");
                         while($rowUser = mysqli_fetch_array($result3)) $nameUser = $rowUser['fullname'];
                         // lấy ngày
                         $date_create = strtotime($rowCmt['create_at']);
