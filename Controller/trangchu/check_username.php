@@ -11,7 +11,9 @@ if (
 	$_POST['password'] !== '' &&
 	$_POST['email'] !== '' &&
 	$_POST['phone_number'] !== '' &&
-	$_POST['address'] !== ''
+	$_POST['address'] !== '' &&
+	isset($_POST['checkValid']) && $_POST['checkValid'] == 1
+
 ) {
 	$username = $_POST['username'];
 	$fullname = $_POST['fullname'];

@@ -38,7 +38,7 @@
             </form>
         </div>
         <div class="form-container sign-up">
-            <form method="post" onsubmit="validateForm()">
+            <form id="signup_form" method="post" onsubmit="return validateForm()">
                 <h1>Create Account</h1>
                 <input type="hidden" name="action" value="signup">
                 <!-- Các trường nhập -->
@@ -99,74 +99,83 @@
     });
 </script>
 <script>
+    let checkValid = 0;
+
     function validateForm() {
-        var fullname = document.getElementById('fullname_signup').value.trim();
-        var username = document.getElementById('user_name_signup').value.trim();
-        var password = document.getElementById('password_signup').value.trim();
-        var email = document.getElementById('email_signup').value.trim();
-        var phone = document.getElementById('phone_number_signup').value.trim();
-        var address = document.getElementById('address_signup').value.trim();
+        var fullname = document.getElementById("fullname_signup").value.trim();
+        var username = document.getElementById("user_name_signup").value.trim();
+        var password = document.getElementById("password_signup").value.trim();
+        var email = document.getElementById("email_signup").value.trim();
+        var phoneNumber = document.getElementById("phone_number_signup").value.trim();
+        var address = document.getElementById("address_signup").value.trim();
 
-        var fullname_error = document.getElementById('spanFullname_signup');
-        var username_error = document.getElementById('spanUsername');
-        var password_error = document.getElementById('spanPw');
-        var email_error = document.getElementById('spanEmail');
-        var phone_error = document.getElementById('spanPhone');
-        var address_error = document.getElementById('spanAddress');
+        var error = false;
 
-        var valid = true;
-
-        // Kiểm tra Tên đầy đủ
-        if (fullname === '') {
-            fullname_error.textContent = 'Vui lòng nhập họ và tên';
-            valid = false;
+        // Kiểm tra điều kiện và hiển thị thông báo lỗi nếu cần
+        if (fullname === "") {
+            document.getElementById("spanFullname_signup").textContent = "Vui lòng nhập họ và tên";
+            error = true;
         } else {
-            fullname_error.textContent = '';
+            document.getElementById("spanFullname_signup").textContent = "";
         }
 
-        // Kiểm tra Tên người dùng
-        if (username.length < 6) {
-            username_error.textContent = 'Tên người dùng phải có ít nhất 6 ký tự';
-            valid = false;
+        if (username === "") {
+            document.getElementById("spanUsername").textContent = "Vui lòng nhập username";
+            error = true;
+        } else if (username.length < 6) {
+            document.getElementById("spanUsername").textContent = "Tên người dùng phải có ít nhất 6 ký tự";
+            error = true;
         } else {
-            username_error.textContent = '';
+            document.getElementById("spanUsername").textContent = "";
         }
 
-        // Kiểm tra Mật khẩu
-        if (password.length < 6) {
-            password_error.textContent = 'Mật khẩu phải có ít nhất 6 ký tự';
-            valid = false;
+        if (password === "") {
+            document.getElementById("spanPw").textContent = "Vui lòng nhập password";
+            error = true;
+        } else if (password.length < 6) {
+            document.getElementById("spanPw").textContent = "Mật khẩu phải có ít nhất 6 ký tự";
+            error = true;
         } else {
-            password_error.textContent = '';
+            document.getElementById("spanPw").textContent = "";
         }
 
-        // Kiểm tra Email
-        if (!/^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
-            email_error.textContent = 'Email không hợp lệ';
-            valid = false;
+        var email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var phone_regex = /^\d{10,11}$/;
+
+        // Kiểm tra email
+        if (!email_regex.test(email)) {
+            document.getElementById("spanEmail").textContent = "Email không hợp lệ";
+            error = true;
         } else {
-            email_error.textContent = '';
+            document.getElementById("spanEmail").textContent = "";
         }
 
-        // Kiểm tra Số điện thoại
-        if (!/^\d{10,11}$/.test(phone)) {
-            phone_error.textContent = 'Số điện thoại không hợp lệ';
-            valid = false;
+        if (phoneNumber === "") {
+            document.getElementById("spanPhone").textContent = "Vui lòng nhập số điện thoại";
+            error = true;
+        } else if (!/^\d{10,11}$/.test(phoneNumber)) {
+            document.getElementById("spanPhone").textContent = "Số điện thoại không hợp lệ";
+            error = true;
         } else {
-            phone_error.textContent = '';
+            document.getElementById("spanPhone").textContent = "";
         }
 
-        // Kiểm tra Địa chỉ
-        if (address.length < 6) {
-            address_error.textContent = 'Địa chỉ phải có ít nhất 6 ký tự';
-            valid = false;
+        if (username === "") {
+            document.getElementById("spanAddress").textContent = "Vui lòng nhập địa chỉ";
+            error = true;
         } else {
-            address_error.textContent = '';
+            document.getElementById("spanAddress").textContent = "";
         }
 
+        if (error) {
+            return false;
+        }
+        checkValid = 1;
 
-        return valid;
+        return true;
     }
+
+
 
 
     $(document).ready(function() {
@@ -191,7 +200,8 @@
                     password: password,
                     email: email,
                     phone_number: phoneNumber,
-                    address: address
+                    address: address,
+                    checkValid: checkValid
                 },
                 // Xử lý phản hồi từ server ở đây
                 success: function(response) {
@@ -211,6 +221,7 @@
             });
         });
     });
+
 
     function loginAjax() {
         var formData = $('#formSign_in').serialize(); // Sử dụng .serialize() để thu thập dữ liệu từ form
