@@ -132,7 +132,7 @@
 
 							// Ẩn liên kết "Đăng kí" và "Đăng nhập"
 						} else {
-							echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner">Đăng kí</a>';
+							//echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner">Đăng kí</a>';
 							echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn">Đăng nhập</a>';
 						}
 						?>

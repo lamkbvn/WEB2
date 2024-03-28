@@ -19,9 +19,9 @@ switch ($action) {
 	case 'login': {
 			session_start();
 			ob_start();
-			if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
-				$username = $_POST['username'];
-				$password = $_POST['password'];
+			if (isset($_REQUEST['login'])) {
+				$username = $_REQUEST['username'];
+				$password = $_REQUEST['password'];
 				$resuiltCheckLogin = $db->checkLogin($username, $password);
 				$rowCheckLogin = $resuiltCheckLogin->fetch_assoc();
 				if ($rowCheckLogin) {
@@ -36,7 +36,7 @@ switch ($action) {
 				} else {
 					$flagLogin = 0;
 					$_SESSION['isLogin'] = $flagLogin;
-					echo "Tên người dùng hoặc mật khẩu không đúng.";
+					http_response_code(401);
 				}
 			}
 			require_once('View/trangchu/login.php');

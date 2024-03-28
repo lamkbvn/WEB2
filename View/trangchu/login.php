@@ -20,8 +20,9 @@
 
     <div class="container" id="container">
         <div class="form-container sign-in">
-            <form action="" method="post">
+            <form id="formSign_in">
                 <h1>Sign In</h1>
+                <input type="hidden" name="action" value="login">
                 <div class="form--inner--fill">
                     <!-- <label class="add-user--label" for="fullname">Tài khoản:</label><br> -->
                     <input type="text" name="username" id="user_name_login" placeholder="User Name">
@@ -32,7 +33,7 @@
                     <input type="password" name="password" id="password_login" placeholder="Password">
                 </div>
 
-                <button type="submit" name="login">Log In</button>
+                <button type="submit" name="login" value="yes" onclick="loginAjax()">Log In</button>
 
             </form>
         </div>
@@ -210,6 +211,30 @@
             });
         });
     });
+
+    function loginAjax() {
+        var formData = $('#formSign_in').serialize(); // Sử dụng .serialize() để thu thập dữ liệu từ form
+
+        $.ajax({
+            url: "/WEB2/Controller/trangchu/index.php",
+            type: "POST",
+            data: formData,
+            success: function(response) {
+                alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+                if (xhr.status === 401) {
+                    // Hiển thị thông báo lỗi nếu thông tin đăng nhập không chính xác
+                    alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+                } else {
+                    // Xử lý phản hồi từ server
+                    console.log(response);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+                // Xử lý lỗi nếu có
+            }
+        });
+    }
 </script>
 
 <!-- <link rel="stylesheet" href="Controller/trangchu/check_username.php"> -->
