@@ -37,6 +37,7 @@ switch ($action) {
 					$flagLogin = 0;
 					$_SESSION['isLogin'] = $flagLogin;
 					http_response_code(401);
+					echo '<div style="color:red; margin-bottom: 10px;">Tên đăng nhập hoặc mật khẩu không đúng!</div>';
 				}
 			}
 			require_once('View/trangchu/login.php');

@@ -220,7 +220,6 @@
             type: "POST",
             data: formData,
             success: function(response) {
-                alert("Tên đăng nhập hoặc mật khẩu không đúng!");
                 if (xhr.status === 401) {
                     // Hiển thị thông báo lỗi nếu thông tin đăng nhập không chính xác
                     alert("Tên đăng nhập hoặc mật khẩu không đúng!");
