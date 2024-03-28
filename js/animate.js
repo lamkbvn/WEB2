@@ -16,65 +16,19 @@ function changePlaceholder() {
 }
 setInterval(changePlaceholder, 4000);
 
-// let currentIndex = 0;
-// const itemsPerPage = 3;
-// const items = document.querySelectorAll(".attractive-offer--item");
+document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.querySelector(".slider");
+    const slides = document.querySelectorAll(".slide");
+    const slideCount = slides.length;
+    let currentIndex = 0;
 
-// function showItems(startIndex) {
-//     items.forEach((item, index) => {
-//         if (index >= startIndex && index < startIndex + itemsPerPage) {
-//             item.classList.remove("hidden");
-//         } else {
-//             item.classList.add("hidden");
-//         }
-//     });
-// }
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % slideCount;
+        updateSlide();
+    }, 4000);
 
-// function nextSlide() {
-//     if (currentIndex + itemsPerPage < items.length) {
-//         currentIndex += itemsPerPage;
-//         showItems(currentIndex);
-//     }
-// }
-
-// function previousSlide() {
-//     if (currentIndex - itemsPerPage >= 0) {
-//         currentIndex -= itemsPerPage;
-//         showItems(currentIndex);
-//     }
-// }
-
-// showItems(currentIndex);
-
-// document.addEventListener("DOMContentLoaded", function () {
-//     const itemsContainer = document.querySelector(".attractive-offer--list");
-//     const prevBtn = document.querySelector(".attractive-offer__pre");
-//     const nextBtn = document.querySelector(".attractive-offer__next");
-//     let currentIndex = 0;
-//     const itemWidth = document.querySelector(".attractive-offer--item").offsetWidth;
-//     const numVisibleItems = 3;
-
-//     function slide(direction) {
-//         if (direction === "next") {
-//             currentIndex = Math.min(
-//                 currentIndex + numVisibleItems,
-//                 itemsContainer.children.length - numVisibleItems
-//             );
-//         } else {
-//             currentIndex = Math.max(currentIndex - numVisibleItems, 0);
-//         }
-//         itemsContainer.style.transform = `translateX(-${
-//             currentIndex * itemWidth
-//         }px)`;
-//     }
-
-//     prevBtn.addEventListener("click", function () {
-//         slide("prev");
-//     });
-
-//     nextBtn.addEventListener("click", function () {
-//         slide("next");
-//     });
-// });
-
-
+    function updateSlide() {
+        const offset = -currentIndex * 100;
+        slider.style.transform = `translateX(${offset}%)`;
+    }
+});

@@ -8,7 +8,11 @@
     ?>
     <header class="header">
         <div class="header-inner">
-            <img src="css/icons/previous-svgrepo-com.svg" alt="" class="header-previous header-icon" />
+            <div class="slider">
+                <img src="css/icons/header-01.webp" alt="" class="slide" />
+                <img src="css/icons/header-02.webp" alt="" class="slide" />
+                <!-- <img src="css/icons/header-03.webp" alt="" class="slide" /> -->
+            </div>
             <div class="header-info">
                 <h1 class="header-heading">THẾ GIỚI TRỌN NIỀM VUI</h1>
                 <p class="header-desc">
@@ -22,9 +26,9 @@
                     <button class="find-btn">Khám phá</button>
                 </div>
             </div>
-            <img src="css/icons/next-svgrepo-com.svg" alt="" class="header-next header-icon" />
         </div>
     </header>
+
     <div class="attractive-offer">
         <div class="container">
             <div class="attractive-offer--inner">
@@ -111,11 +115,12 @@
                     <?php foreach ($dataHotProduct as $product) : ?>
                         <?php if ($count < 4) : ?>
                             <div class="highlighted-activities--item">
-                                <img src="/WEB2/images/bigimg.webp<?php //echo $product['id']; ?>" alt="<?php echo $product['title']; ?>" class="highlighted-activities--img">
+                                <img src="/WEB2/images/bigimg.webp<?php //echo $product['id']; 
+                                                                    ?>" alt="<?php echo $product['title']; ?>" class="highlighted-activities--img">
                                 <div class="highlighted-activities--info">
                                     <p class="highlighted-activities--desc"><?php echo $product['content']; ?></p>
                                     <p class="highlighted-activities--title"><?php echo $product['title']; ?></p>
-                                    <p class="highlighted-activities--price">Từ <?php echo number_format($product['price'], 0, ',', '.')."đ"; ?></p>
+                                    <p class="highlighted-activities--price">Từ <?php echo number_format($product['price'], 0, ',', '.') . "đ"; ?></p>
                                 </div>
                             </div>
                             <?php $count++; ?>
