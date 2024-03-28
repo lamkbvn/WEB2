@@ -30,6 +30,7 @@
 				<div class="header-right--profile-info">
 					<?php
 					if (session_status() == PHP_SESSION_NONE) {
+						ob_start();
 						session_start();
 					}
 					if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin'])) {
@@ -57,6 +58,7 @@
 					?>
 				</div>
 			</div>
+		</div>
 		</div>
 	</header>
 
