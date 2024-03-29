@@ -77,14 +77,14 @@
 				<p class="nav-admin-item--title">Trang chủ</p>
 			</a> -->
 
-			<a href="index.php?controller=trang-admin&action=thongke" id="page3" class="nav-admin-item">
+			<a href="index.php?controller=trang-admin&action=role" id="page3" class="nav-admin-item">
 				<img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-				<p class="nav-admin-item--title">thong ke</p>
+				<p class="nav-admin-item--title">Phân quyền</p>
 			</a>
 
-			<a href="index.php?controller=trang-admin&action=thongke" id="page3" class="nav-admin-item">
+			<a href="index.php?controller=trang-admin&action=tour" id="page3" class="nav-admin-item">
 				<img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-				<p class="nav-admin-item--title">thong ke</p>
+				<p class="nav-admin-item--title">Thêm tour</p>
 			</a>
 
 		</div>
