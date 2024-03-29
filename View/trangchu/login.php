@@ -32,7 +32,7 @@
                     <!-- <label class="add-user--label" for="email">Mật khẩu:</label><br> -->
                     <input type="password" name="password" id="password_login" placeholder="Password">
                 </div>
-
+                <a href="?action=forgotPassword" style="color: red">Quên mật khẩu </a>
                 <button type="submit" name="login" value="yes" onclick="loginAjax()">Log In</button>
 
             </form>

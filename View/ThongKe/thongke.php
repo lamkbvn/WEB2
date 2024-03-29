@@ -140,7 +140,7 @@
     <tbody class = "bodyTable">
     </tbody>
   </table>
-  <div class = "chartData hide" style = "width = 400px;">
+  <div class = "chartData hide" style = "width: 400px;">
     <canvas width="400px" height="200px" id="myChart">
     </canvas>
   </div>

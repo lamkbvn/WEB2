@@ -49,6 +49,15 @@ switch ($action) {
 	case "userprofile":
 		require_once('View/User/user.php');
 		break;
+	case "forgotPassword":
+		if(isset($_GET['$idNguoiDung'])) {
+			$idUserForReset = $_GET['$idNguoiDung'];
+		}
+		header("location: View/trangchu/forgotPassword.php");
+		break;
+	case "resetPassword": 
+		header("location: View/trangchu/resetPassword.php");
+		break;
 	case '': {
 			if (isset($db)) {
 				$listUsersTable = "product";
