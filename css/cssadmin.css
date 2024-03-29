@@ -121,6 +121,7 @@ body {
 }
 
 .header-right--profile-info {
+    display: flex;
 }
 
 .header-right--profile--title {
@@ -339,4 +340,96 @@ body {
 .alert {
     color: green;
     text-align: center;
+}
+
+a {
+    color: black;
+}
+
+.header-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: r;
+}
+
+.header-avatar img {
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.header-avatar .item {
+    height: 40px;
+    width: 83%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    column-gap: 3px;
+    padding: 0px 10px;
+    font-size: 16px;
+}
+
+.item svg {
+    width: 20px;
+    height: 20px;
+}
+
+.header-avatar .item:hover {
+    background: #f5f5f5;
+}
+
+.drop-user-side-bar {
+    border-radius: 10px;
+    box-shadow: -1px 5px 15px 0px rgb(171, 171, 171);
+    width: 180px;
+    height: 100px;
+    position: absolute;
+    top: 50px;
+    right: 40px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: white;
+    cursor: pointer;
+    display: none;
+}
+
+.drop-user-side-bar::before {
+    position: absolute;
+    right: 0;
+    top: -10px;
+    content: "";
+    display: block;
+    width: 100px;
+    height: 20px;
+}
+
+.header-avatar:hover .drop-user-side-bar {
+    display: flex;
+}
+
+#cartIcon {
+    position: relative;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#numCart {
+    position: absolute;
+    right: 6px;
+    top: 4px;
+    content: "0";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    width: 12px;
+    height: 12px;
+    background-color: #ff5b00;
+    color: #fff;
+    font-size: 9px;
+}
+
+.dangxuat svg {
+    margin-left: 3px;
 }

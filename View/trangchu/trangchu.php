@@ -229,6 +229,9 @@
             <div class="explorer-collection--inner">
                 <h3 class="explorer-collection--heading">Thêm nhiều khám phá thú vị</h3>
                 <div class="explorer-collection--block">
+                    <img src="css/icons/guimail-01.webp" alt="" class="img-decor-mail img-decor-mail-01">
+                    <img src="css/icons/guimail-02.webp" alt="" class="img-decor-mail img-decor-mail-02">
+
                     <div class="explorer-collection--info">
                         <h4 class="explorer-collection--info__heading">Giảm 5% cho đơn hàng đầu tiên trên ứng dụng</h4>
                         <p class="explorer-collection--info__desc">Trải nghiệm tiện lợi với ứng dụng Klook. Sử dụng mã "BetterOnApp" để được giảm giá</p>
@@ -283,6 +286,12 @@
         $('#submitBtn').on('click', function() {
             var email = $('#email').val();
             if (email.trim() !== '') {
+                // Hiển thị hiệu ứng "đang tải"
+                $('.explorer-collection--btn').html('Đang gửi...');
+                // Vô hiệu hóa nút gửi
+                $('#submitBtn').prop('disabled', true);
+
+                // Gửi yêu cầu AJAX
                 $.ajax({
                     type: 'POST',
                     url: 'includes/handle_mail.php',
@@ -290,10 +299,19 @@
                         email: email
                     },
                     success: function(response) {
-                        alert("gui thanh cong")
+                        // Ẩn hiệu ứng "đang tải"
+                        $('.explorer-collection--btn').html('Gửi');
+                        // Kích hoạt lại nút gửi
+                        $('#submitBtn').prop('disabled', false);
+                        alert("Gửi thành công");
                     },
                     error: function(xhr, status, error) {
                         console.error(xhr.responseText);
+                        // Ẩn hiệu ứng "đang tải"
+                        $('.explorer-collection--btn').html('Gửi');
+                        // Kích hoạt lại nút gửi
+                        $('#submitBtn').prop('disabled', false);
+                        alert("Có lỗi xảy ra. Vui lòng thử lại sau.");
                     }
                 });
             } else {

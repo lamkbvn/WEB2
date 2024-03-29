@@ -585,14 +585,34 @@ h4 {
 }
 
 .explorer-collection--block {
-    background-image: url(../css/icons/fabien-bellanger-Qs1ql9tMIp0-unsplash.jpg);
     margin-top: 40px;
-    padding: 20px;
+    padding: 50px;
     border-radius: 20px;
+    background: #4d40cc;
+    position: relative;
+}
+
+.img-decor-mail {
+    position: absolute;
+}
+
+.img-decor-mail-01 {
+    width: 204px;
+    height: 350px;
+    top: 38px;
+    left: 50px;
+}
+
+.img-decor-mail-02 {
+    width: auto;
+    height: 388px;
+    top: 0;
+    right: 0;
+    border-radius: 0px 20px 20px 0px;
 }
 
 .explorer-collection--info {
-    margin-left: 200px;
+    margin-left: 250px;
 }
 
 .explorer-collection--info__heading {
@@ -615,6 +635,15 @@ h4 {
 .explorer-collection--send-email {
     margin-top: 40px;
     padding: 10px 0px;
+}
+
+.explorer-collection--btn[disabled] {
+    pointer-events: none;
+    background: #cf6228;
+    color: #fff;
+}
+
+.explorer-collection--btn[disabled]:hover {
 }
 
 .explorer-collection--email-label {
