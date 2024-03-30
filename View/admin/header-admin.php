@@ -3,32 +3,32 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Page Title</title>
-	<link rel="stylesheet" href="css/cssadmin.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Title</title>
+    <link rel="stylesheet" href="css/cssadmin.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 
 
 <body>
-	<header class="header-admin">
-		<div class="header-left">
-			<img src="css/icons/hamberger-admin.svg" alt="" class="header-left--icon">
-			<div class="header-left--find">
-				<img src="css/icons/search-admin.svg" alt="" class="header-left--find-icon">
-				<input type="text" class="header-left--find--input">
-			</div>
-		</div>
-		<div class="header-right">
-			<div class="header-right--nofi">
-				<img src="css/icons/nofi-admin.svg" alt="" class="header-right--nofi--icon">
-				<div class="header-right--nofi--text"></div>
-			</div>
-			<div class="header-right--profile">
-				<div class="header-right--profile-info">
-					<?php
+    <header class="header-admin">
+        <div class="header-left">
+            <img src="css/icons/hamberger-admin.svg" alt="" class="header-left--icon">
+            <div class="header-left--find">
+                <img src="css/icons/search-admin.svg" alt="" class="header-left--find-icon">
+                <input type="text" class="header-left--find--input">
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-right--nofi">
+                <img src="css/icons/nofi-admin.svg" alt="" class="header-right--nofi--icon">
+                <div class="header-right--nofi--text"></div>
+            </div>
+            <div class="header-right--profile">
+                <div class="header-right--profile-info">
+                    <?php
 					if (session_status() == PHP_SESSION_NONE) {
 						ob_start();
 						session_start();
@@ -56,41 +56,50 @@
 							</div>';
 					}
 					?>
-				</div>
-			</div>
-		</div>
-		</div>
-	</header>
+                </div>
+            </div>
+        </div>
+        </div>
+    </header>
 
-	<div class="navigation">
-		<a href="index.php?controller=trang-admin&action=indexAdmin" id="nav-item--logo">
-			<img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo"></a>
-		<div class="nav-admin-list">
+    <div class="navigation">
+        <a href="index.php?controller=trang-admin&action=indexAdmin" id="nav-item--logo">
+            <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo"></a>
+        <div class="nav-admin-list">
 
-			<a href="index.php?controller=trang-admin&action=indexAdmin" id="page3" class="nav-admin-item">
-				<img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-				<p class="nav-admin-item--title">Trang chủ</p>
-			</a>
+            <a href="index.php?controller=trang-admin&action=indexAdmin" id="page3" class="nav-admin-item">
+                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <p class="nav-admin-item--title">Trang chủ</p>
+            </a>
 
-			<!-- <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item indexAdmin">
+            <!-- <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item indexAdmin">
 				<img src="css/icons/trangchu-admin-icon.svg" alt="" class="nav-admin-item--icon">
 				<p class="nav-admin-item--title">Trang chủ</p>
 			</a> -->
 
-			<a href="index.php?controller=trang-admin&action=role" id="page3" class="nav-admin-item">
-				<img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-				<p class="nav-admin-item--title">Phân quyền</p>
-			</a>
+            <a href="index.php?controller=trang-admin&action=role" id="page3" class="nav-admin-item">
+                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <p class="nav-admin-item--title">Phân quyền</p>
+            </a>
 
-			<a href="index.php?controller=trang-admin&action=tour" id="page3" class="nav-admin-item">
-				<img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-				<p class="nav-admin-item--title">Thêm tour</p>
-			</a>
+            <a href="index.php?controller=trang-admin&action=tour" id="page3" class="nav-admin-item">
+                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <p class="nav-admin-item--title">Thêm tour</p>
+            </a>
 
-		</div>
-	</div>
-	<div id="content">
-	</div>
+            <a href="index.php?controller=trang-admin&action=dsbl" id="page3" class="nav-admin-item">
+                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <p class="nav-admin-item--title">Bình luận</p>
+            </a>
+            <a href="index.php?controller=trang-admin&action=dsvoucher" id="page3" class="nav-admin-item">
+                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <p class="nav-admin-item--title">Voucher</p>
+            </a>
+        </div>
+    </div>
+    <div id="content">
+
+    </div>
 
 
 </body>

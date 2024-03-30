@@ -476,4 +476,62 @@ class Database
         //kiet
 
     }
+    public function getAll()
+    {
+        if (!$this->result) {
+            $data = 0;
+        } else {
+            while ($datas = $this->getData()) {
+                $data[] = $datas;
+            }
+        }
+        return $data;
+    }
+    public function deleteComment($commentId)
+    {
+        $this->connect();
+
+        // Chuẩn bị truy vấn xóa
+        $sql = "DELETE FROM feedback WHERE id = $commentId";
+        $result = $this->execute($sql);
+
+        return $result;
+    }
+    public function deleteVoucher($VoucherId)
+    {
+        $this->connect();
+
+        // Chuẩn bị truy vấn xóa
+        $sql = "DELETE FROM discount WHERE id = $VoucherId";
+        $result = $this->execute($sql);
+
+        return $result;
+    }
+
+    public function updateVoucher($id, $discount_name, $code, $percent, $date_start, $date_end, $description)
+    {
+        $sql = "UPDATE discount SET discount_name='$discount_name', code='$code', percent='$percent', date_start='$date_start', date_end='$date_end', description='$description' WHERE id='$id'";
+        return $this->execute($sql);
+    }
+    public function insertVoucher($discount_name, $code, $percent, $date_start, $date_end, $description)
+    {
+        $sql = "INSERT INTO discount ( discount_name,code,percent,date_start,date_end,description) 
+            VALUES ( '$discount_name', '$code', '$percent', '$date_start', '$date_end', '$description')";
+        return $this->execute($sql);
+    }
+    // Add this method to your DBConfig class
+    public function getVoucherDetailsById($voucherId)
+    {
+        if ($voucherId > 0) {
+            $sql = "SELECT * FROM discount WHERE id = $voucherId";
+            $result = $this->execute($sql);
+
+            if ($result && $result->num_rows > 0) {
+
+                $voucherDetails = $result->fetch_assoc();
+                return $voucherDetails;
+            }
+        }
+        return false;
+    }
 }
