@@ -50,16 +50,19 @@ switch ($action) {
 	case "showproduct": // cua Huu Loc
 		require_once('Controller/showproductController/showproduct.php');
 		break;
+	case "cart": // cua Kiet
+		require_once('View/Cart/cart.php');
+		break;
 	case "userprofile":
 		require_once('View/User/user.php');
 		break;
 	case "forgotPassword":
-		if(isset($_GET['$idNguoiDung'])) {
+		if (isset($_GET['$idNguoiDung'])) {
 			$idUserForReset = $_GET['$idNguoiDung'];
 		}
 		header("location: View/trangchu/forgotPassword.php");
 		break;
-	case "resetPassword": 
+	case "resetPassword":
 		header("location: View/trangchu/resetPassword.php");
 		break;
 	case '': {
