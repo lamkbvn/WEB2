@@ -156,6 +156,19 @@ body {
     border-bottom: 1px solid #ccc;
 }
 
+.table-row .fullname,
+.table-row .diachi,
+.table-row .email {
+    max-width: 200px;
+}
+
+#filterInput {
+    width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
 .table-head {
     color: #202224;
     font-size: 18px;
@@ -177,6 +190,7 @@ body {
 
 .table-cell {
     padding: 5px;
+    text-align: center;
 }
 
 .table-btn {

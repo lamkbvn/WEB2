@@ -553,4 +553,19 @@ class Database
     }
     return false;
   }
+
+  public function getUserById($userID)
+  {
+    if ($userID > 0) {
+      $sql = "SELECT * FROM nguoidung WHERE id = $userID";
+      $result = $this->execute($sql);
+
+      if ($result && $result->num_rows > 0) {
+
+        $voucherDetails = $result->fetch_assoc();
+        return $voucherDetails;
+      }
+    }
+    return false;
+  }
 }

@@ -7,13 +7,9 @@
 
 		<div class="list-feature">
 			<div class="filter-container">
-				<select id="filterBy">
-					<option value="all">Tất cả</option>
-					<option value="name">Tên</option>
-					<option value="year">Năm sinh</option>
-				</select>
-				<input type="text" id="filterInput" placeholder="Nhập giá trị...">
-				<button>Lọc</button>
+
+				<input type="text" id="filterInput" placeholder="Nhập tên người dùng cần tìm">
+
 			</div>
 
 			<a href="index.php?controller=trang-admin&action=add" class="list-feature-item add-user-btn">
@@ -44,12 +40,12 @@
 				?>
 						<tr class="table-row">
 							<td class="table-cell id"><?php echo $value['id']; ?></td>
-							<td class="table-cell"><?php echo $value['fullname']; ?></td>
-							<td class="table-cell"><?php echo $value['email']; ?></td>
+							<td class="table-cell fullname"><?php echo $value['fullname']; ?></td>
+							<td class="table-cell email"><?php echo $value['email']; ?></td>
 							<td class="table-cell"><?php echo $value['phone_number']; ?></td>
 							<td class="table-cell"><?php echo $value['create_at']; ?></td>
 							<td class="table-cell status"><?php echo $value['status']; ?></td>
-							<td class="table-cell"><?php echo $value['address']; ?></td>
+							<td class="table-cell diachi"><?php echo $value['address']; ?></td>
 							<td class="table-cell"><?php echo $value['id_acount']; ?></td>
 							<td class="table-cell">
 								<a class="edit-role table-btn" href="index.php?controller=trang-admin&action=editrole&id=<?php echo $value['id']; ?>">Role</a>
@@ -74,3 +70,29 @@
 		</table>
 	</div>
 </body>
+
+<script>
+	// Lấy ô input và bảng dữ liệu
+	var input = document.getElementById("filterInput");
+	var table = document.getElementById("tableData");
+
+	// Lắng nghe sự kiện input trên ô tìm kiếm
+	input.addEventListener("input", function() {
+		var filter = input.value.toLowerCase(); // Chuyển đổi giá trị nhập vào thành chữ thường để so sánh
+
+		// Lặp qua từng hàng trong tbody
+		var rows = table.getElementsByTagName("tr");
+		for (var i = 0; i < rows.length; i++) {
+			var fullname = rows[i].getElementsByClassName("fullname")[0]; // Lấy cột Họ Tên trong hàng
+
+			if (fullname) {
+				var textValue = fullname.textContent || fullname.innerText;
+				if (textValue.toLowerCase().indexOf(filter) > -1) { // Nếu tên người dùng chứa chuỗi tìm kiếm
+					rows[i].style.display = ""; // Hiển thị hàng
+				} else {
+					rows[i].style.display = "none"; // Ẩn hàng
+				}
+			}
+		}
+	});
+</script>
