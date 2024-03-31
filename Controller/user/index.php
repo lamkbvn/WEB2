@@ -4,7 +4,6 @@ if (isset($_REQUEST['action'])) {
 } else {
     $action = '';
 }
-
 require_once('../../View/user/cart.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -40,13 +39,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             $db->InsertDetailOrder($id, $id_product, $price, $amount, $price*$amount, $date);
             echo "ID sản phẩm: $id_product, Số lượng vé: $numTicket, Tổng tiền: $totalMoneyphp, Số lượng: $amount, Giá: $price, Ngày: $date<br>";
+   // Sau đó, bạn có thể thực hiện các thao tác xử lý dữ liệu khác tại đây
+}
+} else {
+    // Xử lý lỗi nếu dữ liệu không thể chuyển đổi thành mảng PHP
+    echo "Có lỗi xảy ra khi xử lý dữ liệu từ JavaScript.";
+}
 
-            // Sau đó, bạn có thể thực hiện các thao tác xử lý dữ liệu khác tại đây
-        }
-    } else {
-        // Xử lý lỗi nếu dữ liệu không thể chuyển đổi thành mảng PHP
-        echo "Có lỗi xảy ra khi xử lý dữ liệu từ JavaScript.";
-    }
 } else {
     // Xử lý lỗi nếu không phải là một request POST
     echo "Yêu cầu không hợp lệ.";
