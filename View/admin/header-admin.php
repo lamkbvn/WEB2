@@ -84,7 +84,7 @@
 
             <a href="index.php?controller=trang-admin&action=tour" id="page3" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-                <p class="nav-admin-item--title">Thêm tour</p>
+                <p class="nav-admin-item--title">Tour</p>
             </a>
 
             <a href="index.php?controller=trang-admin&action=dsbl" id="page3" class="nav-admin-item">

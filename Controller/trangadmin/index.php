@@ -151,13 +151,25 @@ switch ($action) {
 			break;
 		}
 	case 'role': {
-			require_once('Controller/trangadmin/C_addNewRole.php');
+			$data = $db->getAllData("role");
+			require_once('View/admin/Role/listRole.php');
+			break;
+		}
+	case 'editRole': {
+			require_once('View/admin/Role/editRole.php');
+			break;
+		}
+	case 'deleteRole': {
+			if (isset($_REQUEST['id'])) {
+				$id = $_REQUEST['id'];
+				$db->DeleteRole($id);
+			}
+			$data = $db->getAllData("role");
+			require_once('View/admin/Role/listRole.php');
 			break;
 		}
 	case 'addRole': {
-			include("../../Model/DBConfig.php");
-			$db = new Database();
-			$db->connect();
+			require_once('View/admin/Role/addNewRole.php');
 			$result = $db->execute("SELECT * FROM chucnang");
 			$rowsCN = array();
 			$result2 = $db->execute("SELECT * FROM role");
@@ -199,13 +211,25 @@ switch ($action) {
 			break;
 		}
 	case 'tour': {
-			require_once('Controller/trangadmin/C_addNewTour.php');
+			$data = $db->getAllData("product");
+			require_once('View/admin/DSTour/listTour.php');
+			break;
+		}
+	case 'editTour': {
+			require_once('View/admin/DSTour/editTour.php');
+			break;
+		}
+	case 'deleteTour': {
+			if (isset($_REQUEST['id'])) {
+				$id = $_REQUEST['id'];
+				$db->DeleteTour($id);
+			}
+			$data = $db->getAllData("product");
+			require_once('View/admin/DSTour/listTour.php');
 			break;
 		}
 	case 'addTour': {
-			include("../../Model/DBConfig.php");
-			$db = new Database();
-			$db->connect();
+			require_once('View/admin/DSTour/addNewTour.php');
 
 			$result = $db->execute("SELECT * FROM provincial");
 			$rowsProvin = array();
@@ -258,9 +282,28 @@ switch ($action) {
 			$db->disconnect();
 			break;
 		}
-		case 'dsbl':
-			
-    		$sql = "SELECT feedback.*, nguoidung.*, product.* 
+	case 'dsbl':
+
+		$sql = "SELECT feedback.*, nguoidung.*, product.* 
+						FROM feedback 
+						JOIN nguoidung  ON feedback.user_id = nguoidung.id
+						JOIN product  ON feedback.product_id = product.id
+						ORDER BY feedback.id DESC";
+		$result = $db->execute($sql);
+		$listbinhluan = $db->getAll();
+		include "View/admin/list_feedback.php";
+
+
+		break;
+	case 'xoabl':
+
+		if (isset($_GET['id']) && $_GET['id'] > 0) {
+			$commentId = $_GET['id'];
+			$result = $db->deleteComment($commentId);
+
+			//nếu thành công thì hiện thị lại ds bình luận
+			if ($result) {
+				$sql = "SELECT feedback.*, nguoidung.*, product.* 
 						FROM feedback 
 						JOIN nguoidung  ON feedback.user_id = nguoidung.id
 						JOIN product  ON feedback.product_id = product.id
@@ -268,99 +311,78 @@ switch ($action) {
 				$result = $db->execute($sql);
 				$listbinhluan = $db->getAll();
 				include "View/admin/list_feedback.php";
-				
-			
-            break;
-			case 'xoabl':
+			}
+		}
 
-				if(isset($_GET['id']) && $_GET['id'] > 0){
-					$commentId = $_GET['id'];
-					$result = $db->deleteComment($commentId);
 
-					//nếu thành công thì hiện thị lại ds bình luận
-					if($result) {
-						$sql = "SELECT feedback.*, nguoidung.*, product.* 
-						FROM feedback 
-						JOIN nguoidung  ON feedback.user_id = nguoidung.id
-						JOIN product  ON feedback.product_id = product.id
-						ORDER BY feedback.id DESC";
-						$result = $db->execute($sql);
-						$listbinhluan = $db->getAll();
-						include "View/admin/list_feedback.php";
-					}
-				}
-			
+		break;
+	case 'dsvoucher':
 
-				break;
-				case 'dsvoucher':
-					
-					$sql = "SELECT * FROM discount order by id desc";
-					$result = $db->execute($sql);
-					$listvoucher = $db->getAll();
-					include "View/admin/list_voucher.php";
-					break;
-				case 'xoavoucher':
-					if(isset($_GET['id']) && $_GET['id'] > 0){
-						$voucherId = $_GET['id'];
-						$result = $db->deleteVoucher($voucherId);
+		$sql = "SELECT * FROM discount order by id desc";
+		$result = $db->execute($sql);
+		$listvoucher = $db->getAll();
+		include "View/admin/list_voucher.php";
+		break;
+	case 'xoavoucher':
+		if (isset($_GET['id']) && $_GET['id'] > 0) {
+			$voucherId = $_GET['id'];
+			$result = $db->deleteVoucher($voucherId);
 
-					//nếu thành công thì hiện thị lại ds voucher
-						if($result) {
-						$sql = "SELECT * FROM discount order by id desc";
-						$result = $db->execute($sql);
-						$listvoucher = $db->getAll();
-						include "View/admin/list_voucher.php";
-						
-						}
-					}
-					break;
-				case 'suavoucher':
-					if(isset($_GET['id']) && $_GET['id'] > 0){
-         
-						$voucherId = $_GET['id'];
-				
-						$voucherDetails = $db->getVoucherDetailsById($voucherId);
-					}
-					include "View/admin/editVoucher.php";
-					break;
-				
-				case 'capnhatvoucher':
-					if(isset($_POST['btnedit'])&&($_POST['btnedit'])){
-						$id= $_POST['id'];
-						$ten_voucher= $_POST['ten_voucher'];
-						$ma_voucher=$_POST['ma_voucher'];
-						$gia_tri=$_POST['gia_tri'];
-						$ngay_bat_dau=$_POST['ngay_bat_dau'];
-						$ngay_ket_thuc=$_POST['ngay_ket_thuc'];
-						$mo_ta=$_POST['mo_ta'];
-						 
-						if($db->updateVoucher($id,$ten_voucher,$ma_voucher,$gia_tri,$ngay_bat_dau,$ngay_ket_thuc,$mo_ta)){
-							$alert = 'add_success';
-						}
-					}
+			//nếu thành công thì hiện thị lại ds voucher
+			if ($result) {
+				$sql = "SELECT * FROM discount order by id desc";
+				$result = $db->execute($sql);
+				$listvoucher = $db->getAll();
+				include "View/admin/list_voucher.php";
+			}
+		}
+		break;
+	case 'suavoucher':
+		if (isset($_GET['id']) && $_GET['id'] > 0) {
 
-					//cập nhật xong thì hiện thị lại ds voucher đã cập nhật
-					$sql = "SELECT * FROM discount order by id desc";
-					$result = $db->execute($sql);
-					$listvoucher = $db->getAll();
-					include "View/admin/list_voucher.php";
-					break;
-				case 'themvoucher':
-					if(isset($_POST['btnadd'])&&($_POST['btnadd'])){
-						$ten_voucher= $_POST['ten_voucher'];
-						$ma_voucher=$_POST['ma_voucher'];
-						$gia_tri=$_POST['gia_tri'];
-						$ngay_bat_dau=$_POST['ngay_bat_dau'];
-						$ngay_ket_thuc=$_POST['ngay_ket_thuc'];
-						$mo_ta=$_POST['mo_ta'];
-						 
-						if($db->insertVoucher($ten_voucher,$ma_voucher,$gia_tri,$ngay_bat_dau,$ngay_ket_thuc,$mo_ta)){
-							$alert = 'add_success';
-						}
-					}
-					include "View/admin/addVoucher.php";
-				
-					
-					break;
-			
+			$voucherId = $_GET['id'];
+
+			$voucherDetails = $db->getVoucherDetailsById($voucherId);
+		}
+		include "View/admin/editVoucher.php";
+		break;
+
+	case 'capnhatvoucher':
+		if (isset($_POST['btnedit']) && ($_POST['btnedit'])) {
+			$id = $_POST['id'];
+			$ten_voucher = $_POST['ten_voucher'];
+			$ma_voucher = $_POST['ma_voucher'];
+			$gia_tri = $_POST['gia_tri'];
+			$ngay_bat_dau = $_POST['ngay_bat_dau'];
+			$ngay_ket_thuc = $_POST['ngay_ket_thuc'];
+			$mo_ta = $_POST['mo_ta'];
+
+			if ($db->updateVoucher($id, $ten_voucher, $ma_voucher, $gia_tri, $ngay_bat_dau, $ngay_ket_thuc, $mo_ta)) {
+				$alert = 'add_success';
+			}
+		}
+
+		//cập nhật xong thì hiện thị lại ds voucher đã cập nhật
+		$sql = "SELECT * FROM discount order by id desc";
+		$result = $db->execute($sql);
+		$listvoucher = $db->getAll();
+		include "View/admin/list_voucher.php";
+		break;
+	case 'themvoucher':
+		if (isset($_POST['btnadd']) && ($_POST['btnadd'])) {
+			$ten_voucher = $_POST['ten_voucher'];
+			$ma_voucher = $_POST['ma_voucher'];
+			$gia_tri = $_POST['gia_tri'];
+			$ngay_bat_dau = $_POST['ngay_bat_dau'];
+			$ngay_ket_thuc = $_POST['ngay_ket_thuc'];
+			$mo_ta = $_POST['mo_ta'];
+
+			if ($db->insertVoucher($ten_voucher, $ma_voucher, $gia_tri, $ngay_bat_dau, $ngay_ket_thuc, $mo_ta)) {
+				$alert = 'add_success';
+			}
+		}
+		include "View/admin/addVoucher.php";
+
+
+		break;
 }

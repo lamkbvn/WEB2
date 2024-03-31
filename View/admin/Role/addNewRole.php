@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
 <style>
     .nameRoleValidation, .validationTableRole{
         display: none;
@@ -34,6 +27,7 @@
             </tr>
 
             <?php
+            $rowsCN = $db->getAllData('ChucNang');
             // Duyệt qua mỗi bộ phận và tạo hàng trong bảng
             foreach ($rowsCN as $rowCN) {
                 $name = $rowCN['decription'];
@@ -103,5 +97,3 @@
         }
     </script>
 </body>
-
-</html>

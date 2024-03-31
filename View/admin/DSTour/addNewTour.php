@@ -63,7 +63,7 @@
         </div>
         <div class="containFieldAddTour">
             <label for="content">Nội dung</label> <br>
-            <input name="content" type="text">
+            <textarea name="content" rows="4" cols="50"></textarea>
             <span class="valiFormAddTour" id="contentValidation">Dữ liệu không hợp lệ</span>
         </div>
         <div class="containFieldAddTour">

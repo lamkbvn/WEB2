@@ -261,6 +261,11 @@ class Database
     VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$address', '$acount', '0')";
         return $this->execute($sql);
     }
+    //xóa tour
+    public function DeleteTour($id){
+        $sql = "DELETE FROM product WHERE id = $id";
+        return $this->execute($sql);
+    }
     // thêm ảnh
     public function InsertImg($id_product, $id_user, $img)
     {
@@ -272,6 +277,13 @@ class Database
     public function InsertRole($name)
     {
         $sql = "INSERT INTO role (decription) VALUES ('$name')";
+        return $this->execute($sql);
+    }
+    //xóa role
+    public function DeleteRole($id){
+        $sql1 = "DELETE FROM phanquyenlinhdong WHERE id_role = $id";
+        $this->execute($sql1);
+        $sql = "DELETE FROM role WHERE id = $id";
         return $this->execute($sql);
     }
     public function InsertRoleLinhDong($id_CN, $HD)
