@@ -6,7 +6,7 @@ if (isset($_REQUEST['action'])) {
 }
 
 
-require_once('../View/User/cart.php');
+//require_once('../View/User/cart.php');
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
