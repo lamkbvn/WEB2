@@ -8,7 +8,7 @@ class Database
 
   private $conn = NULL;
   private $result = NULL;
-  // kết nối csdl
+
   public function connect()
   {
     $this->conn = new mysqli($this->hostname, $this->username, $this->pass, $this->dbname);
@@ -278,42 +278,44 @@ class Database
   {
     $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, address, soLuongConLai, star_feedback)
     VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$address', '$acount', '0')";
-        return $this->execute($sql);
-    }
-    //xóa tour
-    public function DeleteTour($id){
-        $sql = "DELETE FROM product WHERE id = $id";
-        return $this->execute($sql);
-    }
-    // thêm ảnh
-    public function InsertImg($id_product, $id_user, $img)
-    {
-        $sql = "INSERT INTO image_product (id_product, id_user, image) VALUES ('$id_product', '$id_user', '$img')";
-        return $this->execute($sql);
-    }
+    return $this->execute($sql);
+  }
+  //xóa tour
+  public function DeleteTour($id)
+  {
+    $sql = "DELETE FROM product WHERE id = $id";
+    return $this->execute($sql);
+  }
+  // thêm ảnh
+  public function InsertImg($id_product, $id_user, $img)
+  {
+    $sql = "INSERT INTO image_product (id_product, id_user, image) VALUES ('$id_product', '$id_user', '$img')";
+    return $this->execute($sql);
+  }
 
-    // thêm quyền
-    public function InsertRole($name)
-    {
-        $sql = "INSERT INTO role (decription) VALUES ('$name')";
-        return $this->execute($sql);
-    }
-    //xóa role
-    public function DeleteRole($id){
-        $sql1 = "DELETE FROM phanquyenlinhdong WHERE id_role = $id";
-        $this->execute($sql1);
-        $sql = "DELETE FROM role WHERE id = $id";
-        return $this->execute($sql);
-    }
-    public function InsertRoleLinhDong($id_CN, $HD)
-    {
-        $selectId = "SELECT id FROM role ORDER BY id DESC LIMIT 1";
-        $result = $this->execute($selectId);
-        $row = $result->fetch_assoc();
-        $last_role_id = $row["id"];
-        $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucNang, HD) values ('$last_role_id', '$id_CN', '$HD')";
-        return $this->execute($sql);
-    }
+  // thêm quyền
+  public function InsertRole($name)
+  {
+    $sql = "INSERT INTO role (decription) VALUES ('$name')";
+    return $this->execute($sql);
+  }
+  //xóa role
+  public function DeleteRole($id)
+  {
+    $sql1 = "DELETE FROM phanquyenlinhdong WHERE id_role = $id";
+    $this->execute($sql1);
+    $sql = "DELETE FROM role WHERE id = $id";
+    return $this->execute($sql);
+  }
+  public function InsertRoleLinhDong($id_CN, $HD)
+  {
+    $selectId = "SELECT id FROM role ORDER BY id DESC LIMIT 1";
+    $result = $this->execute($selectId);
+    $row = $result->fetch_assoc();
+    $last_role_id = $row["id"];
+    $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucNang, HD) values ('$last_role_id', '$id_CN', '$HD')";
+    return $this->execute($sql);
+  }
 
   public function resultThongKe($orderby, $selectCategory, $dateStart, $dateEnd)
   {
