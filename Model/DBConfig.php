@@ -1,4 +1,3 @@
-
 <?php
 class Database
 {
@@ -38,7 +37,7 @@ class Database
   public function getTenNguoiDung()
   {
     $idUser = $_SESSION['idUserLogin'];
-    $sql = 'select * from nguoidung where id = ' . $idUser;
+    $sql = 'select * from nguoidung where id_acount = ' . $idUser;
     $this->result = $this->conn->query($sql);
     $name = $this->getData();
     return $name['fullname'];
@@ -120,16 +119,12 @@ class Database
     $sql = "UPDATE nguoidung SET fullname='$fullname', email='$email', phone_number='$phone_number', create_at='$create_at', status='$status', address='$address', id_acount='$id_acount' WHERE id='$id'";
     return $this->execute($sql);
   }
-
   public function roleAccount($id, $role)
   {
     $sql = "UPDATE acount SET id_role = '$role' WHERE id = '$id'";
 
     return $this->execute($sql);
   }
-
-
-
   // delete user
   public function deleteUser($table, $id)
   {
@@ -227,7 +222,7 @@ class Database
   public function getAllDataBySql($sql)
   {
     $this->execute($sql);
-    if ($this->num_row() == 0) {
+    if ($this->num_rows() == 0) {
       $data = 0;
     } else {
       while ($datas = $this->getData()) {
@@ -374,6 +369,25 @@ class Database
     }
     echo $fullemailprofile;
   }
+  public function getIdByEmail($email)
+  {
+    $sql = "SELECT id FROM nguoiDung WHERE email = '" . $email . "'";
+    $result = mysqli_query($this->conn, $sql);
+    if ($result && mysqli_num_rows($result) > 0) {
+      $row = mysqli_fetch_assoc($result);
+      return $row['id'];
+    } else {
+      return null; // Trả về null nếu không tìm thấy bất kỳ kết quả nào
+    }
+  }
+  public function updatePasswordById($id, $newPassword)
+  {
+    $sql = "UPDATE acount SET password = '" . $newPassword . "' WHERE id = " . $id;
+    $this->execute($sql);
+  }
+
+
+
 
 
 
@@ -480,5 +494,63 @@ class Database
 
     //kiet
 
+  }
+  public function getAll()
+  {
+    if (!$this->result) {
+      $data = 0;
+    } else {
+      while ($datas = $this->getData()) {
+        $data[] = $datas;
+      }
+    }
+    return $data;
+  }
+  public function deleteComment($commentId)
+  {
+    $this->connect();
+
+    // Chuẩn bị truy vấn xóa
+    $sql = "DELETE FROM feedback WHERE id = $commentId";
+    $result = $this->execute($sql);
+
+    return $result;
+  }
+  public function deleteVoucher($VoucherId)
+  {
+    $this->connect();
+
+    // Chuẩn bị truy vấn xóa
+    $sql = "DELETE FROM discount WHERE id = $VoucherId";
+    $result = $this->execute($sql);
+
+    return $result;
+  }
+
+  public function updateVoucher($id, $discount_name, $code, $percent, $date_start, $date_end, $description)
+  {
+    $sql = "UPDATE discount SET discount_name='$discount_name', code='$code', percent='$percent', date_start='$date_start', date_end='$date_end', description='$description' WHERE id='$id'";
+    return $this->execute($sql);
+  }
+  public function insertVoucher($discount_name, $code, $percent, $date_start, $date_end, $description)
+  {
+    $sql = "INSERT INTO discount ( discount_name,code,percent,date_start,date_end,description) 
+            VALUES ( '$discount_name', '$code', '$percent', '$date_start', '$date_end', '$description')";
+    return $this->execute($sql);
+  }
+  // Add this method to your DBConfig class
+  public function getVoucherDetailsById($voucherId)
+  {
+    if ($voucherId > 0) {
+      $sql = "SELECT * FROM discount WHERE id = $voucherId";
+      $result = $this->execute($sql);
+
+      if ($result && $result->num_rows > 0) {
+
+        $voucherDetails = $result->fetch_assoc();
+        return $voucherDetails;
+      }
+    }
+    return false;
   }
 }

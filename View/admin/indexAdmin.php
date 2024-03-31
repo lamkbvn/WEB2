@@ -40,32 +40,34 @@
 				<?php
 				$stt = 1;
 				foreach ($data as $value) {
+					if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin']) && $value['id'] != $_SESSION['idUserLogin']) {
 				?>
-					<tr class="table-row">
-						<td class="table-cell id"><?php echo $value['id']; ?></td>
-						<td class="table-cell"><?php echo $value['fullname']; ?></td>
-						<td class="table-cell"><?php echo $value['email']; ?></td>
-						<td class="table-cell"><?php echo $value['phone_number']; ?></td>
-						<td class="table-cell"><?php echo $value['create_at']; ?></td>
-						<td class="table-cell status"><?php echo $value['status']; ?></td>
-						<td class="table-cell"><?php echo $value['address']; ?></td>
-						<td class="table-cell"><?php echo $value['id_acount']; ?></td>
-						<td class="table-cell">
-							<a class="edit-role table-btn" href="index.php?controller=trang-admin&action=editrole&id=<?php echo $value['id']; ?>">Role</a>
-							<a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=edit&id=<?php echo $value['id']; ?>">Edit</a>
-							<?php
-							$status = $value['status'];
-							if ($status == 0) {
-								echo '<a class="unban-user table-btn" href="index.php?controller=trang-admin&action=unbanuser&id=' . $value['id'] . '">Unban</a>';
-							} elseif ($status == 1) {
-								echo '<a class="ban-user table-btn" href="index.php?controller=trang-admin&action=banuser&id=' . $value['id'] . '">Ban </a>';
-							}
-							?>
-							<a class="delete-btn table-btn" href="index.php?controller=trang-admin&action=delete&id=<?php echo $value['id']; ?>">Delete</a>
-						</td>
-					</tr>
+						<tr class="table-row">
+							<td class="table-cell id"><?php echo $value['id']; ?></td>
+							<td class="table-cell"><?php echo $value['fullname']; ?></td>
+							<td class="table-cell"><?php echo $value['email']; ?></td>
+							<td class="table-cell"><?php echo $value['phone_number']; ?></td>
+							<td class="table-cell"><?php echo $value['create_at']; ?></td>
+							<td class="table-cell status"><?php echo $value['status']; ?></td>
+							<td class="table-cell"><?php echo $value['address']; ?></td>
+							<td class="table-cell"><?php echo $value['id_acount']; ?></td>
+							<td class="table-cell">
+								<a class="edit-role table-btn" href="index.php?controller=trang-admin&action=editrole&id=<?php echo $value['id']; ?>">Role</a>
+								<a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=edit&id=<?php echo $value['id']; ?>">Edit</a>
+								<?php
+								$status = $value['status'];
+								if ($status == 0) {
+									echo '<a class="unban-user table-btn" href="index.php?controller=trang-admin&action=unbanuser&id=' . $value['id'] . '">Unban</a>';
+								} elseif ($status == 1) {
+									echo '<a class="ban-user table-btn" href="index.php?controller=trang-admin&action=banuser&id=' . $value['id'] . '">Ban </a>';
+								}
+								?>
+								<a class="delete-btn table-btn" href="index.php?controller=trang-admin&action=delete&id=<?php echo $value['id']; ?>">Delete</a>
+							</td>
+						</tr>
 				<?php
-					$stt++;
+						$stt++;
+					}
 				}
 				?>
 			</tbody>

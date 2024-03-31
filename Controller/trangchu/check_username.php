@@ -21,10 +21,11 @@ if (
 	$email = $_POST['email'];
 	$phone_number = $_POST['phone_number'];
 	$address = $_POST['address'];
-	$id_role = "1";
+	$id_role = "0";
 	$status = "1";
-	$create_at = "1";
-	$id_acount = 1;
+	$create_at = date('Y/m/d');
+	$accountEND = end($accounts);
+	$id_acount = $accountEND['id'] + 1;
 	$usernameExists = false;
 	foreach ($accounts as $account) {
 		if ($account['user_name'] === $username) {

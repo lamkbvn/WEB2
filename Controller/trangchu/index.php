@@ -1,4 +1,3 @@
-
 <?php
 if (isset($_GET['action'])) {
 	$action = $_GET['action'];
@@ -32,7 +31,7 @@ switch ($action) {
 					$flagLogin = 1;
 					$_SESSION['isLogin'] = $flagLogin;
 					$idRole = $rowCheckLogin['id_role'];
-					if ($idRole == 2) {
+					if ($idRole != 0) {
 						header("Location: index.php?controller=trang-admin&action=indexAdmin");
 					} else {
 						header("Location: index.php?controller=trang-chu");
@@ -53,6 +52,15 @@ switch ($action) {
 		break;
 	case "userprofile":
 		require_once('View/User/user.php');
+		break;
+	case "forgotPassword":
+		if(isset($_GET['$idNguoiDung'])) {
+			$idUserForReset = $_GET['$idNguoiDung'];
+		}
+		header("location: View/trangchu/forgotPassword.php");
+		break;
+	case "resetPassword": 
+		header("location: View/trangchu/resetPassword.php");
 		break;
 	case '': {
 			if (isset($db)) {
