@@ -31,7 +31,7 @@ switch ($action) {
 					$flagLogin = 1;
 					$_SESSION['isLogin'] = $flagLogin;
 					$idRole = $rowCheckLogin['id_role'];
-					if ($idRole == 2) {
+					if ($idRole != 0) {
 						header("Location: index.php?controller=trang-admin&action=indexAdmin");
 					} else {
 						header("Location: index.php?controller=trang-chu");

@@ -1,13 +1,16 @@
 
 <style>
-    .nameRoleValidation, .validationTableRole{
+    .nameRoleValidation,
+    .validationTableRole {
         display: none;
         color: red;
     }
-    #formAddRole{
+
+    #formAddRole {
         margin-left: 220px;
     }
 </style>
+
 <body>
     <form id="formAddRole">
         <div class="Box_name_role">
@@ -15,8 +18,9 @@
             <input type="text" id="name_role" name="name_role">
             <span class="nameRoleValidation">Dữ liệu không hợp lệ</span>
         </div>
-        
-        <!-- <input type="hidden" name="id_chucNang" value="<?php // echo $rowCN['id']; ?>"> -->
+
+        <!-- <input type="hidden" name="id_chucNang" value="<?php // echo $rowCN['id']; 
+                                                            ?>"> -->
         <table border="1">
             <tr>
                 <th>Bộ phận quản lý</th>
@@ -91,7 +95,7 @@
                 }
                 console.log(formData);
                 // Sử dụng phương thức POST để gửi dữ liệu form
-                xhr.open("POST", url+"?addRole='1'&action=addRole", true);
+                xhr.open("POST", url + "?addRole='1'&action=addRole", true);
                 xhr.send(formData);
             }
         }
