@@ -121,6 +121,15 @@ class Database
     return $this->execute($sql);
   }
 
+  public function roleAccount($id, $role)
+  {
+    $sql = "UPDATE acount SET id_role = '$role' WHERE id = '$id'";
+
+    return $this->execute($sql);
+  }
+
+
+
   // delete user
   public function deleteUser($table, $id)
   {
@@ -163,6 +172,20 @@ class Database
   {
     $sql = "SELECT * FROM acount WHERE user_name = '$username' AND password = '$password'";
     return $this->execute($sql);
+  }
+
+  public function getRole()
+  {
+    $sql = "SELECT * FROM role";
+    $this->execute($sql);
+
+    $roles = array();
+
+    while ($row = $this->getData()) {
+      $roles[] = $row;
+    }
+
+    return $roles;
   }
 
   public function getAllAccounts()

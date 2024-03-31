@@ -74,21 +74,17 @@ switch ($action) {
 		}
 
 	case 'editrole': {
+			$listRoleTable = "role";
+			$roles = $db->getAllData($listRoleTable);
+
 			if (isset($_GET['id'])) {
 				$id = $_GET['id'];
-				$listUsersTable = "nguoidung";
-				$dataID = $db->getDataId($listUsersTable, $id);
-				if (isset($_POST['edit_user'])) {
-					$fullname = $_POST['fullname'];
-					$email = $_POST['email'];
-					$phone_number = $_POST['phone_number'];
-					$create_at = $_POST['create_at'];
-					$status = $_POST['status'];
-					$address = $_POST['address'];
-					$id_acount = $_POST['id_acount'];
-
-					if ($db->updateEditData($id, $fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)) {
-						header('location: index.php?controller=trang-admin&action=indexAdmin');
+				if ($_SERVER["REQUEST_METHOD"] == "POST") {
+					if (isset($_POST['role'])) {
+						$role = $_POST['role'];
+						if ($db->roleAccount($id, $role)) {
+							header('location: index.php?controller=trang-admin&action=indexAdmin');
+						}
 					}
 				}
 			}
