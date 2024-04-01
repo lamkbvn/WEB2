@@ -107,7 +107,6 @@ a {
 							session_start();
 						}
 						if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin'])) {
-							echo '<a href="View/User/cart.php"  class ="tennguoidung nav-top--right__panner">Giỏ Hàng</a>';
 							echo '<div class ="tennguoidung nav-top--right__panner"> ' . $db->getTenNguoiDung() . '</div>';
 							echo '
 							<div class = "header-avatar">

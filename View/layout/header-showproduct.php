@@ -116,7 +116,7 @@
 						<?php
 						if (isset($_SESSION['isLogin'])) {
 							if ($_SESSION['isLogin'] == 1) {
-								echo '<a href="#" id="cartIcon" class="option-header-right nav-top--right__panner">Giỏ hàng
+								echo '<a href="index.php?controller=trang-chu&action=cart" id="cartIcon" class="option-header-right nav-top--right__panner">Giỏ hàng
           								<div id="numCart">';
 								// Embedding PHP to display $totalRowsNumCart
 								echo $totalRowsNumCart;
