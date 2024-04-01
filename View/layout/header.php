@@ -107,7 +107,13 @@ a {
 							session_start();
 						}
 						if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin'])) {
+							echo '<div class ="tennguoidung nav-top--right__panner">
+                            <a href="index.php?controller=trang-chu&action=cart">
+                            Giỏ hàng
+									</a>
+                            </div>';
 							echo '<div class ="tennguoidung nav-top--right__panner"> ' . $db->getTenNguoiDung() . '</div>';
+
 							echo '
 							<div class = "header-avatar">
 								<img src="/WEB2/images/avatar.png" width = "34" />
