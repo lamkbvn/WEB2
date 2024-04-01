@@ -151,6 +151,10 @@ switch ($action) {
 			require_once('View/admin/Role/listRole.php');
 			break;
 		}
+	case 'addRole': {
+			require_once('View/admin/Role/addNewRole.php');
+			break;
+		}
 	case 'editRole': {
 			require_once('View/admin/Role/editRole.php');
 			break;
@@ -162,48 +166,6 @@ switch ($action) {
 			}
 			$data = $db->getAllData("role");
 			require_once('View/admin/Role/listRole.php');
-			break;
-		}
-	case 'addRole': {
-			require_once('View/admin/Role/addNewRole.php');
-			$result = $db->execute("SELECT * FROM chucnang");
-			$rowsCN = array();
-			$result2 = $db->execute("SELECT * FROM role");
-			$rowsRole = array();
-
-			if ($result !== false && $result->num_rows > 0) {
-				while ($row4 = $result->fetch_assoc()) {
-					$rowsCN[] = $row4;
-				}
-			}
-			if (isset($_REQUEST['addRole'])) {
-				if (isset($_REQUEST['name_role'])) {
-					$nameRole = $_REQUEST['name_role'];
-				}
-				$db->InsertRole($nameRole);
-				foreach ($rowsCN as $rowCN) {
-					$idCN = $rowCN['id'];
-					$HD = "null";
-					// Lấy giá trị của các checkbox từ $_POST
-					if (isset($_POST['view'][$idCN])) {
-						$HD = "View";
-						$db->InsertRoleLinhDong($idCN, $HD);
-					}
-					if (isset($_POST['add'][$idCN])) {
-						$HD = "Add";
-						$db->InsertRoleLinhDong($idCN, $HD);
-					}
-					if (isset($_POST['delete'][$idCN])) {
-						$HD = "Delete";
-						$db->InsertRoleLinhDong($idCN, $HD);
-					}
-					if (isset($_POST['edit'][$idCN])) {
-						$HD = "Edit";
-						$db->InsertRoleLinhDong($idCN, $HD);
-					}
-				}
-			}
-			$db->disconnect();
 			break;
 		}
 	case 'tour': {

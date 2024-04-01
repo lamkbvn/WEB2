@@ -8,6 +8,7 @@
 
     #formAddRole {
         margin-left: 220px;
+        margin-top: 80px;
     }
 </style>
 
@@ -79,7 +80,7 @@
         function ajaxAddRole() {
             if (validateFormAddRole()) {
                 var xhr = new XMLHttpRequest();
-                var url = "/WEB2/Controller/trangadmin/index.php";
+                var url = "Controller/trangadmin/Role/C_addNewRole.php";
                 var formData = new FormData(document.getElementById("formAddRole"));
 
                 xhr.onreadystatechange = function() {
@@ -97,6 +98,7 @@
                 // Sử dụng phương thức POST để gửi dữ liệu form
                 xhr.open("POST", url + "?addRole='1'&action=addRole", true);
                 xhr.send(formData);
+                window.location.href = '/WEB2/index.php?controller=trang-admin&action=role';
             }
         }
     </script>

@@ -11,6 +11,7 @@
     }
     #formAddTour{
         margin-left: 220px;
+        margin-top: 80px;
     }
 </style>
 
@@ -21,8 +22,9 @@
         } else $id = 1;
         $data = $db->getDataId('product', $id);
     ?>
-    <form id="formAddTour" action="" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="action" value="addTour">
+    <form id="formAddTour" action="Controller/trangadmin/Tour/C_editTour.php" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="editTour" value="1">
+    <input type="hidden" name="idEdit" value='<?php echo $data["id"]?>'>
         <div class="containFieldAddTour">
             <label for="title">Tiêu đề</label> <br>
             <input id="title" name="title" type="text" value='<?php echo $data["title"]?>'>
