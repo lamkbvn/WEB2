@@ -191,7 +191,8 @@ body {
     padding: 10px;
 }
 
-.table-body {
+.table-body .table-row:hover {
+    background: #ebebeb;
 }
 
 .table-row {

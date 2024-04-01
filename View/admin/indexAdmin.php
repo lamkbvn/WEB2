@@ -36,7 +36,7 @@
 				foreach ($data as $value) {
 					if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin']) && $value['id'] != $_SESSION['idUserLogin']) {
 				?>
-						<tr class="table-row">
+						<tr class="table-row ">
 							<td class="table-cell id"><?php echo $value['id']; ?></td>
 							<td class="table-cell fullname"><?php echo $value['fullname']; ?></td>
 							<td class="table-cell email"><?php echo $value['email']; ?></td>
