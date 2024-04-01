@@ -12,6 +12,14 @@
 </head>
 
 
+<style>
+    .header-admin-active {
+        color: #fff;
+        background: #4880ff;
+    }
+</style>
+
+
 <body>
     <header class="header-admin">
         <div class="header-left">
@@ -29,13 +37,13 @@
             <div class="header-right--profile">
                 <div class="header-right--profile-info">
                     <?php
-					if (session_status() == PHP_SESSION_NONE) {
-						ob_start();
-						session_start();
-					}
-					if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin'])) {
-						echo '<div class ="tennguoidung nav-top--right__panner "> ' . $db->getTenNguoiDung() . '</div>';
-						echo '
+                    if (session_status() == PHP_SESSION_NONE) {
+                        ob_start();
+                        session_start();
+                    }
+                    if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin'])) {
+                        echo '<div class ="tennguoidung nav-top--right__panner "> ' . $db->getTenNguoiDung() . '</div>';
+                        echo '
 							<div class = "header-avatar">
 								<img src="/WEB2/images/avatar.png" width = "34" />
 								<div class = "drop-user-side-bar">
@@ -54,30 +62,25 @@
 									</div>
 								</div>
 							</div>';
-					}
-					?>
+                    }
+                    ?>
                 </div>
             </div>
         </div>
         </div>
     </header>
 
-    <div class="navigation">
+    <div class="navigation-admin">
         <a href="index.php?controller=trang-admin&action=indexAdmin" id="nav-item--logo">
             <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo"></a>
         <div class="nav-admin-list">
 
-            <a href="index.php?controller=trang-admin&action=indexAdmin" id="page3" class="nav-admin-item">
+            <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Trang chủ</p>
             </a>
 
-            <!-- <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item indexAdmin">
-				<img src="css/icons/trangchu-admin-icon.svg" alt="" class="nav-admin-item--icon">
-				<p class="nav-admin-item--title">Trang chủ</p>
-			</a> -->
-
-            <a href="index.php?controller=trang-admin&action=role" id="page3" class="nav-admin-item">
+            <a href="index.php?controller=trang-admin&action=role" id="page2" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Phân quyền</p>
             </a>
@@ -87,11 +90,11 @@
                 <p class="nav-admin-item--title">Tour</p>
             </a>
 
-            <a href="index.php?controller=trang-admin&action=dsbl" id="page3" class="nav-admin-item">
+            <a href="index.php?controller=trang-admin&action=dsbl" id="page4" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Bình luận</p>
             </a>
-            <a href="index.php?controller=trang-admin&action=dsvoucher" id="page3" class="nav-admin-item">
+            <a href="index.php?controller=trang-admin&action=dsvoucher" id="page5" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Voucher</p>
             </a>
@@ -105,3 +108,20 @@
 </body>
 
 </html>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const action = urlParams.get('action');
+
+    if (action === 'indexAdmin') {
+        document.getElementById('page1').classList.add('header-admin-active');
+    } else if (action === 'role') {
+        document.getElementById('page2').classList.add('header-admin-active');
+    } else if (action === 'tour') {
+        document.getElementById('page3').classList.add('header-admin-active');
+    } else if (action === 'dsbl') {
+        document.getElementById('page4').classList.add('header-admin-active');
+    } else if (action === 'dsvoucher') {
+        document.getElementById('page5').classList.add('header-admin-active');
+    }
+</script>
