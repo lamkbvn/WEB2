@@ -3,7 +3,7 @@
 <body>
 
 	<div class="user--table">
-		<h2 class="table--heading">Danh sách Người Dùng</h2>
+		<h2 class="table--heading">Danh sách Tour</h2>
 
 		<div class="list-feature">
 			<div class="filter-container">
@@ -30,6 +30,7 @@
 					<th class="table-header">Số lượng mua</th>
 					<th class="table-header">Số lượng còn lại</th>
 					<th class="table-header">Số sao</th>
+					<th class="table-header">Hành động</th>
 				</tr>
 			</thead>
 
@@ -47,7 +48,7 @@
 						<td class="table-cell status"><?php echo $value['star_feedback']; ?></td>
 						<td class="table-cell">
 							<a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=editTour&id=<?php echo $value['id']; ?>">Edit</a>
-							<a class="delete-btn table-btn" href="index.php?controller=trang-admin&action=deleteTour&id=<?php echo $value['id']; ?>">Delete</a>
+							<a class="delete-btn table-btn" data-delete-url="index.php?controller=trang-admin&action=deleteTour&id=<?php echo $value['id']; ?>">Delete</a>
 						</td>
 					</tr>
 				<?php
@@ -57,4 +58,33 @@
 			</tbody>
 		</table>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.delete-btn').on('click', function(e) {
+				e.preventDefault();
+				var deleteUrl = $(this).attr('data-delete-url');
+				var rowToDelete = $(this).closest('.table-row');
+				var confirmDelete = confirm('Bạn có chắc chắn muốn xóa tour này không?');
+				if (confirmDelete) {
+					$.ajax({
+						url: deleteUrl,
+						type: 'GET',
+						success: function(response) {
+							// Xử lý phản hồi thành công (nếu cần)
+							if (rowToDelete.length > 0) { // Kiểm tra nếu rowToDelete tồn tại
+								rowToDelete.hide(); // Ẩn dòng bằng jQuery hide()
+							}
+						},
+						error: function(xhr, status, error) {
+							// Xử lý lỗi (nếu cần)
+						}
+					});
+				} else {
+					// Nếu người dùng không đồng ý, không làm gì cả
+				}
+			});
+		});
+	</script>
+
 </body>

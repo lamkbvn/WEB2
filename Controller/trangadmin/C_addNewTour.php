@@ -1,7 +1,7 @@
 <?php
-// include("../../Model/DBConfig.php");
-// $db = new Database();
-// $db->connect();
+include("../../Model/DBConfig.php");
+$db = new Database();
+$db->connect();
 
 $result = $db->execute("SELECT * FROM provincial");
 $rowsProvin = array();
@@ -23,7 +23,7 @@ if ($result2 !== false && $result2->num_rows > 0) {
     }
 }
 
-require_once('View/Admin/addNewTour.php');
+// require_once('View/Admin/addNewTour.php');
 
 // if(isset($_GET['action'])){
 //     $action = $_GET['action'];
@@ -31,34 +31,35 @@ require_once('View/Admin/addNewTour.php');
 //     $action = '';
 // }
 
-// if (isset($_REQUEST['btnAddTour'])) {
-//     $id = date('dmyHis');
-//     $title = $_REQUEST['title'];
-//     $category = $_REQUEST['category'];
-//     $provincial = $_REQUEST['provincial'];
-//     $price = $_REQUEST['price'];
-//     $content = $_REQUEST['content'];
-//     $address = $_REQUEST['address'];
-//     $currentDate = date("Y-m-d");
-//     $acount = $_REQUEST['acount'];
-//     $category = $_REQUEST['category'];
+if (isset($_REQUEST['btnAddTour'])) {
+    $id = date('dmyHis');
+    $title = $_REQUEST['title'];
+    $category = $_REQUEST['category'];
+    $provincial = $_REQUEST['provincial'];
+    $price = $_REQUEST['price'];
+    $content = $_REQUEST['content'];
+    $address = $_REQUEST['address'];
+    $currentDate = date("Y-m-d");
+    $acount = $_REQUEST['acount'];
+    $category = $_REQUEST['category'];
 
-//     $db->InsertTour($id, $category, 1, $provincial, $title, $price, $content, $address, $currentDate, $acount);
+    $db->InsertTour($id, $category, 1, $provincial, $title, $price, $content, $address, $currentDate, $acount);
     
-//     if (!empty($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
-//         $img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
-//         $db->InsertImg($id, '1', $img1);
-//     }
+    if (!empty($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
+        $img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
+        $db->InsertImg($id, '1', $img1);
+    }
     
-//     if (!empty($_FILES['img2']['tmp_name']) && getimagesize($_FILES['img2']['tmp_name']) !== false) {
-//         $img2 = addslashes(file_get_contents($_FILES['img2']['tmp_name']));
-//         $db->InsertImg($id, '2', $img2);
-//     }
+    if (!empty($_FILES['img2']['tmp_name']) && getimagesize($_FILES['img2']['tmp_name']) !== false) {
+        $img2 = addslashes(file_get_contents($_FILES['img2']['tmp_name']));
+        $db->InsertImg($id, '2', $img2);
+    }
     
-//     if (!empty($_FILES['img3']['tmp_name']) && getimagesize($_FILES['img3']['tmp_name']) !== false) {
-//         $img3 = addslashes(file_get_contents($_FILES['img3']['tmp_name']));
-//         $db->InsertImg($id, '3', $img3);
-//     }
-// }
-// $db->disconnect();
+    if (!empty($_FILES['img3']['tmp_name']) && getimagesize($_FILES['img3']['tmp_name']) !== false) {
+        $img3 = addslashes(file_get_contents($_FILES['img3']['tmp_name']));
+        $db->InsertImg($id, '3', $img3);
+    }
+}
+$db->disconnect();
+header('index.php?controller=trang-admin&action=tour');
 ?>

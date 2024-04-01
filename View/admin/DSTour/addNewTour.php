@@ -22,7 +22,7 @@
 </style>
 
 <body>
-    <form id="formAddTour" action="Controller/trangadmin/index.php" method="post" enctype="multipart/form-data">
+    <form id="formAddTour" action="Controller/trangadmin/C_addNewTour.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="action" value="addTour">
         <div class="containFieldAddTour">
             <label for="title">Tiêu đề</label> <br>
@@ -33,6 +33,7 @@
             <label for="selectCate">Loại</label> <br>
             <select name="category" id="selectCate">
                 <?php
+                $rowsCate = $db->getAllData('category');
                 foreach ($rowsCate as $rowCate) {
                     echo "<option name='selectCate' value='" . $rowCate['id'] . "'>" . $rowCate['name_category'] . "</option>";
                 }
@@ -44,6 +45,7 @@
             <label for="selectProvin">Tỉnh thành</label> <br>
             <select name="provincial" id="selectProvin">
                 <?php
+                $rowsProvin = $db->getAllData('provincial');
                 foreach ($rowsProvin as $rowProvin) {
                     echo "<option name='selectRole' value='" . $rowProvin['id'] . "'>" . $rowProvin['name_procince'] . "</option>";
                 }

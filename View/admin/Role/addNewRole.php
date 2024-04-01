@@ -79,7 +79,7 @@
         function ajaxAddRole() {
             if (validateFormAddRole()) {
                 var xhr = new XMLHttpRequest();
-                var url = "/WEB2/Controller/trangadmin/index.php";
+                var url = "Controller/trangadmin/C_addNewRole.php";
                 var formData = new FormData(document.getElementById("formAddRole"));
 
                 xhr.onreadystatechange = function() {
