@@ -5,6 +5,8 @@ $db = new Database();
 $conn = $db->connect();
 
 $accounts = $db->getAllAccounts();
+$nguoidungs = $db->getAllNguoiDung();
+
 if (
 	isset($_POST['username']) &&
 	$_POST['fullname'] !== '' &&
@@ -27,14 +29,32 @@ if (
 	$accountEND = end($accounts);
 	$id_acount = $accountEND['id'] + 1;
 	$usernameExists = false;
+	$emailExists = false;
+	$phone_numberExists = false;
 	foreach ($accounts as $account) {
 		if ($account['user_name'] === $username) {
 			$usernameExists = true;
 			break;
 		}
 	}
+
+	foreach ($nguoidungs as $nguoidung) {
+		if ($nguoidung['email'] === $email) {
+			$emailExists = true;
+			break;
+		}
+		if ($nguoidung['phone_number'] === $phone_number) {
+			$phone_numberExists = true;
+			break;
+		}
+	}
+
 	if ($usernameExists) {
-		echo "exists";
+		echo "exists username";
+	} else if ($emailExists) {
+		echo "exists email";
+	} else if ($phone_numberExists) {
+		echo "exists phone";
 	} else {
 		$db->registerAcount($username, $password, $id_role, $status);
 		$db->registerNguoiDung($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount);

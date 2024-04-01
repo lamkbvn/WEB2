@@ -197,6 +197,20 @@ class Database
     return $accounts;
   }
 
+  public function getAllNguoiDung()
+  {
+    $sql = "SELECT * FROM nguoidung";
+    $this->execute($sql);
+
+    $accounts = array();
+
+    while ($row = $this->getData()) {
+      $accounts[] = $row;
+    }
+
+    return $accounts;
+  }
+
   public function registerAcount($username, $password, $id_role, $status)
   {
     $sql = "INSERT INTO acount (user_name, password, id_role, status) VALUES ('$username', '$password', '$id_role', '$status')";
