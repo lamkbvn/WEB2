@@ -42,11 +42,13 @@
 					$idProduct = $value['id'];
 					$rowsIMG = $db->getAllData('image_product');
 					$urlIMG = null;
-					foreach ($rowsIMG as $rowIMG){
-						if($rowIMG['id_product'] == $idProduct){
-							$imageData = $rowIMG['image'];
-							$urlIMG = 'data:image/jpeg;base64,'.base64_encode($imageData).'';
-							break;
+					if($rowsIMG){
+						foreach ($rowsIMG as $rowIMG){
+							if($rowIMG['id_product'] == $idProduct){
+								$imageData = $rowIMG['image'];
+								$urlIMG = 'data:image/jpeg;base64,'.base64_encode($imageData).'';
+								break;
+							}
 						}
 					}
 					if($urlIMG == null) $urlIMG = "images/no_image.gif";
