@@ -116,7 +116,7 @@
 						<?php
 						if (isset($_SESSION['isLogin'])) {
 							if ($_SESSION['isLogin'] == 1) {
-								echo '<a href="index.php?controller=trang-chu&action=cart" id="cartIcon" class="option-header-right nav-top--right__panner">Giỏ hàng
+								echo '<a href="/WEB2/index.php?controller=trang-chu&action=cart" id="cartIcon" class="option-header-right nav-top--right__panner">Giỏ hàng
           								<div id="numCart">';
 								// Embedding PHP to display $totalRowsNumCart
 								echo $totalRowsNumCart;
@@ -151,8 +151,7 @@
 
 							// Ẩn liên kết "Đăng kí" và "Đăng nhập"
 						} else {
-							echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner">Đăng kí</a>';
-							echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn">Đăng nhập</a>';
+							echo '<a href="/WEB2/index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn">Đăng nhập</a>';
 						}
 						?>
 

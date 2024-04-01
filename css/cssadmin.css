@@ -195,13 +195,15 @@ body {
 }
 
 .table-row {
+    align-items: center;
 }
-
 .table-cell {
     padding: 5px;
     text-align: center;
 }
-
+.table-cell img{
+    /* transform: translateY(10%); */
+}
 .table-btn {
     width: 50px;
     padding: 10px 0px;

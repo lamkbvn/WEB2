@@ -18,11 +18,12 @@
     }
     #formAddTour{
         margin-left: 220px;
+        margin-top: 80px;
     }
 </style>
 
 <body>
-    <form id="formAddTour" action="Controller/trangadmin/C_addNewTour.php" method="post" enctype="multipart/form-data">
+    <form id="formAddTour" action="Controller/trangadmin/Tour/C_addNewTour.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="action" value="addTour">
         <div class="containFieldAddTour">
             <label for="title">Tiêu đề</label> <br>

@@ -24,6 +24,7 @@
 		<table id="tableData" class="custom-table">
 			<thead class="table-head">
 				<tr class="table--head">
+					<th class="table-header">Hình ảnh</th>
 					<th class="table-header">Tiêu đề</th>
 					<th class="table-header">Giá</th>
 					<th class="table-header">Ngày tạo</th>
@@ -38,15 +39,27 @@
 				<?php
 				$stt = 1;
 				foreach ($data as $value) {
+					$idProduct = $value['id'];
+					$rowsIMG = $db->getAllData('image_product');
+					$urlIMG = null;
+					foreach ($rowsIMG as $rowIMG){
+						if($rowIMG['id_product'] == $idProduct){
+							$imageData = $rowIMG['image'];
+							$urlIMG = 'data:image/jpeg;base64,'.base64_encode($imageData).'';
+							break;
+						}
+					}
+					if($urlIMG == null) $urlIMG = "images/no_image.gif";
 				?>
 					<tr class="table-row">
+						<td class="table-cell"><img src="<?php echo $urlIMG?>" alt="Hình ảnh tour" width="80px"></td>
 						<td class="table-cell id"><?php echo $value['title']; ?></td>
 						<td class="table-cell"><?php echo number_format($value['price'], 0, ',', '.'); ?></td>
 						<td class="table-cell"><?php echo $value['create_at']; ?></td>
 						<td class="table-cell"><?php echo $value['num_bought']; ?></td>
 						<td class="table-cell"><?php echo $value['soLuongConLai']; ?></td>
 						<td class="table-cell status"><?php echo $value['star_feedback']; ?></td>
-						<td class="table-cell">
+						<td class="table-cell elet">
 							<a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=editTour&id=<?php echo $value['id']; ?>">Edit</a>
 							<a class="delete-btn table-btn" data-delete-url="index.php?controller=trang-admin&action=deleteTour&id=<?php echo $value['id']; ?>">Delete</a>
 						</td>

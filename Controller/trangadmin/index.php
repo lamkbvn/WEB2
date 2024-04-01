@@ -151,6 +151,10 @@ switch ($action) {
 			require_once('View/admin/Role/listRole.php');
 			break;
 		}
+	case 'addRole': {
+			require_once('View/admin/Role/addNewRole.php');
+			break;
+		}
 	case 'editRole': {
 			require_once('View/admin/Role/editRole.php');
 			break;

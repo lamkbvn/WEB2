@@ -1,5 +1,5 @@
 <?php
-include("../../Model/DBConfig.php");
+include("../../../Model/DBConfig.php");
 $db = new Database();
 $db->connect();
 
@@ -30,9 +30,13 @@ if ($result2 !== false && $result2->num_rows > 0) {
 // } else {
 //     $action = '';
 // }
+if(isset($_REQUEST['idEdit'])){
+    $idEdit = $_REQUEST['idEdit'];
+}
 
 if (isset($_REQUEST['btnAddTour'])) {
-    $id = date('dmyHis');
+    
+    echo "abc";
     $title = $_REQUEST['title'];
     $category = $_REQUEST['category'];
     $provincial = $_REQUEST['provincial'];
@@ -42,8 +46,8 @@ if (isset($_REQUEST['btnAddTour'])) {
     $currentDate = date("Y-m-d");
     $acount = $_REQUEST['acount'];
     $category = $_REQUEST['category'];
-
-    $db->InsertTour($id, $category, 1, $provincial, $title, $price, $content, $address, $currentDate, $acount);
+    echo $idEdit;
+    $db->UpdateTour($idEdit, $category, 1, $provincial, $title, $price, $content, $currentDate, $address, $acount);
     
     if (!empty($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
         $img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
@@ -59,7 +63,10 @@ if (isset($_REQUEST['btnAddTour'])) {
         $img3 = addslashes(file_get_contents($_FILES['img3']['tmp_name']));
         $db->InsertImg($id, '3', $img3);
     }
-}
+} else 
+echo "error";
 $db->disconnect();
-header('index.php?controller=trang-admin&action=tour');
+echo "<script>window.location.href = '/WEB2/index.php?controller=trang-admin&action=tour';</script>";
+    exit;
+// header('index.php?controller=trang-admin&action=tour');
 ?>
