@@ -42,11 +42,11 @@
 					$idProduct = $value['id'];
 					$rowsIMG = $db->getAllData('image_product');
 					$urlIMG = null;
-					if($rowsIMG){
-						foreach ($rowsIMG as $rowIMG){
-							if($rowIMG['id_product'] == $idProduct){
+					if ($rowsIMG) {
+						foreach ($rowsIMG as $rowIMG) {
+							if ($rowIMG['id_product'] == $idProduct) {
 								$imageData = $rowIMG['image'];
-								$urlIMG = 'data:image/jpeg;base64,'.base64_encode($imageData).'';
+								$urlIMG = 'data:image/jpeg;base64,' . base64_encode($imageData) . '';
 								break;
 							}
 						}
@@ -54,7 +54,7 @@
 					if ($urlIMG == null) $urlIMG = "images/no_image.gif";
 				?>
 					<tr class="table-row">
-						<td class="table-cell"><img src="<?php echo $urlIMG ?>" alt="Hình ảnh tour" class="image-product-admin"></td>
+						<td class="table-cell"><img loading="lazy" src="<?php echo $urlIMG ?>" alt="Hình ảnh tour" class="image-product-admin"></td>
 						<td class="table-cell id"><?php echo $value['title']; ?></td>
 						<td class="table-cell"><?php echo number_format($value['price'], 0, ',', '.'); ?></td>
 						<td class="table-cell"><?php echo $value['create_at']; ?></td>
