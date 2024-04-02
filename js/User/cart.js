@@ -14,7 +14,7 @@ function decreaseValue() {
   }
 }
 
-let paymentButton = document.getElementById('payment_button');
+let paymentButton = document.getElementById('payment-button');
 let formBookTour = document.getElementById('form_book_tour');
 let checkboxes = document.querySelectorAll(
   '.shopping-cart-item_body-left input[type="checkbox"]'
@@ -22,6 +22,52 @@ let checkboxes = document.querySelectorAll(
 let totalPriceSpan = document.querySelector('.price-detail');
 let nenDen = document.getElementsByClassName('dark')[0];
 let checkboxAll = document.getElementById('checkboxAll');
+
+//--------------------------------------//
+// Validation functions
+let hoTen = document.querySelector('.hoTen');
+let email = document.querySelector('.email');
+let sodienthoai = document.querySelector('.sodienthoai');
+let diachi = document.querySelector('.diachi');
+let spansValidation = document.querySelectorAll('.validation');
+
+function validateField(input, regex, span) {
+  if (!regex.test(input.value) || input.value === '') {
+    span.style.display = 'block';
+    return false;
+  } else {
+    span.style.display = 'none';
+    return true;
+  }
+}
+hoTen.addEventListener('blur', function () {
+  validateField(hoTen, /^(?!\s*$).+/, spansValidation[0]);
+});
+
+email.addEventListener('blur', function () {
+  validateField(email, /^\S+@\S+\.\S+$/, spansValidation[1]);
+});
+
+sodienthoai.addEventListener('blur', function () {
+  validateField(sodienthoai, /^0\d{9}$/, spansValidation[2]);
+});
+diachi.addEventListener('blur', function () {
+  validateField(diachi, /^(?!\s*$).+/, spansValidation[3]);
+});
+
+// Form submission validation
+formBookTour.addEventListener('submit', function (event) {
+  let isValid = true;
+  spansValidation.forEach(function (span) {
+    if (span.style.display === 'block') {
+      isValid = false;
+    }
+  });
+  if (!isValid) {
+    event.preventDefault();
+  } else {
+  }
+});
 
 //selected_tour
 let btnMuaNgay = document.getElementsByClassName('buy-now')[0];
@@ -33,7 +79,10 @@ btnMuaNgay.addEventListener('click', function (e) {
       var productDetails = $(this).closest('.shopping-cart-item_body-left');
 
       var id_product = productDetails.find('input[name="id_product"]').val();
-
+      var numTicket = productDetails.find('input[name="numTicket"]').val();
+      var totalMoneyphp = productDetails
+        .find('input[name="totalMoneyphp"]')
+        .val();
       var amount = productDetails.find('input[name="amount"]').val();
       var price = productDetails.find('input[name="price"]').val();
       var date = productDetails.find('input[name="date"]').val();
@@ -47,7 +96,8 @@ btnMuaNgay.addEventListener('click', function (e) {
 
       selectedProducts.push({
         id_product: id_product,
-
+        numTicket: numTicket,
+        totalMoneyphp: totalMoneyphp,
         amount: amount,
         price: price,
         date: date,
@@ -61,21 +111,32 @@ btnMuaNgay.addEventListener('click', function (e) {
     }
   });
   console.log(JSON.stringify(selectedProducts));
-
-  $.ajax({
-    url: '../../Controller/cart.php', // Thay đổi thành URL của server endpoint của bạn
-    type: 'POST',
-    contentType: 'application/json',
-    data: JSON.stringify(selectedProducts),
-    success: function (response) {
-      // Xử lý phản hồi từ server nếu cần
-      console.log('Dữ liệu đã được gửi thành công');
-    },
-    error: function (xhr, status, error) {
-      // Xử lý lỗi nếu có
-      console.error('Lỗi: ' + error);
-    },
-  });
+  let isValid = true;
+  if (
+    validateField(hoTen, /^(?!\s*$).+/, spansValidation[0]) ||
+    validateField(email, /^\S+@\S+\.\S+$/, spansValidation[1]) ||
+    validateField(sodienthoai, /^0\d{9}$/, spansValidation[2]) ||
+    validateField(diachi, /^(?!\s*$).+/, spansValidation[3])
+  ) {
+    isValid = true;
+  } else isValid = false;
+  if (isValid) {
+    $.ajax({
+      url: 'Controller/cart/cartController.php', // Thay đổi thành URL của server endpoint của bạn
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(selectedProducts),
+      success: function (response) {
+        // Xử lý phản hồi từ server nếu cần
+        console.log(response);
+        alert('Giao dịch thành công!');
+      },
+      error: function (xhr, status, error) {
+        // Xử lý lỗi nếu có
+        console.error('Lỗi: ' + error);
+      },
+    });
+  }
 });
 
 //-----------------------------------//
@@ -114,7 +175,6 @@ function calculateTotalPrice() {
   document.getElementsByName('totalMoneyMain')[0].value = total;
   return total;
 }
-
 // cập nhật tổng tiền lại sp dc check
 function updateTotalPrice() {
   totalPriceSpan.textContent = calculateTotalPrice().toLocaleString();
@@ -126,7 +186,6 @@ checkboxes.forEach(function (checkbox) {
     updateTotalPrice();
   });
 });
-
 checkboxAll.addEventListener('change', function () {
   checkboxes.forEach(function (checkbox) {
     checkbox.checked = checkboxAll.checked;
@@ -134,13 +193,11 @@ checkboxAll.addEventListener('change', function () {
   updateTotalPrice();
   updatePaymentButtonState();
 });
-
 //----------------------------------//
 
 // Hàm kiểm tra xem ít nhất một checkbox đã được chọn hay không
 function atLeastOneCheckboxChecked() {
   let checked = false;
-
   checkboxes.forEach(function (checkbox) {
     if (checkbox.checked) {
       checked = true;
@@ -148,7 +205,6 @@ function atLeastOneCheckboxChecked() {
   });
   return checked;
 }
-
 // Cập nhật trạng thái của nút thanh toán dựa trên checkbox được chọn
 function updatePaymentButtonState() {
   if (atLeastOneCheckboxChecked()) {
@@ -157,60 +213,11 @@ function updatePaymentButtonState() {
     paymentButton.disabled = true; // Vô hiệu hóa nút thanh toán
   }
 }
-
 // Thêm sự kiện change cho mỗi checkbox
 checkboxes.forEach(function (checkbox) {
   checkbox.addEventListener('change', function () {
     updatePaymentButtonState();
   });
 });
-
 // Khi trang tải lần đầu, cập nhật trạng thái của nút thanh toán
 updatePaymentButtonState();
-
-//--------------------------------------//
-// Validation functions
-let hoTen = document.querySelector('.hoTen');
-let email = document.querySelector('.email');
-let sodienthoai = document.querySelector('.sodienthoai');
-let diachi = document.querySelector('.diachi');
-let spansValidation = document.querySelectorAll('.validation');
-
-function validateField(input, regex, span) {
-  if (!regex.test(input.value) || input.value === '') {
-    span.style.display = 'block';
-    return false;
-  } else {
-    span.style.display = 'none';
-    return true;
-  }
-}
-
-hoTen.addEventListener('blur', function () {
-  validateField(hoTen, /^(?!\s*$).+/, spansValidation[0]);
-});
-
-email.addEventListener('blur', function () {
-  validateField(email, /^\S+@\S+\.\S+$/, spansValidation[1]);
-});
-
-sodienthoai.addEventListener('blur', function () {
-  validateField(sodienthoai, /^0\d{9}$/, spansValidation[2]);
-});
-
-diachi.addEventListener('blur', function () {
-  validateField(diachi, /^(?!\s*$).+/, spansValidation[3]);
-});
-
-// Form submission validation
-formBookTour.addEventListener('submit', function (event) {
-  let isValid = true;
-  spansValidation.forEach(function (span) {
-    if (span.style.display === 'block') {
-      isValid = false;
-    }
-  });
-  if (!isValid) {
-    event.preventDefault();
-  }
-});
