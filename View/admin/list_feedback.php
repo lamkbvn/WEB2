@@ -8,7 +8,7 @@
         <div class="list-feature">
             <div class="filter-container">
 
-                <input type="text" id="filterInput" placeholder="Nhập tên người dùng cần tìm">
+                <input type="text" id="filterInput" placeholder="Nhập giá trị cần tìm kiếm...">
 
             </div>
 
@@ -51,33 +51,35 @@
 <script>
 // Lấy ô input và bảng dữ liệu
 var input = document.getElementById("filterInput");
-var table = document.getElementById("tableData");
+	var table = document.getElementById("tableData");
 
-// Lắng nghe sự kiện input trên ô tìm kiếm
+	// Lắng nghe sự kiện input trên ô tìm kiếm
 input.addEventListener("input", function() {
     var filter = input.value.toLowerCase(); // Chuyển đổi giá trị nhập vào thành chữ thường để so sánh
 
     // Lặp qua từng hàng trong tbody
-    var rows = table.getElementsByTagName("tr");
+    var rows = table.getElementsByClassName("table-row");
     for (var i = 0; i < rows.length; i++) {
-        var fullname = rows[i].getElementsByClassName("fullname")[0]; // Lấy cột Họ Tên trong hàng
-        var note = rows[i].getElementsByClassName("note")[0]; // Lấy cột Nội dung trong hàng
-        var title = rows[i].getElementsByClassName("title")[0]; // Lấy cột Tên tour trong hàng
-        var create_at = rows[i].getElementsByClassName("create_at")[0]; // Lấy cột Ngày bình luận trong hàng
+        var cells = rows[i].getElementsByClassName("table-cell"); // Lấy tất cả các ô trong hàng
 
-        if (fullname || note || title || create_at) {
-            var textValue = fullname.textContent || fullname.innerText;
-            var noteValue = note.textContent || note.innerText;
-            var titleValue = title.textContent || title.innerText; // Corrected variable name
-            var create_atValue = create_at.textContent || create_at.innerText;
-            if (textValue.toLowerCase().indexOf(filter) > -1 ||
-                noteValue.toLowerCase().indexOf(filter) > -1 ||
-                titleValue.toLowerCase().indexOf(filter) > -1 ||
-                create_atValue.toLowerCase().indexOf(filter) > -1) {
-                rows[i].style.display = ""; // Hiển thị hàng
-            } else {
-                rows[i].style.display = "none"; // Ẩn hàng
+        var rowVisible = false; // Biến để kiểm tra xem hàng có nên hiển thị hay không
+
+        // Lặp qua tất cả các ô trong hàng
+        for (var j = 0; j < cells.length; j++) {
+            var textValue = cells[j].textContent.toLowerCase(); // Nội dung của ô chuyển thành chữ thường
+
+            // Nếu nội dung của ô chứa giá trị tìm kiếm, hiển thị hàng và thoát khỏi vòng lặp
+            if (textValue.indexOf(filter) > -1) {
+                rowVisible = true;
+                break;
             }
+        }
+
+        // Hiển thị hoặc ẩn hàng dựa trên kết quả kiểm tra các ô trong hàng
+        if (rowVisible) {
+            rows[i].style.display = "";// Hiển thị hàng
+        } else {
+            rows[i].style.display = "none"; // Ẩn hàng
         }
     }
 });
