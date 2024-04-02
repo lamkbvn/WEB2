@@ -1,3 +1,5 @@
+<body>
+    <script>
 // chọn loại tour
 let chosseTour = document.getElementsByClassName('type-tour');
 for (var i = 0; i < chosseTour.length; i++) {
@@ -84,6 +86,12 @@ let btnBuyNow2 = document.getElementsByClassName('buy-now')[1];
 let flag2=0;
 let spanValidationNumticket = document.getElementsByClassName('validation')[1];
 btnBuyNow.addEventListener('click', function (e) {
+    <?php
+        //session_start();
+
+        if(isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == 1) {
+        // Nếu người dùng đã đăng nhập
+    ?>
     flag2=0;
     if (btnChonNgay.value == "") {
         e.preventDefault();
@@ -103,8 +111,21 @@ btnBuyNow.addEventListener('click', function (e) {
             formBookTour.style.transform = 'translate(0%, 0%) scale(1)';
         }, 50);
     }
+    <?php
+        } else {
+            
+    ?>
+    alert("Vui lòng đăng nhập trước khi mua hàng")
+    e.preventDefault();
+    <?php } ?>
 })
 btnAddCart.addEventListener('click', function (e) {
+    <?php
+        //session_start();
+
+        if(isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == 1) {
+        // Nếu người dùng đã đăng nhập
+    ?>
     let flag3=0;
     if (btnChonNgay.value == "") {
         e.preventDefault();
@@ -126,6 +147,13 @@ btnAddCart.addEventListener('click', function (e) {
         //     document.getElementById('submitAddcart').submit();
         // }, 1000);
     }
+    <?php
+        } else {
+            
+    ?>
+    alert("Vui lòng đăng nhập trước khi thêm vào giỏ hàng")
+    e.preventDefault();
+    <?php } ?>
 })
 let formBookTour = document.getElementById('form-book-tour');
 let hoTen = document.getElementsByClassName('hoTen')[0];
@@ -292,9 +320,22 @@ function animationAddCart(e){
 let btnSendCmt = document.getElementsByName('send-cmt')[0];
 let txtareaCmt = document.getElementsByClassName('text-cmt')[0];
 btnSendCmt.addEventListener('click', function(e){
+    <?php
+        //session_start();
+
+        if(isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == 1) {
+        // Nếu người dùng đã đăng nhập
+    ?>
     if(txtareaCmt.value.length==0){
         e.preventDefault();
     }
+    <?php
+        } else {
+            
+    ?>
+    alert("Vui lòng đăng nhập trước khi bình luận")
+    e.preventDefault();
+    <?php } ?>
 })
 
 // js cho chọn số sao bình luận
@@ -353,4 +394,6 @@ function addToCart() {
     xhr.open("GET", "/WEB2/Controller/chitietTour/buyTour.php?" + queryString, true);
     xhr.send();
 }
+</script>
+</body>
 

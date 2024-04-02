@@ -38,6 +38,7 @@ if (isset($_REQUEST['btnAddTour'])) {
     
     echo "abc";
     $title = $_REQUEST['title'];
+    $id = $_REQUEST['idTour'];
     $category = $_REQUEST['category'];
     $provincial = $_REQUEST['provincial'];
     $price = $_REQUEST['price'];
@@ -51,17 +52,27 @@ if (isset($_REQUEST['btnAddTour'])) {
     
     if (!empty($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
         $img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
-        $db->InsertImg($id, '1', $img1);
+        if(isset($_REQUEST['idImg0'])){
+            $idimg = $_REQUEST['idImg0'];
+            echo $idimg;
+            $db->UpdateImg($idimg, $img1);
+        } else $db->InsertImg($id, '1', $img1);
     }
     
     if (!empty($_FILES['img2']['tmp_name']) && getimagesize($_FILES['img2']['tmp_name']) !== false) {
         $img2 = addslashes(file_get_contents($_FILES['img2']['tmp_name']));
-        $db->InsertImg($id, '2', $img2);
+        if(isset($_REQUEST['idImg1'])){
+            $idimg = $_REQUEST['idImg1'];
+            $db->UpdateImg($idimg, $img2);
+        } else $db->InsertImg($id, '2', $img2);
     }
     
     if (!empty($_FILES['img3']['tmp_name']) && getimagesize($_FILES['img3']['tmp_name']) !== false) {
         $img3 = addslashes(file_get_contents($_FILES['img3']['tmp_name']));
-        $db->InsertImg($id, '3', $img3);
+        if(isset($_REQUEST['idImg2'])){
+            $idimg = $_REQUEST['idImg2'];
+            $db->UpdateImg($idimg, $img3);
+        } else $db->InsertImg($id, '3', $img3);
     }
 } else 
 echo "error";

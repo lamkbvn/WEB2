@@ -1,34 +1,38 @@
-
 <style>
     .valiFormAddTour {
         display: none;
         color: red;
     }
 
-    #ImgValidation1, #ImgValidation2, #ImgValidation3 {
+    #ImgValidation1,
+    #ImgValidation2,
+    #ImgValidation3 {
         display: none;
         color: red;
     }
-    #formAddTour{
+
+    #formAddTour {
         /* margin-left: 220px;
         margin-top: 80px; */
     }
 
-    .box-up-img{
+    .box-up-img {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-left: 22px;
     }
-    #btnAddTour{
+
+    #btnAddTour {
         width: 100%;
-		padding: 10px;
-		border: none;
-		border-radius: 4px;
-		background-color: #4880ff;
-		color: white;
-		cursor: pointer;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #4880ff;
+        color: white;
+        cursor: pointer;
     }
+
     .container {
         display: flex;
         justify-content: center;
@@ -56,7 +60,7 @@
     }
 
     .themuser form input[type="text"],
-	.themuser form input[type="number"]  {
+    .themuser form input[type="number"] {
         width: 275px;
         padding: 8px;
         margin-bottom: 10px;
@@ -75,6 +79,7 @@
         border-radius: 4px;
         box-sizing: border-box;
     }
+
     .themuser form textarea {
         background-color: #f5f6fa;
         width: 100%;
@@ -111,6 +116,7 @@
     }
 
     .file-upload span {
+        display: none;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -122,7 +128,7 @@
     }
 
     .uploaded-image {
-        display: none;
+        /* display: none; */
         width: 100%;
         /* Kích thước của hình ảnh */
         height: 100%;
@@ -135,117 +141,135 @@
     .inputfile:focus+.file-upload #uploaded-image1 {
         display: block;
     }
+
     .inputfile:focus+.file-upload #uploaded-image2 {
         display: block;
     }
+
     .inputfile:focus+.file-upload #uploaded-image3 {
         display: block;
     }
 </style>
 
 <body>
-    <?php 
-        if(isset($_REQUEST['id'])){
-            $id = $_REQUEST['id'];
-        } else $id = 1;
-        $data = $db->getDataId('product', $id);
+    <?php
+    if (isset($_REQUEST['id'])) {
+        $id = $_REQUEST['id'];
+    } else $id = 1;
+    $data = $db->getDataId('product', $id);
     ?>
     <div class="container">
         <div class="themuser">
             <h3>Sửa Tour</h3>
-    <form id="formAddTour" action="Controller/trangadmin/Tour/C_editTour.php" method="post" enctype="multipart/form-data">
-    <div class="form--inner">
-                <div class="flex">
-    <input type="hidden" name="editTour" value="1">
-    <input type="hidden" name="idEdit" value='<?php echo $data["id"]?>'>
-        <div class="containFieldAddTour">
-            <label for="title">Tiêu đề</label> <br>
-            <input id="title" name="title" type="text" value='<?php echo $data["title"]?>'>
-            <span class="valiFormAddTour" id="titleValidation">Tiêu đề không hợp lệ</span>
-        </div>
-        <div class="containFieldAddTour">
-            <label for="selectCate">Loại</label> <br>
-            <select name="category" id="selectCate">
-                <?php
-                $rowsCate = $db->getAllData('category');
-                foreach ($rowsCate as $rowCate) {
-                    $selected = ($rowCate['id'] == $data['id_category']) ? 'selected' : '';
-                    echo "<option $selected name='selectCate' value='" . $rowCate['id'] . "'>" . $rowCate['name_category'] . "</option>";
-                }
-                ?>
-            </select>
-            <span class="valiFormAddTour" id="categoryValidation">Vui lòng chọn trường này</span>
-        </div>
-        <div class="containFieldAddTour">
-            <label for="selectProvin">Tỉnh thành</label> <br>
-            <select name="provincial" id="selectProvin">
-                <?php
-                $rowsProvin = $db->getAllData('provincial');
-                foreach ($rowsProvin as $rowProvin) {
-                    $selected = ($rowProvin['id'] == $data['id_provincial']) ? 'selected' : '';
-                    echo "<option $selected name='selectRole' value='" . $rowProvin['id'] . "'>" . $rowProvin['name_procince'] . "</option>";
-                }
-                ?>
-            </select>
-            <span class="valiFormAddTour" id="provincialValidation">Vui lòng chọn trường này</span>
-        </div>
-        </div>
-        <div class="flex">
-        <div class="containFieldAddTour">
-            <label for="price">Giá</label> <br>
-            <input name="price" type="number" value='<?php echo $data["price"]?>'>
-            <span class="valiFormAddTour" id="priceValidation">Dữ liệu không hợp lệ</span>
-        </div>
-        <div class="containFieldAddTour">
-            <label for="acount">Số lượng</label> <br>
-            <input name="acount" type="number" value='<?php echo $data["soLuongConLai"]?>'>
-            <span class="valiFormAddTour" id="acountValidation">Dữ liệu không hợp lệ</span>
-        </div>
-        <div class="containFieldAddTour">
-            <label for="address">Địa chỉ</label> <br>
-            <input name="address" type="text" value='<?php echo $data["address"]?>'>
-            <span class="valiFormAddTour" id="addressValidation">Dữ liệu không hợp lệ</span>
-        </div>
-            </div>
-            </div>
-        <div class="containFieldAddTour">
-            <label for="">Chọn ảnh</label> <br>
-            <div class="box-up-img">
-            <input type="file" name="img1" id="img1" class="inputfile">
+            <form id="formAddTour" action="Controller/trangadmin/Tour/C_editTour.php" method="post" enctype="multipart/form-data">
+                <div class="form--inner">
+                    <div class="flex">
+                        <input type="hidden" name="idTour" value="<?php echo $id ?>">
+                        <input type="hidden" name="editTour" value="1">
+                        <input type="hidden" name="idEdit" value='<?php echo $data["id"] ?>'>
+                        <div class="containFieldAddTour">
+                            <label for="title">Tiêu đề</label> <br>
+                            <input id="title" name="title" type="text" value='<?php echo $data["title"] ?>'>
+                            <span class="valiFormAddTour" id="titleValidation">Tiêu đề không hợp lệ</span>
+                        </div>
+                        <div class="containFieldAddTour">
+                            <label for="selectCate">Loại</label> <br>
+                            <select name="category" id="selectCate">
+                                <?php
+                                $rowsCate = $db->getAllData('category');
+                                foreach ($rowsCate as $rowCate) {
+                                    $selected = ($rowCate['id'] == $data['id_category']) ? 'selected' : '';
+                                    echo "<option $selected name='selectCate' value='" . $rowCate['id'] . "'>" . $rowCate['name_category'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                            <span class="valiFormAddTour" id="categoryValidation">Vui lòng chọn trường này</span>
+                        </div>
+                        <div class="containFieldAddTour">
+                            <label for="selectProvin">Tỉnh thành</label> <br>
+                            <select name="provincial" id="selectProvin">
+                                <?php
+                                $rowsProvin = $db->getAllData('provincial');
+                                foreach ($rowsProvin as $rowProvin) {
+                                    $selected = ($rowProvin['id'] == $data['id_provincial']) ? 'selected' : '';
+                                    echo "<option $selected name='selectRole' value='" . $rowProvin['id'] . "'>" . $rowProvin['name_procince'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                            <span class="valiFormAddTour" id="provincialValidation">Vui lòng chọn trường này</span>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="containFieldAddTour">
+                            <label for="price">Giá</label> <br>
+                            <input name="price" type="number" value='<?php echo $data["price"] ?>'>
+                            <span class="valiFormAddTour" id="priceValidation">Dữ liệu không hợp lệ</span>
+                        </div>
+                        <div class="containFieldAddTour">
+                            <label for="acount">Số lượng</label> <br>
+                            <input name="acount" type="number" value='<?php echo $data["soLuongConLai"] ?>'>
+                            <span class="valiFormAddTour" id="acountValidation">Dữ liệu không hợp lệ</span>
+                        </div>
+                        <div class="containFieldAddTour">
+                            <label for="address">Địa chỉ</label> <br>
+                            <input name="address" type="text" value='<?php echo $data["address"] ?>'>
+                            <span class="valiFormAddTour" id="addressValidation">Dữ liệu không hợp lệ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="containFieldAddTour">
+                    <label for="">Chọn ảnh</label> <br>
+                    <div class="box-up-img">
+                        <?php $result = $db->GetImgProduct($id);
+                        $numImg = mysqli_num_rows($result);
+                        $srcArray = array();
+
+                        // Lặp qua từng dòng dữ liệu và lưu trữ src vào mảng
+                        for ($i = 0; $i < $numImg; $i++) {
+                            $row = mysqli_fetch_array($result);
+                            echo '<input type="hidden" name="idImg' . $i . '" value="' . $row['id'] . '">';
+                            $imageData = $row['image']; // Giả sử cột chứa dữ liệu hình ảnh là 'image'
+                            $srcArray[$i] = 'data:image/jpeg;base64,' . base64_encode($imageData);
+                        }
+                        for ($i=2; $i>$numImg-1; $i--){
+                            $srcArray[$i] = "images/no_image.gif";
+                        }
+                        ?>
+                        <input type="file" name="img1" id="img1" class="inputfile">
                         <label for="img1" class="file-upload">
                             <span class="spanplus">+</span>
-                            <img class="uploaded-image" id="uploaded-image1" src="#" alt="Uploaded Image">
+                            <img class="uploaded-image" id="uploaded-image1" src="<?php echo $srcArray[0] ?>" alt="Uploaded Image">
                         </label> <br>
                         <span id="ImgValidation1">Dữ liệu không hợp lệ</span><br>
 
                         <input type="file" name="img2" id="img2" class="inputfile">
                         <label for="img2" class="file-upload">
                             <span class="spanplus">+</span>
-                            <img class="uploaded-image" id="uploaded-image2" src="#" alt="Uploaded Image">
+                            <img class="uploaded-image" id="uploaded-image2" src="<?php echo $srcArray[1] ?>" alt="Uploaded Image">
                         </label><br>
                         <span id="ImgValidation2">Dữ liệu không hợp lệ</span><br>
 
                         <input type="file" name="img3" id="img3" class="inputfile">
                         <label for="img3" class="file-upload">
                             <span class="spanplus">+</span>
-                            <img class="uploaded-image" id="uploaded-image3" src="#" alt="Uploaded Image">
+                            <img class="uploaded-image" id="uploaded-image3" src="<?php echo $srcArray[2] ?>" alt="Uploaded Image">
                         </label><br>
                         <span id="ImgValidation3">Dữ liệu không hợp lệ</span><br>
-            </div>
-            
+                    </div>
+
+                </div>
+
+                <div class="containFieldAddTour">
+                    <label for="content">Nội dung</label> <br>
+                    <textarea name="content" rows="4" cols="50"><?php echo $data["content"] ?></textarea>
+                    <span class="valiFormAddTour" id="contentValidation">Dữ liệu không hợp lệ</span>
+                </div>
+                <button type="submit" name="btnAddTour" id="btnAddTour" value="Thêm">Thêm</button>
+
+            </form>
         </div>
-        
-        <div class="containFieldAddTour">
-            <label for="content">Nội dung</label> <br>
-            <textarea name="content" rows="4" cols="50"><?php echo $data["content"]?></textarea>
-            <span class="valiFormAddTour" id="contentValidation">Dữ liệu không hợp lệ</span>
-        </div>
-        <button type="submit" name="btnAddTour" id="btnAddTour" value="Thêm">Thêm</button>
-        
-    </form>
+
     </div>
-            
-        </div>
     <script>
         $(document).ready(function() {
             $('.inputfile').change(function() {
@@ -389,8 +413,5 @@
                 reader.readAsDataURL(file);
             }
         });
-
-        
     </script>
 </body>
-

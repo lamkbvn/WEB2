@@ -110,9 +110,19 @@ if (isset($_POST['action'])) {
 
 <?php if ($countProduct > 0) { ?>
     <div class="container">
-        <?php foreach ($result as $item) : ?>
+        <?php foreach ($result as $item) : 
+            $result = $db->GetImgProduct($item['id']);
+            $row = mysqli_fetch_array($result);
+            $numImg = mysqli_num_rows($result);
+            if($numImg>0) {
+                $imageData = $row['image'];
+                $url = 'data:image/jpeg;base64,' . base64_encode($imageData);
+            }
+            else $url = "images/no_image.gif";
+            
+        ?>
             <a href="Controller/chitietTour/buyTour.php?id=<?php echo $item['id'] ?>" class="card" id=''>
-                <img src="View/image/tourCheoThuyen.webp" alt="" class="img-product" />
+                <img src="<?php echo $url?>" alt="" class="img-product" />
                 <h2 class="name-product" style="color: black;">
                     <?= $item['title'] ?>
                 </h2>

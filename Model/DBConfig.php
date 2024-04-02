@@ -263,11 +263,18 @@ class Database
   // thêm detailOrder
   public function InsertDetailOrder($id_order, $id_pro, $price, $amount, $totalmoney, $dateGo)
   {
+    $sqlTangSoLuongMua = "UPDATE product SET num_bought = num_bought + $amount WHERE id = $id_pro";
+    $this->execute($sqlTangSoLuongMua);
     $sql = "INSERT INTO order_detail (id_order, id_product, price, amount, total_money, date_go)
     VALUES ( '$id_order', '$id_pro', '$price', '$amount', '$totalmoney', '$dateGo')";
     return $this->execute($sql);
   }
-
+  // lấy ảnh sản phẩm
+  public function GetImgProduct($product_id)
+  {
+    $sql = "SELECT * FROM image_product WHERE id_product = $product_id";
+    return $this->execute($sql);
+  }
   // thêm bình luận
   public function InsertCmt($user_id, $product_id, $cmt, $create_at, $num_star)
   {
@@ -321,6 +328,11 @@ class Database
   public function InsertImg($id_product, $id_user, $img)
   {
     $sql = "INSERT INTO image_product (id_product, id_user, image) VALUES ('$id_product', '$id_user', '$img')";
+    return $this->execute($sql);
+  }
+  public function UpdateImg($id, $img)
+  {
+    $sql = 'Update image_product SET image = "' . $img . '"  WHERE id = ' . $id;
     return $this->execute($sql);
   }
 
