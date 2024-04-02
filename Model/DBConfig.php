@@ -317,23 +317,37 @@ class Database
     return $this->execute($sql);
   }
 
-  public function resultThongKe($orderby, $selectCategory, $dateStart, $dateEnd)
+  public function resultThongKe($orderby, $selectCategory, $dateStart, $dateEnd, $namecoll)
   {
-    $sql = 'SELECT p.title ,p.price , od.amount , od.total_money , od.date_go
+    $sql = 'SELECT od.id ,p.title ,od.price , od.amount , od.total_money , od.date_go
               FROM product as p , order_detail as od
               where p.id = od.id_product ';
+    ///chon san pham theo ten loai
     if ($selectCategory != 0)
       $sql = $sql . ' and p.id_category = ' . $selectCategory;
+    ///loc san pham theo ngay di nho  nhat
     if ($dateStart != '') {
       $sql = $sql . ' and od.date_go >= ? ';
     }
+
+    //loc san pham theo ngay di lon nhat
     if ($dateEnd != '') {
       $sql = $sql . ' and od.date_go <= ? ';
     }
-    if ($orderby == 'ASC')
-      $sql = $sql . ' ORDER BY od.amount';
-    if ($orderby == 'DESC')
-      $sql = $sql . ' ORDER BY od.amount DESC';
+
+    ///sap xep san pham theo cot
+    if ($namecoll != 'title') {
+      if ($orderby == 'ASC')
+        $sql = $sql . ' ORDER BY od.' . $namecoll;
+      if ($orderby == 'DESC')
+        $sql = $sql . ' ORDER BY od.' . $namecoll . ' DESC';
+    } else {
+      if ($orderby == 'ASC')
+        $sql = $sql . ' ORDER BY ' . $namecoll;
+      if ($orderby == 'DESC')
+        $sql = $sql . ' ORDER BY ' . $namecoll . ' DESC';
+    }
+
     $result = null;
     if ($dateStart != '' && $dateEnd == '') {
       // Chuẩn bị câu lệnh SQL và bind tham số
@@ -357,16 +371,31 @@ class Database
       $result = $stmt->get_result();
     } else
       $result = $this->execute($sql);
+    $stt = 1;
+    $tongTien = 0;
+    $tongSL = 0;
     while ($row = mysqli_fetch_array($result)) {
       echo '
         <tr>
-          <td class ="nameTour">' . $row['title'] . '</td>
-          <td>' . $row['price'] . '</td>
-          <td class = "num-bought">' . $row['amount'] . '</td>
-          <td>' . $row['total_money'] . '</td>
-          <td class ="slcl">' . $row['date_go'] . '</td>
+          <th class = "table-cell stt">' . $row['id'] . '</th>
+          <th class ="table-cell nameTour ">' . $row['title'] . '</th>
+          <th class = "table-cell price-tk">' . $row['price'] . '</th>
+          <th class = "table-cell num-bought ">' . $row['amount'] . '</th>
+          <th class = "table-cell total-money">' . $row['total_money'] . '</th>
+          <th class ="slcl table-cell">' . $row['date_go'] . '</th>
         </tr>';
+      $tongTien = $tongTien + $row['total_money'];
+      $tongSL = $tongSL + $row['amount'];
+      $stt = $stt + 1;
     }
+    echo '
+        <tr style = "font-weight : 600">
+          <th class = "table-cell">Tổng :
+          <th class = "table-cell"> </th>
+          <th class = "table-cell"> </th>
+          <th class = "table-cell"> ' . $tongSL . '</th>
+          <th class = "table-cell"> ' . $tongTien . '</th>
+        </tr>';
   }
 
   public function resultEmailUser($idUser, $emailChange)

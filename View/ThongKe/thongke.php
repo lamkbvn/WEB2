@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bảng HTML</title>
+  <link rel="stylesheet" href="css/cssadmin.css">
 </head>
 
 
@@ -23,10 +24,15 @@
   }
 
   .side-bar{
-    width : 300px;
-    height : 1800px;
-    background-color: blue;
+    width : 190px;
+    height : 465px;
   }
+
+
+  svg path {
+    cursor: pointer;
+  }
+
 
   .filter{
     /* display: flex; */
@@ -36,6 +42,9 @@
 
   fieldset{
   display : flex;
+  border : 1px solid black;
+  padding: 10px;
+  width : 800px;
 }
 
 
@@ -91,9 +100,8 @@
 </style>
 
 <body>
-<div class="header"></div>
 <div class="main">
-  <div class="side-bar">side bar</div>
+  <div class="side-bar"></div>
   <div class="content">
   <div class="filter">
   <fieldset>
@@ -127,21 +135,72 @@
       <option value="1">Biểu đồ</option>
     </select>
   </div>
-  <table border="1" class = "tableData">
-    <thead class = "titleTable hide">
-      <tr>
-        <th>Tên</th>
-        <th>Price</th>
-        <th>Amount</th>
-        <th>total money</th>
-        <th>date go</th>
+  <table border="1" class = "tableData custom-table">
+    <thead class = "titleTable hide table-head">
+      <tr class = "table--head">
+        <th class="table-header">Stt
+          <svg  width="16" height="16" fill="currentColor" class="coll id asc hide" viewBox="0 0 16 16">
+            <path onclick = "filterThongKe(event)"  class="coll" d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+
+          <svg  width="16" height="16" fill="currentColor" class="coll id desc " viewBox="0 0 16 16" >
+            <path onclick = "filterThongKe(event)" class="coll" d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+          </svg>
+        </th>
+        <th class="table-header">Tên
+        <svg  width="16" height="16" fill="currentColor" class="coll title asc" viewBox="0 0 16 16">
+            <path onclick = "filterThongKe(event)"  class="coll" d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+
+          <svg  width="16" height="16" fill="currentColor" class="coll title desc hide" viewBox="0 0 16 16">
+            <path onclick = "filterThongKe(event)"  class="coll" d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+          </svg>
+        </th>
+        <th class="table-header">Giá
+        <svg  width="16" height="16" fill="currentColor" class="coll price asc" viewBox="0 0 16 16" >
+            <path onclick = "filterThongKe(event)"  class="coll" d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+
+          <svg  width="16" height="16" fill="currentColor" class="coll price desc hide" viewBox="0 0 16 16" >
+            <path onclick = "filterThongKe(event)"  class="coll" d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+          </svg>
+        </th>
+        <th class="table-header">Số lượng đã bán
+        <svg  width="16" height="16" fill="currentColor" class="coll amount asc" viewBox="0 0 16 16" >
+            <path onclick = "filterThongKe(event)"  class="coll" d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+
+          <svg  width="16" height="16" fill="currentColor" class="coll amount desc hide" viewBox="0 0 16 16" >
+            <path onclick = "filterThongKe(event)"  class="coll" d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+          </svg>
+        </th>
+        <th class="table-header">Tổng tiền
+        <svg  width="16" height="16" fill="currentColor" class="coll  total_money asc" viewBox="0 0 16 16">
+            <path onclick = "filterThongKe(event)"  class="coll" d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+
+          <svg  width="16" height="16" fill="currentColor" class="coll  total_money desc hide" viewBox="0 0 16 16" >
+            <path onclick = "filterThongKe(event)" class="coll" d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+          </svg>
+        </th>
+        <th class="table-header">Ngày xuất phát
+        <svg  width="16" height="16" fill="currentColor" class="coll date_go asc" viewBox="0 0 16 16">
+            <path onclick = "filterThongKe(event)"  class="coll" d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+
+          <svg  width="16" height="16" fill="currentColor" class="coll date_go desc hide" viewBox="0 0 16 16" >
+            <path onclick = "filterThongKe(event)" class="coll" d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+          </svg>
+        </th>
       </tr>
     </thead>
     <tbody class = "bodyTable">
     </tbody>
   </table>
-  <div class = "chartData hide" style = "width: 400px;">
+  <div class = "chartData hide" style = "width: 100%;">
     <canvas width="400px" height="200px" id="myChart">
+    </canvas>
+    <canvas width="400px" height="200px" id="myChart1">
     </canvas>
   </div>
   </div>

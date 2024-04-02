@@ -29,13 +29,13 @@
             <div class="header-right--profile">
                 <div class="header-right--profile-info">
                     <?php
-					if (session_status() == PHP_SESSION_NONE) {
-						ob_start();
-						session_start();
-					}
-					if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin'])) {
-						echo '<div class ="tennguoidung nav-top--right__panner "> ' . $db->getTenNguoiDung() . '</div>';
-						echo '
+                    if (session_status() == PHP_SESSION_NONE) {
+                        ob_start();
+                        session_start();
+                    }
+                    if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin'])) {
+                        echo '<div class ="tennguoidung nav-top--right__panner "> ' . $db->getTenNguoiDung() . '</div>';
+                        echo '
 							<div class = "header-avatar">
 								<img src="/WEB2/images/avatar.png" width = "34" />
 								<div class = "drop-user-side-bar">
@@ -54,8 +54,8 @@
 									</div>
 								</div>
 							</div>';
-					}
-					?>
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -73,9 +73,9 @@
             </a>
 
             <!-- <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item indexAdmin">
-				<img src="css/icons/trangchu-admin-icon.svg" alt="" class="nav-admin-item--icon">
-				<p class="nav-admin-item--title">Trang chủ</p>
-			</a> -->
+                <img src="css/icons/trangchu-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <p class="nav-admin-item--title">Trang chủ</p>
+            </a> -->
 
             <a href="index.php?controller=trang-admin&action=role" id="page3" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
@@ -94,6 +94,11 @@
             <a href="index.php?controller=trang-admin&action=dsvoucher" id="page3" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Voucher</p>
+            </a>
+
+            <a href="index.php?controller=trang-admin&action=dthongke" id="page3" class="nav-admin-item">
+                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <p class="nav-admin-item--title">Thống kê</p>
             </a>
         </div>
     </div>
