@@ -106,7 +106,6 @@
             <?php
             $rowsCN = $db->getAllData('ChucNang');
 
-
             $rowsPQLD = $db->FindRole($id);
             foreach ($rowsCN as $rowCN) {
                 $name = $rowCN['decription'];
