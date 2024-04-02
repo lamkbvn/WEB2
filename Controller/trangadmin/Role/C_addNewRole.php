@@ -1,5 +1,5 @@
 <?php
-include("../../Model/DBConfig.php");
+include("../../../Model/DBConfig.php");
 $db = new Database();
 $db->connect();
 $result = $db->execute("SELECT * FROM chucnang");
