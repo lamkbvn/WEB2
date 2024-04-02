@@ -102,14 +102,6 @@
                         <a href="#!" class="nav-top--right__panner">Mở ứng dụng</a>
                         <a href="#!" class="nav-top--right__panner">Xem gần đây</a>
                         <?php
-<<<<<<< HEAD
-                        if (session_status() == PHP_SESSION_NONE) {
-                            session_start();
-                        }
-                        if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin'])) {
-                            echo '<div class ="tennguoidung nav-top--right__panner"> ' . $db->getTenNguoiDung() . '</div>';
-                            echo '
-=======
 						if (session_status() == PHP_SESSION_NONE) {
 							session_start();
 						}
@@ -122,7 +114,6 @@
 							echo '<div class ="tennguoidung nav-top--right__panner"> ' . $db->getTenNguoiDung() . '</div>';
 
 							echo '
->>>>>>> f422fabc7380e3512c6f3bc387d3d7ee8e72b3b8
 							<div class = "header-avatar">
 								<img src="/WEB2/images/avatar.png" width = "34" />
 								<div class = "drop-user-side-bar">
