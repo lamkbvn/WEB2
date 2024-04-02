@@ -158,19 +158,6 @@ body {
     border-radius: 15px;
 }
 
-.table-header,
-.table-cell {
-    padding: 8px;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-}
-
-.table-row .fullname,
-.table-row .diachi,
-.table-row .email {
-    max-width: 200px;
-}
-
 #filterInput {
     width: 300px;
     padding: 10px;
@@ -189,20 +176,26 @@ body {
 
 .table-header {
     padding: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
 .table-body .table-row:hover {
     background: #ebebeb;
 }
 
+.table-body {
+    width: 100%;
+}
+
 .table-row {
-    align-items: center;
+    text-align: center;
+    border: 1px solid #ccc;
 }
 .table-cell {
     padding: 5px;
-    text-align: center;
 }
-.table-cell img{
+
+.table-cell img {
     /* transform: translateY(10%); */
 }
 .table-btn {
@@ -211,6 +204,11 @@ body {
     border-radius: 10px;
     color: #000;
     transition: all linear 0.1s;
+}
+
+.image-product-admin {
+    width: 80px;
+    margin: auto auto;
 }
 
 .edit-btn:hover {
