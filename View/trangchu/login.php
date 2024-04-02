@@ -205,8 +205,12 @@
                 },
                 // Xử lý phản hồi từ server ở đây
                 success: function(response) {
-                    if (response.trim() === "exists") {
-                        alert("Tài khoản đã tồn tại, vui lòng nhập lại!"); // Thông báo tài khoản đã tồn tại
+                    if (response.trim() === "exists username") {
+                        alert("Tài khoản đã tồn tại, vui lòng nhập lại!");
+                    } else if (response.trim() === "exists email") {
+                        alert("Email đã tồn tại, vui lòng nhập lại!");
+                    } else if (response.trim() === "exists phone") {
+                        alert("Số điện thoại đã tồn tại, vui lòng nhập lại!");
                     } else if (response.trim() === "valid") {
                         alert("Đăng kí thành công");
                     } else {

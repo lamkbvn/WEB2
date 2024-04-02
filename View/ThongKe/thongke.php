@@ -10,6 +10,9 @@
 
 
 <style>
+  body{
+    margin-top : 70px;
+  }
   .abc{
     color : red;
   }

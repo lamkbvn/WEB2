@@ -25,9 +25,7 @@
 					<th class="table-header">Email</th>
 					<th class="table-header">Số Điện Thoại</th>
 					<th class="table-header">Ngày Tạo</th>
-					<th class="table-header">Trạng Thái</th>
 					<th class="table-header">Địa Chỉ</th>
-					<th class="table-header">id account</th>
 					<th class="table-header">Hành Động</th>
 				</tr>
 			</thead>
@@ -38,15 +36,13 @@
 				foreach ($data as $value) {
 					if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin']) && $value['id'] != $_SESSION['idUserLogin']) {
 				?>
-						<tr class="table-row">
+						<tr class="table-row ">
 							<td class="table-cell id"><?php echo $value['id']; ?></td>
 							<td class="table-cell fullname"><?php echo $value['fullname']; ?></td>
 							<td class="table-cell email"><?php echo $value['email']; ?></td>
-							<td class="table-cell"><?php echo $value['phone_number']; ?></td>
-							<td class="table-cell"><?php echo $value['create_at']; ?></td>
-							<td class="table-cell status"><?php echo $value['status']; ?></td>
+							<td class="table-cell phone_number"><?php echo $value['phone_number']; ?></td>
+							<td class="table-cell create_at"><?php echo $value['create_at']; ?></td>
 							<td class="table-cell diachi"><?php echo $value['address']; ?></td>
-							<td class="table-cell"><?php echo $value['id_acount']; ?></td>
 							<td class="table-cell">
 								<a class="edit-role table-btn" href="index.php?controller=trang-admin&action=editrole&id=<?php echo $value['id']; ?>">Role</a>
 								<a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=edit&id=<?php echo $value['id']; ?>">Edit</a>
@@ -84,10 +80,22 @@
 		var rows = table.getElementsByTagName("tr");
 		for (var i = 0; i < rows.length; i++) {
 			var fullname = rows[i].getElementsByClassName("fullname")[0]; // Lấy cột Họ Tên trong hàng
+			var email = rows[i].getElementsByClassName("email")[0]; // Lấy cột Họ Tên trong hàng
+			var phone_number = rows[i].getElementsByClassName("phone_number")[0]; // Lấy cột Họ Tên trong hàng
+			var create_at = rows[i].getElementsByClassName("create_at")[0]; // Lấy cột Họ Tên trong hàng
+			var diachi = rows[i].getElementsByClassName("diachi")[0]; // Lấy cột Họ Tên trong hàng
 
-			if (fullname) {
+			if (fullname || email || phone_number || create_at || diachi) {
 				var textValue = fullname.textContent || fullname.innerText;
-				if (textValue.toLowerCase().indexOf(filter) > -1) { // Nếu tên người dùng chứa chuỗi tìm kiếm
+				var emailValue = email.textContent || email.innerText;
+				var phone_numberValue = phone_number.textContent || phone_number.innerText;
+				var create_atValue = create_at.textContent || create_at.innerText;
+				var diachiValue = diachi.textContent || diachi.innerText;
+				if (textValue.toLowerCase().indexOf(filter) > -1 ||
+					emailValue.toLowerCase().indexOf(filter) > -1 ||
+					phone_numberValue.toLowerCase().indexOf(filter) > -1 ||
+					create_atValue.toLowerCase().indexOf(filter) > -1 ||
+					diachiValue.toLowerCase().indexOf(filter) > -1) {
 					rows[i].style.display = ""; // Hiển thị hàng
 				} else {
 					rows[i].style.display = "none"; // Ẩn hàng

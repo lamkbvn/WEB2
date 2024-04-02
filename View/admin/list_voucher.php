@@ -1,198 +1,98 @@
-<style>
-.account-settings th:nth-child(5),
-.account-settings td:nth-child(5) {
-    width: 80px;
-}
+<link rel="stylesheet" href="css/cssadmin.css">
 
-.account-settings th:nth-child(3),
-.account-settings td:nth-child(3) {
-    width: 350px;
-    text-align: center;
-}
+<body>
 
-* {
-    margin: 0;
-    padding: 0;
+    <div class="user--table">
+        <h2 class="table--heading">Danh Sách Voucher</h2>
 
-}
+        <div class="list-feature">
+            <div class="filter-container">
 
-.account-settings {
-    margin-left: 204px;
-    margin-right: 50px;
-    overflow-x: auto;
-    width: calc(100% - 248px);
-    padding: 15px;
-    box-sizing: border-box;
-}
+                <input type="text" id="filterInput" placeholder="Nhập tên người dùng cần tìm">
 
-.account-settings h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
+            </div>
 
-.account-settings form {
-    width: 100%;
-    border-radius: 4px;
-    overflow: hidden;
-}
+        </div>
+        <table id="tableData" class="custom-table">
+            <thead class="table-head">
+                <tr class="table--head">
+                    <th class="table-header">ID</th>
+                    <th class="table-header">Tên Voucher</th>
+                    <th class="table-header">Mô tả</th>
+                    <th class="table-header">Mã</th>
+                    <th class="table-header">Giá trị</th>
+                    <th class="table-header">Ngày bắt đầu</th>
+                    <th class="table-header">Ngày kết thúc</th>
+                    <th class="table-header">Hành Động</th>
 
-.account-settings table {
-    width: 100%;
-    border-collapse: collapse;
-}
 
-.account-settings th,
-.account-settings td {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-}
-
-.account-settings th {
-    background-color: #b1b1b1;
-    font-weight: bold;
-}
-
-.account-settings a input[value='Xóa'] {
-    padding: 2px;
-    border-radius: 6px;
-    background: #ff0027;
-    color: white;
-    border: none;
-}
-
-.account-settings a input[value='Sửa'] {
-    padding: 2px;
-    border-radius: 6px;
-    background: #4880ff;
-    color: white;
-    border: none;
-    margin-right: 5px;
-}
-
-.account-settings th:first-child,
-.account-settings td:first-child {
-    width: 50px;
-}
-
-.account-settings th:nth-child(2),
-.account-settings td:nth-child(2) {
-    width: 180px;
-}
-
-.account-settings th:nth-child(6),
-.account-settings td:nth-child(6) {
-    width: 170px;
-}
-
-.account-settings th:nth-child(7),
-.account-settings td:nth-child(7) {
-    width: 170px;
-}
-
-.account-settings th:nth-child(8),
-.account-settings td:nth-child(8) {
-    width: 100px;
-}
-
-.account-settings th:nth-child(9),
-.account-settings td:nth-child(9) {
-    width: 100px;
-}
-
-.account-settings th:nth-child(10),
-.account-settings td:nth-child(10) {
-    width: 100px;
-}
-
-.account-settings th:nth-child(11) {
-    width: 200px;
-}
-
-.account-settings th:last-child,
-.account-settings td:last-child {
-    text-align: center;
-}
-
-.account-settings th:last-child button,
-.account-settings td:last-child button {
-    margin-right: 10px;
-}
-
-.list-feature {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 20px 0;
-}
-
-.add-user-btn {
-    background: #4880ff;
-    padding: 10px;
-    border-radius: 10px;
-    color: #fff;
-    padding: 8px 10px;
-}
-
-.list-feature-item {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-}
-</style>
-<!-- <link rel="stylesheet" href="css/feedback&voucher.css"> -->
-
-<div class="account-settings">
-    <h2>Danh Sách Voucher</h2>
-    <div class="list-feature">
-
-        <a href="index.php?controller=trang-admin&action=themvoucher" class="list-feature-item add-user-btn">
-            <img src="css/icons/favorites-admin-icon.svg" alt="" class="list-feature-item--icon">
-            <p class="nav-admin-item--title">Thêm mới</p>
-        </a>
-    </div>
-    <form>
-        <table>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Tên Voucher</th>
-                    <th>Mô tả</th>
-                    <th>Mã</th>
-                    <th>Giá trị</th>
-                    <th>Ngày bắt đầu</th>
-                    <th>Ngày kết thúc</th>
-                    <th></th>
                 </tr>
             </thead>
-            <tbody>
+
+            <tbody class="table-body">
                 <?php foreach ($listvoucher as $voucher): ?>
 
-                <tr>
+                <tr class="table-row">
+                    <td class="table-cell id"><?php echo $voucher['id']; ?></td>
+                    <td class="table-cell discount_name"><?php echo $voucher['discount_name']; ?></td>
+                    <td class="table-cell description"><?php echo $voucher['description']; ?></td>
+                    <td class="table-cell code"><?php echo $voucher['code']; ?></td>
+                    <td class="table-cell percent"><?php echo $voucher['percent']; ?></td>
+                    <td class="table-cell date_start"><?php echo $voucher['date_start']; ?></td>
+                    <td class="table-cell date_end"><?php echo $voucher['date_end']; ?></td>
 
-                    <td><?php echo $voucher['id']; ?></td>
-                    <td><?php echo $voucher['discount_name']; ?></td>
-                    <td><?php echo $voucher['description']; ?></td>
-                    <td><?php echo $voucher['code']; ?></td>
-                    <td><?php echo $voucher['percent']; ?></td>
-                    <td><?php echo $voucher['date_start']; ?></td>
-                    <td><?php echo $voucher['date_end']; ?></td>
-                    <td>
-                        <a href="index.php?controller=trang-admin&action=suavoucher&id=<?php echo $voucher['id']; ?>">
-                            <input type="button" value="Sửa">
-                        </a>
-
-                        <a href="index.php?controller=trang-admin&action=xoavoucher&id=<?php echo $voucher['id']; ?>">
-                            <input type="button" value="Xóa">
-                        </a>
-
+                    <td class="table-cell">
+                        <a class="edit-btn table-btn"
+                            href="index.php?controller=trang-admin&action=suavoucher&id=<?php echo $voucher['id']; ?>">Edit</a>
+                        <a class="delete-btn table-btn"
+                            href="index.php?controller=trang-admin&action=xoavoucher&id=<?php echo $voucher['id']; ?>">Delete</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
 
             </tbody>
         </table>
-    </form>
+    </div>
+</body>
 
-</div>
+<script>
+// Lấy ô input và bảng dữ liệu
+var input = document.getElementById("filterInput");
+var table = document.getElementById("tableData");
+
+// Lắng nghe sự kiện input trên ô tìm kiếm
+input.addEventListener("input", function() {
+    var filter = input.value.toLowerCase(); // Chuyển đổi giá trị nhập vào thành chữ thường để so sánh
+
+    // Lặp qua từng hàng trong tbody
+    var rows = table.getElementsByTagName("tr");
+    for (var i = 0; i < rows.length; i++) {
+        var discount_name = rows[i].getElementsByClassName("discount_name")[
+        0]; // Lấy cột Tên Voucher trong hàng
+        var description = rows[i].getElementsByClassName("description")[0]; // Lấy cột Mô tả voucher trong hàng
+        var code = rows[i].getElementsByClassName("code")[0]; // Lấy cột Mã voucher trong hàng
+        var percent = rows[i].getElementsByClassName("percent")[0]; // Lấy cột Giá trị voucher trong hàng
+        var date_start = rows[i].getElementsByClassName("date_start")[0]; // Lấy cột Ngày bắt đầu trong hàng
+        var date_end = rows[i].getElementsByClassName("date_end")[0]; // Lấy cột Ngày kết thúc trong hàng
+
+        if (discount_name || description || code || percent || date_start || date_end) {
+            var textValue = discount_name.textContent || discount_name.innerText;
+            var descriptionValue = description.textContent || description.innerText;
+            var codeValue = code.textContent || code.innerText;
+            var percentValue = percent.textContent || percent.innerText;
+            var date_startValue = date_start.textContent || date_start.innerText;
+            var date_endValue = date_end.textContent || date_end.innerText;
+            if (textValue.toLowerCase().indexOf(filter) > -1 ||
+                descriptionValue.toLowerCase().indexOf(filter) > -1 ||
+                codeValue.toLowerCase().indexOf(filter) > -1 ||
+                percentValue.toLowerCase().indexOf(filter) > -1 ||
+                date_startValue.toLowerCase().indexOf(filter) > -1 ||
+                date_endValue.toLowerCase().indexOf(filter) > -1) {
+                rows[i].style.display = ""; // Hiển thị hàng
+            } else {
+                rows[i].style.display = "none"; // Ẩn hàng
+            }
+        }
+    }
+});
+</script>

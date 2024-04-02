@@ -12,6 +12,14 @@
 </head>
 
 
+<style>
+    .header-admin-active {
+        color: #fff;
+        background: #4880ff;
+    }
+</style>
+
+
 <body>
     <header class="header-admin">
         <div class="header-left">
@@ -45,13 +53,13 @@
 											<div class = "text">Trang cá nhân</div>
 										</div>
 									</a>
-									<div class = "dangxuat item">
+									<a class = "dangxuat item" href="includes/session/del_session.php" >
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
 											<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
 											<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
 										</svg>
-										<a href="includes/session/del_session.php" class="text">Đăng xuất</a>
-									</div>
+										<p class="text">Đăng xuất</p>
+									</a>
 								</div>
 							</div>';
                     }
@@ -62,22 +70,17 @@
         </div>
     </header>
 
-    <div class="navigation">
+    <div class="navigation-admin">
         <a href="index.php?controller=trang-admin&action=indexAdmin" id="nav-item--logo">
             <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo"></a>
         <div class="nav-admin-list">
 
-            <a href="index.php?controller=trang-admin&action=indexAdmin" id="page3" class="nav-admin-item">
+            <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Trang chủ</p>
             </a>
 
-            <!-- <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item indexAdmin">
-                <img src="css/icons/trangchu-admin-icon.svg" alt="" class="nav-admin-item--icon">
-                <p class="nav-admin-item--title">Trang chủ</p>
-            </a> -->
-
-            <a href="index.php?controller=trang-admin&action=role" id="page3" class="nav-admin-item">
+            <a href="index.php?controller=trang-admin&action=role" id="page2" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Phân quyền</p>
             </a>
@@ -87,11 +90,11 @@
                 <p class="nav-admin-item--title">Tour</p>
             </a>
 
-            <a href="index.php?controller=trang-admin&action=dsbl" id="page3" class="nav-admin-item">
+            <a href="index.php?controller=trang-admin&action=dsbl" id="page4" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Bình luận</p>
             </a>
-            <a href="index.php?controller=trang-admin&action=dsvoucher" id="page3" class="nav-admin-item">
+            <a href="index.php?controller=trang-admin&action=dsvoucher" id="page5" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Voucher</p>
             </a>
@@ -110,3 +113,20 @@
 </body>
 
 </html>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const action = urlParams.get('action');
+
+    if (action === 'indexAdmin') {
+        document.getElementById('page1').classList.add('header-admin-active');
+    } else if (action === 'role') {
+        document.getElementById('page2').classList.add('header-admin-active');
+    } else if (action === 'tour') {
+        document.getElementById('page3').classList.add('header-admin-active');
+    } else if (action === 'dsbl') {
+        document.getElementById('page4').classList.add('header-admin-active');
+    } else if (action === 'dsvoucher') {
+        document.getElementById('page5').classList.add('header-admin-active');
+    }
+</script>

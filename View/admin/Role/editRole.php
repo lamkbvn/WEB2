@@ -6,7 +6,74 @@
     }
 
     #formAddRole {
-        margin-left: 220px;
+        margin-left: 220px !important;
+        margin-top: 80px !important;
+    }
+
+    #formAddRole {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .Box_name_role {
+        margin-bottom: 20px;
+    }
+
+    .Box_name_role label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .Box_name_role input[type="text"] {
+        width: 44%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .Box_name_role .nameRoleValidation {
+        display: none;
+        color: red;
+        margin-top: 5px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table th,
+    table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+    }
+
+    table th {
+        background-color: #f2f2f2;
+    }
+
+    .validationTableRole {
+        display: none;
+        color: red;
+        margin-top: 5px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: absolute;
+        right: 650px;
+        top: 100px;
+    }
+
+    button:hover {
+        background-color: #45a049;
     }
 </style>
 
@@ -22,6 +89,7 @@
             <label for="">Tên quyền:</label>
             <input type="text" id="name_role" name="name_role" value='<?php echo $role['decription'] ?>'>
             <span class="nameRoleValidation">Dữ liệu không hợp lệ</span>
+            <input type="hidden" name="idRole" value='<?php echo $id ?>'>
         </div>
 
         <!-- <input type="hidden" name="id_chucNang" value="<?php // echo $rowCN['id']; 
@@ -37,18 +105,27 @@
 
             <?php
             $rowsCN = $db->getAllData('ChucNang');
-            
 
+
+            $rowsPQLD = $db->FindRole($id);
             foreach ($rowsCN as $rowCN) {
                 $name = $rowCN['decription'];
                 $idCN = $rowCN['id'];
-                $rowsPQLD = $db->getAllData('phanquyenlinhdong');
+                $viewChecked = '';
+                $addChecked = '';
+                $deleteChecked = '';
+                $editChecked = '';
                 foreach ($rowsPQLD as $pqld) {
-                    if ($pqld['id_role'] == $id && $pqld['id_chucNang'] == $idCN) {
-                        $viewChecked = $pqld['HD'] === "View" ? 'checked' : '';
-                        $addChecked = $pqld['HD'] === "Add" ? 'checked' : '';
-                        $deleteChecked = $pqld['HD'] === "Delete" ? 'checked' : '';
-                        $editChecked = $pqld['HD'] ==="Edit" ? 'checked' : '';
+                    if ($pqld['id_chucNang'] === $idCN) {
+                        if ($pqld['HD'] === "View") {
+                            $viewChecked = 'checked';
+                        }elseif ($pqld['HD'] === "Add") {
+                            $addChecked = 'checked';
+                        }elseif ($pqld['HD'] === "Delete") {
+                            $deleteChecked = 'checked';
+                        }elseif ($pqld['HD'] === "Edit") {
+                            $editChecked = 'checked';
+                        }
                     }
                 }
 
@@ -95,7 +172,7 @@
         function ajaxAddRole() {
             if (validateFormAddRole()) {
                 var xhr = new XMLHttpRequest();
-                var url = "/WEB2/Controller/trangadmin/index.php";
+                var url = "Controller/trangadmin/Role/C_editRole.php";
                 var formData = new FormData(document.getElementById("formAddRole"));
 
                 xhr.onreadystatechange = function() {
@@ -113,6 +190,7 @@
                 // Sử dụng phương thức POST để gửi dữ liệu form
                 xhr.open("POST", url + "?addRole='1'&action=addRole", true);
                 xhr.send(formData);
+                window.location.href = '/WEB2/index.php?controller=trang-admin&action=role';
             }
         }
     </script>

@@ -197,6 +197,20 @@ class Database
     return $accounts;
   }
 
+  public function getAllNguoiDung()
+  {
+    $sql = "SELECT * FROM nguoidung";
+    $this->execute($sql);
+
+    $accounts = array();
+
+    while ($row = $this->getData()) {
+      $accounts[] = $row;
+    }
+
+    return $accounts;
+  }
+
   public function registerAcount($username, $password, $id_role, $status)
   {
     $sql = "INSERT INTO acount (user_name, password, id_role, status) VALUES ('$username', '$password', '$id_role', '$status')";
@@ -280,6 +294,23 @@ class Database
     VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$address', '$acount', '0')";
     return $this->execute($sql);
   }
+  //edit Tour
+  public function UpdateTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $dateUpdate, $address, $acount)
+{
+    $sql = "UPDATE product SET 
+            id_category = '$id_cate', 
+            id_user = '$id_user', 
+            id_provincial = '$id_provin', 
+            title = '$title', 
+            price = '$price', 
+            content = '$content',
+            update_at = '$dateUpdate',  
+            address = '$address', 
+            soLuongConLai = '$acount' 
+            WHERE id = '$id'";
+    return $this->execute($sql);
+}
+
   //xóa tour
   public function DeleteTour($id)
   {
@@ -299,12 +330,34 @@ class Database
     $sql = "INSERT INTO role (decription) VALUES ('$name')";
     return $this->execute($sql);
   }
+  // update role
+  public function UpdateNameRole($id, $name)
+  {
+    $sql = "UPDATE role SET decription = '$name' WHERE id = $id";
+    return $this->execute($sql);
+  }
+  // tìm role theo id
+  public function FindRole($idRole)
+  {
+    $sql = "select * from phanquyenlinhdong where id_role = $idRole";
+    return $this->execute($sql);
+  }
   //xóa role
   public function DeleteRole($id)
   {
     $sql1 = "DELETE FROM phanquyenlinhdong WHERE id_role = $id";
     $this->execute($sql1);
     $sql = "DELETE FROM role WHERE id = $id";
+    return $this->execute($sql);
+  }
+  public function DeleteRoleLinhDong($id)
+  {
+    $sql1 = "DELETE FROM phanquyenlinhdong WHERE id_role = $id";
+    return $this->execute($sql1);
+  }
+  public function UpdateRoleLinhDong($idRole, $id_CN, $HD)
+  {
+    $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucNang, HD) values ('$idRole', '$id_CN', '$HD')";
     return $this->execute($sql);
   }
   public function InsertRoleLinhDong($id_CN, $HD)

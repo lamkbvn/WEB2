@@ -795,4 +795,17 @@ h4 {
     line-height: 1.5;
 }
 
+.icon-logo-SGU {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+}
+
+.footer-bottom--inner {
+    padding: 20px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 /* admin */

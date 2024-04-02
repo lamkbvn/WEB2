@@ -1,197 +1,84 @@
-<style>
-    .account-settings th:nth-child(3),
-    .account-settings td:nth-child(3) {
-        width: 250px;
-        text-align: left;
-    }
+<link rel="stylesheet" href="css/cssadmin.css">
 
-    * {
-        margin: 0;
-        padding: 0;
+<body>
 
-    }
+    <div class="user--table">
+        <h2 class="table--heading">Danh Sách Bình Luận</h2>
 
-    .account-settings th:nth-child(3),
-    .account-settings td:nth-child(3) {
-        width: 250px;
-        text-align: left;
-    }
+        <div class="list-feature">
+            <div class="filter-container">
 
-    .account-settings th:nth-child(5),
-    .account-settings td:nth-child(5) {
-        width: 170px;
-    }
+                <input type="text" id="filterInput" placeholder="Nhập tên người dùng cần tìm">
 
-    .account-settings th:nth-child(5),
-    .account-settings td:nth-child(5) {
-        width: 170px;
-    }
+            </div>
 
-    .account-settings th:nth-child(4),
-    .account-settings td:nth-child(4) {
-        width: 170px;
-    }
-
-    .account-settings {
-        margin-left: 204px;
-        margin-right: 50px;
-        overflow-x: auto;
-        width: calc(100% - 248px);
-        padding: 15px;
-        box-sizing: border-box;
-    }
-
-    .account-settings h2 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-
-    .account-settings form {
-        width: 100%;
-        border-radius: 4px;
-        overflow: hidden;
-    }
-
-    .account-settings table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .account-settings th,
-    .account-settings td {
-        padding: 10px;
-        text-align: center;
-        border-bottom: 1px solid #ccc;
-    }
-
-    .account-settings th {
-        background-color: #b1b1b1;
-        font-weight: bold;
-    }
-
-    .account-settings a input[value='Xóa'] {
-        padding: 2px;
-        border-radius: 6px;
-        background: #ff0027;
-        color: white;
-        border: none;
-    }
-
-    .account-settings a input[value='Sửa'] {
-        padding: 2px;
-        border-radius: 6px;
-        background: #4880ff;
-        color: white;
-        border: none;
-        margin-right: 5px;
-    }
-
-    .account-settings th:first-child,
-    .account-settings td:first-child {
-        width: 50px;
-    }
-
-    .account-settings th:nth-child(2),
-    .account-settings td:nth-child(2) {
-        width: 180px;
-    }
-
-    .account-settings th:nth-child(6),
-    .account-settings td:nth-child(6) {
-        width: 170px;
-    }
-
-    .account-settings th:nth-child(7),
-    .account-settings td:nth-child(7) {
-        width: 170px;
-    }
-
-    .account-settings th:nth-child(8),
-    .account-settings td:nth-child(8) {
-        width: 100px;
-    }
-
-    .account-settings th:nth-child(9),
-    .account-settings td:nth-child(9) {
-        width: 100px;
-    }
-
-    .account-settings th:nth-child(10),
-    .account-settings td:nth-child(10) {
-        width: 100px;
-    }
-
-    .account-settings th:nth-child(11) {
-        width: 200px;
-    }
-
-    .account-settings th:last-child,
-    .account-settings td:last-child {
-        text-align: center;
-    }
-
-    .account-settings th:last-child button,
-    .account-settings td:last-child button {
-        margin-right: 10px;
-    }
-
-    .list-feature {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 20px 0;
-    }
-
-    .add-user-btn {
-        background: #4880ff;
-        padding: 10px;
-        border-radius: 10px;
-        color: #fff;
-        padding: 8px 10px;
-    }
-
-    .list-feature-item {
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-    }
-</style>
-<!-- <link rel="stylesheet" href="css/feedback&voucher.css"> -->
-
-
-<div class="account-settings">
-    <h2>Danh Sách Bình Luận</h2>
-    <form>
-        <table>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Người dùng</th>
-                    <th>Nội dung</th>
-                    <th>Sản phẩm</th>
-                    <th>Ngày bình luận</th>
-                    <th></th>
+        </div>
+        <table id="tableData" class="custom-table">
+            <thead class="table-head">
+                <tr class="table--head">
+                    <th class="table-header">ID</th>
+                    <th class="table-header">Họ Tên</th>
+                    <th class="table-header">Nội dung</th>
+                    <th class="table-header">Tour</th>
+                    <th class="table-header">Ngày bình luận</th>
+                    <th class="table-header">Hành Động</th>
                 </tr>
             </thead>
-            <tbody>
+
+            <tbody class="table-body">
                 <?php foreach ($listbinhluan as $binhluan) : ?>
 
-                    <tr>
+                <tr class="table-row">
 
-                        <td><?php echo $binhluan['id']; ?></td>
-                        <td><?php echo $binhluan['fullname']; ?></td>
-                        <td><?php echo $binhluan['note']; ?></td>
-                        <td><?php echo $binhluan['title']; ?></td>
-                        <td><?php echo $binhluan['create_at']; ?></td>
-                        <td>
-                            <a href="index.php?controller=trang-admin&action=xoabl&id=<?php echo $binhluan['id']; ?>">
-                                <input type="button" value="Xóa">
-                            </a>
-                        </td>
-                    </tr>
+                    <td class="table-cell id"><?php echo $binhluan['id']; ?></td>
+                    <td class="table-cell fullname"><?php echo $binhluan['fullname']; ?></td>
+                    <td class="table-cell note"><?php echo $binhluan['note']; ?></td>
+                    <td class="table-cell title"><?php echo $binhluan['title']; ?></td>
+                    <td class="table-cell create_at"><?php echo $binhluan['create_at']; ?></td>
+                    <td class="table-cell">
+
+                        <a class="delete-btn table-btn"
+                            href="index.php?controller=trang-admin&action=xoabl&id=<?php echo $binhluan['id']; ?>">Delete</a>
+                    </td>
+                </tr>
                 <?php endforeach; ?>
+
             </tbody>
         </table>
-    </form>
-</div>
+    </div>
+</body>
+
+<script>
+// Lấy ô input và bảng dữ liệu
+var input = document.getElementById("filterInput");
+var table = document.getElementById("tableData");
+
+// Lắng nghe sự kiện input trên ô tìm kiếm
+input.addEventListener("input", function() {
+    var filter = input.value.toLowerCase(); // Chuyển đổi giá trị nhập vào thành chữ thường để so sánh
+
+    // Lặp qua từng hàng trong tbody
+    var rows = table.getElementsByTagName("tr");
+    for (var i = 0; i < rows.length; i++) {
+        var fullname = rows[i].getElementsByClassName("fullname")[0]; // Lấy cột Họ Tên trong hàng
+        var note = rows[i].getElementsByClassName("note")[0]; // Lấy cột Nội dung trong hàng
+        var title = rows[i].getElementsByClassName("title")[0]; // Lấy cột Tên tour trong hàng
+        var create_at = rows[i].getElementsByClassName("create_at")[0]; // Lấy cột Ngày bình luận trong hàng
+
+        if (fullname || note || title || create_at) {
+            var textValue = fullname.textContent || fullname.innerText;
+            var noteValue = note.textContent || note.innerText;
+            var titleValue = title.textContent || title.innerText; // Corrected variable name
+            var create_atValue = create_at.textContent || create_at.innerText;
+            if (textValue.toLowerCase().indexOf(filter) > -1 ||
+                noteValue.toLowerCase().indexOf(filter) > -1 ||
+                titleValue.toLowerCase().indexOf(filter) > -1 ||
+                create_atValue.toLowerCase().indexOf(filter) > -1) {
+                rows[i].style.display = ""; // Hiển thị hàng
+            } else {
+                rows[i].style.display = "none"; // Ẩn hàng
+            }
+        }
+    }
+});
+</script>
