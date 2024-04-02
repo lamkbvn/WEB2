@@ -103,4 +103,30 @@
 			}
 		}
 	});
+
+	$(document).ready(function() {
+		$('.delete-btn').on('click', function(e) {
+			e.preventDefault();
+			var deleteUrl = $(this).attr('data-delete-url');
+			var rowToDelete = $(this).closest('.table-row');
+			var confirmDelete = confirm('Bạn có chắc chắn muốn xóa tour này không?');
+			if (confirmDelete) {
+				$.ajax({
+					url: deleteUrl,
+					type: 'GET',
+					success: function(response) {
+						// Xử lý phản hồi thành công (nếu cần)
+						if (rowToDelete.length > 0) { // Kiểm tra nếu rowToDelete tồn tại
+							rowToDelete.hide(); // Ẩn dòng bằng jQuery hide()
+						}
+					},
+					error: function(xhr, status, error) {
+						// Xử lý lỗi (nếu cần)
+					}
+				});
+			} else {
+				// Nếu người dùng không đồng ý, không làm gì cả
+			}
+		});
+	});
 </script>
