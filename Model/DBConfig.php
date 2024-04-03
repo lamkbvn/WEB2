@@ -263,7 +263,7 @@ class Database
   // thêm detailOrder
   public function InsertDetailOrder($id_order, $id_pro, $price, $amount, $totalmoney, $dateGo)
   {
-    $sqlTangSoLuongMua = "UPDATE product SET num_bought = num_bought + $amount WHERE id = $id_pro";
+    $sqlTangSoLuongMua = "UPDATE product SET num_bought = num_bought + $amount, soLuongConLai = soLuongConLai-1 WHERE id = $id_pro";
     $this->execute($sqlTangSoLuongMua);
     $sql = "INSERT INTO order_detail (id_order, id_product, price, amount, total_money, date_go)
     VALUES ( '$id_order', '$id_pro', '$price', '$amount', '$totalmoney', '$dateGo')";
