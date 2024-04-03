@@ -150,23 +150,22 @@
             document.getElementById("spanEmail").textContent = "";
         }
 
-        if (phoneNumber === "") {
-            document.getElementById("spanPhone").textContent = "Vui lòng nhập số điện thoại";
-            error = true;
-        } else if (!/^\d{10,11}$/.test(phoneNumber)) {
+        if (!/^\d{10,11}$/.test(phoneNumber)) {
             document.getElementById("spanPhone").textContent = "Số điện thoại không hợp lệ";
+            error = true;
+        } else if (phoneNumber === "") {
+            document.getElementById("spanPhone").textContent = "Vui lòng nhập số điện thoại";
             error = true;
         } else {
             document.getElementById("spanPhone").textContent = "";
         }
 
-        if (username === "") {
+        if (address === "") {
             document.getElementById("spanAddress").textContent = "Vui lòng nhập địa chỉ";
             error = true;
         } else {
             document.getElementById("spanAddress").textContent = "";
         }
-
         if (error) {
             return false;
         }
@@ -175,19 +174,15 @@
         return true;
     }
 
-
-
-
     $(document).ready(function() {
         $('.sign-up form').submit(function(e) {
             e.preventDefault(); // Ngăn chặn việc gửi form mặc định
-
             // Thu thập dữ liệu từ form
             var fullname = $('#fullname_signup').val();
             var username = $('#user_name_signup').val();
             var password = $('#password_signup').val();
             var email = $('#email_signup').val();
-            var phoneNumber = $('#phone_number_signup').val();
+            var phone_number = $('#phone_number_signup').val();
             var address = $('#address_signup').val();
 
             // Gửi AJAX request
@@ -199,7 +194,7 @@
                     username: username,
                     password: password,
                     email: email,
-                    phone_number: phoneNumber,
+                    phone_number: phone_number,
                     address: address,
                     checkValid: checkValid
                 },
@@ -209,6 +204,10 @@
                         alert("Tài khoản đã tồn tại, vui lòng nhập lại!");
                     } else if (response.trim() === "exists email") {
                         alert("Email đã tồn tại, vui lòng nhập lại!");
+                    } else if (response.trim() === "invalid email") {
+                        alert("Nhập sai Email, vui lòng nhập lại!");
+                    } else if (response.trim() === "invalid phone") {
+                        alert("Nhập sai số điện thoại, vui lòng nhập lại!");
                     } else if (response.trim() === "exists phone") {
                         alert("Số điện thoại đã tồn tại, vui lòng nhập lại!");
                     } else if (response.trim() === "valid") {
@@ -224,8 +223,8 @@
                 }
             });
         });
-    });
 
+    });
 
     function loginAjax() {
         var formData = $('#formSign_in').serialize(); // Sử dụng .serialize() để thu thập dữ liệu từ form

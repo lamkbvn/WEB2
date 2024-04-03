@@ -49,12 +49,17 @@ if (
 		}
 	}
 
+
 	if ($usernameExists) {
 		echo "exists username";
 	} else if ($emailExists) {
 		echo "exists email";
 	} else if ($phone_numberExists) {
 		echo "exists phone";
+	} else if (!preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $email)) {
+		echo "invalid email";
+	} else if (!preg_match("/^\d{10,11}$/", $phone_number)) {
+		echo "invalid phone";
 	} else {
 		$db->registerAcount($username, $password, $id_role, $status);
 		$db->registerNguoiDung($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount);
