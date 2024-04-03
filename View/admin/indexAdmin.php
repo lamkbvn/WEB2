@@ -73,15 +73,14 @@
 	var table = document.getElementById("tableData");
 
 	// Lắng nghe sự kiện input trên ô tìm kiếm
-input.addEventListener("input", function() {
-    var filter = input.value.toLowerCase(); // Chuyển đổi giá trị nhập vào thành chữ thường để so sánh
+	input.addEventListener("input", function() {
+		var filter = input.value.toLowerCase(); // Chuyển đổi giá trị nhập vào thành chữ thường để so sánh
 
-    // Lặp qua từng hàng trong tbody
-    var rows = table.getElementsByClassName("table-row");
-    for (var i = 0; i < rows.length; i++) {
-        var cells = rows[i].getElementsByClassName("table-cell"); // Lấy tất cả các ô trong hàng
+		// Lặp qua từng hàng trong tbody
+		var rows = table.getElementsByClassName("table-row");
+		for (var i = 0; i < rows.length; i++) {
+			var cells = rows[i].getElementsByClassName("table-cell"); // Lấy tất cả các ô trong hàng
 
-<<<<<<< HEAD
 			if (fullname || email || phone_number || create_at || diachi) {
 				var textValue = fullname.textContent || fullname.innerText;
 				var emailValue = email.textContent || email.innerText;
@@ -126,27 +125,23 @@ input.addEventListener("input", function() {
 			}
 		});
 	});
-=======
-        var rowVisible = false; // Biến để kiểm tra xem hàng có nên hiển thị hay không
+	var rowVisible = false; // Biến để kiểm tra xem hàng có nên hiển thị hay không
 
-        // Lặp qua tất cả các ô trong hàng
-        for (var j = 0; j < cells.length; j++) {
-            var textValue = cells[j].textContent.toLowerCase(); // Nội dung của ô chuyển thành chữ thường
+	// Lặp qua tất cả các ô trong hàng
+	for (var j = 0; j < cells.length; j++) {
+		var textValue = cells[j].textContent.toLowerCase(); // Nội dung của ô chuyển thành chữ thường
 
-            // Nếu nội dung của ô chứa giá trị tìm kiếm, hiển thị hàng và thoát khỏi vòng lặp
-            if (textValue.indexOf(filter) > -1) {
-                rowVisible = true;
-                break;
-            }
-        }
+		// Nếu nội dung của ô chứa giá trị tìm kiếm, hiển thị hàng và thoát khỏi vòng lặp
+		if (textValue.indexOf(filter) > -1) {
+			rowVisible = true;
+			break;
+		}
+	}
 
-        // Hiển thị hoặc ẩn hàng dựa trên kết quả kiểm tra các ô trong hàng
-        if (rowVisible) {
-            rows[i].style.display = ""; // Hiển thị hàng
-        } else {
-            rows[i].style.display = "none"; // Ẩn hàng
-        }
-    }
-});
->>>>>>> b1a3c1b441f1d2547220ca28e14b8503ad49e982
+	// Hiển thị hoặc ẩn hàng dựa trên kết quả kiểm tra các ô trong hàng
+	if (rowVisible) {
+		rows[i].style.display = ""; // Hiển thị hàng
+	} else {
+		rows[i].style.display = "none"; // Ẩn hàng
+	}
 </script>
