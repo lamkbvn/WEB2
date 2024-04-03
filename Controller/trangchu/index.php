@@ -50,21 +50,73 @@ switch ($action) {
 	case "showproduct": // cua Huu Loc
 		require_once('Controller/showproductController/showproduct.php');
 		break;
-	case "cart": // cua Kiet
-		require_once('View/Cart/cart.php');
-		break;
-	case "userprofile":
-		require_once('View/User/user.php');
-		break;
-	case "forgotPassword":
-		if (isset($_GET['$idNguoiDung'])) {
-			$idUserForReset = $_GET['$idNguoiDung'];
-		}
-		header("location: View/trangchu/forgotPassword.php");
-		break;
+	case "cart":
+			// Ensure session is started before using $_SESSION
+			session_start();
+		
+			// Retrieve the user ID from the session
+			$idUser = $_SESSION['idUserLogin'];
+		
+			// Build the SQL query to fetch cart items
+			$sql = "SELECT cart.*, product.* 
+					FROM cart 
+					LEFT JOIN product ON cart.id_product = product.id
+					WHERE cart.id_user = $idUser";
+		
+			// Execute the query
+			$result = $db->execute($sql);
+		
+			// Check if there are cart items
+			if ($result && $result->num_rows > 0) {
+				// Fetch all cart items into an array
+				$listCart = $result->fetch_all(MYSQLI_ASSOC);
+			} else {
+				// If no cart items found, initialize an empty array
+				$listCart = array();
+			}
+		
+			// Include the cart view file and pass the cart items array
+			include "View/Cart/cart.php";
+			break;
+		
 	case "resetPassword":
 		header("location: View/trangchu/resetPassword.php");
 		break;
+	case 'deleteItemCart':
+			session_start();
+			ob_start();
+			// Check if 'id' is set in the GET request and is a positive integer
+			if (isset($_GET['id']) && $_GET['id'] > 0) {
+				$ItemId = $_GET['id'];
+				$result = $db->deleteItemCart($ItemId);
+		
+				// Check if deletion was successful
+				if ($result) {
+					$idUser = $_SESSION['idUserLogin'];
+		
+					// Build the SQL query to fetch updated cart items after deletion
+					$sql = "SELECT cart.*, product.* 
+							FROM cart 
+							LEFT JOIN product ON cart.id_product = product.id
+							WHERE cart.id_user = $idUser";
+		
+					// Execute the query to get updated cart items
+					$result = $db->execute($sql);
+		
+					// Check if there are updated cart items
+					if ($result && $result->num_rows > 0) {
+						// Fetch all updated cart items into an array
+						$listCart = $result->fetch_all(MYSQLI_ASSOC);
+					} else {
+						// If no updated cart items found, initialize an empty array
+						$listCart = array();
+					}
+					include "View/Cart/cart.php";
+				}
+			}
+			break;
+		
+		
 	case '': {
 			if (isset($db)) {
 				$listUsersTable = "product";
@@ -75,3 +127,5 @@ switch ($action) {
 			}
 		}
 }
+
+	

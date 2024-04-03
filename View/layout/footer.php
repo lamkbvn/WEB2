@@ -45,12 +45,3 @@
 		</div>
 	</div>
 </footer>
-
-<footer class="footer-bottom">
-	<div class="container">
-		<div class="footer-bottom--inner">
-			<p>© 2014-2024 Klook. All Rights Reserved.</p>
-			<img src="View/icon/logoSGU.jpeg" alt="" class="icon-logo-SGU" />
-		</div>
-	</div>
-</footer>

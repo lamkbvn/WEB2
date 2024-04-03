@@ -111,9 +111,9 @@ if (isset($_POST['action'])) {
 <?php if ($countProduct > 0) { ?>
     <div class="container">
         <?php foreach ($result as $item) : ?>
-            <a href="Controller/chitietTour/buyTour.php?id=<?php echo $item['id'] ?>" class="card" id=''>
+            <a class="card" id='<?php echo $item['id'] ?>'>
                 <img src="View/image/tourCheoThuyen.webp" alt="" class="img-product" />
-                <h2 class="name-product" style="color: black;">
+                <h2 class="name-product">
                     <?= $item['title'] ?>
                 </h2>
                 <div class="row-star">
@@ -148,14 +148,14 @@ if (isset($_POST['action'])) {
             </a>
         <?php endforeach ?>
         <script>
-            // let tours = document.getElementsByClassName('card');
-            // for (let i = 0; i < tours.length; i++) {
-            //     console.log(tours[i])
-            //     tours[i].addEventListener('click', function() {
-            //         let id = tours[i].id;
-            //         window.location.href = "Controller/chitietTour/buyTour.php?id="+id;
-            //     });
-            // }
+            let tours = document.getElementsByClassName('card');
+            for (let i = 0; i < tours.length; i++) {
+                console.log(tours[i])
+                tours[i].addEventListener('click', function() {
+                    let id = tours[i].id;
+                    window.location.href = "Controller/chitietTour/buyTour.php?id="+id;
+                });
+            }
         </script>
         <div id="total-pages" data-total="<?php echo $totalPages; ?>"></div>
         <div id="total-products" data-total="<?php echo $countProduct; ?>"></div>

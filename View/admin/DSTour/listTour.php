@@ -7,7 +7,13 @@
 
 		<div class="list-feature">
 			<div class="filter-container">
-				<input type="text" id="filterInput" placeholder="Nhập giá trị cần tìm kiếm...">
+				<select id="filterBy">
+					<option value="all">Tất cả</option>
+					<option value="name">Tên</option>
+					<option value="year">Năm sinh</option>
+				</select>
+				<input type="text" id="filterInput" placeholder="Nhập giá trị...">
+				<button>Lọc</button>
 			</div>
 
 			<a href="index.php?controller=trang-admin&action=addTour" class="list-feature-item add-user-btn">
@@ -36,19 +42,17 @@
 					$idProduct = $value['id'];
 					$rowsIMG = $db->getAllData('image_product');
 					$urlIMG = null;
-					if ($rowsIMG) {
-						foreach ($rowsIMG as $rowIMG) {
-							if ($rowIMG['id_product'] == $idProduct) {
-								$imageData = $rowIMG['image'];
-								$urlIMG = 'data:image/jpeg;base64,' . base64_encode($imageData) . '';
-								break;
-							}
+					foreach ($rowsIMG as $rowIMG){
+						if($rowIMG['id_product'] == $idProduct){
+							$imageData = $rowIMG['image'];
+							$urlIMG = 'data:image/jpeg;base64,'.base64_encode($imageData).'';
+							break;
 						}
 					}
-					if ($urlIMG == null) $urlIMG = "images/no_image.gif";
+					if($urlIMG == null) $urlIMG = "images/no_image.gif";
 				?>
 					<tr class="table-row">
-						<td class="table-cell"><img loading="lazy" src="<?php echo $urlIMG ?>" alt="Hình ảnh tour" class="image-product-admin"></td>
+						<td class="table-cell"><img src="<?php echo $urlIMG?>" alt="Hình ảnh tour" width="80px"></td>
 						<td class="table-cell id"><?php echo $value['title']; ?></td>
 						<td class="table-cell"><?php echo number_format($value['price'], 0, ',', '.'); ?></td>
 						<td class="table-cell"><?php echo $value['create_at']; ?></td>
@@ -69,41 +73,6 @@
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-		// Lấy ô input và bảng dữ liệu
-		var input = document.getElementById("filterInput");
-		var table = document.getElementById("tableData");
-
-		// Lắng nghe sự kiện input trên ô tìm kiếm
-		input.addEventListener("input", function() {
-			var filter = input.value.toLowerCase(); // Chuyển đổi giá trị nhập vào thành chữ thường để so sánh
-
-			// Lặp qua từng hàng trong tbody
-			var rows = table.getElementsByClassName("table-row");
-			for (var i = 0; i < rows.length; i++) {
-				var cells = rows[i].getElementsByClassName("table-cell"); // Lấy tất cả các ô trong hàng
-
-				var rowVisible = false; // Biến để kiểm tra xem hàng có nên hiển thị hay không
-
-				// Lặp qua tất cả các ô trong hàng
-				for (var j = 0; j < cells.length; j++) {
-					var textValue = cells[j].textContent.toLowerCase(); // Nội dung của ô chuyển thành chữ thường
-
-					// Nếu nội dung của ô chứa giá trị tìm kiếm, hiển thị hàng và thoát khỏi vòng lặp
-					if (textValue.indexOf(filter) > -1) {
-						rowVisible = true;
-						break;
-					}
-				}
-
-				// Hiển thị hoặc ẩn hàng dựa trên kết quả kiểm tra các ô trong hàng
-				if (rowVisible) {
-					rows[i].style.display = ""; // Hiển thị hàng
-				} else {
-					rows[i].style.display = "none"; // Ẩn hàng
-				}
-			}
-		});
-
 		$(document).ready(function() {
 			$('.delete-btn').on('click', function(e) {
 				e.preventDefault();

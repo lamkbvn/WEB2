@@ -6,74 +6,8 @@
     }
 
     #formAddRole {
-        margin-left: 220px !important;
-        margin-top: 80px !important;
-    }
-
-    #formAddRole {
-        width: 80%;
-        margin: 0 auto;
-    }
-
-    .Box_name_role {
-        margin-bottom: 20px;
-    }
-
-    .Box_name_role label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .Box_name_role input[type="text"] {
-        width: 44%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    .Box_name_role .nameRoleValidation {
-        display: none;
-        color: red;
-        margin-top: 5px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    table th,
-    table td {
-        border: 1px solid #ccc;
-        padding: 8px;
-        text-align: center;
-    }
-
-    table th {
-        background-color: #f2f2f2;
-    }
-
-    .validationTableRole {
-        display: none;
-        color: red;
-        margin-top: 5px;
-    }
-
-    button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        position: absolute;
-        right: 650px;
-        top: 100px;
-    }
-
-    button:hover {
-        background-color: #45a049;
+        margin-left: 220px;
+        margin-top: 80px;
     }
 </style>
 
@@ -105,6 +39,7 @@
 
             <?php
             $rowsCN = $db->getAllData('ChucNang');
+
 
             $rowsPQLD = $db->FindRole($id);
             foreach ($rowsCN as $rowCN) {

@@ -1,87 +1,87 @@
 <style>
-    a {
-        color: black;
-    }
+a {
+    color: black;
+}
 
-    .header-avatar img {
-        cursor: pointer;
-        border-radius: 25px;
-    }
+.header-avatar img {
+    cursor: pointer;
+    border-radius: 25px;
+}
 
-    .header-avatar .item {
-        height: 40px;
-        width: 83%;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        column-gap: 3px;
-        padding: 0px 10px;
-        font-size: 16px;
-    }
+.header-avatar .item {
+    height: 40px;
+    width: 83%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    column-gap: 3px;
+    padding: 0px 10px;
+    font-size: 16px;
+}
 
-    .item svg {
-        width: 20px;
-        height: 20px;
-    }
+.item svg {
+    width: 20px;
+    height: 20px;
+}
 
-    .header-avatar .item:hover {
-        background: #f5f5f5;
-    }
+.header-avatar .item:hover {
+    background: #f5f5f5;
+}
 
-    .drop-user-side-bar {
-        border-radius: 10px;
-        box-shadow: -1px 5px 15px 0px rgb(171, 171, 171);
-        width: 180px;
-        height: 100px;
-        position: absolute;
-        transform: translateX(-80%) translateY(10%);
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        background: white;
-        cursor: pointer;
-        display: none;
-    }
+.drop-user-side-bar {
+    border-radius: 10px;
+    box-shadow: -1px 5px 15px 0px rgb(171, 171, 171);
+    width: 180px;
+    height: 100px;
+    position: absolute;
+    transform: translateX(-80%) translateY(10%);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: white;
+    cursor: pointer;
+    display: none;
+}
 
-    .drop-user-side-bar::before {
-        position: absolute;
-        right: 0;
-        top: -10px;
-        content: "";
-        display: block;
-        width: 100px;
-        height: 20px;
-    }
+.drop-user-side-bar::before {
+    position: absolute;
+    right: 0;
+    top: -10px;
+    content: "";
+    display: block;
+    width: 100px;
+    height: 20px;
+}
 
-    .header-avatar:hover .drop-user-side-bar {
-        display: flex;
-    }
+.header-avatar:hover .drop-user-side-bar {
+    display: flex;
+}
 
-    #cartIcon {
-        position: relative;
-        font-size: 13px;
-        font-weight: 600;
-    }
+#cartIcon {
+    position: relative;
+    font-size: 13px;
+    font-weight: 600;
+}
 
-    #numCart {
-        position: absolute;
-        right: 6px;
-        top: 4px;
-        content: "0";
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 25px;
-        width: 12px;
-        height: 12px;
-        background-color: #ff5b00;
-        color: #fff;
-        font-size: 9px;
-    }
+#numCart {
+    position: absolute;
+    right: 6px;
+    top: 4px;
+    content: "0";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    width: 12px;
+    height: 12px;
+    background-color: #ff5b00;
+    color: #fff;
+    font-size: 9px;
+}
 
-    .dangxuat svg {
-        margin-left: 3px;
-    }
+.dangxuat svg {
+    margin-left: 3px;
+}
 </style>
 
 <div class="nav">
@@ -93,7 +93,8 @@
                         <img src="css/icons/8939fe11b96fc40d9c65ca88a0ad1fd1.png" alt="" class="nav-top--logo">
                     </a>
                     <div class="nav-top--find">
-                        <img src="css/icons/find-magnifier-search-zoom-look-svgrepo-com.svg" class="nav-top--find__icon" />
+                        <img src="css/icons/find-magnifier-search-zoom-look-svgrepo-com.svg"
+                            class="nav-top--find__icon" />
                         <input type="text" class="nav-top--find__input" placeholder="Tìm theo điểm đến, hoạt động">
                     </div>
                 </div>
@@ -123,24 +124,25 @@
 											<div class = "text">Trang cá nhân</div>
 										</div>
 									</a>
-									<a class = "dangxuat item" href="includes/session/del_session.php">
+									<div class = "dangxuat item">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
 											<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
 											<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
 										</svg>
-										<p  class="text">Đăng xuất</p>
-									</a>
+										<a href="includes/session/del_session.php" class="text">Đăng xuất</a>
+									</div>
 								</div>
 							</div>';
-                            echo '
+							// echo '<a href="includes/session/del_session.php">Thoát</a>';
+							echo '
 							';
 
-                            // Ẩn liên kết "Đăng kí" và "Đăng nhập"
-                        } else {
-                            //echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner">Đăng kí</a>';
-                            echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn">Đăng nhập</a>';
-                        }
-                        ?>
+							// Ẩn liên kết "Đăng kí" và "Đăng nhập"
+						} else {
+							//echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner">Đăng kí</a>';
+							echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn">Đăng nhập</a>';
+						}
+						?>
 
                     </div>
                 </div>
@@ -157,11 +159,12 @@
                         </li>
                     </a>
                     <?php foreach ($listCategory as $item) : ?>
-                        <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=<?= $item['id'] ?>">
-                            <li class="nav-bottom--item">
-                                <?= $item['name_category'] ?>
-                            </li>
-                        </a>
+                    <a
+                        href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=<?= $item['id'] ?>">
+                        <li class="nav-bottom--item">
+                            <?= $item['name_category'] ?>
+                        </li>
+                    </a>
                     <?php endforeach; ?>
                 </ul>
             </div>

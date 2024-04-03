@@ -68,7 +68,44 @@
             </div>
         </div>
     </div>
-
+    <div class="why-choose-klook">
+        <div class="container">
+            <div class="why-choose-klook--inner">
+                <h3 class="why-choose-klook--heading">Vì sao bạn nên chọn Klook
+                </h3>
+                <ul class="why-choose-klook--list">
+                    <li class="why-choose-klook--item">
+                        <img src="css/icons/why-choose-01.webp" alt="" class="why-choose-klook--img">
+                        <div class="why-choose-klook--info">
+                            <h4 class="why-choose-klook--title">Vô vàn lựa chọn</h4>
+                            <p class="why-choose-klook--desc">Tìm kiếm niềm vui với gần nửa triệu điểm tham quan, phòng khách sạn và nhiều trải nghiệm thú vị</p>
+                        </div>
+                    </li>
+                    <li class="why-choose-klook--item">
+                        <img src="css/icons/why-choose-02.webp" alt="" class="why-choose-klook--img">
+                        <div class="why-choose-klook--info">
+                            <h4 class="why-choose-klook--title">Chơi vui, giá tốt</h4>
+                            <p class="why-choose-klook--desc">Trải nghiệm chất lượng với giá tốt. Tích luỹ Klook credit để được thêm ưu đãi</p>
+                        </div>
+                    </li>
+                    <li class="why-choose-klook--item">
+                        <img src="css/icons/why-choose-03.webp" alt="" class="why-choose-klook--img">
+                        <div class="why-choose-klook--info">
+                            <h4 class="why-choose-klook--title">Dễ dàng và tiện lợi</h4>
+                            <p class="why-choose-klook--desc">Đặt vé xác nhận ngay, miễn xếp hàng, miễn phí hủy, tiện lợi cho bạn tha hồ khám phá</p>
+                        </div>
+                    </li>
+                    <li class="why-choose-klook--item">
+                        <img src="css/icons/why-choose-04.webp" alt="" class="why-choose-klook--img">
+                        <div class="why-choose-klook--info">
+                            <h4 class="why-choose-klook--title">Đáng tin cậy</h4>
+                            <p class="why-choose-klook--desc">Tham khảo đánh giá chân thực. Dịch vụ hỗ trợ tận tình, đồng hành cùng bạn mọi lúc, mọi nơi</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="highlighted-activities">
         <div class="container">
             <div class="highlighted-activities--inner">
@@ -102,7 +139,8 @@
     <div class="product-list--hot">
         <div class="container">
             <div class="product-list--hot__inner">
-                <h3 class="product-list--hot--heading">Hot nhất tại Klook</h3>
+                <h3 class="product-list--hot--heading">Hot nhất tại Klook
+                </h3>
                 <div class="list--hot">
                     <div class="product-hot-item">
                         <h3 class="product-hot-item--heading">Hoạt Động Du Lịch Việt Nam Bán Chạy</h3>
@@ -186,76 +224,6 @@
             </div>
         </div>
     </div>
-
-    <div class="experience-for-all">
-        <div class="container">
-            <h3 class="experience-for-all--heading">Trải nghiệm cho mọi người</h3>
-            <div class="experience-for-all--inner">
-                <div class="experience-for-all--list">
-                    <div class="experience-for-all--item">
-                        <img src="css/icons/experience-forall-01.webp" alt="" class="experience-for-all--item__img">
-                        <div class="experience-for-all--item__info">
-                            <h4 class="experience-for-all--item__heading">Chốt Gấp Kèo Sing - Thái</h4>
-                            <p class="experience-for-all--item__desc">Deal du lịch HOT nhất Singapore & Thái Lan</p>
-                        </div>
-                        <button class="experience-for-all--item__btn">Khám phá</button>
-                    </div>
-                    <div class="experience-for-all--item">
-                        <img src="css/icons/experience-forall-02.webp" alt="" class="experience-for-all--item__img">
-                        <div class="experience-for-all--item__info">
-                            <h4 class="experience-for-all--item__heading">Càng Mua Càng Hời</h4>
-                            <p class="experience-for-all--item__desc">Ưu đãi hấp dẫn. Càng mua nhiều - càng thêm lợi.</p>
-                        </div>
-                        <button class="experience-for-all--item__btn">Khám phá</button>
-                    </div>
-                    <div class="experience-for-all--item">
-                        <img src="css/icons/experience-forall-03.webp" alt="" class="experience-for-all--item__img">
-                        <div class="experience-for-all--item__info">
-                            <h4 class="experience-for-all--item__heading">Zone Châu Âu - Hoa Kỳ</h4>
-                            <p class="experience-for-all--item__desc">Gợi ý du lịch hàng đầu Châu Âu và Hoa Kỳ.</p>
-                        </div>
-                        <button class="experience-for-all--item__btn">Khám phá</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="go-where">
-        <div class="container">
-            <div class="go-where--inner">
-                <h3 class="go-where--heading">Bạn muốn đi đâu chơi?</h3>
-                <div class="go-where--list">
-                    <div class="go-where--item">
-                        <img src="css/icons/go-where=01.webp" alt="" class="go-where--item__img">
-                        <h4 class="go-where--item__heading">TP Hồ Chí Minh</h4>
-                    </div>
-                    <div class="go-where--item">
-                        <img src="css/icons/go-where=02.webp" alt="" class="go-where--item__img">
-                        <h4 class="go-where--item__heading">Đà Nẵng</h4>
-                    </div>
-                    <div class="go-where--item">
-                        <img src="css/icons/go-where=03.webp" alt="" class="go-where--item__img">
-                        <h4 class="go-where--item__heading">Bangkok</h4>
-                    </div>
-                    <div class="go-where--item">
-                        <img src="css/icons/go-where=04.webp" alt="" class="go-where--item__img">
-                        <h4 class="go-where--item__heading">Hà Nội</h4>
-                    </div>
-                    <div class="go-where--item">
-                        <img src="css/icons/go-where=05.webp" alt="" class="go-where--item__img">
-                        <h4 class="go-where--item__heading">Hội An</h4>
-                    </div>
-                    <div class="go-where--item">
-                        <img src="css/icons/go-where=06.webp" alt="" class="go-where--item__img">
-                        <h4 class="go-where--item__heading">Singapore</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <div class="explorer-collection">
         <div class="container">
             <div class="explorer-collection--inner">
@@ -279,7 +247,6 @@
             </div>
         </div>
     </div>
-
     <div class="blog-page">
         <div class="container">
             <div class="blog-page--inner">
@@ -303,44 +270,6 @@
                         <button class="blog-page--btn">Xem ngay</button>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="why-choose-klook">
-        <div class="container">
-            <div class="why-choose-klook--inner">
-                <h3 class="why-choose-klook--heading">Vì sao bạn nên chọn Klook
-                </h3>
-                <ul class="why-choose-klook--list">
-                    <li class="why-choose-klook--item">
-                        <img src="css/icons/why-choose-01.webp" alt="" class="why-choose-klook--img">
-                        <div class="why-choose-klook--info">
-                            <h4 class="why-choose-klook--title">Vô vàn lựa chọn</h4>
-                            <p class="why-choose-klook--desc">Tìm kiếm niềm vui với gần nửa triệu điểm tham quan, phòng khách sạn và nhiều trải nghiệm thú vị</p>
-                        </div>
-                    </li>
-                    <li class="why-choose-klook--item">
-                        <img src="css/icons/why-choose-02.webp" alt="" class="why-choose-klook--img">
-                        <div class="why-choose-klook--info">
-                            <h4 class="why-choose-klook--title">Chơi vui, giá tốt</h4>
-                            <p class="why-choose-klook--desc">Trải nghiệm chất lượng với giá tốt. Tích luỹ Klook credit để được thêm ưu đãi</p>
-                        </div>
-                    </li>
-                    <li class="why-choose-klook--item">
-                        <img src="css/icons/why-choose-03.webp" alt="" class="why-choose-klook--img">
-                        <div class="why-choose-klook--info">
-                            <h4 class="why-choose-klook--title">Dễ dàng và tiện lợi</h4>
-                            <p class="why-choose-klook--desc">Đặt vé xác nhận ngay, miễn xếp hàng, miễn phí hủy, tiện lợi cho bạn tha hồ khám phá</p>
-                        </div>
-                    </li>
-                    <li class="why-choose-klook--item">
-                        <img src="css/icons/why-choose-04.webp" alt="" class="why-choose-klook--img">
-                        <div class="why-choose-klook--info">
-                            <h4 class="why-choose-klook--title">Đáng tin cậy</h4>
-                            <p class="why-choose-klook--desc">Tham khảo đánh giá chân thực. Dịch vụ hỗ trợ tận tình, đồng hành cùng bạn mọi lúc, mọi nơi</p>
-                        </div>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>

@@ -10,136 +10,8 @@
         color: red;
     }
     #formAddTour{
-        /* margin-left: 220px;
-        margin-top: 80px; */
-    }
-
-    .box-up-img{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-left: 22px;
-    }
-    #btnAddTour{
-        width: 100%;
-		padding: 10px;
-		border: none;
-		border-radius: 4px;
-		background-color: #4880ff;
-		color: white;
-		cursor: pointer;
-    }
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-
-    .themuser {
-        width: 600px;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #fff;
-        margin-top: 50px;
-    }
-
-    .themuser h3 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .themuser form label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .themuser form input[type="text"],
-	.themuser form input[type="number"]  {
-        width: 275px;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        background-color: #f5f6fa;
-    }
-
-    .themuser form select {
-        background-color: #f5f6fa;
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-    .themuser form textarea {
-        background-color: #f5f6fa;
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-
-    .alert {
-        color: green;
-        text-align: center;
-    }
-
-    .form--inner {
-        display: flex;
-        gap: 50px;
-    }
-
-    .inputfile {
-        display: none;
-    }
-
-    .file-upload {
-        width: 150px;
-        /* Kích thước của khối hình vuông */
-        height: 150px;
-        /* Kích thước của khối hình vuông */
-        position: relative;
-        overflow: hidden;
-        border: 2px dashed #ccc;
-        /* Đường viền đứt */
-    }
-
-    .file-upload span {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 24px;
-        /* Kích thước của dấu cộng */
-        color: #999;
-        /* Màu của dấu cộng */
-    }
-
-    .uploaded-image {
-        display: none;
-        width: 100%;
-        /* Kích thước của hình ảnh */
-        height: 100%;
-        /* Kích thước của hình ảnh */
-        object-fit: cover;
-        /* Hiển thị hình ảnh mà không bị chiếm đối tượng */
-    }
-
-    /* Hiển thị hình ảnh khi người dùng chọn hình */
-    .inputfile:focus+.file-upload #uploaded-image1 {
-        display: block;
-    }
-    .inputfile:focus+.file-upload #uploaded-image2 {
-        display: block;
-    }
-    .inputfile:focus+.file-upload #uploaded-image3 {
-        display: block;
+        margin-left: 220px;
+        margin-top: 80px;
     }
 </style>
 
@@ -150,12 +22,7 @@
         } else $id = 1;
         $data = $db->getDataId('product', $id);
     ?>
-    <div class="container">
-        <div class="themuser">
-            <h3>Sửa Tour</h3>
     <form id="formAddTour" action="Controller/trangadmin/Tour/C_editTour.php" method="post" enctype="multipart/form-data">
-    <div class="form--inner">
-                <div class="flex">
     <input type="hidden" name="editTour" value="1">
     <input type="hidden" name="idEdit" value='<?php echo $data["id"]?>'>
         <div class="containFieldAddTour">
@@ -189,8 +56,6 @@
             </select>
             <span class="valiFormAddTour" id="provincialValidation">Vui lòng chọn trường này</span>
         </div>
-        </div>
-        <div class="flex">
         <div class="containFieldAddTour">
             <label for="price">Giá</label> <br>
             <input name="price" type="number" value='<?php echo $data["price"]?>'>
@@ -202,67 +67,30 @@
             <span class="valiFormAddTour" id="acountValidation">Dữ liệu không hợp lệ</span>
         </div>
         <div class="containFieldAddTour">
-            <label for="address">Địa chỉ</label> <br>
-            <input name="address" type="text" value='<?php echo $data["address"]?>'>
-            <span class="valiFormAddTour" id="addressValidation">Dữ liệu không hợp lệ</span>
-        </div>
-            </div>
-            </div>
-        <div class="containFieldAddTour">
-            <label for="">Chọn ảnh</label> <br>
-            <div class="box-up-img">
-            <input type="file" name="img1" id="img1" class="inputfile">
-                        <label for="img1" class="file-upload">
-                            <span class="spanplus">+</span>
-                            <img class="uploaded-image" id="uploaded-image1" src="#" alt="Uploaded Image">
-                        </label> <br>
-                        <span id="ImgValidation1">Dữ liệu không hợp lệ</span><br>
-
-                        <input type="file" name="img2" id="img2" class="inputfile">
-                        <label for="img2" class="file-upload">
-                            <span class="spanplus">+</span>
-                            <img class="uploaded-image" id="uploaded-image2" src="#" alt="Uploaded Image">
-                        </label><br>
-                        <span id="ImgValidation2">Dữ liệu không hợp lệ</span><br>
-
-                        <input type="file" name="img3" id="img3" class="inputfile">
-                        <label for="img3" class="file-upload">
-                            <span class="spanplus">+</span>
-                            <img class="uploaded-image" id="uploaded-image3" src="#" alt="Uploaded Image">
-                        </label><br>
-                        <span id="ImgValidation3">Dữ liệu không hợp lệ</span><br>
-            </div>
-            
-        </div>
-        
-        <div class="containFieldAddTour">
             <label for="content">Nội dung</label> <br>
             <textarea name="content" rows="4" cols="50"><?php echo $data["content"]?></textarea>
             <span class="valiFormAddTour" id="contentValidation">Dữ liệu không hợp lệ</span>
         </div>
-        <button type="submit" name="btnAddTour" id="btnAddTour" value="Thêm">Thêm</button>
-        
-    </form>
-    </div>
+        <div class="containFieldAddTour">
+            <label for="address">Địa chỉ</label> <br>
+            <input name="address" type="text" value='<?php echo $data["address"]?>'>
+            <span class="valiFormAddTour" id="addressValidation">Dữ liệu không hợp lệ</span>
+        </div>
+        <div class="containFieldAddTour">
+            <label for="">Chọn ảnh</label> <br>
+            <div class="box-up-img">
+                <input type="file" name="img1" id="img1"> <br>
+                <span id="ImgValidation1">Dữ liệu không hợp lệ</span><br>
+                <input type="file" name="img2" id="img2"><br>
+                <span id="ImgValidation2">Dữ liệu không hợp lệ</span><br>
+                <input type="file" name="img3" id="img3"><br>
+                <span id="ImgValidation3">Dữ liệu không hợp lệ</span><br>
+            </div>
             
         </div>
+        <button type="submit" name="btnAddTour" id="btnAddTour" value="Thêm">Thêm</button>
+    </form>
     <script>
-        $(document).ready(function() {
-            $('.inputfile').change(function() {
-                var file = this.files[0];
-                var reader = new FileReader();
-                var $uploadedImage = $(this).next().find('.uploaded-image');
-                var $plus = $(this).next().find('.spanplus');
-                reader.onload = function(e) {
-                    $uploadedImage.attr('src', e.target.result);
-                    $uploadedImage.css('display', 'block');
-                    $plus.css('display', 'none');
-                }
-                reader.readAsDataURL(file);
-            });
-        });
-
-
         var formAddTour = document.getElementById('formAddTour');
         var title = document.getElementById('title');
         var selectCate = document.getElementById('selectCate');

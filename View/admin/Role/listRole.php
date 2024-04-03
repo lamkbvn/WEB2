@@ -7,7 +7,13 @@
 
 		<div class="list-feature">
 			<div class="filter-container">
-				<input type="text" id="filterInput" placeholder="Nhập giá trị cần tìm kiếm...">
+				<select id="filterBy">
+					<option value="all">Tất cả</option>
+					<option value="name">Tên</option>
+					<option value="year">Năm sinh</option>
+				</select>
+				<input type="text" id="filterInput" placeholder="Nhập giá trị...">
+				<button>Lọc</button>
 			</div>
 
 			<a href="index.php?controller=trang-admin&action=addRole" class="list-feature-item add-user-btn">
@@ -46,40 +52,6 @@
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-		// Lấy ô input và bảng dữ liệu
-		var input = document.getElementById("filterInput");
-		var table = document.getElementById("tableData");
-
-		// Lắng nghe sự kiện input trên ô tìm kiếm
-		input.addEventListener("input", function() {
-			var filter = input.value.toLowerCase(); // Chuyển đổi giá trị nhập vào thành chữ thường để so sánh
-
-			// Lặp qua từng hàng trong tbody
-			var rows = table.getElementsByClassName("table-row");
-			for (var i = 0; i < rows.length; i++) {
-				var cells = rows[i].getElementsByClassName("table-cell"); // Lấy tất cả các ô trong hàng
-
-				var rowVisible = false; // Biến để kiểm tra xem hàng có nên hiển thị hay không
-
-				// Lặp qua tất cả các ô trong hàng
-				for (var j = 0; j < cells.length; j++) {
-					var textValue = cells[j].textContent.toLowerCase(); // Nội dung của ô chuyển thành chữ thường
-
-					// Nếu nội dung của ô chứa giá trị tìm kiếm, hiển thị hàng và thoát khỏi vòng lặp
-					if (textValue.indexOf(filter) > -1) {
-						rowVisible = true;
-						break;
-					}
-				}
-
-				// Hiển thị hoặc ẩn hàng dựa trên kết quả kiểm tra các ô trong hàng
-				if (rowVisible) {
-					rows[i].style.display = ""; // Hiển thị hàng
-				} else {
-					rows[i].style.display = "none"; // Ẩn hàng
-				}
-			}
-		});
 		$(document).ready(function() {
 			$('.delete-btn').on('click', function(e) {
 				e.preventDefault();

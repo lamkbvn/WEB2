@@ -32,43 +32,22 @@ let tableData = document.querySelector('.tableData');
 let chartData = document.querySelector('.chartData');
 
 
-function resetOrder(){
-  let asc = document.querySelectorAll('.asc');
-  let desc = document.querySelectorAll('.desc');
-  for(let i = 0; i < asc.length ; i++)
-    {
-      if(asc[i].classList.contains('hide'))
-        asc[i].classList.remove('hide');
-      if(!desc[i].classList.contains('hide'))
-        desc[i].classList.add('hide');
-    }
-}
-
 function filterThongKe(event){
   let button = event.target;
-  let order =button.parentNode;
-  console.log(order);
-  let orderby ;
-  let namecoll = order.classList[1];
-  if(order.classList.contains("asc"))
-    {
-      orderby = "ASC";
-      resetOrder();
-      let asc = order.classList;
-      let desc  = order.parentNode.querySelector('.hide').classList;
-      asc.add('hide');
-      desc.remove('hide');
-    }
-  if(order.classList.contains("desc"))
-    {
-      orderby = "DESC";
-      resetOrder();
-    }
-  let parent = document ;
+  let parent = button.parentNode.parentNode.parentNode.parentNode;
   let category = parent.querySelector('.category');//chọn loại sản phẩm
   let selectCategory = category.selectedIndex;
   let dateStart = parent.querySelector('.input-date-start').value;//chọn ngày bắt đầu
   let dateEnd = parent.querySelector('.input-date-end').value;//chọn ngày kết thú
+
+  //chọn kiểu sắp xếp
+  let orderby ;
+  let buttonOrderBy = parent.querySelector('.sapxep');
+  buttonOrderBy.classList.remove('hide');
+  if(buttonOrderBy.value == 0)
+    orderby = 'ASC';
+  else if(buttonOrderBy.value == 1)
+    orderby = 'DESC';
 
   //chọn  kiểu hiển thị dữ liệu
   let buttonTypeData  = parent.querySelector('.kieudulieu');
@@ -99,8 +78,7 @@ function filterThongKe(event){
         selectCategory : selectCategory,
         dateStart : dateStart,
         dateEnd : dateEnd,
-        orderby : orderby,
-        namecoll : namecoll
+        orderby : orderby
       },
       success : function(response){
         $('.bodyTable').html(response);
@@ -111,21 +89,17 @@ function filterThongKe(event){
 }
 
 let myChart = null;
-let mychart1 =null;
 function DrawChartData(){
   let nameTour = document.querySelectorAll('.nameTour');
   let numBought = document.querySelectorAll('.num-bought');
-  let priceTK = document.querySelectorAll('.total-money');
 
   let convertnumBought = [];
   let convertNameTour = [];
-  let convertpriceTK = [];
 
   for(let i = 0; i < numBought.length; i++)
   {
     convertnumBought.push(parseInt(numBought[i].innerHTML));
     convertNameTour.push(nameTour[i].innerHTML);
-    convertpriceTK.push(priceTK[i].innerHTML);
   }
 
   const ctx = document.getElementById('myChart').getContext('2d');
@@ -148,32 +122,6 @@ function DrawChartData(){
       scales: {
         y: {
           beginAtZero: true
-        }
-      }
-    }
-  });
-
-  const ctx1 =document.getElementById('myChart1').getContext('2d');
-  chartStatus = Chart.getChart('myChart1');
-  if(chartStatus != undefined){
-    chartStatus.destroy();
-  }
-
-  mychart1 = new Chart(ctx1 , {
-    type : 'bar',
-    data : {
-      labels : convertNameTour ,
-      datasets :[{
-        label : 'Tổng tiền',
-        data : convertpriceTK,
-        backgroundColor: '#49EFE9',
-        borderWidth: 1
-      }]
-    },
-    option : {
-      scales : {
-        y : {
-          beginAtZero : true
         }
       }
     }
