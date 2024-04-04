@@ -107,7 +107,7 @@
     .file-upload {
         width: 150px;
         /* Kích thước của khối hình vuông */
-        height: 150px;
+        height: 100px;
         /* Kích thước của khối hình vuông */
         position: relative;
         overflow: hidden;
@@ -168,12 +168,12 @@
                         <input type="hidden" name="editTour" value="1">
                         <input type="hidden" name="idEdit" value='<?php echo $data["id"] ?>'>
                         <div class="containFieldAddTour">
-                            <label for="title">Tiêu đề</label> <br>
+                            <label for="title">Tiêu đề</label>
                             <input id="title" name="title" type="text" value='<?php echo $data["title"] ?>'>
                             <span class="valiFormAddTour" id="titleValidation">Tiêu đề không hợp lệ</span>
                         </div>
                         <div class="containFieldAddTour">
-                            <label for="selectCate">Loại</label> <br>
+                            <label for="selectCate">Loại</label>
                             <select name="category" id="selectCate">
                                 <?php
                                 $rowsCate = $db->getAllData('category');
@@ -186,7 +186,7 @@
                             <span class="valiFormAddTour" id="categoryValidation">Vui lòng chọn trường này</span>
                         </div>
                         <div class="containFieldAddTour">
-                            <label for="selectProvin">Tỉnh thành</label> <br>
+                            <label for="selectProvin">Tỉnh thành</label>
                             <select name="provincial" id="selectProvin">
                                 <?php
                                 $rowsProvin = $db->getAllData('provincial');
@@ -201,17 +201,17 @@
                     </div>
                     <div class="flex">
                         <div class="containFieldAddTour">
-                            <label for="price">Giá</label> <br>
+                            <label for="price">Giá</label>
                             <input name="price" type="number" value='<?php echo $data["price"] ?>'>
                             <span class="valiFormAddTour" id="priceValidation">Dữ liệu không hợp lệ</span>
                         </div>
                         <div class="containFieldAddTour">
-                            <label for="acount">Số lượng</label> <br>
+                            <label for="acount">Số lượng</label>
                             <input name="acount" type="number" value='<?php echo $data["soLuongConLai"] ?>'>
                             <span class="valiFormAddTour" id="acountValidation">Dữ liệu không hợp lệ</span>
                         </div>
                         <div class="containFieldAddTour">
-                            <label for="address">Địa chỉ</label> <br>
+                            <label for="address">Địa chỉ</label>
                             <input name="address" type="text" value='<?php echo $data["address"] ?>'>
                             <span class="valiFormAddTour" id="addressValidation">Dữ liệu không hợp lệ</span>
                         </div>
@@ -264,7 +264,7 @@
                     <textarea name="content" rows="4" cols="50"><?php echo $data["content"] ?></textarea>
                     <span class="valiFormAddTour" id="contentValidation">Dữ liệu không hợp lệ</span>
                 </div>
-                <button type="submit" name="btnAddTour" id="btnAddTour" value="Thêm">Thêm</button>
+                <button type="submit" name="btnAddTour" id="btnAddTour" value="Thêm">Cập nhật</button>
 
             </form>
         </div>

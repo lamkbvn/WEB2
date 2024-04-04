@@ -1,13 +1,16 @@
 <?php
+
 if (isset($_REQUEST['action'])) {
     $action = $_REQUEST['action'];
 } else {
     $action = '';
 }
+
+
 include ("../../Model/DBConfig.php");
 $db = new Database;
 $db->connect();
-// require_once('./View/Cart/cart.php');
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Đọc dữ liệu từ phần thân của yêu cầu (request body)
@@ -24,8 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($selectedProducts as $product) {
             // Ví dụ: Lấy thông tin của từng sản phẩm và in ra
             $id_product = $product['id_product'];
-            $numTicket = $product['numTicket'];
-            $totalMoneyphp = $product['totalMoneyphp'];
             $amount = $product['amount'];
             $price = $product['price'];
             $date = $product['date'];
@@ -41,7 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $first=0;
             }
             $db->InsertDetailOrder($id, $id_product, $price, $amount, $price*$amount, $date);
-            echo "ID sản phẩm: $id_product, Số lượng vé: $numTicket, Tổng tiền: $totalMoneyphp, Số lượng: $amount, Giá: $price, Ngày: $date<br>";
+            echo "ID sản phẩm: $id_product, Số lượng :  $amount, Tổng tiền: $price*$amount, Số lượng: $amount, Giá: $price, Ngày: $date<br>";
+            echo "ID sản phẩm: $id_product, Số lượng book/tour: $amount, Tổng tiền: $tongTien, Số lượng: $amount, Giá: $price, Ngày: $date<br>";
    // Sau đó, bạn có thể thực hiện các thao tác xử lý dữ liệu khác tại đây
 }
 } else {

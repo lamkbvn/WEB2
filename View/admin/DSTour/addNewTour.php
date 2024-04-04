@@ -68,7 +68,7 @@
 
     .themuser form label {
         display: block;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
     }
 
     .themuser form input[type="text"],
@@ -120,7 +120,7 @@
     .file-upload {
         width: 150px;
         /* Kích thước của khối hình vuông */
-        height: 150px;
+        height: 100px;
         /* Kích thước của khối hình vuông */
         position: relative;
         overflow: hidden;
@@ -170,12 +170,12 @@
                     <div class="flex">
                         <input type="hidden" name="action" value="addTour">
                         <div class="containFieldAddTour">
-                            <label for="title">Tiêu đề</label> <br>
+                            <label for="title">Tiêu đề</label> 
                             <input id="title" name="title" type="text">
                             <span class="valiFormAddTour" id="titleValidation">Tiêu đề không hợp lệ</span>
                         </div>
                         <div class="containFieldAddTour">
-                            <label for="selectCate">Loại</label> <br>
+                            <label for="selectCate">Loại</label> 
                             <select name="category" id="selectCate">
                                 <?php
                                 $rowsCate = $db->getAllData('category');
@@ -187,7 +187,7 @@
                             <span class="valiFormAddTour" id="categoryValidation">Vui lòng chọn trường này</span>
                         </div>
                         <div class="containFieldAddTour">
-                            <label for="selectProvin">Tỉnh thành</label> <br>
+                            <label for="selectProvin">Tỉnh thành</label> 
                             <select name="provincial" id="selectProvin">
                                 <?php
                                 $rowsProvin = $db->getAllData('provincial');
@@ -202,17 +202,17 @@
                     </div>
                     <div class="flex">
                         <div class="containFieldAddTour">
-                            <label for="price">Giá</label> <br>
+                            <label for="price">Giá</label> 
                             <input name="price" type="number">
                             <span class="valiFormAddTour" id="priceValidation">Dữ liệu không hợp lệ</span>
                         </div>
                         <div class="containFieldAddTour">
-                            <label for="acount">Số lượng</label> <br>
+                            <label for="acount">Số lượng</label> 
                             <input name="acount" type="number">
                             <span class="valiFormAddTour" id="acountValidation">Dữ liệu không hợp lệ</span>
                         </div>
                         <div class="containFieldAddTour">
-                            <label for="address">Địa chỉ</label> <br>
+                            <label for="address">Địa chỉ</label> 
                             <input name="address" type="text">
                             <span class="valiFormAddTour" id="addressValidation">Dữ liệu không hợp lệ</span>
                         </div>

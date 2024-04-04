@@ -69,6 +69,7 @@ formBookTour.addEventListener('submit', function (event) {
   }
 });
 
+///-------------------------------------------///
 //selected_tour
 let btnMuaNgay = document.getElementsByClassName('buy-now')[0];
 btnMuaNgay.addEventListener('click', function (e) {
@@ -79,10 +80,7 @@ btnMuaNgay.addEventListener('click', function (e) {
       var productDetails = $(this).closest('.shopping-cart-item_body-left');
 
       var id_product = productDetails.find('input[name="id_product"]').val();
-      var numTicket = productDetails.find('input[name="numTicket"]').val();
-      var totalMoneyphp = productDetails
-        .find('input[name="totalMoneyphp"]')
-        .val();
+
       var amount = productDetails.find('input[name="amount"]').val();
       var price = productDetails.find('input[name="price"]').val();
       var date = productDetails.find('input[name="date"]').val();
@@ -96,8 +94,6 @@ btnMuaNgay.addEventListener('click', function (e) {
 
       selectedProducts.push({
         id_product: id_product,
-        numTicket: numTicket,
-        totalMoneyphp: totalMoneyphp,
         amount: amount,
         price: price,
         date: date,
@@ -172,6 +168,7 @@ function calculateTotalPrice() {
       );
     }
   });
+  //totalMoneyMain lưu giá trị tổng tiền của các sp dc chọn
   document.getElementsByName('totalMoneyMain')[0].value = total;
   return total;
 }
