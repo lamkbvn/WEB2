@@ -676,4 +676,15 @@ class Database
     }
     return false;
   }
+  public function deleteItemCart($ItemId)
+  {
+    $this->connect();
+
+    // Chuẩn bị truy vấn xóa
+    $sql = "DELETE FROM cart WHERE id = $ItemId";
+    $result = $this->execute($sql);
+
+    return $result;
+  }
+
 }
