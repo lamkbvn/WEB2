@@ -72,9 +72,10 @@
 
     <div class="navigation-admin">
         <a href="index.php?controller=trang-admin&action=indexAdmin" id="nav-item--logo">
-            <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo"></a>
+            <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo">
+        </a>
         <div class="nav-admin-list">
-
+            
             <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Người dùng</p>
