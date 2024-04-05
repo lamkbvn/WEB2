@@ -492,6 +492,7 @@ class Database
       return null; // Trả về null nếu không tìm thấy bất kỳ kết quả nào
     }
   }
+
   public function updatePasswordById($id, $newPassword)
   {
     $sql = "UPDATE acount SET password = '" . $newPassword . "' WHERE id = " . $id;
@@ -689,6 +690,58 @@ class Database
     $result = $this->execute($sql);
 
     return $result;
+  }
+  public function deleteOrder($orderId)
+  {
+    $this->connect();
+
+    // Chuẩn bị truy vấn xóa
+    $sql = "DELETE FROM orders WHERE id = $orderId";
+    $result = $this->execute($sql);
+    
+    return $result;
+  }
+  public function getDetailOrderByOrderId($orderId) {
+    $this->connect();
+    $sql = "select * from orders o, order_detail d, product p, discount c where o.id = d.id_order and o.id = $orderId and p.id = d.id_product and c.id = o.id_discount";
+    $result = $this->execute($sql);
+    return $result;
+  }
+  public function getStatusOrderByOrderId($orderId) {
+    $this->connect();
+    $sql = "select status from orders where id = $orderId";
+    $result = $this->execute($sql);
+    return $result->fetch_assoc()['status'];
+  }
+  public function getNameVocherByOrderId($orderId) {
+    $this->connect();
+    $sql = "select * from discount d, orders o where o.id = $orderId and o.id_discount = d.id";
+    $result = $this->execute($sql);
+    return $result->fetch_assoc()['discount_name'];
+  }
+  public function getInfoPersonOrder($orderId) {
+    $this->connect();
+    $sql = "select u.id as idUser, u.phone_number, u.email, u.address, u.fullname as nameUser from orders o, nguoiDung u where o.id = $orderId and u.id = o.id_user";
+    $result = $this->execute($sql);
+    return $result;
+  }
+  public function updateOrder($orderId, $status) {
+    $sql = "update orders set status = $status where id = $orderId";
+    return $this->execute($sql);
+  }
+  public function getMailByIdOrder($orderId)
+  {
+    $this->connect();
+    $sql = "select * from orders o, nguoiDung u where o.id = $orderId and o.id_user = u.id";
+    $result = $this->execute($sql);
+    return $result->fetch_assoc()['email'];
+  }
+  public function getTotalMoneyByIdOrder($orderId)
+  {
+    $this->connect();
+    $sql = "select * from orders o where o.id = $orderId";
+    $result = $this->execute($sql);
+    return $result->fetch_assoc()['total_money'];
   }
 
 }
