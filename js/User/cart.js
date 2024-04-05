@@ -244,43 +244,6 @@ checkboxAll.addEventListener('change', function () {
   updatePaymentButtonState();
 });
 
-//---------------------------------------------------------------------------------//
-//Hàm tính giá tiền và cập nhật
-
-// function calculateTotal() {
-//   let total = 0;
-
-//   // Lấy giá trị số lượng và giá của sản phẩm
-//   let quantity = parseInt(
-//     document
-//       .closest('.shopping-cart-item')
-//       .querySelector('input[name="numBook"]').value
-//   );
-//   let price = parseInt(
-//     document.closest('.shopping-cart-item').querySelector('input[name="price"]')
-//       .value
-//   );
-//   // Tính tổng giá trị của sản phẩm và cập nhật vào biến total
-//   total = quantity * price;
-
-//   return total;
-// }
-
-// // Cập nhật tổng giá trị lại sp dc nhan
-// function updateTotal() {
-//   totalPriceSpan2.textContent = calculateTotal().toLocaleString('vi-VN', {
-//     style: 'currency',
-//     currency: 'VND',
-//   });
-// }
-
-// // Lắng nghe sự kiện input change cho các input numBook
-// document.querySelectorAll('input[name="numBook"]').forEach(function (input) {
-//   input.addEventListener('change', function () {
-//     updateTotalPrice(); // Gọi hàm cập nhật tổng giá trị khi có thay đổi
-//   });
-// });
-
 //------------------------------------------------------------------//
 
 // Hàm kiểm tra xem ít nhất một checkbox đã được chọn hay không

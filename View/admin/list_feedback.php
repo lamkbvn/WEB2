@@ -38,7 +38,7 @@
                     <td class="table-cell">
 
                         <a class="delete-btn table-btn"
-                            href="index.php?controller=trang-admin&action=xoabl&id=<?php echo $binhluan['id']; ?>">Delete</a>
+                            data-delete-url="index.php?controller=trang-admin&action=xoabl&id=<?php echo $binhluan['id']; ?>">Delete</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -51,9 +51,9 @@
 <script>
 // Lấy ô input và bảng dữ liệu
 var input = document.getElementById("filterInput");
-	var table = document.getElementById("tableData");
+var table = document.getElementById("tableData");
 
-	// Lắng nghe sự kiện input trên ô tìm kiếm
+// Lắng nghe sự kiện input trên ô tìm kiếm
 input.addEventListener("input", function() {
     var filter = input.value.toLowerCase(); // Chuyển đổi giá trị nhập vào thành chữ thường để so sánh
 
@@ -77,10 +77,35 @@ input.addEventListener("input", function() {
 
         // Hiển thị hoặc ẩn hàng dựa trên kết quả kiểm tra các ô trong hàng
         if (rowVisible) {
-            rows[i].style.display = "";// Hiển thị hàng
+            rows[i].style.display = ""; // Hiển thị hàng
         } else {
             rows[i].style.display = "none"; // Ẩn hàng
         }
     }
+});
+
+$(document).ready(function() {
+    $('.delete-btn').on('click', function(e) {
+        e.preventDefault();
+        var deleteUrl = $(this).attr('data-delete-url');
+        var rowToDelete = $(this).closest('.table-row');
+        var confirmDelete = confirm('Bạn có chắc chắn muốn xóa tour này không?');
+        if (confirmDelete) {
+            $.ajax({
+                url: deleteUrl,
+                success: function(response) {
+                    // Xử lý phản hồi thành công (nếu cần)
+                    if (rowToDelete.length > 0) { // Kiểm tra nếu rowToDelete tồn tại
+                        rowToDelete.hide(); // Ẩn dòng bằng jQuery hide()
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Xử lý lỗi (nếu cần)
+                }
+            });
+        } else {
+            // Nếu người dùng không đồng ý, không làm gì cả
+        }
+    });
 });
 </script>
