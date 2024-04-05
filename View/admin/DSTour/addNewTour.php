@@ -188,7 +188,7 @@
                                 foreach ($rowsCate as $rowCate) {
                                     echo "<option name='selectCate' value='" . $rowCate['id'] . "'>" . $rowCate['name_category'] . "</option>";
                                 }
-                                ?>
+                                ?> 
                             </select>
                             <span class="valiFormAddTour" id="categoryValidation">Vui lòng chọn trường này</span>
                         </div>

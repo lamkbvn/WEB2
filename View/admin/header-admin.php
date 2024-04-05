@@ -75,39 +75,82 @@
             <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo">
         </a>
         <div class="nav-admin-list">
-            
-            <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item">
-                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-                <p class="nav-admin-item--title">Người dùng</p>
-            </a>
-
             <a href="index.php?controller=trang-admin&action=role" id="page2" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Phân quyền</p>
             </a>
+            <?php
+            $role = $db->checkRoleAdmin($_SESSION['idUserLogin']);
+            foreach ($role as $rowRole) {
+                if ($rowRole['id_chucNang'] == 1 && $rowRole['HD'] == 'View') {
+                    echo '<a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item">
+                        <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                        <p class="nav-admin-item--title">Người dùng</p>
+                    </a>';
+                }
+                elseif ($rowRole['id_chucNang'] == 2 && $rowRole['HD'] == 'View') {
+                    echo '<a href="index.php?controller=trang-admin&action=tour" id="page3" class="nav-admin-item">
+                        <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                        <p class="nav-admin-item--title">Tour</p>
+                    </a>';
+                }
 
-            <a href="index.php?controller=trang-admin&action=tour" id="page3" class="nav-admin-item">
+                elseif ($rowRole['id_chucNang'] == 3 && $rowRole['HD'] == 'View') {
+                    echo '<a href="index.php?controller=trang-admin&action=order" id="page7" class="nav-admin-item">
+                        <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                        <p class="nav-admin-item--title">Order</p>
+                    </a>';
+                }
+               elseif ($rowRole['id_chucNang'] == 4 && $rowRole['HD'] == 'View') {
+                    echo '<a href="index.php?controller=trang-admin&action=dthongke" id="page6" class="nav-admin-item">
+                        <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                        <p class="nav-admin-item--title">Thống kê</p>
+                    </a>';
+                }
+                elseif ($rowRole['id_chucNang'] == 5 && $rowRole['HD'] == 'View') {
+                    echo '<a href="index.php?controller=trang-admin&action=dsbl" id="page4" class="nav-admin-item">
+                        <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                        <p class="nav-admin-item--title">Bình luận</p>
+                    </a>';
+                }
+                elseif ($rowRole['id_chucNang'] == 6 && $rowRole['HD'] == 'View') {
+                    echo '<a href="index.php?controller=trang-admin&action=dsvoucher" id="page5" class="nav-admin-item">
+                        <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                        <p class="nav-admin-item--title">Voucher</p>
+                    </a>';
+                }
+            }
+
+            ?>
+            <!-- <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item">
+                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <p class="nav-admin-item--title">Người dùng</p>
+            </a> -->
+
+
+
+            <!-- <a href="index.php?controller=trang-admin&action=tour" id="page3" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Tour</p>
-            </a>
+            </a> -->
 
-            <a href="index.php?controller=trang-admin&action=dsbl" id="page4" class="nav-admin-item">
+            <!-- <a href="index.php?controller=trang-admin&action=dsbl" id="page4" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Bình luận</p>
-            </a>
-            <a href="index.php?controller=trang-admin&action=dsvoucher" id="page5" class="nav-admin-item">
+            </a> -->
+            <!-- <a href="index.php?controller=trang-admin&action=dsvoucher" id="page5" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Voucher</p>
-            </a>
+            </a> -->
 
-            <a href="index.php?controller=trang-admin&action=dthongke" id="page6" class="nav-admin-item">
+            <!-- <a href="index.php?controller=trang-admin&action=dthongke" id="page6" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Thống kê</p>
-            </a>
-            <a href="index.php?controller=trang-admin&action=order" id="page3" class="nav-admin-item">
+            </a> -->
+            <!-- <a href="index.php?controller=trang-admin&action=order" id="page3" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Order</p>
-            </a>
+            </a> -->
         </div>
     </div>
     <div id="content">
@@ -135,5 +178,7 @@
         document.getElementById('page5').classList.add('header-admin-active');
     } else if (action === 'dthongke') {
         document.getElementById('page6').classList.add('header-admin-active');
+    } else if (action === 'order') {
+        document.getElementById('page7').classList.add('header-admin-active');
     }
 </script>

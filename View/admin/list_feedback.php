@@ -36,9 +36,25 @@
                     <td class="table-cell title"><?php echo $binhluan['title']; ?></td>
                     <td class="table-cell create_at"><?php echo $binhluan['create_at']; ?></td>
                     <td class="table-cell">
-
-                        <a class="delete-btn table-btn"
-                            href="index.php?controller=trang-admin&action=xoabl&id=<?php echo $binhluan['id']; ?>">Delete</a>
+                        <?php 
+							$isDelete = 0;
+							foreach ($role as $rowRole) {
+								if ($rowRole['id_chucNang'] == 3) {
+									switch ($rowRole['HD']) {
+										case 'Delete':
+											$isDelete = 1;
+											break;
+										default:
+											# code...
+											break;
+									}
+								}
+							}
+                            if($isDelete==1){
+                                echo "<a class='delete-btn table-btn' href='index.php?controller=trang-admin&action=xoabl&id={$binhluan['id']}'>Delete</a>";
+                            }
+                        ?>
+                        
                     </td>
                 </tr>
                 <?php endforeach; ?>
