@@ -166,11 +166,11 @@
     const urlParams = new URLSearchParams(window.location.search);
     const action = urlParams.get('action');
 
-    if (action === 'indexAdmin' || action === 'edit' || action === 'editrole') {
+    if (action === 'indexAdmin' || action === 'edit' || action === 'editrole' || action === 'add') {
         document.getElementById('page1').classList.add('header-admin-active');
-    } else if (action === 'role' || action === 'editRole') {
+    } else if (action === 'role' || action === 'editRole' || action === 'addRole') {
         document.getElementById('page2').classList.add('header-admin-active');
-    } else if (action === 'tour' || action === 'editTour') {
+    } else if (action === 'tour' || action === 'editTour' || action === 'addTour') {
         document.getElementById('page3').classList.add('header-admin-active');
     } else if (action === 'dsbl') {
         document.getElementById('page4').classList.add('header-admin-active');
@@ -178,7 +178,7 @@
         document.getElementById('page5').classList.add('header-admin-active');
     } else if (action === 'dthongke') {
         document.getElementById('page6').classList.add('header-admin-active');
-    } else if (action === 'order') {
+    } else if (action === 'order' || action === 'detailOrder') {
         document.getElementById('page7').classList.add('header-admin-active');
     }
 </script>
