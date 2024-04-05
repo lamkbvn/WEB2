@@ -640,15 +640,15 @@ class Database
     return $result;
   }
 
-  public function updateVoucher($id, $discount_name, $code, $percent, $date_start, $date_end, $description)
+  public function updateVoucher($id, $discount_name, $code, $percent, $date_start, $date_end, $description,$status)
   {
-    $sql = "UPDATE discount SET discount_name='$discount_name', code='$code', percent='$percent', date_start='$date_start', date_end='$date_end', description='$description' WHERE id='$id'";
+    $sql = "UPDATE discount SET discount_name='$discount_name', code='$code', percent='$percent', date_start='$date_start', date_end='$date_end', description='$description',status='$status' WHERE id='$id'";
     return $this->execute($sql);
   }
   public function insertVoucher($discount_name, $code, $percent, $date_start, $date_end, $description)
   {
-    $sql = "INSERT INTO discount ( discount_name,code,percent,date_start,date_end,description) 
-            VALUES ( '$discount_name', '$code', '$percent', '$date_start', '$date_end', '$description')";
+    $sql = "INSERT INTO discount ( discount_name,code,percent,date_start,date_end,description, status) 
+            VALUES ( '$discount_name', '$code', '$percent', '$date_start', '$date_end', '$description','1')";
     return $this->execute($sql);
   }
   // Add this method to your DBConfig class

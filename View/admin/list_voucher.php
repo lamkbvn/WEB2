@@ -12,6 +12,11 @@
 
             </div>
 
+            <a href="index.php?controller=trang-admin&action=themvoucher" class="list-feature-item add-user-btn">
+                <img src="css/icons/favorites-admin-icon.svg" alt="" class="list-feature-item--icon">
+                <p class="nav-admin-item--title">Thêm mới</p>
+            </a>
+
         </div>
         <table id="tableData" class="custom-table">
             <thead class="table-head">

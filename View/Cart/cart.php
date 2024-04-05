@@ -88,7 +88,7 @@
                                 <div class="operation-box">
                                     <div class="left">
                                         <a
-                                            href="index.php?controller=trang-chu&action=cart&id=<?php echo $itemCart['id']; ?>">
+                                            href="index.php?controller=trang-chu&action=deleteItemCart&id=<?php echo $itemCart['cart_id']; ?>">
                                             <span>Xóa</span>
                                         </a>
                                     </div>
@@ -122,7 +122,7 @@
                                 <button id="payment-button">
                                     <span>Thanh toán</span>
                                 </button>
-                                <p>Nhận <b>76</b> credit cho đơn hàng này</p>
+
                             </div>
                         </div>
                     </div>
