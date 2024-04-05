@@ -1,12 +1,12 @@
 <?php
 
 
-if (isset($_GET['controller']) && $_GET['controller'] == 'trang-admin') {
+if (isset ($_GET['controller']) && $_GET['controller'] == 'trang-admin') {
 	include_once ("View/admin/header-admin.php");
 }
 
 
-if (isset($_GET['action'])) {
+if (isset ($_GET['action'])) {
 	$action = $_GET['action'];
 } else {
 	$action = '';
@@ -18,7 +18,7 @@ $alert;
 
 switch ($action) {
 	case 'add': {
-		if (isset($_POST['add_user'])) {
+		if (isset ($_POST['add_user'])) {
 			$fullname = $_POST['fullname'];
 			$email = $_POST['email'];
 			$phone_number = $_POST['phone_number'];
@@ -34,7 +34,7 @@ switch ($action) {
 			}
 		}
 
-		if (isset($_POST['add_user'])) {
+		if (isset ($_POST['add_user'])) {
 			// Thực hiện kiểm tra và xử lý dữ liệu ở đây
 			// Ví dụ:
 			$fullname = $_POST['fullname'];
@@ -51,11 +51,11 @@ switch ($action) {
 	}
 
 	case 'edit': {
-		if (isset($_GET['id'])) {
+		if (isset ($_GET['id'])) {
 			$id = $_GET['id'];
 			$listUsersTable = "nguoidung";
 			$dataID = $db->getDataId($listUsersTable, $id);
-			if (isset($_POST['edit_user'])) {
+			if (isset ($_POST['edit_user'])) {
 				$fullname = $_POST['fullname'];
 				$email = $_POST['email'];
 				$phone_number = $_POST['phone_number'];
@@ -77,10 +77,10 @@ switch ($action) {
 		$listRoleTable = "role";
 		$roles = $db->getAllData($listRoleTable);
 
-		if (isset($_GET['id'])) {
+		if (isset ($_GET['id'])) {
 			$id = $_GET['id'];
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
-				if (isset($_POST['role'])) {
+				if (isset ($_POST['role'])) {
 					$role = $_POST['role'];
 					if ($db->roleAccount($id, $role)) {
 						header('location: index.php?controller=trang-admin&action=indexAdmin');
@@ -94,7 +94,7 @@ switch ($action) {
 
 
 	case 'delete': {
-		if (isset($_GET['id'])) {
+		if (isset ($_GET['id'])) {
 			$id = $_GET['id'];
 			$listUsersTable = "nguoidung";
 
@@ -106,7 +106,7 @@ switch ($action) {
 	}
 
 	case 'banuser': {
-		if (isset($_GET['id'])) {
+		if (isset ($_GET['id'])) {
 			$id = $_GET['id'];
 			$dataID = $db->blockUser($id);
 		}
@@ -116,7 +116,7 @@ switch ($action) {
 	}
 
 	case 'unbanuser': {
-		if (isset($_GET['id'])) {
+		if (isset ($_GET['id'])) {
 			$id = $_GET['id'];
 			$dataID = $db->unblockUser($id);
 		}
@@ -160,7 +160,7 @@ switch ($action) {
 		break;
 	}
 	case 'deleteRole': {
-		if (isset($_REQUEST['id'])) {
+		if (isset ($_REQUEST['id'])) {
 			$id = $_REQUEST['id'];
 			$db->DeleteRole($id);
 		}
@@ -178,7 +178,7 @@ switch ($action) {
 		break;
 	}
 	case 'deleteTour': {
-		if (isset($_REQUEST['id'])) {
+		if (isset ($_REQUEST['id'])) {
 			$id = $_REQUEST['id'];
 			$db->DeleteTour($id);
 		}
@@ -208,7 +208,7 @@ switch ($action) {
 				$rowsCate[] = $row3; // Thêm dòng dữ liệu vào mảng
 			}
 		}
-		if (isset($_REQUEST['btnAddTour'])) {
+		if (isset ($_REQUEST['btnAddTour'])) {
 			$id = date('dmyHis');
 			$title = $_REQUEST['title'];
 			$category = $_REQUEST['category'];
@@ -222,17 +222,17 @@ switch ($action) {
 
 			$db->InsertTour($id, $category, 1, $provincial, $title, $price, $content, $address, $currentDate, $acount);
 
-			if (!empty($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
+			if (!empty ($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
 				$img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
 				$db->InsertImg($id, '1', $img1);
 			}
 
-			if (!empty($_FILES['img2']['tmp_name']) && getimagesize($_FILES['img2']['tmp_name']) !== false) {
+			if (!empty ($_FILES['img2']['tmp_name']) && getimagesize($_FILES['img2']['tmp_name']) !== false) {
 				$img2 = addslashes(file_get_contents($_FILES['img2']['tmp_name']));
 				$db->InsertImg($id, '2', $img2);
 			}
 
-			if (!empty($_FILES['img3']['tmp_name']) && getimagesize($_FILES['img3']['tmp_name']) !== false) {
+			if (!empty ($_FILES['img3']['tmp_name']) && getimagesize($_FILES['img3']['tmp_name']) !== false) {
 				$img3 = addslashes(file_get_contents($_FILES['img3']['tmp_name']));
 				$db->InsertImg($id, '3', $img3);
 			}
@@ -255,7 +255,7 @@ switch ($action) {
 		break;
 	case 'xoabl':
 
-		if (isset($_GET['id']) && $_GET['id'] > 0) {
+		if (isset ($_GET['id']) && $_GET['id'] > 0) {
 			$commentId = $_GET['id'];
 			$result = $db->deleteComment($commentId);
 
@@ -282,7 +282,7 @@ switch ($action) {
 		include "View/admin/list_voucher.php";
 		break;
 	case 'xoavoucher':
-		if (isset($_GET['id']) && $_GET['id'] > 0) {
+		if (isset ($_GET['id']) && $_GET['id'] > 0) {
 			$voucherId = $_GET['id'];
 			$result = $db->deleteVoucher($voucherId);
 
@@ -296,7 +296,7 @@ switch ($action) {
 		}
 		break;
 	case 'suavoucher':
-		if (isset($_GET['id']) && $_GET['id'] > 0) {
+		if (isset ($_GET['id']) && $_GET['id'] > 0) {
 
 			$voucherId = $_GET['id'];
 
@@ -306,7 +306,7 @@ switch ($action) {
 		break;
 
 	case 'capnhatvoucher':
-		if (isset($_POST['btnedit']) && ($_POST['btnedit'])) {
+		if (isset ($_POST['btnedit']) && ($_POST['btnedit'])) {
 			$id = $_POST['id'];
 			$ten_voucher = $_POST['ten_voucher'];
 			$ma_voucher = $_POST['ma_voucher'];
@@ -327,7 +327,7 @@ switch ($action) {
 		include "View/admin/list_voucher.php";
 		break;
 	case 'themvoucher':
-		if (isset($_POST['btnadd']) && ($_POST['btnadd'])) {
+		if (isset ($_POST['btnadd']) && ($_POST['btnadd'])) {
 			$ten_voucher = $_POST['ten_voucher'];
 			$ma_voucher = $_POST['ma_voucher'];
 			$gia_tri = $_POST['gia_tri'];
@@ -343,5 +343,38 @@ switch ($action) {
 		break;
 	case 'dthongke':
 		include_once "View/ThongKe/thongke.php";
+		break;
+	case 'order':
+		$sql = "SELECT * FROM orders order by id desc";
+		$result = $db->execute($sql);
+		$listOrder = $db->getAll();
+		include "View/admin/order/order.php";
+		break;
+	case 'deleteOrder':
+		if (isset ($_GET['id'])) {
+
+			$orderId = $_GET['id'];
+			$result = $db->deleteOrder($orderId);
+
+			//nếu thành công thì hiện thị lại ds voucher
+			if ($result) {
+				$sql = "SELECT * FROM orders order by id desc";
+				$result = $db->execute($sql);
+				$listOrder = $db->getAll();
+				include "View/admin/order/order.php";
+			}
+		}
+		break;
+	case 'detailOrder':
+		if (isset ($_GET['id'])) {
+			$orderId = $_GET['id'];
+			$result = $db->getDetailOrderByOrderId($orderId);
+			$listOrderDetail = $db->getAll();
+			$status = $db->getStatusOrderByOrderId($orderId);
+			$result = $db->getInfoPersonOrder($orderId);
+			$infoPersonOrder = $db->getAll();
+			$totalAllMoney = $db->getTotalMoneyByIdOrder($orderId);
+			include "View/admin/order/orderDetail.php";
+		}
 		break;
 }

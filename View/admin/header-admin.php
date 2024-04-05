@@ -103,6 +103,10 @@
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Thống kê</p>
             </a>
+            <a href="index.php?controller=trang-admin&action=order" id="page3" class="nav-admin-item">
+                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <p class="nav-admin-item--title">Order</p>
+            </a>
         </div>
     </div>
     <div id="content">
