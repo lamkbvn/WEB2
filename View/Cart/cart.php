@@ -23,7 +23,7 @@
                     </div>
                     <div class="wrapper-body-left_body">
 
-                        <?php foreach ($listCart as $itemCart) : ?>
+                        <?php foreach ($listCart as $i => $itemCart) : ?>
 
                         <div class="shopping-cart-item">
                             <div class="shopping-cart-item_body">
@@ -55,7 +55,7 @@
                                             <div class="action-bar">
                                                 <div class="counter-small">
                                                     <div class="counter-decrease">
-                                                        <i class="icon" onclick="decreaseValue()">
+                                                        <i class="icon" onclick="decreaseValue(this,<?php echo $i; ?>)">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                 viewBox="0 0 448 512">
                                                                 <path
@@ -63,12 +63,14 @@
                                                             </svg>
                                                         </i>
                                                     </div>
+
                                                     <div class="counter-input">
                                                         <input type="text" id="counterValue" readonly="readonly"
                                                             name="numBook" value="<?php echo $itemCart['amount']; ?>" />
                                                     </div>
                                                     <div class="counter-increase">
-                                                        <i class="icon" onclick="increaseValue()">
+                                                        <i class="icon"
+                                                            onclick="increaseValue(this, <?php echo $i; ?>)">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                 viewBox="0 0 448 512">
                                                                 <path
@@ -94,7 +96,7 @@
                                         <div class="price-box">
                                             <span class="total-saving"></span>
                                             <span
-                                                class="total-price"><?php echo $itemCart['price'] * $itemCart['amount']; ?>đ</span>
+                                                class="total-price"><?php echo number_format($itemCart['price'] * $itemCart['amount'], 0, '.',',') ; ?>đ</span>
 
                                         </div>
                                     </div>
@@ -112,7 +114,7 @@
                                     <span>Tổng cộng</span>
                                 </div>
                                 <div class="price-info-box">
-                                    <span class="price-detail" name="totalMoney">₫0</span>
+                                    <span class="price-detail" name="totalMoney">0 ₫</span>
                                     <!-- <span class="total-saving">Giảm 159,941₫</span> -->
                                 </div>
                             </div>

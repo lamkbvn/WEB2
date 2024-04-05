@@ -1,19 +1,3 @@
-function increaseValue() {
-  var value = parseInt(document.getElementById('counterValue').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value++;
-  document.getElementById('counterValue').value = value;
-}
-
-function decreaseValue() {
-  var value = parseInt(document.getElementById('counterValue').value, 10);
-  value = isNaN(value) ? 0 : value;
-  if (value > 1) {
-    value--;
-    document.getElementById('counterValue').value = value;
-  }
-}
-
 let paymentButton = document.getElementById('payment-button');
 let formBookTour = document.getElementById('form_book_tour');
 let checkboxes = document.querySelectorAll(
@@ -153,36 +137,105 @@ paymentButton.addEventListener('click', function () {
   }, 50);
 });
 
-//------------------------------//
+//------------------------------------------------//
+// Function tăng số lượng
+function increaseValue(x, i) {
+  //get số lương trong thẻ input
+  let div = x.closest('.shopping-cart-item');
+  let sl = parseInt(div.querySelector('input[name="numBook"]').value);
+  let price = parseInt(div.querySelector('input[name="price"]').value);
+  //++
+  var slmoi = sl + 1;
+  //gán trở  lại input
+  div.querySelector('input[name="numBook"]').value = slmoi;
 
-// tính tổng tiền sp dựa trên item được check
+  // Gọi hàm cập nhật tổng giá trị khi có thay đổi
+  updateTotalPrice();
+
+  //cập nhật giá trị lại cho input hidden có name="amount"
+  div.querySelector('input[name="amount"]').value = slmoi;
+
+  //cập nhật giá tiền
+  div.querySelector('.total-price').textContent = (
+    price * slmoi
+  ).toLocaleString('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+  });
+}
+
+// Function giảm số lượng
+function decreaseValue(x, i) {
+  //get số lương trong thẻ input
+  let div = x.closest('.shopping-cart-item');
+  let sl = parseInt(div.querySelector('input[name="numBook"]').value);
+  let price = parseInt(div.querySelector('input[name="price"]').value);
+  //--
+  if (sl > 1) {
+    var slmoi = sl - 1;
+    //gán trở  lại input
+    div.querySelector('input[name="numBook"]').value = slmoi;
+
+    // Gọi hàm cập nhật tổng giá trị khi có thay đổi
+    updateTotalPrice();
+
+    //cập nhật giá trị lại cho input hidden có name="amount"
+    div.querySelector('input[name="amount"]').value = slmoi;
+
+    //cập nhật giá tiền
+    div.querySelector('.total-price').textContent = (
+      price * slmoi
+    ).toLocaleString('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+    });
+  } else {
+    // Nếu số lượng đã là 1, gán lại số lượng là 1
+    div.querySelector('input[name="numBook"]').value = 1;
+  }
+}
+
+//--------------------------------------------------//
+// Tính tổng tiền sp dựa trên item được check
 function calculateTotalPrice() {
   let total = 0;
   checkboxes.forEach(function (checkbox) {
     if (checkbox.checked) {
-      let itemPrice = checkbox
-        .closest('.shopping-cart-item')
-        .querySelector('.total-price').textContent;
-      total += parseInt(
-        itemPrice.replace('₫', '').trim().replace(/\./g, '').replace(',', '')
+      // Lấy giá trị số lượng và giá của sản phẩm
+      let quantity = parseInt(
+        checkbox
+          .closest('.shopping-cart-item')
+          .querySelector('input[name="numBook"]').value
       );
+      let price = parseInt(
+        checkbox
+          .closest('.shopping-cart-item')
+          .querySelector('input[name="price"]').value
+      );
+      // Tính tổng giá trị của sản phẩm và cập nhật vào biến total
+      total += quantity * price;
     }
   });
   //totalMoneyMain lưu giá trị tổng tiền của các sp dc chọn
   document.getElementsByName('totalMoneyMain')[0].value = total;
   return total;
 }
-// cập nhật tổng tiền lại sp dc check
+
+// Cập nhật tổng giá trị lại sp dc check
 function updateTotalPrice() {
-  totalPriceSpan.textContent = calculateTotalPrice().toLocaleString();
+  totalPriceSpan.textContent = calculateTotalPrice().toLocaleString('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+  });
 }
 
-// luôn thay đổi theo checkbox dc check
+// Luôn thay đổi theo checkbox dc check
 checkboxes.forEach(function (checkbox) {
   checkbox.addEventListener('change', function () {
     updateTotalPrice();
   });
 });
+
 checkboxAll.addEventListener('change', function () {
   checkboxes.forEach(function (checkbox) {
     checkbox.checked = checkboxAll.checked;
@@ -190,7 +243,45 @@ checkboxAll.addEventListener('change', function () {
   updateTotalPrice();
   updatePaymentButtonState();
 });
-//----------------------------------//
+
+//---------------------------------------------------------------------------------//
+//Hàm tính giá tiền và cập nhật
+
+// function calculateTotal() {
+//   let total = 0;
+
+//   // Lấy giá trị số lượng và giá của sản phẩm
+//   let quantity = parseInt(
+//     document
+//       .closest('.shopping-cart-item')
+//       .querySelector('input[name="numBook"]').value
+//   );
+//   let price = parseInt(
+//     document.closest('.shopping-cart-item').querySelector('input[name="price"]')
+//       .value
+//   );
+//   // Tính tổng giá trị của sản phẩm và cập nhật vào biến total
+//   total = quantity * price;
+
+//   return total;
+// }
+
+// // Cập nhật tổng giá trị lại sp dc nhan
+// function updateTotal() {
+//   totalPriceSpan2.textContent = calculateTotal().toLocaleString('vi-VN', {
+//     style: 'currency',
+//     currency: 'VND',
+//   });
+// }
+
+// // Lắng nghe sự kiện input change cho các input numBook
+// document.querySelectorAll('input[name="numBook"]').forEach(function (input) {
+//   input.addEventListener('change', function () {
+//     updateTotalPrice(); // Gọi hàm cập nhật tổng giá trị khi có thay đổi
+//   });
+// });
+
+//------------------------------------------------------------------//
 
 // Hàm kiểm tra xem ít nhất một checkbox đã được chọn hay không
 function atLeastOneCheckboxChecked() {
