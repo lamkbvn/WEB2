@@ -314,8 +314,9 @@ switch ($action) {
 			$ngay_bat_dau = $_POST['ngay_bat_dau'];
 			$ngay_ket_thuc = $_POST['ngay_ket_thuc'];
 			$mo_ta = $_POST['mo_ta'];
+			$status = $_POST['status'];
 
-			if ($db->updateVoucher($id, $ten_voucher, $ma_voucher, $gia_tri, $ngay_bat_dau, $ngay_ket_thuc, $mo_ta)) {
+			if ($db->updateVoucher($id, $ten_voucher, $ma_voucher, $gia_tri, $ngay_bat_dau, $ngay_ket_thuc, $mo_ta,$status )) {
 				$alert = 'add_success';
 			}
 		}

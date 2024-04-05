@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $first=0;
             }
             $db->InsertDetailOrder($id, $id_product, $price, $amount, $price*$amount, $date);
-            echo "ID sản phẩm: $id_product, Số lượng :  $amount, Tổng tiền: $price*$amount, Số lượng: $amount, Giá: $price, Ngày: $date<br>";
+            
             echo "ID sản phẩm: $id_product, Số lượng book/tour: $amount, Tổng tiền: $tongTien, Số lượng: $amount, Giá: $price, Ngày: $date<br>";
    // Sau đó, bạn có thể thực hiện các thao tác xử lý dữ liệu khác tại đây
 }
