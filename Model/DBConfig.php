@@ -299,7 +299,8 @@ class Database
   {
     $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, address, soLuongConLai, star_feedback)
     VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$address', '$acount', '0')";
-    return $this->execute($sql);
+    $this->execute($sql);
+    return mysqli_affected_rows($this->conn);
   }
   //edit Tour
   public function UpdateTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $dateUpdate, $address, $acount)
@@ -315,7 +316,8 @@ class Database
             address = '$address', 
             soLuongConLai = '$acount' 
             WHERE id = '$id'";
-    return $this->execute($sql);
+    $this->execute($sql);
+    return mysqli_affected_rows($this->conn);
 }
 
   //xóa tour
@@ -340,13 +342,15 @@ class Database
   public function InsertRole($name)
   {
     $sql = "INSERT INTO role (decription) VALUES ('$name')";
-    return $this->execute($sql);
+    $this->execute($sql);
+    return mysqli_affected_rows($this->conn);
   }
   // update role
   public function UpdateNameRole($id, $name)
   {
     $sql = "UPDATE role SET decription = '$name' WHERE id = $id";
-    return $this->execute($sql);
+    $this->execute($sql);
+    return mysqli_affected_rows($this->conn);
   }
   // tìm role theo id
   public function FindRole($idRole)

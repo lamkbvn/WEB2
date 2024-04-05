@@ -17,7 +17,10 @@ if(isset($_REQUEST['addRole'])){
     if(isset($_REQUEST['name_role'])){
         $nameRole = $_REQUEST['name_role'];
     }
-    $db->InsertRole($nameRole);
+    $isSuccess = $db->InsertRole($nameRole);
+    if($isSuccess>0){
+        echo "<script> alert('Thêm thành công') </script>";
+    } else echo "<script> alert('Thêm thất bại') </script>";
     foreach ($rowsCN as $rowCN) {
         $idCN = $rowCN['id'];
         $HD="null";

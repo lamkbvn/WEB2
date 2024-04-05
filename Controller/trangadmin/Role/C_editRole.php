@@ -21,7 +21,10 @@ if(isset($_REQUEST['addRole'])){
     {
         $idRole = $_REQUEST['idRole'];
     }
-    $db->UpdateNameRole($idRole, $nameRole);
+    $isSuccess = $db->UpdateNameRole($idRole, $nameRole);
+    if($isSuccess>0){
+        echo "<script> alert('Cập nhật thành công') </script>";
+    } else echo "<script> alert('Cập nhật thất bại') </script>";
     $db->DeleteRoleLinhDong($idRole);
     foreach ($rowsCN as $rowCN) {
         $idCN = $rowCN['id'];
