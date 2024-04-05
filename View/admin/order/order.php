@@ -49,31 +49,31 @@
 
         <div class="list-feature">
             <div class="filter-container">
-                <select id="filterBy">
+                <!-- <select id="filterBy">
                     <option value="all">Tất cả</option>
                     <option value="name">Tên</option>
                     <option value="year">Năm sinh</option>
-                </select>
-                <input type="text" id="filterInput" placeholder="Nhập giá trị...">
-                <button>Lọc</button>
+                </select> -->
+                <input type="text" id="filterInput" placeholder="Nhập giá trị cần tìm kiếm...">
+                <!-- <button>Lọc</button> -->
             </div>
 
-            <a href="index.php?controller=trang-admin&action=addTour" class="list-feature-item add-user-btn">
-                <img src="css/icons/favorites-admin-icon.svg" alt="" class="list-feature-item--icon">
-                <p class="nav-admin-item--title">Thêm mới</p>
-            </a>
-        </div>
-        <table id="tableData" class="custom-table">
-            <thead class="table-head">
-                <tr class="table--head">
-                    <th class="table-header">Mã đơn hàng</th>
-                    <th class="table-header">Tên người đặt</th>
-                    <th class="table-header">Thời gian đặt</th>
-                    <th class="table-header">Tổng giá trị</th>
-                    <th class="table-header">Trạng thái</th>
-                    <th class="table-header">Hành động</th>
-                </tr>
-            </thead>
+			<!-- <a href="index.php?controller=trang-admin&action=addTour" class="list-feature-item add-user-btn">
+				<img src="css/icons/favorites-admin-icon.svg" alt="" class="list-feature-item--icon">
+				<p class="nav-admin-item--title">Thêm mới</p>
+			</a> -->
+		</div>
+		<table id="tableData" class="custom-table">
+			<thead class="table-head">
+				<tr class="table--head">
+					<th class="table-header">Mã đơn hàng</th>
+					<th class="table-header">Tên người đặt</th>
+					<th class="table-header">Thời gian đặt</th>
+					<th class="table-header">Tổng giá trị</th>
+					<th class="table-header">Trạng thái</th>
+					<th class="table-header">Hành động</th>
+				</tr>
+			</thead>
 
             <tbody class="table-body">
                 <?php
@@ -120,9 +120,38 @@
 
 
 						<td class="table-cell">
+
 							<a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=detailOrder&id=<?php echo $value['id']; ?>">Detail</a>
-							<a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=editOrder&id=<?php echo $value['id']; ?>">Edit</a>
-							<a class="delete-btn table-btn" data-delete-url="index.php?controller=trang-admin&action=deleteOrder&id=<?php echo $value['id']; ?>">Delete</a>
+
+							<?php
+							$isAdd = 0;
+							$isEdit = 0;
+							$isDelete = 0;
+							foreach ($role as $rowRole) {
+								if ($rowRole['id_chucNang'] == 3) {
+									switch ($rowRole['HD']) {
+										case 'Add':
+											$isAdd = 1;
+											break;
+										case 'Edit':
+											$isEdit = 1;
+											break;
+										case 'Delete':
+											$isDelete = 1;
+											break;
+										default:
+											# code...
+											break;
+									}
+								}
+							}
+
+							if ($isDelete) {
+								//echo "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=editOrder&id={$value['id']}'>Edit</a>";
+								echo "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=deleteOrder&id={$value['id']}'>Delete</a>";
+							}
+							?>
+
 						</td>
 					</tr>
 				<?php

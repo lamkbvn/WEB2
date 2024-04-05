@@ -11,11 +11,36 @@
 				<input type="text" id="filterInput" placeholder="Nhập giá trị cần tìm kiếm...">
 
 			</div>
+			<?php
+			$isAdd = 0;
+			$isEdit = 0;
+			$isDelete = 0;
+			foreach ($role as $rowRole) {
+				if ($rowRole['id_chucNang'] == 1) {
+					switch ($rowRole['HD']) {
+						case 'Add':
+							$isAdd = 1;
+							break;
+						case 'Edit':
+							$isEdit = 1;
+							break;
+						case 'Delete':
+							$isDelete = 1;
+							break;
+						default:
+							# code...
+							break;
+					}
+				}
+			}
+			if ($isAdd == 1) {
+				echo "<a href='index.php?controller=trang-admin&action=add' class='list-feature-item add-user-btn'>
+					<img src='css/icons/favorites-admin-icon.svg' alt='' class='list-feature-item--icon'>
+					<p class='nav-admin-item--title'>Thêm mới</p>
+				</a>";
+			}
+			?>
 
-			<a href="index.php?controller=trang-admin&action=add" class="list-feature-item add-user-btn">
-				<img src="css/icons/favorites-admin-icon.svg" alt="" class="list-feature-item--icon">
-				<p class="nav-admin-item--title">Thêm mới</p>
-			</a>
 		</div>
 		<table id="tableData" class="custom-table">
 			<thead class="table-head">
@@ -44,17 +69,25 @@
 							<td class="table-cell create_at"><?php echo $value['create_at']; ?></td>
 							<td class="table-cell diachi"><?php echo $value['address']; ?></td>
 							<td class="table-cell">
-								<a class="edit-role table-btn" href="index.php?controller=trang-admin&action=editrole&id=<?php echo $value['id']; ?>">Role</a>
-								<a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=edit&id=<?php echo $value['id']; ?>">Edit</a>
+
+
 								<?php
-								$status = $value['status'];
-								if ($status == 0) {
-									echo '<a class="unban-user table-btn" href="index.php?controller=trang-admin&action=unbanuser&id=' . $value['id'] . '">Unban</a>';
-								} elseif ($status == 1) {
-									echo '<a class="ban-user table-btn" href="index.php?controller=trang-admin&action=banuser&id=' . $value['id'] . '">Ban </a>';
+								if ($isEdit == 1) {
+									echo "<a class='edit-role table-btn' href='index.php?controller=trang-admin&action=editrole&id={$value['id']}'>Role</a>";
+									echo "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=edit&id={$value['id']}'>Edit</a>";
+
+									$status = $value['status'];
+									if ($status == 0) {
+										echo '<a class="unban-user table-btn" href="index.php?controller=trang-admin&action=unbanuser&id=' . $value['id'] . '">Unban</a>';
+									} elseif ($status == 1) {
+										echo '<a class="ban-user table-btn" href="index.php?controller=trang-admin&action=banuser&id=' . $value['id'] . '">Ban </a>';
+									}
+								}
+								if ($isDelete == 1) {
+									echo "<a class='delete-btn table-btn' href='index.php?controller=trang-admin&action=delete&id={$value['id']}'>Delete</a>";
 								}
 								?>
-								<a class="delete-btn table-btn" href="index.php?controller=trang-admin&action=delete&id=<?php echo $value['id']; ?>">Delete</a>
+
 							</td>
 						</tr>
 				<?php

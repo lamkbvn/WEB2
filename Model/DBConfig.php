@@ -386,6 +386,21 @@ class Database
     return $this->execute($sql);
   }
   // check quyền mới cho nhấn tabAdmin
+public function checkRoleAdmin($idAccount){
+  $sql = "SELECT * 
+  FROM acount
+  JOIN phanquyenlinhdong ON acount.id_role = phanquyenlinhdong.id_role 
+  WHERE acount.id = $idAccount;";
+  $result = $this->execute($sql);
+  $roles = array(); // Mảng chứa các role
+    
+  while ($row = mysqli_fetch_array($result)) {
+      $roles[] = $row; // Thêm hàng dữ liệu vào mảng roles
+  }
+
+  return $roles;
+}
+
   public function resultThongKe($orderby, $selectCategory, $dateStart, $dateEnd, $namecoll)
   {
     $sql = 'SELECT od.id ,p.title ,od.price , od.amount , od.total_money , od.date_go

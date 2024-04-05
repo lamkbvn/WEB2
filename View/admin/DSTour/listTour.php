@@ -9,11 +9,35 @@
 			<div class="filter-container">
 				<input type="text" id="filterInput" placeholder="Nhập giá trị cần tìm kiếm...">
 			</div>
-
-			<a href="index.php?controller=trang-admin&action=addTour" class="list-feature-item add-user-btn">
-				<img src="css/icons/favorites-admin-icon.svg" alt="" class="list-feature-item--icon">
-				<p class="nav-admin-item--title">Thêm mới</p>
-			</a>
+			<?php
+			$isAdd = 0;
+			$isEdit = 0;
+			$isDelete = 0;
+			foreach ($role as $rowRole) {
+				if ($rowRole['id_chucNang'] == 2) {
+					switch ($rowRole['HD']) {
+						case 'Add':
+							$isAdd = 1;
+							break;
+						case 'Edit':
+							$isEdit = 1;
+							break;
+						case 'Delete':
+							$isDelete = 1;
+							break;
+						default:
+							# code...
+							break;
+					}
+				}
+			}
+			if ($isAdd == 1) {
+				echo "<a href='index.php?controller=trang-admin&action=addTour' class='list-feature-item add-user-btn'>
+						<img src='css/icons/favorites-admin-icon.svg' alt='' class='list-feature-item--icon'>
+						<p class='nav-admin-item--title'>Thêm mới</p>
+					</a>";
+			}
+			?>
 		</div>
 		<table id="tableData" class="custom-table">
 			<thead class="table-head">
@@ -56,8 +80,14 @@
 						<td class="table-cell"><?php echo $value['soLuongConLai']; ?></td>
 						<td class="table-cell status"><?php echo $value['star_feedback']; ?></td>
 						<td class="table-cell elet">
-							<a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=editTour&id=<?php echo $value['id']; ?>">Edit</a>
-							<a class="delete-btn table-btn" data-delete-url="index.php?controller=trang-admin&action=deleteTour&id=<?php echo $value['id']; ?>">Delete</a>
+							<?php
+								if ($isEdit == 1) {
+									echo "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=editTour&id={$value['id']}'>Edit</a>";
+								}
+								if ($isDelete == 1) {
+									echo "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=deleteTour&id={$value['id']}'>Delete</a>";
+								}
+							?>
 						</td>
 					</tr>
 				<?php
