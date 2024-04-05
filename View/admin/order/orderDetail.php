@@ -14,6 +14,7 @@
     .body-order-detail {
         margin-left: 220px;
         margin-right: 30px;
+        margin-top: 60px;
     }
 
     .infor {

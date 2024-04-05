@@ -385,7 +385,7 @@ class Database
     $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucNang, HD) values ('$last_role_id', '$id_CN', '$HD')";
     return $this->execute($sql);
   }
-
+  // check quyền mới cho nhấn tabAdmin
   public function resultThongKe($orderby, $selectCategory, $dateStart, $dateEnd, $namecoll)
   {
     $sql = 'SELECT od.id ,p.title ,od.price , od.amount , od.total_money , od.date_go
