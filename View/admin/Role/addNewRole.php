@@ -151,9 +151,11 @@
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status === 200) {
+                            alert('Thêm thành công')
                             // Xử lý kết quả thành công ở đây nếu cần thiết
                             console.log(xhr.responseText);
                         } else {
+                            alert('Thêm thất bại')
                             // Xử lý lỗi nếu cần thiết
                             alert('Error: ' + xhr.status);
                         }

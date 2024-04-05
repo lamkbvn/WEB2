@@ -7,8 +7,14 @@
     #ImgValidation1,
     #ImgValidation2,
     #ImgValidation3 {
+        font-size: 12px;
         display: none;
         color: red;
+    }
+
+    .valiFormAddTour{
+        font-size: 12px;
+        margin-bottom: 3px;
     }
 
     #formAddTour {
@@ -235,21 +241,21 @@
                             $srcArray[$i] = "images/no_image.gif";
                         }
                         ?>
-                        <input type="file" name="img1" id="img1" class="inputfile">
+                        <input type="file" name="img1" id="img1" class="inputfile" accept="image/*">
                         <label for="img1" class="file-upload">
                             <span class="spanplus">+</span>
                             <img class="uploaded-image" id="uploaded-image1" src="<?php echo $srcArray[0] ?>" alt="Uploaded Image">
                         </label> <br>
                         <span id="ImgValidation1">Dữ liệu không hợp lệ</span><br>
 
-                        <input type="file" name="img2" id="img2" class="inputfile">
+                        <input type="file" name="img2" id="img2" class="inputfile" accept="image/*">
                         <label for="img2" class="file-upload">
                             <span class="spanplus">+</span>
                             <img class="uploaded-image" id="uploaded-image2" src="<?php echo $srcArray[1] ?>" alt="Uploaded Image">
                         </label><br>
                         <span id="ImgValidation2">Dữ liệu không hợp lệ</span><br>
 
-                        <input type="file" name="img3" id="img3" class="inputfile">
+                        <input type="file" name="img3" id="img3" class="inputfile" accept="image/*">
                         <label for="img3" class="file-upload">
                             <span class="spanplus">+</span>
                             <img class="uploaded-image" id="uploaded-image3" src="<?php echo $srcArray[2] ?>" alt="Uploaded Image">
@@ -329,7 +335,7 @@
                 document.getElementById('provincialValidation').style.display = 'none';
             }
 
-            if (price.value.trim() === '') {
+            if (price.value.trim() === '' || price.value<0) {
                 e.preventDefault();
                 document.getElementById('priceValidation').style.display = 'block';
                 isValid = false;
@@ -337,7 +343,7 @@
                 document.getElementById('priceValidation').style.display = 'none';
             }
 
-            if (acount.value.trim() === '') {
+            if (acount.value.trim() === '' || acount.value<0) {
                 e.preventDefault();
                 document.getElementById('acountValidation').style.display = 'block';
                 isValid = false;

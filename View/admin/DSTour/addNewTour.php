@@ -15,6 +15,7 @@
     #ImgValidation1,
     #ImgValidation2,
     #ImgValidation3 {
+        font-size: 12px;
         display: none;
         color: red;
     }
@@ -33,6 +34,11 @@
         align-items: center;
         justify-content: space-between;
         margin-left: 22px;
+    }
+
+    .valiFormAddTour{
+        font-size: 12px;
+        margin-bottom: 3px;
     }
 
     #btnAddTour {
@@ -222,21 +228,21 @@
                 <div class="containFieldAddTour">
                     <label for="">Chọn ảnh</label> <br>
                     <div class="box-up-img">
-                        <input type="file" name="img1" id="img1" class="inputfile">
+                        <input type="file" name="img1" id="img1" class="inputfile" accept="image/*">
                         <label for="img1" class="file-upload">
                             <span class="spanplus">+</span>
                             <img class="uploaded-image" id="uploaded-image1" src="#" alt="Uploaded Image">
                         </label> <br>
                         <span id="ImgValidation1">Dữ liệu không hợp lệ</span><br>
 
-                        <input type="file" name="img2" id="img2" class="inputfile">
+                        <input type="file" name="img2" id="img2" class="inputfile" accept="image/*">
                         <label for="img2" class="file-upload">
                             <span class="spanplus">+</span>
                             <img class="uploaded-image" id="uploaded-image2" src="#" alt="Uploaded Image">
                         </label><br>
                         <span id="ImgValidation2">Dữ liệu không hợp lệ</span><br>
 
-                        <input type="file" name="img3" id="img3" class="inputfile">
+                        <input type="file" name="img3" id="img3" class="inputfile" accept="image/*">
                         <label for="img3" class="file-upload">
                             <span class="spanplus">+</span>
                             <img class="uploaded-image" id="uploaded-image3" src="#" alt="Uploaded Image">
@@ -313,7 +319,7 @@
                 document.getElementById('provincialValidation').style.display = 'none';
             }
 
-            if (price.value.trim() === '') {
+            if (price.value.trim() === '' || price.value<0) {
                 e.preventDefault();
                 document.getElementById('priceValidation').style.display = 'block';
                 isValid = false;
@@ -321,7 +327,7 @@
                 document.getElementById('priceValidation').style.display = 'none';
             }
 
-            if (acount.value.trim() === '') {
+            if (acount.value.trim() === '' || acount.value<0) {
                 e.preventDefault();
                 document.getElementById('acountValidation').style.display = 'block';
                 isValid = false;

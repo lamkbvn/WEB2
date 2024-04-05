@@ -72,9 +72,10 @@
 
     <div class="navigation-admin">
         <a href="index.php?controller=trang-admin&action=indexAdmin" id="nav-item--logo">
-            <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo"></a>
+            <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo">
+        </a>
         <div class="nav-admin-list">
-
+            
             <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Người dùng</p>
@@ -99,9 +100,13 @@
                 <p class="nav-admin-item--title">Voucher</p>
             </a>
 
-            <a href="index.php?controller=trang-admin&action=dthongke" id="page3" class="nav-admin-item">
+            <a href="index.php?controller=trang-admin&action=dthongke" id="page6" class="nav-admin-item">
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Thống kê</p>
+            </a>
+            <a href="index.php?controller=trang-admin&action=order" id="page3" class="nav-admin-item">
+                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <p class="nav-admin-item--title">Order</p>
             </a>
         </div>
     </div>
@@ -118,15 +123,17 @@
     const urlParams = new URLSearchParams(window.location.search);
     const action = urlParams.get('action');
 
-    if (action === 'indexAdmin') {
+    if (action === 'indexAdmin' || action === 'edit' || action === 'editrole') {
         document.getElementById('page1').classList.add('header-admin-active');
-    } else if (action === 'role') {
+    } else if (action === 'role' || action === 'editRole') {
         document.getElementById('page2').classList.add('header-admin-active');
-    } else if (action === 'tour') {
+    } else if (action === 'tour' || action === 'editTour') {
         document.getElementById('page3').classList.add('header-admin-active');
     } else if (action === 'dsbl') {
         document.getElementById('page4').classList.add('header-admin-active');
-    } else if (action === 'dsvoucher') {
+    } else if (action === 'dsvoucher' || action === 'suavoucher') {
         document.getElementById('page5').classList.add('header-admin-active');
+    } else if (action === 'dthongke') {
+        document.getElementById('page6').classList.add('header-admin-active');
     }
 </script>

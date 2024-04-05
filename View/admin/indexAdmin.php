@@ -68,7 +68,6 @@
 </body>
 
 <script>
-	// Lấy ô input và bảng dữ liệu
 	var input = document.getElementById("filterInput");
 	var table = document.getElementById("tableData");
 
@@ -81,21 +80,24 @@
 		for (var i = 0; i < rows.length; i++) {
 			var cells = rows[i].getElementsByClassName("table-cell"); // Lấy tất cả các ô trong hàng
 
-			if (fullname || email || phone_number || create_at || diachi) {
-				var textValue = fullname.textContent || fullname.innerText;
-				var emailValue = email.textContent || email.innerText;
-				var phone_numberValue = phone_number.textContent || phone_number.innerText;
-				var create_atValue = create_at.textContent || create_at.innerText;
-				var diachiValue = diachi.textContent || diachi.innerText;
-				if (textValue.toLowerCase().indexOf(filter) > -1 ||
-					emailValue.toLowerCase().indexOf(filter) > -1 ||
-					phone_numberValue.toLowerCase().indexOf(filter) > -1 ||
-					create_atValue.toLowerCase().indexOf(filter) > -1 ||
-					diachiValue.toLowerCase().indexOf(filter) > -1) {
-					rows[i].style.display = ""; // Hiển thị hàng
-				} else {
-					rows[i].style.display = "none"; // Ẩn hàng
+			var rowVisible = false; // Biến để kiểm tra xem hàng có nên hiển thị hay không
+
+			// Lặp qua tất cả các ô trong hàng
+			for (var j = 0; j < cells.length; j++) {
+				var textValue = cells[j].textContent.toLowerCase(); // Nội dung của ô chuyển thành chữ thường
+
+				// Nếu nội dung của ô chứa giá trị tìm kiếm, hiển thị hàng và thoát khỏi vòng lặp
+				if (textValue.indexOf(filter) > -1) {
+					rowVisible = true;
+					break;
 				}
+			}
+
+			// Hiển thị hoặc ẩn hàng dựa trên kết quả kiểm tra các ô trong hàng
+			if (rowVisible) {
+				rows[i].style.display = ""; // Hiển thị hàng
+			} else {
+				rows[i].style.display = "none"; // Ẩn hàng
 			}
 		}
 	});
@@ -125,23 +127,4 @@
 			}
 		});
 	});
-	var rowVisible = false; // Biến để kiểm tra xem hàng có nên hiển thị hay không
-
-	// Lặp qua tất cả các ô trong hàng
-	for (var j = 0; j < cells.length; j++) {
-		var textValue = cells[j].textContent.toLowerCase(); // Nội dung của ô chuyển thành chữ thường
-
-		// Nếu nội dung của ô chứa giá trị tìm kiếm, hiển thị hàng và thoát khỏi vòng lặp
-		if (textValue.indexOf(filter) > -1) {
-			rowVisible = true;
-			break;
-		}
-	}
-
-	// Hiển thị hoặc ẩn hàng dựa trên kết quả kiểm tra các ô trong hàng
-	if (rowVisible) {
-		rows[i].style.display = ""; // Hiển thị hàng
-	} else {
-		rows[i].style.display = "none"; // Ẩn hàng
-	}
 </script>

@@ -126,7 +126,10 @@ a {
 							}
 						}
 						if (isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin'])) {
+<<<<<<< HEAD
 							
+=======
+>>>>>>> 2bef3d18a674bbbb49daa4b788b3b8075129ad03
 							echo '<div class ="tennguoidung nav-top--right__panner"> ' . $db->getTenNguoiDung() . '</div>';
 
 							echo '

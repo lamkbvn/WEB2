@@ -35,8 +35,6 @@ if(isset($_REQUEST['idEdit'])){
 }
 
 if (isset($_REQUEST['btnAddTour'])) {
-    
-    echo "abc";
     $title = $_REQUEST['title'];
     $id = $_REQUEST['idTour'];
     $category = $_REQUEST['category'];
@@ -48,8 +46,10 @@ if (isset($_REQUEST['btnAddTour'])) {
     $acount = $_REQUEST['acount'];
     $category = $_REQUEST['category'];
     echo $idEdit;
-    $db->UpdateTour($idEdit, $category, 1, $provincial, $title, $price, $content, $currentDate, $address, $acount);
-    
+    $isSuccess = $db->UpdateTour($idEdit, $category, 1, $provincial, $title, $price, $content, $currentDate, $address, $acount);
+    if($isSuccess>0){
+        echo "<script> alert('Cập nhật thành công') </script>";
+    } else echo "<script> alert('Cập nhật thất bại') </script>";
     if (!empty($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
         $img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
         if(isset($_REQUEST['idImg0'])){

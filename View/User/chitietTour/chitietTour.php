@@ -240,6 +240,10 @@
                     </div>
                 </div>
                 <form action="buyTour.php" method="get" id="form-book-tour">
+                    <?php 
+                        $idUser = $_SESSION['idUserLogin'];
+                        $rowUser = $db->getDataId('nguoidung', $idUser);
+                    ?>
                     <input type="hidden" name="numTicketphp" value="0">
                     <input type="hidden" name="controller" value="chi-tiet-tour">
                     <input type="hidden" name="action" value="book-tour">
@@ -249,22 +253,22 @@
                     <h2>Vui lòng điền thông tin</h1>
                         <div class="container-field">
                             <label for="">Họ tên</label> </br>
-                            <input type="text" class="inputField-tourForm hoTen" name="hoTen">
+                            <input type="text" class="inputField-tourForm hoTen" name="hoTen" value='<?php echo $rowUser['fullname'] ?>'>
                             <span class="validation">Họ tên không hợp lệ</span>
                         </div>
                         <div class="container-field">
                             <label for="">Email</label> </br>
-                            <input type="text" class="inputField-tourForm email" name="email">
+                            <input type="text" class="inputField-tourForm email" name="email" value='<?php echo $rowUser['email'] ?>'>
                             <span class="validation">Email không hợp lệ</span>
                         </div>
                         <div class="container-field">
                             <label for="">Số điện thoại</label> </br>
-                            <input type="text" class="inputField-tourForm sodienthoai" name="sodienthoai">
+                            <input type="text" class="inputField-tourForm sodienthoai" name="sodienthoai" value='<?php echo $rowUser['phone_number'] ?>'>
                             <span class="validation">Số điện thoại không hợp lệ</span>
                         </div>
                         <div class="container-field">
                             <label for="">Địa chỉ</label> </br>
-                            <input type="text" class="inputField-tourForm diachi" name="diachi">
+                            <input type="text" class="inputField-tourForm diachi" name="diachi" value='<?php echo $rowUser['address'] ?>'>
                             <span class="validation">Địa chỉ không được rỗng</span>
                         </div>
                         <div class="container-field">

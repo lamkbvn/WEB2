@@ -3,6 +3,7 @@ require_once(__DIR__ . "/phpmailer/Exception.php");
 require_once(__DIR__ . "/phpmailer/PHPMailer.php");
 require_once(__DIR__ . "/phpmailer/SMTP.php");
 require_once(__DIR__ . "/function.php");
+include "../Model/DBConfig.php";	
 
 // Kiểm tra xem có dữ liệu được gửi qua phương thức POST không
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
@@ -82,4 +83,19 @@ if (isset($_POST['email-forgot'])) {
 	} else {
 		echo '<div data="-1" class="check-tim-thay-email"></div>';
 	}
+}
+
+if(isset($_POST['status'])) {
+	$orderId = $_POST['orderId'];
+	$oldStatus = $_POST['old_status'];
+	$newStatus = $_POST['status'];
+	$totalAllMoney = $_POST['total_all_money'];
+	$db = new Database();
+	$db->connect();
+	$db->updateOrder($orderId, $newStatus);
+	$email = $db->getMailByIdOrder($orderId);
+	$result = $db->getDetailOrderByOrderId($orderId);
+	$listOrderDetail = $db->getAll();
+	sendMailUpdateOrder($email, $orderId, $oldStatus, $newStatus, $listOrderDetail, $totalAllMoney);
+	header("location: http://localhost/WEB2/index.php?controller=trang-admin&action=detailOrder&id=$orderId");
 }
