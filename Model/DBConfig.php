@@ -698,6 +698,8 @@ class Database
     // Chuẩn bị truy vấn xóa
     $sql = "DELETE FROM orders WHERE id = $orderId";
     $result = $this->execute($sql);
+    $sql = "DELETE FROM order_detail WHERE id_order = $orderId";
+    $result = $this->execute($sql);
     
     return $result;
   }

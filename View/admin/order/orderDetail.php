@@ -14,6 +14,7 @@
     .body-order-detail {
         margin-left: 220px;
         margin-right: 30px;
+        margin-top: 60px;
     }
 
     .infor {
@@ -344,7 +345,7 @@
                                 <?= $value['title'] ?>
                             </td>
                             <td class="table-cell id">
-                                <?= $value['price'] ?>
+                                <?php echo number_format($value['price'], 0, ',', '.')?>
                             </td>
                             <td class="table-cell id">
                                 <?= $value['amount'] ?>
