@@ -18,8 +18,12 @@
 		<table id="tableData" class="custom-table">
 			<thead class="table-head">
 				<tr class="table--head">
-					<th class="table-header">ID</th>
-					<th class="table-header">Tên quyền</th>
+					<th class="table-header" onclick="sortTable(0)">ID
+						<img id="sortIcon0" src="images/arrow-point-to-down.png" width="14px">
+					</th>
+					<th class="table-header" onclick="sortTable(1)">Tên quyền
+						<img id="sortIcon1" src="images/arrow-point-to-up.png" width="14px">
+					</th>
 					<th class="table-header">Hành động</th>
 				</tr>
 			</thead>
@@ -106,4 +110,5 @@
 			});
 		});
 	</script>
+	<script src="js/sapxep.js"></script>
 </body>

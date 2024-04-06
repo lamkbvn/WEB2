@@ -43,12 +43,24 @@
 			<thead class="table-head">
 				<tr class="table--head">
 					<th class="table-header">Hình ảnh</th>
-					<th class="table-header">Tiêu đề</th>
-					<th class="table-header">Giá</th>
-					<th class="table-header">Ngày tạo</th>
-					<th class="table-header">Số lượng mua</th>
-					<th class="table-header">Số lượng còn lại</th>
-					<th class="table-header">Số sao</th>
+					<th class="table-header" onclick="sortTable(1)">Tiêu đề
+						<img id="sortIcon1" src="images/arrow-point-to-up.png" width="14px">
+					</th>
+					<th class="table-header" onclick="sortTable(2)">Giá
+						<img id="sortIcon2" src="images/arrow-point-to-up.png" width="14px">
+					</th>
+					<th class="table-header" onclick="sortTable(3)">Ngày tạo
+						<img id="sortIcon3" src="images/arrow-point-to-up.png" width="14px">
+					</th>
+					<th class="table-header" onclick="sortTable(4)">Số lượng mua
+						<img id="sortIcon4" src="images/arrow-point-to-up.png" width="14px">
+					</th>
+					<th class="table-header" onclick="sortTable(5)">Số lượng còn lại
+						<img id="sortIcon5" src="images/arrow-point-to-up.png" width="14px">
+					</th>
+					<th class="table-header" onclick="sortTable(6)">Số sao
+						<img id="sortIcon6" src="images/arrow-point-to-up.png" width="14px">
+					</th>
 					<th class="table-header">Hành động</th>
 				</tr>
 			</thead>
@@ -81,12 +93,12 @@
 						<td class="table-cell status"><?php echo $value['star_feedback']; ?></td>
 						<td class="table-cell elet">
 							<?php
-								if ($isEdit == 1) {
-									echo "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=editTour&id={$value['id']}'>Edit</a>";
-								}
-								if ($isDelete == 1) {
-									echo "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=deleteTour&id={$value['id']}'>Delete</a>";
-								}
+							if ($isEdit == 1) {
+								echo "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=editTour&id={$value['id']}'>Edit</a>";
+							}
+							if ($isDelete == 1) {
+								echo "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=deleteTour&id={$value['id']}'>Delete</a>";
+							}
 							?>
 						</td>
 					</tr>
@@ -98,7 +110,10 @@
 		</table>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="js/sapxep.js"></script>
 	<script>
+		
+
 		// Lấy ô input và bảng dữ liệu
 		var input = document.getElementById("filterInput");
 		var table = document.getElementById("tableData");
