@@ -11,11 +11,35 @@
                 <input type="text" id="filterInput" placeholder="Nhập giá trị cần tìm kiếm...">
 
             </div>
-
-            <a href="index.php?controller=trang-admin&action=themvoucher" class="list-feature-item add-user-btn">
-                <img src="css/icons/favorites-admin-icon.svg" alt="" class="list-feature-item--icon">
-                <p class="nav-admin-item--title">Thêm mới</p>
-            </a>
+            <?php
+			$isAdd = 0;
+			$isEdit = 0;
+			$isDelete = 0;
+			foreach ($role as $rowRole) {
+				if ($rowRole['id_chucNang'] == 1) {
+					switch ($rowRole['HD']) {
+						case 'Add':
+							$isAdd = 1;
+							break;
+						case 'Edit':
+							$isEdit = 1;
+							break;
+						case 'Delete':
+							$isDelete = 1;
+							break;
+						default:
+							# code...
+							break;
+					}
+				}
+			}
+			if ($isAdd == 1) {
+				echo "<a href='index.php?controller=trang-admin&action=themvoucher' class='list-feature-item add-user-btn'>
+					<img src='css/icons/favorites-admin-icon.svg' alt='' class='list-feature-item--icon'>
+					<p class='nav-admin-item--title'>Thêm mới</p>
+				</a>";
+			}
+			?>
 
         </div>
         <table id="tableData" class="custom-table">
@@ -57,8 +81,10 @@
                         <td class="table-cell date_end"><?php echo $voucher['date_end']; ?></td>
 
                         <td class="table-cell">
-                            <a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=suavoucher&id=<?php echo $voucher['id']; ?>">Edit</a>
-                            <a class="delete-btn table-btn " data-delete-url="index.php?controller=trang-admin&action=xoavoucher&id=<?php echo $voucher['id']; ?>">Delete</a>
+                            <?php 
+                                if($isEdit==1) echo "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=suavoucher&id={$voucher['id']}'>Edit</a>";
+                                if($isDelete==1) echo "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=xoavoucher&id={$voucher['id']}'>Delete</a>";
+                            ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
