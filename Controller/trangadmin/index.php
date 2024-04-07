@@ -168,6 +168,29 @@ switch ($action) {
 		require_once ('View/admin/Role/listRole.php');
 		break;
 	}
+	case 'chucnang': {
+		$data = $db->getAllData("chucnang");
+		require_once ('View/admin/chucnang/listChucNang.php');
+		break;
+	}
+	case 'addChucNang': {
+		require_once ('View/admin/ChucNang/addNewChucNang.php');
+		break;
+	}
+	case 'editChucNang': {
+		require_once ('View/admin/ChucNang/editChucNang.php');
+		break;//deleteChucnang
+	}
+	case 'deleteChucNang': {
+		if (isset ($_REQUEST['id'])) {
+			$id = $_REQUEST['id'];
+			$db->DeleteChucNang($id);
+		}
+		$data = $db->getAllData("chucnang");
+		require_once ('View/admin/chucnang/listChucNang.php');
+		break;
+	}
+	//tour
 	case 'tour': {
 		$data = $db->getAllData("product");
 		require_once ('View/admin/DSTour/listTour.php');

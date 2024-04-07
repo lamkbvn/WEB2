@@ -338,6 +338,25 @@ class Database
     return $this->execute($sql);
   }
 
+  // thêm chức năng
+  public function InsertChucNang($name)
+  {
+    $sql = "INSERT INTO chucnang (decription) VALUES ('$name')";
+    return $this->execute($sql);
+  }
+  // sửa chức năng
+  public function UpdateNameChucNang($id, $name)
+  {
+    $sql = "UPDATE chucnang SET decription = '$name' WHERE id = $id";
+    return $this->execute($sql);
+  }
+  //xóa chức năng
+  public function DeleteChucNang($id)
+  {
+    $sql = "DELETE FROM chucnang WHERE id = $id";
+    return $this->execute($sql);
+  }
+
   // thêm quyền
   public function InsertRole($name)
   {
