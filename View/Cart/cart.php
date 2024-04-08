@@ -22,8 +22,23 @@
                         </span>
                     </div>
                     <div class="wrapper-body-left_body">
-
-                        <?php foreach ($listCart as $i => $itemCart) : ?>
+                        <?php foreach ($listCart as $i => $itemCart) :
+                        //để hiện thị hình ảnh
+                            $stt = 1;
+                            $idProduct = $itemCart['id_product'];
+                            $rowsIMG = $db->getAllData('image_product');
+                            $urlIMG = null;
+                            if ($rowsIMG) {
+                                foreach ($rowsIMG as $rowIMG) {
+                                    if ($rowIMG['id_product'] == $idProduct) {
+                                        $imageData = $rowIMG['image'];
+                                        $urlIMG = 'data:image/jpeg;base64,' . base64_encode($imageData) . '';
+                                        break;
+                                    }
+                                }
+                            }
+                            if ($urlIMG == null) $urlIMG = "images/no_image.gif";
+                        ?>
 
                         <div class="shopping-cart-item">
                             <div class="shopping-cart-item_body">
@@ -38,7 +53,11 @@
                                 </div>
                                 <div class="shopping-cart-item_body-right">
                                     <div class="left">
-                                        <div class="banner-box"></div>
+                                        <!-- hình ảnh -->
+                                        <div class="banner-box">
+                                            <img loading="lazy" src="<?php echo $urlIMG ?>" alt="Hình ảnh tour"
+                                                width="88" height="88">
+                                        </div>
                                         <div class="middle-info-box">
                                             <a>
                                                 <p><?php echo $itemCart['title']; ?></p>
@@ -103,7 +122,11 @@
                                 </div>
                             </div>
                         </div>
-                        <?php endforeach; ?>
+
+                        <?php
+$stt++;
+                     endforeach; 
+                     ?>
                     </div>
                 </div>
                 <div class="wrapper-body-right">
