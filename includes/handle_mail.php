@@ -3,7 +3,7 @@ require_once(__DIR__ . "/phpmailer/Exception.php");
 require_once(__DIR__ . "/phpmailer/PHPMailer.php");
 require_once(__DIR__ . "/phpmailer/SMTP.php");
 require_once(__DIR__ . "/function.php");
-include "../Model/DBConfig.php";	
+// include "../Model/DBConfig.php";
 
 // Kiểm tra xem có dữ liệu được gửi qua phương thức POST không
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
@@ -85,7 +85,7 @@ if (isset($_POST['email-forgot'])) {
 	}
 }
 
-if(isset($_POST['status'])) {
+if (isset($_POST['status'])) {
 	$orderId = $_POST['orderId'];
 	$oldStatus = $_POST['old_status'];
 	$newStatus = $_POST['status'];
