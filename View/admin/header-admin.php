@@ -79,6 +79,10 @@
                 <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Phân quyền</p>
             </a>
+            <a href="index.php?controller=trang-admin&action=chucnang" id="page0" class="nav-admin-item">
+                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <p class="nav-admin-item--title">Chức năng</p>
+            </a>
             <?php
             $role = $db->checkRoleAdmin($_SESSION['idUserLogin']);
             foreach ($role as $rowRole) {
@@ -180,5 +184,7 @@
         document.getElementById('page6').classList.add('header-admin-active');
     } else if (action === 'order' || action === 'detailOrder') {
         document.getElementById('page7').classList.add('header-admin-active');
+    } else if (action === 'chucnang') {
+        document.getElementById('page0').classList.add('header-admin-active');
     }
 </script>

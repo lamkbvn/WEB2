@@ -3,14 +3,14 @@
 <body>
 
 	<div class="user--table">
-		<h2 class="table--heading">Danh sách Quyền</h2>
+		<h2 class="table--heading">Danh sách Chức năng</h2>
 
 		<div class="list-feature">
 			<div class="filter-container">
 				<input type="text" id="filterInput" placeholder="Nhập giá trị cần tìm kiếm...">
 			</div>
 
-			<a href="index.php?controller=trang-admin&action=addRole" class="list-feature-item add-user-btn">
+			<a href="index.php?controller=trang-admin&action=addChucNang" class="list-feature-item add-user-btn">
 				<img src="css/icons/favorites-admin-icon.svg" alt="" class="list-feature-item--icon">
 				<p class="nav-admin-item--title">Thêm mới</p>
 			</a>
@@ -21,7 +21,7 @@
 					<th class="table-header" onclick="sortTable(0)">ID
 						<img id="sortIcon0" src="images/arrow-point-to-down.png" width="14px">
 					</th>
-					<th class="table-header" onclick="sortTable(1)">Tên quyền
+					<th class="table-header" onclick="sortTable(1)">Tên Chức năng
 						<img id="sortIcon1" src="images/arrow-point-to-up.png" width="14px">
 					</th>
 					<th class="table-header">Hành động</th>
@@ -37,8 +37,8 @@
 						<td class="table-cell id"><?php echo $value['id']; ?></td>
 						<td class="table-cell"><?php echo $value['decription']; ?></td>
 						<td class="table-cell">
-							<a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=editRole&id=<?php echo $value['id']; ?>">Edit</a>
-							<a class="delete-btn table-btn" data-delete-url="index.php?controller=trang-admin&action=deleteRole&id=<?php echo $value['id']; ?>">Delete</a>
+							<a class="edit-btn table-btn" href="index.php?controller=trang-admin&action=editChucNang&id=<?php echo $value['id']; ?>">Edit</a>
+							<a class="delete-btn table-btn" data-delete-url="index.php?controller=trang-admin&action=deleteChucNang&id=<?php echo $value['id']; ?>">Delete</a>
 						</td>
 					</tr>
 				<?php
