@@ -1,12 +1,12 @@
 <?php
 
 
-if (isset ($_GET['controller']) && $_GET['controller'] == 'trang-admin') {
-	include_once ("View/admin/header-admin.php");
+if (isset($_GET['controller']) && $_GET['controller'] == 'trang-admin') {
+	include_once("View/admin/header-admin.php");
 }
 
 
-if (isset ($_GET['action'])) {
+if (isset($_GET['action'])) {
 	$action = $_GET['action'];
 } else {
 	$action = '';
@@ -18,251 +18,262 @@ $alert;
 
 switch ($action) {
 	case 'add': {
-		if (isset ($_POST['add_user'])) {
-			$fullname = $_POST['fullname'];
-			$email = $_POST['email'];
-			$phone_number = $_POST['phone_number'];
-			$create_at = $_POST['create_at'];
-			$status = $_POST['status'];
-			$address = $_POST['address'];
-			$id_acount = $_POST['id_acount'];
+			$listRoleTable = "role";
+			$roles = $db->getAllData($listRoleTable);
+			// if (isset($_POST['add_user'])) {
+			// 	$fullname = $_POST['fullname'];
+			// 	$email = $_POST['email'];
+			// 	$phone_number = $_POST['phone_number'];
+			// 	$create_at = $_POST['create_at'];
+			// 	$status = $_POST['status'];
+			// 	$address = $_POST['address'];
+			// 	$acount;
+			// 	$password;
+			// 	$role;
+			// 	if (isset($_POST['acount']) && isset($_POST['password'])) {
+			// 		$acount = $_POST['acount'];
+			// 		$password = $_POST['password'];
+			// 	}
 
-			// Gọi phương thức InsertData để chèn dữ liệu vào cơ sở dữ liệu
-			if ($db->insertUserData($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)) {
-				$alert = 'add_success';
-				header('location: index.php?controller=trang-admin&action=indexAdmin');
-			}
+			// 	if (isset($_POST['role'])) {
+			// 		$role = $_POST['role'];
+			// 	}
+			// 	if (
+			// 		$db->insertUserData($fullname, $email, $phone_number, $create_at, $status, $address)
+			// 		&& $hadAcount
+			// 	) {
+			// 		header('location: index.php?controller=trang-admin&action=indexAdmin');
+			// 	}
+			// }
+			// if (isset($_POST['add_user'])) {
+			// 	$fullname = $_POST['fullname'];
+			// 	$email = $_POST['email'];
+			// 	$phone_number = $_POST['phone_number'];
+			// 	echo "Dữ liệu đã được xử lý thành công!";
+			// }
+			require_once('View/admin/add.php');
+			break;
 		}
-
-		if (isset ($_POST['add_user'])) {
-			// Thực hiện kiểm tra và xử lý dữ liệu ở đây
-			// Ví dụ:
-			$fullname = $_POST['fullname'];
-			$email = $_POST['email'];
-			$phone_number = $_POST['phone_number'];
-			// Kiểm tra và xử lý dữ liệu...
-
-			// Sau khi xử lý, trả về phản hồi cho Ajax
-			echo "Dữ liệu đã được xử lý thành công!";
-		}
-		require_once ('View/admin/add.php');
-
-		break;
-	}
 
 	case 'edit': {
-		if (isset ($_GET['id'])) {
-			$id = $_GET['id'];
-			$listUsersTable = "nguoidung";
-			$dataID = $db->getDataId($listUsersTable, $id);
-			if (isset ($_POST['edit_user'])) {
-				$fullname = $_POST['fullname'];
-				$email = $_POST['email'];
-				$phone_number = $_POST['phone_number'];
-				$create_at = $_POST['create_at'];
-				$status = $_POST['status'];
-				$address = $_POST['address'];
-				$id_acount = $_POST['id_acount'];
+			if (isset($_GET['id'])) {
+				$id = $_GET['id'];
+				$listUsersTable = "nguoidung";
+				$dataID = $db->getDataId($listUsersTable, $id);
+				if (isset($_POST['edit_user'])) {
+					$fullname = $_POST['fullname'];
+					$email = $_POST['email'];
+					$phone_number = $_POST['phone_number'];
+					$create_at = $_POST['create_at'];
+					$status = $_POST['status'];
+					$address = $_POST['address'];
+					$id_acount = $_POST['id_acount'];
 
-				if ($db->updateEditData($id, $fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)) {
-					header('location: index.php?controller=trang-admin&action=indexAdmin');
-				}
-			}
-		}
-		require_once ('View/admin/edit.php');
-		break;
-	}
-
-	case 'editrole': {
-		$listRoleTable = "role";
-		$roles = $db->getAllData($listRoleTable);
-
-		if (isset ($_GET['id'])) {
-			$id = $_GET['id'];
-			if ($_SERVER["REQUEST_METHOD"] == "POST") {
-				if (isset ($_POST['role'])) {
-					$role = $_POST['role'];
-					if ($db->roleAccount($id, $role)) {
+					if ($db->updateEditData($id, $fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)) {
 						header('location: index.php?controller=trang-admin&action=indexAdmin');
 					}
 				}
 			}
+			require_once('View/admin/edit.php');
+			break;
 		}
-		require_once ('View/admin/editrole.php');
-		break;
-	}
+
+	case 'editrole': {
+			$listRoleTable = "role";
+			$roles = $db->getAllData($listRoleTable);
+
+			if (isset($_GET['id'])) {
+				$id = $_GET['id'];
+				if ($_SERVER["REQUEST_METHOD"] == "POST") {
+					if (isset($_POST['role'])) {
+						$role = $_POST['role'];
+						if ($db->roleAccount($id, $role)) {
+							header('location: index.php?controller=trang-admin&action=indexAdmin');
+						}
+					}
+				}
+			}
+			require_once('View/admin/editrole.php');
+			break;
+		}
 
 
 	case 'delete': {
-		if (isset ($_GET['id'])) {
-			$id = $_GET['id'];
-			$listUsersTable = "nguoidung";
+			if (isset($_GET['id'])) {
+				$id = $_GET['id'];
+				$listUsersTable = "nguoidung";
 
-			if ($dataID = $db->deleteUser($listUsersTable, $id)) {
-				header('location: index.php?controller=trang-admin&action=indexAdmin');
+				if ($dataID = $db->deleteUser($listUsersTable, $id)) {
+					header('location: index.php?controller=trang-admin&action=indexAdmin');
+				}
 			}
+			break;
 		}
-		break;
-	}
 
 	case 'banuser': {
-		if (isset ($_GET['id'])) {
-			$id = $_GET['id'];
-			$dataID = $db->blockUser($id);
-		}
-		header('location: index.php?controller=trang-admin&action=indexAdmin');
+			if (isset($_GET['id'])) {
+				$id = $_GET['id'];
+				$dataID = $db->blockUser($id);
+			}
+			header('location: index.php?controller=trang-admin&action=indexAdmin');
 
-		break;
-	}
+			break;
+		}
 
 	case 'unbanuser': {
-		if (isset ($_GET['id'])) {
-			$id = $_GET['id'];
-			$dataID = $db->unblockUser($id);
-		}
-		header('location: index.php?controller=trang-admin&action=indexAdmin');
+			if (isset($_GET['id'])) {
+				$id = $_GET['id'];
+				$dataID = $db->unblockUser($id);
+			}
+			header('location: index.php?controller=trang-admin&action=indexAdmin');
 
-		break;
-	}
+			break;
+		}
+
+	case 'trangChuAdmin': {
+			require_once('View/admin/trangChuAdmin.php');
+			break;
+		}
 
 	case 'indexAdmin': {
-		$listUsersTable = "nguoidung";
-		$data = $db->getAllData($listUsersTable);
-		require_once ('View/admin/indexAdmin.php');
-		break;
-	}
+			$listUsersTable = "nguoidung";
+			$data = $db->getAllData($listUsersTable);
+			require_once('View/admin/indexAdmin.php');
+			break;
+		}
+
 	case 'headeradmin': {
-		$listUsersTable = "nguoidung";
-		$data = $db->getAllData($listUsersTable);
-		require_once ('View/admin/header-admin.php');
-		break;
-	}
+			$listUsersTable = "nguoidung";
+			$data = $db->getAllData($listUsersTable);
+			require_once('View/admin/header-admin.php');
+			break;
+		}
 
 	case 'products': {
-		require_once ('View/admin/products.php');
-		break;
-	}
+			require_once('View/admin/products.php');
+			break;
+		}
 	case 'thongke': {
-		require_once ('View/admin/thongke.php');
-		break;
-	}
+			require_once('View/admin/thongke.php');
+			break;
+		}
 	case 'role': {
-		$data = $db->getAllData("role");
-		require_once ('View/admin/Role/listRole.php');
-		break;
-	}
+			$data = $db->getAllData("role");
+			require_once('View/admin/Role/listRole.php');
+			break;
+		}
 	case 'addRole': {
-		require_once ('View/admin/Role/addNewRole.php');
-		break;
-	}
+			require_once('View/admin/Role/addNewRole.php');
+			break;
+		}
 	case 'editRole': {
-		require_once ('View/admin/Role/editRole.php');
-		break;
-	}
+			require_once('View/admin/Role/editRole.php');
+			break;
+		}
 	case 'deleteRole': {
-		if (isset ($_REQUEST['id'])) {
-			$id = $_REQUEST['id'];
-			$db->DeleteRole($id);
+			if (isset($_REQUEST['id'])) {
+				$id = $_REQUEST['id'];
+				$db->DeleteRole($id);
+			}
+			$data = $db->getAllData("role");
+			require_once('View/admin/Role/listRole.php');
+			break;
 		}
-		$data = $db->getAllData("role");
-		require_once ('View/admin/Role/listRole.php');
-		break;
-	}
 	case 'chucnang': {
-		$data = $db->getAllData("chucnang");
-		require_once ('View/admin/chucnang/listChucNang.php');
-		break;
-	}
+			$data = $db->getAllData("chucnang");
+			require_once('View/admin/chucnang/listChucNang.php');
+			break;
+		}
 	case 'addChucNang': {
-		require_once ('View/admin/ChucNang/addNewChucNang.php');
-		break;
-	}
+			require_once('View/admin/ChucNang/addNewChucNang.php');
+			break;
+		}
 	case 'editChucNang': {
-		require_once ('View/admin/ChucNang/editChucNang.php');
-		break;//deleteChucnang
-	}
+			require_once('View/admin/ChucNang/editChucNang.php');
+			break; //deleteChucnang
+		}
 	case 'deleteChucNang': {
-		if (isset ($_REQUEST['id'])) {
-			$id = $_REQUEST['id'];
-			$db->DeleteChucNang($id);
+			if (isset($_REQUEST['id'])) {
+				$id = $_REQUEST['id'];
+				$db->DeleteChucNang($id);
+			}
+			$data = $db->getAllData("chucnang");
+			require_once('View/admin/chucnang/listChucNang.php');
+			break;
 		}
-		$data = $db->getAllData("chucnang");
-		require_once ('View/admin/chucnang/listChucNang.php');
-		break;
-	}
-	//tour
+		//tour
 	case 'tour': {
-		$data = $db->getAllData("product");
-		require_once ('View/admin/DSTour/listTour.php');
-		break;
-	}
+			$data = $db->getAllData("product");
+			require_once('View/admin/DSTour/listTour.php');
+			break;
+		}
 	case 'editTour': {
-		require_once ('View/admin/DSTour/editTour.php');
-		break;
-	}
+			require_once('View/admin/DSTour/editTour.php');
+			break;
+		}
 	case 'deleteTour': {
-		if (isset ($_REQUEST['id'])) {
-			$id = $_REQUEST['id'];
-			$db->DeleteTour($id);
+			if (isset($_REQUEST['id'])) {
+				$id = $_REQUEST['id'];
+				$db->DeleteTour($id);
+			}
+			$data = $db->getAllData("product");
+			require_once('View/admin/DSTour/listTour.php');
+			break;
 		}
-		$data = $db->getAllData("product");
-		require_once ('View/admin/DSTour/listTour.php');
-		break;
-	}
 	case 'addTour': {
-		require_once ('View/admin/DSTour/addNewTour.php');
+			require_once('View/admin/DSTour/addNewTour.php');
 
-		$result = $db->execute("SELECT * FROM provincial");
-		$rowsProvin = array();
+			$result = $db->execute("SELECT * FROM provincial");
+			$rowsProvin = array();
 
-		// Kiểm tra và lấy dữ liệu từ kết quả truy vấn
-		if ($result !== false && $result->num_rows > 0) {
-			while ($row2 = $result->fetch_assoc()) {
-				$rowsProvin[] = $row2; // Thêm dòng dữ liệu vào mảng
+			// Kiểm tra và lấy dữ liệu từ kết quả truy vấn
+			if ($result !== false && $result->num_rows > 0) {
+				while ($row2 = $result->fetch_assoc()) {
+					$rowsProvin[] = $row2; // Thêm dòng dữ liệu vào mảng
+				}
 			}
+
+			$result2 = $db->execute("SELECT * FROM category");
+			$rowsCate = array();
+
+			// Kiểm tra và lấy dữ liệu từ kết quả truy vấn
+			if ($result2 !== false && $result2->num_rows > 0) {
+				while ($row3 = $result2->fetch_assoc()) {
+					$rowsCate[] = $row3; // Thêm dòng dữ liệu vào mảng
+				}
+			}
+			if (isset($_REQUEST['btnAddTour'])) {
+				$id = date('dmyHis');
+				$title = $_REQUEST['title'];
+				$category = $_REQUEST['category'];
+				$provincial = $_REQUEST['provincial'];
+				$price = $_REQUEST['price'];
+				$content = $_REQUEST['content'];
+				$address = $_REQUEST['address'];
+				$currentDate = date("Y-m-d");
+				$acount = $_REQUEST['acount'];
+				$category = $_REQUEST['category'];
+
+				$db->InsertTour($id, $category, 1, $provincial, $title, $price, $content, $address, $currentDate, $acount);
+
+				if (!empty($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
+					$img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
+					$db->InsertImg($id, '1', $img1);
+				}
+
+				if (!empty($_FILES['img2']['tmp_name']) && getimagesize($_FILES['img2']['tmp_name']) !== false) {
+					$img2 = addslashes(file_get_contents($_FILES['img2']['tmp_name']));
+					$db->InsertImg($id, '2', $img2);
+				}
+
+				if (!empty($_FILES['img3']['tmp_name']) && getimagesize($_FILES['img3']['tmp_name']) !== false) {
+					$img3 = addslashes(file_get_contents($_FILES['img3']['tmp_name']));
+					$db->InsertImg($id, '3', $img3);
+				}
+			}
+			$db->disconnect();
+			break;
 		}
-
-		$result2 = $db->execute("SELECT * FROM category");
-		$rowsCate = array();
-
-		// Kiểm tra và lấy dữ liệu từ kết quả truy vấn
-		if ($result2 !== false && $result2->num_rows > 0) {
-			while ($row3 = $result2->fetch_assoc()) {
-				$rowsCate[] = $row3; // Thêm dòng dữ liệu vào mảng
-			}
-		}
-		if (isset ($_REQUEST['btnAddTour'])) {
-			$id = date('dmyHis');
-			$title = $_REQUEST['title'];
-			$category = $_REQUEST['category'];
-			$provincial = $_REQUEST['provincial'];
-			$price = $_REQUEST['price'];
-			$content = $_REQUEST['content'];
-			$address = $_REQUEST['address'];
-			$currentDate = date("Y-m-d");
-			$acount = $_REQUEST['acount'];
-			$category = $_REQUEST['category'];
-
-			$db->InsertTour($id, $category, 1, $provincial, $title, $price, $content, $address, $currentDate, $acount);
-
-			if (!empty ($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
-				$img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
-				$db->InsertImg($id, '1', $img1);
-			}
-
-			if (!empty ($_FILES['img2']['tmp_name']) && getimagesize($_FILES['img2']['tmp_name']) !== false) {
-				$img2 = addslashes(file_get_contents($_FILES['img2']['tmp_name']));
-				$db->InsertImg($id, '2', $img2);
-			}
-
-			if (!empty ($_FILES['img3']['tmp_name']) && getimagesize($_FILES['img3']['tmp_name']) !== false) {
-				$img3 = addslashes(file_get_contents($_FILES['img3']['tmp_name']));
-				$db->InsertImg($id, '3', $img3);
-			}
-		}
-		$db->disconnect();
-		break;
-	}
 	case 'dsbl':
 
 		$sql = "SELECT feedback.*, nguoidung.*, product.* 
@@ -278,7 +289,7 @@ switch ($action) {
 		break;
 	case 'xoabl':
 
-		if (isset ($_GET['id']) && $_GET['id'] > 0) {
+		if (isset($_GET['id']) && $_GET['id'] > 0) {
 			$commentId = $_GET['id'];
 			$result = $db->deleteComment($commentId);
 
@@ -305,7 +316,7 @@ switch ($action) {
 		include "View/admin/list_voucher.php";
 		break;
 	case 'xoavoucher':
-		if (isset ($_GET['id']) && $_GET['id'] > 0) {
+		if (isset($_GET['id']) && $_GET['id'] > 0) {
 			$voucherId = $_GET['id'];
 			$result = $db->deleteVoucher($voucherId);
 
@@ -319,7 +330,7 @@ switch ($action) {
 		}
 		break;
 	case 'suavoucher':
-		if (isset ($_GET['id']) && $_GET['id'] > 0) {
+		if (isset($_GET['id']) && $_GET['id'] > 0) {
 
 			$voucherId = $_GET['id'];
 
@@ -329,7 +340,7 @@ switch ($action) {
 		break;
 
 	case 'capnhatvoucher':
-		if (isset ($_POST['btnedit']) && ($_POST['btnedit'])) {
+		if (isset($_POST['btnedit']) && ($_POST['btnedit'])) {
 			$id = $_POST['id'];
 			$ten_voucher = $_POST['ten_voucher'];
 			$ma_voucher = $_POST['ma_voucher'];
@@ -339,7 +350,7 @@ switch ($action) {
 			$mo_ta = $_POST['mo_ta'];
 			$status = $_POST['status'];
 
-			if ($db->updateVoucher($id, $ten_voucher, $ma_voucher, $gia_tri, $ngay_bat_dau, $ngay_ket_thuc, $mo_ta,$status )) {
+			if ($db->updateVoucher($id, $ten_voucher, $ma_voucher, $gia_tri, $ngay_bat_dau, $ngay_ket_thuc, $mo_ta, $status)) {
 				$alert = 'add_success';
 			}
 		}
@@ -351,7 +362,7 @@ switch ($action) {
 		include "View/admin/list_voucher.php";
 		break;
 	case 'themvoucher':
-		if (isset ($_POST['btnadd']) && ($_POST['btnadd'])) {
+		if (isset($_POST['btnadd']) && ($_POST['btnadd'])) {
 			$ten_voucher = $_POST['ten_voucher'];
 			$ma_voucher = $_POST['ma_voucher'];
 			$gia_tri = $_POST['gia_tri'];
@@ -375,7 +386,7 @@ switch ($action) {
 		include "View/admin/order/order.php";
 		break;
 	case 'deleteOrder':
-		if (isset ($_GET['id'])) {
+		if (isset($_GET['id'])) {
 
 			$orderId = $_GET['id'];
 			$result = $db->deleteOrder($orderId);
@@ -390,7 +401,7 @@ switch ($action) {
 		}
 		break;
 	case 'detailOrder':
-		if (isset ($_GET['id'])) {
+		if (isset($_GET['id'])) {
 			$orderId = $_GET['id'];
 			$result = $db->getDetailOrderByOrderId($orderId);
 			$listOrderDetail = $db->getAll();

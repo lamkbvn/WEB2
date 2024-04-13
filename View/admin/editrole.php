@@ -37,10 +37,10 @@
 					<label for="role" class="editrole-label">Chọn quyền:</label>
 					<select name="role" id="role" class="editrole-select">
 						<option class="editrole-option" value="0" selected>--Chọn quyền--</option>
-						<?php $data = $db->getDataId('acount', $_REQUEST['id']);?>
+						<?php $data = $db->getDataId('acount', $_REQUEST['id']); ?>
 						<?php foreach ($roles as $role) :
-							$selected = ($data['id_role'] == $role['id']) ? 'selected' : '';?>
-							<option <?=$selected ?> class="editrole-option" value="<?= $role['id'] ?>"><?= $role['decription'] ?></option>
+							$selected = ($data['id_role'] == $role['id']) ? 'selected' : ''; ?>
+							<option <?= $selected ?> class="editrole-option" value="<?= $role['id'] ?>"><?= $role['decription'] ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>
