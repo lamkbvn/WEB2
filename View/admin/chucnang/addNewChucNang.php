@@ -59,27 +59,78 @@
         display: flex;
         gap: 30px;
     }
+
+    .spanNameCN {
+        display: none;
+        color: red;
+        font-size: 12px;
+        padding-bottom: 5px !important;
+    }
 </style>
 
 <body>
     <div class="container">
         <div class="themuser">
             <h3>Thêm chức năng</h3>
-            <form action="Controller/trangadmin/ChucNang/C_addNewChucNang.php" method="POST" class="form">
-                <label for="">Tên Chức năng</label> </br>
+            <form id="addForm" action="Controller/trangadmin/ChucNang/C_addNewChucNang.php" method="POST" class="form">
+                <label for="nameCN">Tên Chức năng</label><br>
                 <input type="text" id="nameCN" name="nameCN"><br>
+                <span class="spanNameCN">Vui lòng điền vào trường này</span>
                 <input type="submit" name="edit_CN" value="Thêm">
             </form>
-            <?php
-            if (isset($alert) && $alert == 'add_success') {
-                echo "<p style='color: green; align-item: center;'>Sửa thành công</p>";
-            } else return;
-            ?>
-
+            <div id="alertMessage"></div>
         </div>
-
-
     </div>
+
+    <script>
+        $(document).ready(function() {
+            let isNameValid = true; // Biến để kiểm tra trạng thái của trường nhập liệu
+            let nameCNValue = $('#nameCN').val().trim();
+            let span = $('.spanNameCN');
+            $('#nameCN').on('input', function() {
+                if ($(this).val().trim() === "") {
+                    span.css('display', 'block').css('margin-bottom', '5px');
+                    span.show(); // Hiển thị thông báo lỗi nếu trường nhập liệu trống
+                    isNameValid = false;
+                } else {
+                    span.hide(); // Ẩn thông báo lỗi nếu trường nhập liệu có dữ liệu hợp lệ
+                    isNameValid = true;
+                }
+            });
+
+            $('#addForm').submit(function(e) {
+                e.preventDefault(); // Prevent the form from submitting normally
+
+                if(nameCNValue === ""){
+                    span.css('display', 'block').css('margin-bottom', '5px');
+                    span.show();
+                    isNameValid = false;
+                }
+                if (!isNameValid) {
+                    return; // Không gửi dữ liệu nếu trường nhập liệu không hợp lệ
+                }
+
+                let alertMessage = $('#alertMessage');
+
+                // Send form data via Ajax
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        // Handle the successful response here
+                        alert('Thêm chức năng thành công!')
+                        // Redirect to the specified URL
+                        window.location.href = 'index.php?controller=trang-admin&action=chucnang';
+                    },
+                    error: function() {
+                        // Handle errors
+                        alert('Request failed. Please try again later.');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

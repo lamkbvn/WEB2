@@ -16,9 +16,11 @@
     }
     //session_start();
 
+    $idUser = $_SESSION['idUserLogin'];
     $result = $db->execute("SELECT * FROM product WHERE id = '$idTour'");
     $rowTour = $db->getData();
     $result2 = $db->execute("SELECT * FROM feedback WHERE product_id = '$idTour'");
+    $resultVoucher = $db->execute("SELECT * FROM discountuser WHERE id_user = '$idUser'");
     //$resultIMG = $db->execute("SELECT * FROM image_product WHERE id = '8'");
     // $rowIMG = $resultIMG->fetch_assoc();
     // $imageData = $rowIMG['image'];
@@ -109,14 +111,14 @@
             ?>
             <div class="container-img">
                 <div class="big-image">
-                    <img src='<?php echo $srcArray[0]?>' height="474" alt="Big Image">
+                    <img src='<?php echo $srcArray[0] ?>' height="474" alt="Big Image">
                 </div>
                 <div class="small-images">
                     <div class="small-image">
-                        <img src='<?php echo $srcArray[1]?>' height="234" alt="Small Image 1">
+                        <img src='<?php echo $srcArray[1] ?>' height="234" alt="Small Image 1">
                     </div>
                     <div class="small-image">
-                        <img src='<?php echo $srcArray[2]?>' height="234" alt="Small Image 2">
+                        <img src='<?php echo $srcArray[2] ?>' height="234" alt="Small Image 2">
                     </div>
                 </div>
             </div>
@@ -160,12 +162,54 @@
                     </div>
                     <div class="option-item">
                         <div class="discount">
+                            <div class="percentVou" id="1" style="display: none;">Giảm giá</div>
                             <div class="label-discount">Giảm giá</div>
                             <p class="content-discount">Xem voucher có sẵn</p>
                         </div>
                         <div class="vouchers">
-                            <div class="discount-card">
-                                <div class="infor-card">
+
+                            <?php
+                            $checkHasVou = 0;
+                            while ($rowVC = mysqli_fetch_array($resultVoucher)) {
+                                $idVoucher = $rowVC['id_discount'];
+                                $rowVoucherKq = $db->execute("select * from discount where id = $idVoucher");
+                                while ($rowVou = mysqli_fetch_array($rowVoucherKq)) {
+                                    $checkHasVou++;
+                                    $nameVou = $rowVou['code'];
+                                    $detailVou = $rowVou['discount_name'];
+                                    $percent = $rowVou['percent'];
+                                    $dateStart = new DateTime($rowVou['date_start']); // Chuyển đổi sang đối tượng DateTime
+                                    $dateEnd = new DateTime($rowVou['date_end']);
+                                    $interval = $dateStart->diff($dateEnd);
+
+                                    // Lấy số ngày từ kết quả
+                                    $numDayVou = $interval->days;
+                                    echo '<div class="discount-card">';
+                                    echo '<div class="infor-card">';
+                                    echo '<div class="infor-card-main">';
+                                    echo '<div class="title-infor-card">' . $detailVou . '</div>';
+                                    echo '<div id="idVoucher" style="display: none;">' . $rowVou['id'] . '</div>';
+                                    echo '<div class="detail-infor-card">Giảm ' . $percent . '%</div>';
+                                    echo '<div class="hansudung">Hạn sử dụng : Còn lại ' . $numDayVou . ' ngày</div>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '<div class="cac-hinh-tron">';
+                                    for ($i = 0; $i < 5; $i++) {
+                                        echo '<div class="hinhtron"></div>';
+                                    }
+                                    echo '</div>';
+                                    echo '<div class="use-card">';
+                                    echo '<div class="title-use-card">Mã ưu đãi</div>';
+                                    echo '<div class="code-use-card">' . $nameVou . '</div>';
+                                    echo '<div class="percentDIV" style="display: none;" >Giảm ' . $percent . '%</div>';
+                                    echo '<button class="btn-use-card" id=' . $idVoucher . '>Sử dụng</button>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
+                            }
+                            if ($checkHasVou == 0) echo "<div style='display:flex; align-item: center; justify-content: center;'>Bạn không có voucher nào.</div>";
+                            ?>
+                            <!-- <div class="infor-card">
                                     <div class="infor-card-main">
                                         <div class="title-infor-card">
                                             abc
@@ -193,8 +237,8 @@
                                         abc
                                     </div>
                                     <button class="btn-use-card">Sử dụng</button>
-                                </div>
-                            </div>
+                                </div> -->
+
                         </div>
                     </div>
                     <!-- <div class="option-item">
@@ -224,6 +268,16 @@
                                 0
                             </div>
                         </div>
+                        <div class="giamgia">
+                            <div class="container-total-money">
+                                <div class="lable-giamgia">Giảm:</div>
+                                <div id="discountAmount"></div>
+                            </div>
+                            <div class="container-total-money">
+                                <div class="lable-totalMoney">Giá cuối:</div>
+                                <div id="newPrice"></div>
+                            </div>
+                        </div>
                         <div class="container-submit-option">
                             <form action="buyTour.php" name="formAddCart" id="submitAddcart">
                                 <input type="hidden" name="controller" value="chi-tiet-tour">
@@ -240,14 +294,14 @@
                     </div>
                 </div>
                 <form action="buyTour.php" method="get" id="form-book-tour">
-                    <?php 
-                        $idUser = $_SESSION['idUserLogin'];
-                        $rowUser = $db->getDataId('nguoidung', $idUser);
+                    <?php
+                    $rowUser = $db->getDataId('nguoidung', $idUser);
                     ?>
                     <input type="hidden" name="numTicketphp" value="0">
                     <input type="hidden" name="controller" value="chi-tiet-tour">
                     <input type="hidden" name="action" value="book-tour">
                     <input type="hidden" name="datePhp" value="0">
+                    <input type="hidden" name="idVoucher" value="0">
                     <input type="hidden" name="totalMoneyphp" value="0">
                     <input type="hidden" name="id" value='<?php echo $idTour; ?>'>
                     <h2>Vui lòng điền thông tin</h1>
@@ -287,15 +341,15 @@
                         <?php echo $rowTour['content'] ?>
                     </p>
                     <div class="container-img-content">
-                        <img src='<?php echo $srcArray[0]?>' width="848" height="444" alt="" class="img-tour">
+                        <img src='<?php echo $srcArray[0] ?>' width="848" height="444" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                     <div class="container-img-content">
-                        <img src='<?php echo $srcArray[1]?>' width="848" height="444" alt="" class="img-tour">
+                        <img src='<?php echo $srcArray[1] ?>' width="848" height="444" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                     <div class="container-img-content">
-                        <img src='<?php echo $srcArray[2]?>' width="848" height="444" alt="" class="img-tour">
+                        <img src='<?php echo $srcArray[2] ?>' width="848" height="444" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                 </div>

@@ -260,6 +260,12 @@ class Database
     return $this->execute($sql);
   }
 
+  // xóa voucher
+  public function XoaVoucherKhiAddMa($idVou, $idUser){
+    $sql="delete from discountuser where id_user = $idUser and id_discount = $idVou";
+    return $this->execute($sql);
+  }
+
   // thêm detailOrder
   public function InsertDetailOrder($id_order, $id_pro, $price, $amount, $totalmoney, $dateGo)
   {
