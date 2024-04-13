@@ -1,9 +1,7 @@
 <?php
 //gia su da dang nhap thanh cong vo user 1
-// function searchDiscounts----------------------
-include "Model/DBConfig.php";
-$db = new Database();
-$db->connect();
+// function searchDiscounts---------------------
+$idOrder;
 function searchDiscount($idUser)
 {
   $db = new Database();
@@ -45,17 +43,29 @@ function sdtUser($idUser)
   $db->disconnect();
 }
 
-function loadDataDonHang($db)
+function loadDataDonHang()
 {
+  include "../Model/DBConfig.php";
   if (session_status() == PHP_SESSION_NONE) {
     session_start();
   }
-
+  $db = new Database();
   $db->connect();
   $result = $db->getDataDonHang($_SESSION['idUserLogin']);
   $db->disconnect();
   return $result;
 }
+
+function getDataDetailDH($idOrder)
+{
+  include_once "../Model/DBConfig.php";
+  $db = new Database();
+  $db->connect();
+  $result = $db->getDataChiTietDonHang($idOrder);
+  $db->disconnect();
+  return $result;
+}
+
 
 
 // excute function
@@ -89,8 +99,32 @@ if (isset($_POST['action'])) {
     sdtUser($_SESSION['idUserLogin']);
   }
 
-
+  if ($_POST['action'] == 'orderDetail') {
+    require_once ('../Model/DBConfig.php');
+    if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+    }
+    $idOrder = isset($_POST['idOrder']) ? $_POST['idOrder'] : '';
+    $result = getDataDetailDH($idOrder);
+    if (mysqli_num_rows($result) <= 0)
+      echo "khong co ket qua";
+    else
+      while ($row = mysqli_fetch_array($result)) {
+        echo '
+        <div class="detail-dh">
+        <img src="images/heart.png" alt="" class = "col-1 img">
+        <div class="col-2">
+          <div class="name">' . $row['title'] . '</div>
+          <div class="desc">' . $row['content'] . '</div>
+          <div class="date-go">' . $row['date_go'] . '</div>
+        </div>
+        <div class="col-3 price">' . $row['total_money'] . '</div>
+      </div>
+        ';
+      }
+  }
 }
+
 
 // display Detail
 if (isset($_POST['pageuser'])) {

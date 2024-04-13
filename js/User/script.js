@@ -49,7 +49,6 @@ function useDiscount(event){
 function exitDetailDH(event){
   let button = event.target;
   let parent = button.parentNode.parentNode;
-  console.log(parent);
   parent.classList.add('hide');
 }
 
@@ -58,4 +57,19 @@ function displayDetailDH(event){
   let parent = button.parentNode.parentNode.parentNode;
   let display =  parent.querySelector('.detail-item-dh');
   display.classList.remove('hide');
+
+  let idOrder = button.parentNode.classList[1];
+  console.log(idOrder);
+  $.ajax({
+    type: 'POST',
+    url: './Controller/User.php',
+    data: {
+      idOrder : idOrder,
+      action : 'orderDetail' },
+    
+    success: function(response) {
+      $('.container-dh').html(response);
+    }
+});
+
 }

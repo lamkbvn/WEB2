@@ -261,8 +261,9 @@ class Database
   }
 
   // xóa voucher
-  public function XoaVoucherKhiAddMa($idVou, $idUser){
-    $sql="delete from discountuser where id_user = $idUser and id_discount = $idVou";
+  public function XoaVoucherKhiAddMa($idVou, $idUser)
+  {
+    $sql = "delete from discountuser where id_user = $idUser and id_discount = $idVou";
     return $this->execute($sql);
   }
 
@@ -795,6 +796,13 @@ class Database
   public function getDataDonHang($idUser)
   {
     $sql = "select * from orders where id_user = " . $idUser;
+    $result = $this->execute($sql);
+    return $result;
+  }
+
+  public function getDataChiTietDonHang($idOrder)
+  {
+    $sql = 'select p.title , p.content , od.total_money , od.date_go from order_detail as od , product as p where od.id_product = p.id and od.id_order = ' . $idOrder;
     $result = $this->execute($sql);
     return $result;
   }

@@ -15,6 +15,12 @@
     font-size: 24px;
   }
 
+  .body-dh{
+    display :flex;
+    align-items : center;
+    flex-direction: column;
+  }
+
   .item-dh{
     width : 794px;
     height : 30px;
@@ -24,6 +30,7 @@
     padding : 12px;
     border-radius : 10px;
     border : 1px solid black;
+    margin-top : 10px;
   }
 
   .btn-xemchitiet{
@@ -85,13 +92,13 @@
   }
 
   .col-1{
-    width : 100px;
     height : 100px;
   }
 
   .col-2{
     margin-left: 10px;
     line-height : 20px;
+    width : 80%;
   }
 
   .col-3{
@@ -112,41 +119,41 @@
     <?php
     include_once ("../Controller/User.php");
     $i = 1;
-    $result = loadDataDonHang($db);
+    $result = loadDataDonHang();
     while ($row = mysqli_fetch_array($result)) {
       echo '
       <div class="item-dh ' . $row['id'] . '">
       <div class="txt-dh">Don hang ' . $i++ . '</div>
       <div class="txt-date">' . $row['date_order'] . '</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+      <div class="btn-xemchitiet" id = "btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
       </div>
       ';
     }
     ?>
-    <!-- <div class="item-dh">
+    <!-- <div class="item-dh 1">
       <div class="txt-dh">Don hang 1</div>
       <div class="txt-date">30-1-2024</div>
       <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
     </div> -->
   </div>
 
-  <div class="detail-item-dh hide">
+  <div class="detail-item-dh">
       <div class="layout"></div>
       <div class="display">
         <div class="exit" onclick ="exitDetailDH(event)">X</div>
         <div class="container-dh">
-        <div class="detail-dh">
-          <img src="" alt="" class = "col-1 img">
-          <div class="col-2">
-            <div class="name">Tour đảo cô tô</div>
-            <div class="desc">Khám phá thiên nhiên</div>
-            <div class="date-go">30-1-2024</div>
-          </div>
-          <div class="col-3 price">3000000</div>
-        </div>
+          <!-- <div class="detail-dh">
+            <img src="images/heart.png" alt="" class = "col-1 img">
+            <div class="col-2">
+              <div class="name">Tour đảo cô tô</div>
+              <div class="desc">Khám phá thiên nhiên</div>
+              <div class="date-go">30-1-2024</div>
+            </div>
+            <div class="col-3 price">3000000</div>
+          </div> -->
         </div>
       </div>
   </div>
+<!-- <script src="js/User/script.js" ></script> -->
 </body>
 
-<script src="js/User/script.js"></script>
