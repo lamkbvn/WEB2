@@ -304,7 +304,7 @@ class Database
   }
   //edit Tour
   public function UpdateTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $dateUpdate, $address, $acount)
-{
+  {
     $sql = "UPDATE product SET 
             id_category = '$id_cate', 
             id_user = '$id_user', 
@@ -318,7 +318,7 @@ class Database
             WHERE id = '$id'";
     $this->execute($sql);
     return mysqli_affected_rows($this->conn);
-}
+  }
 
   //xóa tour
   public function DeleteTour($id)
@@ -405,20 +405,21 @@ class Database
     return $this->execute($sql);
   }
   // check quyền mới cho nhấn tabAdmin
-public function checkRoleAdmin($idAccount){
-  $sql = "SELECT * 
+  public function checkRoleAdmin($idAccount)
+  {
+    $sql = "SELECT * 
   FROM acount
   JOIN phanquyenlinhdong ON acount.id_role = phanquyenlinhdong.id_role 
   WHERE acount.id = $idAccount;";
-  $result = $this->execute($sql);
-  $roles = array(); // Mảng chứa các role
-    
-  while ($row = mysqli_fetch_array($result)) {
-      $roles[] = $row; // Thêm hàng dữ liệu vào mảng roles
-  }
+    $result = $this->execute($sql);
+    $roles = array(); // Mảng chứa các role
 
-  return $roles;
-}
+    while ($row = mysqli_fetch_array($result)) {
+      $roles[] = $row; // Thêm hàng dữ liệu vào mảng roles
+    }
+
+    return $roles;
+  }
 
   public function resultThongKe($orderby, $selectCategory, $dateStart, $dateEnd, $namecoll)
   {
@@ -674,7 +675,7 @@ public function checkRoleAdmin($idAccount){
     return $result;
   }
 
-  public function updateVoucher($id, $discount_name, $code, $percent, $date_start, $date_end, $description,$status)
+  public function updateVoucher($id, $discount_name, $code, $percent, $date_start, $date_end, $description, $status)
   {
     $sql = "UPDATE discount SET discount_name='$discount_name', code='$code', percent='$percent', date_start='$date_start', date_end='$date_end', description='$description',status='$status' WHERE id='$id'";
     return $this->execute($sql);
@@ -734,34 +735,39 @@ public function checkRoleAdmin($idAccount){
     $result = $this->execute($sql);
     $sql = "DELETE FROM order_detail WHERE id_order = $orderId";
     $result = $this->execute($sql);
-    
+
     return $result;
   }
-  public function getDetailOrderByOrderId($orderId) {
+  public function getDetailOrderByOrderId($orderId)
+  {
     $this->connect();
     $sql = "select * from orders o, order_detail d, product p, discount c where o.id = d.id_order and o.id = $orderId and p.id = d.id_product and c.id = o.id_discount";
     $result = $this->execute($sql);
     return $result;
   }
-  public function getStatusOrderByOrderId($orderId) {
+  public function getStatusOrderByOrderId($orderId)
+  {
     $this->connect();
     $sql = "select status from orders where id = $orderId";
     $result = $this->execute($sql);
     return $result->fetch_assoc()['status'];
   }
-  public function getNameVocherByOrderId($orderId) {
+  public function getNameVocherByOrderId($orderId)
+  {
     $this->connect();
     $sql = "select * from discount d, orders o where o.id = $orderId and o.id_discount = d.id";
     $result = $this->execute($sql);
     return $result->fetch_assoc()['discount_name'];
   }
-  public function getInfoPersonOrder($orderId) {
+  public function getInfoPersonOrder($orderId)
+  {
     $this->connect();
     $sql = "select u.id as idUser, u.phone_number, u.email, u.address, u.fullname as nameUser from orders o, nguoiDung u where o.id = $orderId and u.id = o.id_user";
     $result = $this->execute($sql);
     return $result;
   }
-  public function updateOrder($orderId, $status) {
+  public function updateOrder($orderId, $status)
+  {
     $sql = "update orders set status = $status where id = $orderId";
     return $this->execute($sql);
   }
@@ -778,6 +784,13 @@ public function checkRoleAdmin($idAccount){
     $sql = "select * from orders o where o.id = $orderId";
     $result = $this->execute($sql);
     return $result->fetch_assoc()['total_money'];
+  }
+
+  public function getDataDonHang($idUser)
+  {
+    $sql = "select * from orders where id_user = " . $idUser;
+    $result = $this->execute($sql);
+    return $result;
   }
 
 }

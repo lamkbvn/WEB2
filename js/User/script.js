@@ -45,3 +45,17 @@ function useDiscount(event){
   let parent =  button.parentNode;
   console.log(parent.querySelector('.code-use-card').value);
 }
+
+function exitDetailDH(event){
+  let button = event.target;
+  let parent = button.parentNode.parentNode;
+  console.log(parent);
+  parent.classList.add('hide');
+}
+
+function displayDetailDH(event){
+  let button = event.target;
+  let parent = button.parentNode.parentNode.parentNode;
+  let display =  parent.querySelector('.detail-item-dh');
+  display.classList.remove('hide');
+}
