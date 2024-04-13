@@ -39,68 +39,57 @@ diachi.addEventListener('blur', function () {
   validateField(diachi, /^(?!\s*$).+/, spansValidation[3]);
 });
 
-// Form submission validation
-formBookTour.addEventListener('submit', function (event) {
-  let isValid = true;
-  spansValidation.forEach(function (span) {
-    if (span.style.display === 'block') {
-      isValid = false;
-    }
-  });
-  if (!isValid) {
-    event.preventDefault();
-  } else {
-  }
-});
-
 ///-------------------------------------------///
 //selected_tour
 let btnMuaNgay = document.getElementsByClassName('buy-now')[0];
 btnMuaNgay.addEventListener('click', function (e) {
   e.preventDefault();
-  let selectedProducts = [];
-  $('.selected_tour').each(function () {
-    if ($(this).is(':checked')) {
-      var productDetails = $(this).closest('.shopping-cart-item_body-left');
-
-      var id_product = productDetails.find('input[name="id_product"]').val();
-
-      var amount = productDetails.find('input[name="amount"]').val();
-      var price = productDetails.find('input[name="price"]').val();
-      var date = productDetails.find('input[name="date"]').val();
-
-      var hoTen = $('.hoTen').val();
-      var email = $('.email').val();
-      var sodienthoai = $('.sodienthoai').val();
-      var diachi = $('.diachi').val();
-      var note_book_tour = $('.note-book-tour').val();
-      var tongTien = $('.totalMoneyMain').val();
-
-      selectedProducts.push({
-        id_product: id_product,
-        amount: amount,
-        price: price,
-        date: date,
-        hoTen: hoTen,
-        email: email,
-        sodienthoai: sodienthoai,
-        diachi: diachi,
-        note_book_tour: note_book_tour,
-        tongTien: tongTien,
-      });
-    }
-  });
-  console.log(JSON.stringify(selectedProducts));
+  // Kiểm tra hợp lệ trước khi gửi AJAX request
   let isValid = true;
   if (
-    validateField(hoTen, /^(?!\s*$).+/, spansValidation[0]) ||
-    validateField(email, /^\S+@\S+\.\S+$/, spansValidation[1]) ||
-    validateField(sodienthoai, /^0\d{9}$/, spansValidation[2]) ||
+    validateField(hoTen, /^(?!\s*$).+/, spansValidation[0]) &&
+    validateField(email, /^\S+@\S+\.\S+$/, spansValidation[1]) &&
+    validateField(sodienthoai, /^0\d{9}$/, spansValidation[2]) &&
     validateField(diachi, /^(?!\s*$).+/, spansValidation[3])
   ) {
     isValid = true;
   } else isValid = false;
   if (isValid) {
+    let selectedProducts = [];
+    $('.selected_tour').each(function () {
+      if ($(this).is(':checked')) {
+        var productDetails = $(this).closest('.shopping-cart-item_body-left');
+
+        var cart_id = productDetails.find('input[name="cart_id"]').val();
+        var id_product = productDetails.find('input[name="id_product"]').val();
+        var amount = productDetails.find('input[name="amount"]').val();
+        var price = productDetails.find('input[name="price"]').val();
+        var date = productDetails.find('input[name="date"]').val();
+
+        var hoTen = $('.hoTen').val();
+        var email = $('.email').val();
+        var sodienthoai = $('.sodienthoai').val();
+        var diachi = $('.diachi').val();
+        var note_book_tour = $('.note-book-tour').val();
+        var tongTien = $('.totalMoneyMain').val();
+
+        selectedProducts.push({
+          cart_id: cart_id,
+          id_product: id_product,
+          amount: amount,
+          price: price,
+          date: date,
+          hoTen: hoTen,
+          email: email,
+          sodienthoai: sodienthoai,
+          diachi: diachi,
+          note_book_tour: note_book_tour,
+          tongTien: tongTien,
+        });
+      }
+    });
+    console.log(JSON.stringify(selectedProducts));
+
     $.ajax({
       url: 'Controller/cart/cartController.php', // Thay đổi thành URL của server endpoint của bạn
       type: 'POST',
@@ -110,6 +99,7 @@ btnMuaNgay.addEventListener('click', function (e) {
         // Xử lý phản hồi từ server nếu cần
         console.log(response);
         alert('Giao dịch thành công!');
+        window.location.reload();
       },
       error: function (xhr, status, error) {
         // Xử lý lỗi nếu có

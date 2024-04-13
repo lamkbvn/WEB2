@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Dữ liệu đã được chuyển đổi thành công, bạn có thể thao tác với nó ở đây
         foreach ($selectedProducts as $product) {
             // Ví dụ: Lấy thông tin của từng sản phẩm và in ra
+            $cart_id = $product['cart_id'];
             $id_product = $product['id_product'];
             $amount = $product['amount'];
             $price = $product['price'];
@@ -42,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $first=0;
             }
             $db->InsertDetailOrder($id, $id_product, $price, $amount, $price*$amount, $date);
-            
-            echo "ID sản phẩm: $id_product, Số lượng book/tour: $amount, Tổng tiền: $tongTien, Số lượng: $amount, Giá: $price, Ngày: $date<br>";
+            $db->deleteItemCart($cart_id);
+            echo "ID sản phẩm: $id_product, Số lượng book/tour: $amount, Tổng tiền: $tongTien, Số lượng: $amount, Giá: $price, Ngày: $date, cart: $cart_id<br>";
    // Sau đó, bạn có thể thực hiện các thao tác xử lý dữ liệu khác tại đây
 }
 } else {

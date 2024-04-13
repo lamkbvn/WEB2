@@ -47,6 +47,7 @@
                                         value="<?php echo $itemCart['id_product']; ?>" />
                                     <input type="hidden" name="id_product"
                                         value="<?php echo $itemCart['id_product']; ?>">
+                                    <input type="hidden" name="cart_id" value="<?php echo $itemCart['cart_id']; ?>">
                                     <input type="hidden" name="amount" value="<?php echo $itemCart['amount']; ?>">
                                     <input type="hidden" name="price" value="<?php echo $itemCart['price']; ?>">
                                     <input type="hidden" name="date" value="<?php echo $itemCart['create_at']; ?>">
@@ -106,8 +107,7 @@
                             <div class="shopping-cart-item_footer">
                                 <div class="operation-box">
                                     <div class="left">
-                                        <a
-                                            href="index.php?controller=trang-chu&action=deleteItemCart&id=<?php echo $itemCart['cart_id']; ?>">
+                                        <a href="#" onclick="confirmDelete(<?php echo $itemCart['cart_id']; ?>)">
                                             <span>Xóa</span>
                                         </a>
                                     </div>
@@ -124,7 +124,7 @@
                         </div>
 
                         <?php
-$stt++;
+                        $stt++;
                      endforeach; 
                      ?>
                     </div>
@@ -209,5 +209,16 @@ $stt++;
 </body>
 
 <script src="js/User/cart.js"></script>
+
+
+<script>
+function confirmDelete(cartId) {
+    if (confirm("Bạn có muốn xoá dịch vụ đã chọn?")) {
+        window.location.href = "index.php?controller=trang-chu&action=deleteItemCart&id=" + cartId;
+    }
+}
+</script>
+
+
 
 </html>
