@@ -216,6 +216,11 @@ class Database
     $sql = "INSERT INTO acount (user_name, password, id_role, status) VALUES ('$username', '$password', '$id_role', '$status')";
     return $this->execute($sql);
   }
+  public function registerAcountWithGoogle($username, $password, $id_role, $status, $id_google)
+  {
+    $sql = "INSERT INTO acount (user_name, password, id_role, status, idGoogle) VALUES ('$username', '$password', '$id_role', '$status', '$id_google')";
+    return $this->execute($sql);
+  }
 
   public function registerNguoiDung($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)
   {

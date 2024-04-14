@@ -1,6 +1,5 @@
 <?php
 include "../../Model/DBConfig.php";
-include ("../../includes/handle_mail.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +9,8 @@ include ("../../includes/handle_mail.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/0dfb1263b2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="loading_min.css"/>
+    <link rel="stylesheet" type="text/css" href="loading.css"/>
 </head>
 
 <body>
@@ -100,6 +101,10 @@ include ("../../includes/handle_mail.php");
         }
 
         button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
             border-radius: 12px;
             background-color: #ff5b00;
             border: 1px solid #ff5b00;
@@ -120,6 +125,8 @@ include ("../../includes/handle_mail.php");
             width: 100%;
             cursor: pointer;
         }
+       
+
 
         button:hover {
             background-color: #e85d0f;
@@ -127,7 +134,7 @@ include ("../../includes/handle_mail.php");
 
         .icon {
             position: absolute;
-            top: 42%;
+            top: 49%;
             left: 10%;
         }
 
@@ -222,6 +229,15 @@ include ("../../includes/handle_mail.php");
             /* opacity: 0; */
             /* visibility: hidden; */
         }
+        .submit.loading {
+        opacity: 0.7;
+        cursor: not-allowed;
+        }
+        .animate_load.hide {
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+        }
     </style>
     <header class="header">
         <div class="container">
@@ -241,7 +257,7 @@ include ("../../includes/handle_mail.php");
             </div>
         </a>
 
-        <form method="post">
+        <form method="post" class="form-check-has-email">
             <h1>Đặt lại bằng email</h1><br>
             <div class="input">
                 <input type="text" placeholder="enter your email" name="email-forgot" id="email-forgot"><br>
@@ -255,36 +271,13 @@ include ("../../includes/handle_mail.php");
                 </svg>
                 Bạn chưa có tài khoản nào với email này. Vui lòng đăng ký bằng email trước.
             </div>
-            <button value="submit">Gửi email</button>
+            <button value="submit" class="submit">
+                Gửi email
+                <div class="ld ld-ring ld-spin animate_load hide"></div>
+            </button>
         </form>
     </div>
-    <div data="1" class="check-tim-thay-email"></div>
-
-    <!-- <div class="susscess-sent-email" style="background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px 0 rgba(0,0,0,.14);
-    margin: 0 22% 0 auto;
-    min-height: 280px;
-    padding: 20px 50px;
-    position: relative;
-    width: 440px; text-align: center">
-    <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=login">
-        <div class="icon-left" style="text-align: left;">
-        <svg width="15" height="23" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 1L1 8.5L10 16" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </div>
-    </a>
-    <svg width="64" height="64" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" fill="transparent" stroke="#08B371" stroke-width="3.6"></circle><path d="M15 24L21.364 30.364L32.6777 19.0503" stroke="#08B371" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        <h2 style="padding-top: 20px">Đã gửi email</h2>
-        <p>Chúng tôi đã gửi email cho bạn đến <span style="color: #212121; font-weight: 600">lockbkbang@gmail.com.</span> Hãy làm theo hướng dẫn trong email để đặt lại mật khẩu của bạn.</p><br>
-        <p style="margin-top: 32px;
-    color: #757575;">
-    Không thể tìm thấy email? Hãy đảm bảo bạn đã nhập chính xác địa chỉ email hoặc 
-    </p>
-
-    </div> -->
-
+    <div class="show-messege-sucsess"></div>
     <div class="css-top">
         <div class="css-bottom"></div>
     </div>
@@ -294,48 +287,126 @@ include ("../../includes/handle_mail.php");
             <img src="/WEB2/View/icon/logoSGU.jpeg" alt="" class="icon-logo-SGU" />
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        // Chờ tất cả các phần tử trong DOM được tải xong
-        document.addEventListener("DOMContentLoaded", function () {
-            // Chọn tất cả các phần tử có class là 'show-error'
-            var showError = document.querySelector('.show-error');
-            // Nếu phần tử tồn tại và có class 'none'
-            if (showError && showError.classList.contains('none')) {
-                // Chọn phần tử có class là 'icon'
-                var icon = document.querySelector('.icon');
-                // Thêm style cho class 'icon'
-                icon.style.top = '49%';
+        $('.form-check-has-email').submit(function (e) {
+    e.preventDefault(); // Ngăn chặn việc gửi form mặc định
+    // Thu thập dữ liệu từ form
+    var email_forgot = $('#email-forgot').val();
+    var showError = $('.show-error');
+    var icon = $('.icon')
+    var emailInput = $("#email-forgot");
+    var showSucess = $('.show-messege-sucsess');
+    var btnSubmit = $('.submit');
+    var animateLoad = $('.animate_load');
+    btnSubmit.addClass('loading');
+    animateLoad.removeClass('hide');
+
+
+    // Gửi AJAX request
+    $.ajax({
+        type: 'POST',
+        url: '/WEB2/includes/handle_mail.php',
+        data: {
+            email_forgot: email_forgot,
+        },
+        success: function (response) {
+            if (response === "foundEmailToSentForgot") {
+                console.log("Email found. Reset instructions sent.");
+                showError.addClass('none');
+                icon.css('top', '49%');
+                showSucess.html(`
+    <div class="susscess-sent-email" style="background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 4px 10px 0 rgba(0,0,0,.14);
+        margin: 0 22% 0 auto;
+        min-height: 280px;
+        padding: 20px 50px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+        width: 440px;
+        text-align: center">
+        <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=login">
+            <div class="icon-left" style="text-align: left;">
+                <svg width="15" height="23" viewBox="0 0 11 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 1L1 8.5L10 16" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </a>
+        <svg width="64" height="64" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="21" fill="transparent" stroke="#08B371" stroke-width="3.6"></circle>
+            <path d="M15 24L21.364 30.364L32.6777 19.0503" stroke="#08B371" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <h2 style="padding-top: 20px">Đã gửi email</h2>
+        <p>Chúng tôi đã gửi email cho bạn đến <span style="color: #212121; font-weight: 600">${email_forgot}</span>. Hãy làm theo hướng dẫn trong email để đặt lại mật khẩu của bạn.</p><br>
+        <p style="margin-top: 32px; color: #757575;">Không thể tìm thấy email? Hãy đảm bảo bạn đã nhập chính xác địa chỉ email hoặc</p>
+`)
+
+
+            } else if (response === "Email not found in the database") {
+                console.log("Email not found in the database");
+                showError.removeClass('none');
+                icon.css('top', '42%');
+                btnSubmit.removeClass('loading');
+                animateLoad.addClass('hide');
             } else {
-                icon.style.top = '42%';
+                console.log("Unknown response:", response);
             }
+        },
+        error: function (xhr, status, error) {
+            console.error("XHR status:", xhr.status);
+            console.error("XHR statusText:", xhr.statusText);
+            console.error("Error:", error);
+        }
+    });
 
-            // Lấy phần tử .check-tim-thay-email
-            var checkTimThayEmail = document.querySelector(".check-tim-thay-email");
-            console.log(checkTimThayEmail);
-
-            // Kiểm tra nếu thuộc tính 'data' có giá trị là 1
-            if (checkTimThayEmail.getAttribute("data") === "1") {
-                // Lấy phần tử .show-error
-                var showError = document.querySelector(".show-error");
-                // Loại bỏ class 'none' từ phần tử .show-error
-                showError.classList.add("none");
-            } else {
-                // Nếu giá trị không phải là 1, không làm gì cả
-                showError.classList.remove("none");
-                icon.style.top = '42%';
-            }
-            // Lấy phần tử có id là "email-forgot"
-var emailInput = document.querySelector("#email-forgot");
-
-// Thêm sự kiện focus và xử lý khi phần tử được tập trung vào
-emailInput.addEventListener("focus", function() {
-    // Lấy phần tử .show-error
-    var showError = document.querySelector(".show-error");
-    // Thêm class 'none' để ẩn nó
-    showError.classList.add("none");
-    icon.style.top = '49%';
+    // Xử lý sự kiện focus vào trường nhập email
+    emailInput.focus(function () {
+        // Ẩn thông báo lỗi khi trường nhập email được focus
+        showError.addClass('none');
+        icon.css('top', '49%');
+    });
 });
-        });
+
+
+
+        // Chờ tất cả các phần tử trong DOM được tải xong
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     // Chọn tất cả các phần tử có class là 'show-error'
+        //                 // $('#error-message').text(response);
+        //                 var showError = document.querySelector('.show-error');
+        //                 // Nếu phần tử tồn tại và có class 'none'
+        //                 if (showError && showError.classList.contains('none')) {
+        //                     // Chọn phần tử có class là 'icon'
+        //                     var icon = document.querySelector('.icon');
+        //                     // Thêm style cho class 'icon'
+        //                     icon.style.top = '49%';
+        //                 } else {
+        //                     icon.style.top = '42%';
+        //                 }
+
+        //     // Lấy phần tử .check-tim-thay-email
+        //     var checkTimThayEmail = document.querySelector(".check-tim-thay-email");
+        //     console.log(checkTimThayEmail);
+
+        //     // Kiểm tra nếu thuộc tính 'data' có giá trị là 1
+        //     if (checkTimThayEmail.getAttribute("data") === "1") {
+        //         // Lấy phần tử .show-error
+        //         var showError = document.querySelector(".show-error");
+        //         // Loại bỏ class 'none' từ phần tử .show-error
+        //         showError.classList.add("none");
+        //     } else {
+        //         showError.classList.remove("none");
+        //         icon.style.top = '42%';
+        //     }
+        //     // Lấy phần tử có id là "email-forgot"
+
+        //     // Thêm sự kiện focus và xử lý khi phần tử được tập trung vào
+            
+        // });
     </script>
 </body>
 

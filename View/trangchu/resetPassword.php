@@ -1,10 +1,10 @@
 <?php
 include "../../Model/DBConfig.php";
-if (isset ($_COOKIE['userIDForReset'])) {
+if (isset($_COOKIE['userIDForReset'])) {
     $idUserForReset = $_COOKIE["userIDForReset"];
 
     // Kiểm tra xem người dùng đã gửi mật khẩu mới hay chưa
-    if (isset ($_POST['password-forgot'])) {
+    if (isset($_POST['password-forgot'])) {
         $password = $_POST['password-forgot'];
 
         // Kết nối CSDL và cập nhật mật khẩu

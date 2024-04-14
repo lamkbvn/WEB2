@@ -1,5 +1,3 @@
-<!-- <link rel="stylesheet" href="css/icons/header-01.webp"> -->
-
 <?php
 
 use PHPMailer\PHPMailer\PHPMailer;
