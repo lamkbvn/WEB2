@@ -30,8 +30,10 @@ switch($action){
             $soLuong = $_REQUEST['numTicketphp'];
             $id = date('dmyHis');
             $idPro = $_REQUEST['id'];
+            $idVoucher = $_REQUEST['idVoucher'];
             $db->InsertOrder($id, $idUser, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, 1);
-            $db->InsertDetailOrder($id, $idPro, $rowTour['price'], $soLuong, $rowTour['price'] * $soLuong,  $dateBook);
+            $db->InsertDetailOrder($id, $idPro, $rowTour['price'], $soLuong, $totalPrice,  $dateBook);
+            if($idVoucher != 0) $db->XoaVoucherKhiAddMa($idVoucher, $idUser);
             //nếu muốn dùng idOrder để truyền vào DetailOrder thì dùng biến id này
             echo "<script>window.location.href='../chitietTour/buyTour.php?id=$idPro';</script>";
             // exit();

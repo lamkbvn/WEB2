@@ -11,6 +11,7 @@
   <title>Trang chủ</title>
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/stylelam.css" />
+  <script src="js/User/script.js" defer></script>
 
   <!-- font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +26,7 @@ include ("Model/DBConfig.php");
 $db = new Database;
 $db->connect();
 
-if (isset ($_GET['controller'])) {
+if (isset($_GET['controller'])) {
   $controller = $_GET['controller'];
 } else {
   $controller = '';

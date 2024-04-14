@@ -71,7 +71,7 @@
     </header>
 
     <div class="navigation-admin">
-        <a href="index.php?controller=trang-admin&action=indexAdmin" id="nav-item--logo">
+        <a href="index.php?controller=trang-admin&action=trangChuAdmin" id="nav-item--logo">
             <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo">
         </a>
         <div class="nav-admin-list">
@@ -91,33 +91,27 @@
                         <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Người dùng</p>
                     </a>';
-                }
-                elseif ($rowRole['id_chucNang'] == 2 && $rowRole['HD'] == 'View') {
+                } elseif ($rowRole['id_chucNang'] == 2 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=tour" id="page3" class="nav-admin-item">
                         <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Tour</p>
                     </a>';
-                }
-
-                elseif ($rowRole['id_chucNang'] == 3 && $rowRole['HD'] == 'View') {
+                } elseif ($rowRole['id_chucNang'] == 3 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=order" id="page7" class="nav-admin-item">
                         <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Order</p>
                     </a>';
-                }
-               elseif ($rowRole['id_chucNang'] == 4 && $rowRole['HD'] == 'View') {
+                } elseif ($rowRole['id_chucNang'] == 4 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=dthongke" id="page6" class="nav-admin-item">
                         <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Thống kê</p>
                     </a>';
-                }
-                elseif ($rowRole['id_chucNang'] == 5 && $rowRole['HD'] == 'View') {
+                } elseif ($rowRole['id_chucNang'] == 5 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=dsbl" id="page4" class="nav-admin-item">
                         <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Bình luận</p>
                     </a>';
-                }
-                elseif ($rowRole['id_chucNang'] == 6 && $rowRole['HD'] == 'View') {
+                } elseif ($rowRole['id_chucNang'] == 6 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=dsvoucher" id="page5" class="nav-admin-item">
                         <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Voucher</p>

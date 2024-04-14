@@ -388,13 +388,25 @@ body {
 .container-total-money {
     display: flex;
     align-items: center;
-    height: 46px;
+    height: 36px;
 }
 
 .lable-totalMoney {
     font-size: 18px;
     font-weight: 600;
     margin-right: 20px;
+}
+.lable-giamgia {
+    font-size: 14px;
+    margin-right: 20px;
+}
+.giamgia{
+    display: none;
+}
+#newPrice {
+    color: var(--primary-color);
+    font-size: 18px;
+    font-weight: 600;
 }
 
 #totalMoney {
@@ -619,7 +631,7 @@ body {
     height: 115px;
     border : 1px solid black;
     border-radius: 10px;
-    
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

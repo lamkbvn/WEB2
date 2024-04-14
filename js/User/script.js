@@ -45,3 +45,31 @@ function useDiscount(event){
   let parent =  button.parentNode;
   console.log(parent.querySelector('.code-use-card').value);
 }
+
+function exitDetailDH(event){
+  let button = event.target;
+  let parent = button.parentNode.parentNode;
+  parent.classList.add('hide');
+}
+
+function displayDetailDH(event){
+  let button = event.target;
+  let parent = button.parentNode.parentNode.parentNode;
+  let display =  parent.querySelector('.detail-item-dh');
+  display.classList.remove('hide');
+
+  let idOrder = button.parentNode.classList[1];
+  console.log(idOrder);
+  $.ajax({
+    type: 'POST',
+    url: './Controller/User.php',
+    data: {
+      idOrder : idOrder,
+      action : 'orderDetail' },
+    
+    success: function(response) {
+      $('.container-dh').html(response);
+    }
+});
+
+}
