@@ -24,6 +24,7 @@
             numTicketphp.value = num;
             numTicketphp2.value = num;
             capnhatTongTien();
+            capnhatGiamGia(percentVou.id)
         });
         btnMinus.addEventListener('click', function(e) {
             if (num > 0) {
@@ -32,6 +33,7 @@
                 numTicketphp2.value = num;
                 numTicketphp.value = num;
                 capnhatTongTien();
+                capnhatGiamGia(percentVou.id)
             }
         });
 
@@ -410,46 +412,50 @@
 
         buttons.forEach(function(button) {
             button.addEventListener('click', function() {
-                document.getElementsByClassName('giamgia')[0].style.display = 'block';
-                buttons.forEach(function(btn) {
-                    btn.textContent = "Sử dụng";
-                    btn.style.backgroundColor = "#f08044"; // Đặt lại màu ban đầu
-                });
                 if (num == 0) {
                     alert("Vui lòng chọn số vé trước khi chọn mã");
                     return;
                 }
-                document.getElementsByName('idVoucher')[0].value = document.getElementById('idVoucher').textContent;
-                // Lấy phần trăm giảm
-                var parentCard = this.closest('.use-card');
-
-                var percent = parseInt(parentCard.querySelector('.percentDIV').textContent.match(/\d+/)[0]);
-                percentVou.id = percent;
-                capnhatTongTien();
-
-                // Lấy tổng số tiền hiện tại
-                var totalMoneyText = document.getElementById('totalMoney').textContent;
-                var totalMoney = parseInt(totalMoneyText.replace(/\D/g, ''));
-
-                // Tính toán và cập nhật tổng số tiền mới
-                var newTotal = totalMoney - (totalMoney * percent / 100);
-                var finalTotal = newTotal.toLocaleString('vi-VN', {
-                    style: 'currency',
-                    currency: 'VND'
+                buttons.forEach(function(btn) {
+                    btn.textContent = "Sử dụng";
+                    btn.style.backgroundColor = "#f08044"; // Đặt lại màu ban đầu
                 });
-                //document.getElementById('totalMoney').textContent = finalTotal;
+                document.getElementsByClassName('giamgia')[0].style.display = 'block';
+                var parentCard = this.closest('.use-card');
+                var percent = parseInt(parentCard.querySelector('.percentDIV').textContent.match(/\d+/)[0]);
+                capnhatGiamGia(percent);
                 document.getElementById('totalMoney').style = "text-decoration: line-through;";
-                document.getElementById('newPrice').innerHTML = newTotal.toLocaleString('vi-VN', {
-                    style: 'currency',
-                    currency: 'VND'
-                }); // Giá mới sau khi giảm giá
-                document.getElementById('discountAmount').innerHTML = "-" + (totalMoney * percent / 100).toLocaleString('vi-VN', {
-                    style: 'currency',
-                    currency: 'VND'
-                }); // Số tiền đã trừ
                 this.textContent = "Đã chọn"
                 this.style = "background-color: green;"
             });
         });
+
+        function capnhatGiamGia(e) {
+            document.getElementsByName('idVoucher')[0].value = document.getElementById('idVoucher').textContent;
+            // Lấy phần trăm giảm
+
+            percentVou.id = e;
+            capnhatTongTien();
+
+            // Lấy tổng số tiền hiện tại
+            var totalMoneyText = document.getElementById('totalMoney').textContent;
+            var totalMoney = parseInt(totalMoneyText.replace(/\D/g, ''));
+
+            // Tính toán và cập nhật tổng số tiền mới
+            var newTotal = totalMoney - (totalMoney * e / 100);
+            var finalTotal = newTotal.toLocaleString('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            });
+            //document.getElementById('totalMoney').textContent = finalTotal;
+            document.getElementById('newPrice').innerHTML = newTotal.toLocaleString('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }); // Giá mới sau khi giảm giá
+            document.getElementById('discountAmount').innerHTML = "-" + (totalMoney * e / 100).toLocaleString('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }); // Số tiền đã trừ
+        }
     </script>
 </body>
