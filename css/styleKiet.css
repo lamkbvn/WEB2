@@ -837,4 +837,11 @@ body {
 .nav-bottom--item:hover {
     background: #f5f5f5;
     cursor: pointer;
+    
+}
+
+
+/* CSS Phan trang */
+.aa{
+    width: 50px;height: 20px;margin-left: 5px;border-radius: 5px;
 }

@@ -136,6 +136,7 @@ switch ($action) {
 		}
 
 	case 'indexAdmin': {
+		$table = "nguoidung";
 			$listUsersTable = "nguoidung";
 			$data = $db->getAllData($listUsersTable);
 			require_once('View/admin/indexAdmin.php');
@@ -203,7 +204,8 @@ switch ($action) {
 		}
 		//tour
 	case 'tour': {
-			$data = $db->getAllData("product");
+			$table = "product";
+			// $data = $db->getAllData("product");
 			require_once('View/admin/DSTour/listTour.php');
 			break;
 		}
@@ -309,7 +311,7 @@ switch ($action) {
 
 		break;
 	case 'dsvoucher':
-
+		$table="discount";
 		$sql = "SELECT * FROM discount order by id desc";
 		$result = $db->execute($sql);
 		$listvoucher = $db->getAll();
@@ -380,10 +382,11 @@ switch ($action) {
 		include_once "View/ThongKe/thongke.php";
 		break;
 	case 'order':
-		$sql = "SELECT * FROM orders order by id desc";
-		$result = $db->execute($sql);
-		$listOrder = $db->getAll();
-		include "View/admin/order/order.php";
+		$table="orders";
+		// $sql = "SELECT * FROM orders order by id desc";
+		// $result = $db->execute($sql);
+		// $listOrder = $db->getAll();
+		include_once "View/admin/order/order.php";
 		break;
 	case 'deleteOrder':
 		if (isset($_GET['id'])) {

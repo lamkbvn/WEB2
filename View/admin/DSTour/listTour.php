@@ -1,14 +1,25 @@
 <link rel="stylesheet" href="css/cssadmin.css">
 
+<script src="js/User/Jquery.js"></script>
+
 <body>
 
 	<div class="user--table">
 		<h2 class="table--heading">Danh sách Tour</h2>
-
+		
 		<div class="list-feature">
 			<div class="filter-container">
 				<input type="text" id="filterInput" placeholder="Nhập giá trị cần tìm kiếm...">
+				<label for="selectNumRow">Số dòng hiển thị</label>
+				<select name="" id="selectNumRow" style="width: 100px;height: 37.6px;margin-left: 5px;border-radius: 5px;">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="20">20</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select>
 			</div>
+			
 			<?php
 			$isAdd = 0;
 			$isEdit = 0;
@@ -66,54 +77,17 @@
 			</thead>
 
 			<tbody class="table-body">
-				<?php
-				$stt = 1;
-				foreach ($data as $value) {
-					$idProduct = $value['id'];
-					$rowsIMG = $db->getAllData('image_product');
-					$urlIMG = null;
-					if ($rowsIMG) {
-						foreach ($rowsIMG as $rowIMG) {
-							if ($rowIMG['id_product'] == $idProduct) {
-								$imageData = $rowIMG['image'];
-								$urlIMG = 'data:image/jpeg;base64,' . base64_encode($imageData) . '';
-								break;
-							}
-						}
-					}
-					if ($urlIMG == null) $urlIMG = "images/no_image.gif";
-				?>
-					<tr class="table-row">
-						<td class="table-cell"><img loading="lazy" src="<?php echo $urlIMG ?>" alt="Hình ảnh tour" class="image-product-admin" width="80" height="45"></td>
-						<td class="table-cell id"><?php echo $value['title']; ?></td>
-						<td class="table-cell"><?php echo number_format($value['price'], 0, ',', '.'); ?></td>
-						<td class="table-cell"><?php echo $value['create_at']; ?></td>
-						<td class="table-cell"><?php echo $value['num_bought']; ?></td>
-						<td class="table-cell"><?php echo $value['soLuongConLai']; ?></td>
-						<td class="table-cell status"><?php echo $value['star_feedback']; ?></td>
-						<td class="table-cell elet">
-							<?php
-							if ($isEdit == 1) {
-								echo "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=editTour&id={$value['id']}'>Edit</a>";
-							}
-							if ($isDelete == 1) {
-								echo "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=deleteTour&id={$value['id']}'>Delete</a>";
-							}
-							?>
-						</td>
-					</tr>
-				<?php
-					$stt++;
-				}
-				?>
+				
 			</tbody>
 		</table>
+		<!-- Bảng phân trang cho table1 -->
+		<div class="paging" style="display: flex; align-item:center; justify-content: center; margin-top: 20px;">
+		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="js/sapxep.js"></script>
+	<?php require_once('js/phantrang.php')?>
+	<!-- <script src="js/phantrang.js"></script> -->
 	<script>
-		
-
 		// Lấy ô input và bảng dữ liệu
 		var input = document.getElementById("filterInput");
 		var table = document.getElementById("tableData");
