@@ -274,11 +274,11 @@
             var scrollTop = window.scrollY;
             if (scrollTop >= 630) {
                 myDiv.style.position = 'fixed';
-                myDiv.style.right = '182px';
-                myDiv.style.top = '110px';
+                myDiv.style.left = 'calc(70%)';
+                myDiv.style.top = '138px';
             } else {
                 myDiv.style.position = 'absolute';
-                myDiv.style.right = '-310px';
+                myDiv.style.left = '880px';
                 myDiv.style.top = '0';
             }
         });

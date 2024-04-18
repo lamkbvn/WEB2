@@ -149,8 +149,9 @@ body {
 /* hightlight */
 .box-short-content {
     position: relative;
-    width: 800px;
-    height: 152px;
+    width: 100%;
+    max-width: 800px;
+    /* height: 152px; */
     padding: 1px 24px 24px 24px;
     background-color: #fcf6f2;
     color: #212121;
@@ -161,7 +162,7 @@ body {
 
 .tam-tinh {
     position: absolute;
-    right: -310px;
+    left: 880px;
     height: 100px;
     width: 240px;
     background-color: #fff;
@@ -448,7 +449,7 @@ body {
 
 /* content */
 .text-content-tour {
-    width: 848px;
+    width: 100%;
 }
 
 .detail-img {
@@ -841,7 +842,61 @@ body {
 }
 
 
-/* CSS Phan trang */
-.aa{
-    width: 50px;height: 20px;margin-left: 5px;border-radius: 5px;
+/* responsive */
+@media (max-width: 600px){
+    .container-submit-option{
+        position: relative;
+        margin-top: 20px;
+    }
+}
+@media (max-width: 850px) {
+    body{
+        padding: 0 14px;
+    }
+    .big-image img{
+        width: 100%;
+    }
+    .small-images{
+        display: none;
+    }
+    /* .container-img {
+        flex-direction: column;
+    } */
+    .box-option{
+        margin: 0 auto;
+        max-width: none;
+        width: 90%;
+        box-sizing: border-box;
+    }
+    .box-short-content{
+        margin: 0 auto;
+        position: relative;
+        max-width: none;
+        width: 90%;
+    }
+    .box-short-content li{
+        width: 90% !important;
+        max-width: 90% !important;
+        box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước ngoài cùng của phần tử */
+    }
+    .box-short-content ul{
+        width: 90% !important;
+        max-width: 90% !important;
+        box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước ngoài cùng của phần tử */
+    }
+    .tam-tinh{
+        display: none;
+    }
+    .map{
+        display: none;
+    }
+    .nav-top, .container-body, .container-in-header{
+        width: 100%;
+    }
+    .img-tour{
+        width: 100%;
+    }
+    .text-cmt{
+        width: 70%;
+    }
 }

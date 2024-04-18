@@ -23,6 +23,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
 
   <?php
   // cua Kiet
+  $idCate = (isset($_REQUEST['category']))?$_REQUEST['category']:2;
   if (isset($_GET['controller'])) {
     $controller = $_GET['controller'];
   } else {
@@ -86,6 +87,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
           minPrice: minPriceInForm,
           maxPrice: maxPriceInForm,
           categories: categories,
+          category: <?php echo $idCate ?>,
           page: page,
           sort: sort,
           keyword: keyword

@@ -108,7 +108,7 @@ if (isset($_POST['action'])) {
 }
 ?>
 
-<?php if ($countProduct > 0) { ?>
+<?php $idCate = (isset($_REQUEST['category']))?$_REQUEST['category']:2; if ($countProduct > 0) { ?>
     <div class="container">
         <?php foreach ($result as $item) : 
             $result = $db->GetImgProduct($item['id']);
@@ -121,7 +121,7 @@ if (isset($_POST['action'])) {
             else $url = "images/no_image.gif";
             
         ?>
-            <a href="Controller/chitietTour/buyTour.php?id=<?php echo $item['id'] ?>" class="card" id=''>
+            <a href="Controller/chitietTour/buyTour.php?id=<?php echo $item['id'] ?>&category=<?php echo $idCate; ?>" class="card" id=''>
                 <img src="<?php echo $url?>" alt="" class="img-product" />
                 <h2 class="name-product" style="color: black;">
                     <?= $item['title'] ?>
