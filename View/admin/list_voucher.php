@@ -4,12 +4,18 @@
 
     <div class="user--table">
         <h2 class="table--heading">Danh Sách Voucher</h2>
-
         <div class="list-feature">
             <div class="filter-container">
 
                 <input type="text" id="filterInput" placeholder="Nhập giá trị cần tìm kiếm...">
-
+                <label for="selectNumRow">Số dòng hiển thị</label>
+				<select name="" id="selectNumRow" style="width: 100px;height: 37.6px;margin-left: 5px;border-radius: 5px;">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="20">20</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select>
             </div>
             <?php
 			$isAdd = 0;
@@ -70,30 +76,15 @@
             </thead>
 
             <tbody class="table-body">
-                <?php foreach ($listvoucher as $voucher) : ?>
-
-                    <tr class="table-row">
-                        <td class="table-cell id"><?php echo $voucher['id']; ?></td>
-                        <td class="table-cell discount_name"><?php echo $voucher['discount_name']; ?></td>
-                        <td class="table-cell code"><?php echo $voucher['code']; ?></td>
-                        <td class="table-cell percent"><?php echo $voucher['percent']; ?></td>
-                        <td class="table-cell date_start"><?php echo $voucher['date_start']; ?></td>
-                        <td class="table-cell date_end"><?php echo $voucher['date_end']; ?></td>
-
-                        <td class="table-cell">
-                            <?php 
-                                if($isEdit==1) echo "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=suavoucher&id={$voucher['id']}'>Edit</a>";
-                                if($isDelete==1) echo "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=xoavoucher&id={$voucher['id']}'>Delete</a>";
-                            ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
+                
 
             </tbody>
         </table>
+        <div class="paging" style="display: flex; align-item:center; justify-content: center; margin-top: 20px;">
+		</div>
     </div>
 </body>
-
+<?php require_once('js/phantrang.php')?>
 <script>
     // Lấy ô input và bảng dữ liệu
     var input = document.getElementById("filterInput");

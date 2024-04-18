@@ -14,65 +14,18 @@
     if (isset($_REQUEST['id'])) {
         $idTour = $_REQUEST['id'];
     }
-    //session_start();
 
-    $idUser = $_SESSION['idUserLogin'];
+    $idUser = (isset($_SESSION['idUserLogin']))?$_SESSION['idUserLogin']:0;
     $result = $db->execute("SELECT * FROM product WHERE id = '$idTour'");
     $rowTour = $db->getData();
     $result2 = $db->execute("SELECT * FROM feedback WHERE product_id = '$idTour'");
     $resultVoucher = $db->execute("SELECT * FROM discountuser WHERE id_user = '$idUser'");
-    //$resultIMG = $db->execute("SELECT * FROM image_product WHERE id = '8'");
-    // $rowIMG = $resultIMG->fetch_assoc();
-    // $imageData = $rowIMG['image'];
-    // $numCart = $db->execute("SELECT COUNT(*) AS total_rows FROM cart WHERE id_user=''");
-    // $rowNumCart = $numCart->fetch_assoc();
-    // $totalRowsNumCart = $rowNumCart["total_rows"];
     ?>
     <div class="nen-den"></div>
     <div class="container">
         <?php include "../../View/layout/header-showproduct.php" ?>
-
-        <!-- <div class="container-header">
-            <div class="container-in-header">
-                <div class="header-left">
-                    
-                    <div class="box-container-search">
-                        <input class="search-header" type="text" placeholder="Tìm kiếm">
-                        <span class="container-iconSearch">
-                            <img src="../../images/search.png" width="20" alt="">
-                        </span>
-                    </div>
-                    
-                </div>
-                <div class="header-right">
-                    <ul class="list-header-right">
-                        <li>
-                            <a href="" class="option-header-right">Mở ứng dụng</a>
-                        </li>
-                        <li>
-                            <a href="" class="option-header-right">Trợ giúp</a>
-                        </li>
-                        <li>
-                            <a href="" class="option-header-right">Xem gần đây</a>
-                        </li>
-                        <li>
-                            <a href="" id="cartIcon" class="option-header-right">Giỏ hàng
-                                <div id="numCart"><?php //echo $totalRowsNumCart;
-                                                    ?></div>
-                            </a>
-                            
-                        </li>
-                        <li>
-                            <a href="" class="option-header-right">
-                                <img src="../../images/avatar.png" width="38" alt="">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
         <div class="container-body">
-            <a class="back" href="/WEB2/index.php?controller=trang-chu&action=showproduct&category=1">
+            <a class="back" href="/WEB2/index.php?controller=trang-chu&action=showproduct&category=<?php echo (isset($_REQUEST['category']))?$_REQUEST['category']:1 ?>">
                 Quay lại
             </a>
             <h1 class="title-tour">
@@ -156,9 +109,6 @@
                         <p class="label-option">Xin chọn ngày đi tour</p>
                         <input type="date" name="select-date" id="select-date" class="select-date">
                         <span class="validation">Không được chọn ngày đã qua</span>
-                        <!-- <div class="select-date">
-                            Chọn ngày
-                        </div> -->
                     </div>
                     <div class="option-item">
                         <div class="discount">
@@ -209,49 +159,8 @@
                             }
                             if ($checkHasVou == 0) echo "<div style='display:flex; align-item: center; justify-content: center;'>Bạn không có voucher nào.</div>";
                             ?>
-                            <!-- <div class="infor-card">
-                                    <div class="infor-card-main">
-                                        <div class="title-infor-card">
-                                            abc
-                                        </div>
-                                        <div class="detail-infor-card">
-                                            abc
-                                        </div>
-                                        <div class="hansudung">
-                                            Hạn sử dụng : Còn lại 3 ngày
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cac-hinh-tron">
-                                    <div class="hinhtron"></div>
-                                    <div class="hinhtron"></div>
-                                    <div class="hinhtron"></div>
-                                    <div class="hinhtron"></div>
-                                    <div class="hinhtron"></div>
-                                </div>
-                                <div class="use-card">
-                                    <div class="title-use-card">
-                                        Mã ưu đãi
-                                    </div>
-                                    <div class="code-use-card">
-                                        abc
-                                    </div>
-                                    <button class="btn-use-card">Sử dụng</button>
-                                </div> -->
-
                         </div>
                     </div>
-                    <!-- <div class="option-item">
-                        <p class="label-option">Loại tour</p>
-                        <div class="container-type-tour">
-                            <div class="type-tour chose-tour">
-                                Tour ghép
-                            </div>
-                            <div class="type-tour">
-                                Tour riêng
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="option-item">
                         <p class="label-option">Số lượng</p>
                         <div class="box-numTicket">
@@ -359,15 +268,6 @@
                     <h2 class="section-title"> Đánh giá</h2>
                 </div>
                 <div class="star-tour-cmt">
-                    <!-- <div class="num-rate"><?php echo $rowTour['star_feedback'] ?></div>
-                    <div style="font-size: 20px; color: #a8a8a8; position: absolute; bottom: 8px; left: 55px; margin-left: 28px;">/5</div>
-                    <div class="list-star">
-                        <img src="/images/star.webp" width="28" alt="" class="star-yellow">
-                        <img src="/images/star.webp" width="28" alt="" class="star-yellow">
-                        <img src="/images/star.webp" width="28" alt="" class="star-yellow">
-                        <img src="/images/star.webp" width="28" alt="" class="star-yellow">
-                        <img src="/images/star.webp" width="28" alt="" class="star-yellow">
-                    </div> -->
                     <div id="rating-stars">
                         <span class="star" data-value="1">&#9733;</span>
                         <span class="star" data-value="2">&#9733;</span>

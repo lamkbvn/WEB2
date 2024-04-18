@@ -64,9 +64,12 @@
             margin-right: 5px;
             cursor: pointer;
             color: #777;
-        }.btn-reset-date:hover {
+        }
+
+        .btn-reset-date:hover {
             color: #333;
         }
+
         #btn-filter-date {
             margin-top: 5px;
             padding: 5px 8px;
@@ -79,13 +82,36 @@
             font-size: 17px;
             cursor: pointer;
         }
+
         #btn-filter-date:hover {
             background-color: #2f5dc5;
         }
     </style>
     <div class="user--table">
+        <?php
+        $isAdd = 0;
+        $isEdit = 0;
+        $isDelete = 0;
+        foreach ($role as $rowRole) {
+            if ($rowRole['id_chucNang'] == 3) {
+                switch ($rowRole['HD']) {
+                    case 'Add':
+                        $isAdd = 1;
+                        break;
+                    case 'Edit':
+                        $isEdit = 1;
+                        break;
+                    case 'Delete':
+                        $isDelete = 1;
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            }
+        }
+        ?>
         <h2 class="table--heading">Danh sách đơn hàng</h2>
-
         <div class="list-feature">
             <div class="filter-container">
                 <!-- <select id="filterBy">
@@ -95,7 +121,14 @@
                 </select> -->
                 <input type="text" id="filterInput" placeholder="Nhập giá trị cần tìm kiếm...">
                 <!-- <button>Lọc</button> -->
-
+                <label for="selectNumRow">Số dòng hiển thị</label>
+				<select name="" id="selectNumRow" style="width: 100px;height: 37.6px;margin-left: 5px;border-radius: 5px;">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="20">20</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select>
 
                 <div class="form-group-filter-date">
                     <div class="container-form">
@@ -141,93 +174,13 @@
             </thead>
 
             <tbody class="table-body">
-                <?php
-                $stt = 1;
-                foreach ($listOrder as $value) {
-                    ?>
-                    <tr class="table-row">
-                        <td class="table-cell"><?= $stt ?></td>
-                        <td class="table-cell id">
-                            <?php echo $value['id']; ?>
-                        </td>
-                        <td class="table-cell">
-                            <?php echo $value['fullname']; ?>
-                        </td>
-                        <td class="table-cell date">
-                            <?php echo $value['date_order']; ?>
-                        </td>
-                        <td class="table-cell">
-                            <?php echo number_format($value['total_money'], 0, ',', '.'); ?>
-                        </td>
-                        <td class="table-cell status">
-                            <?php
-                            switch ($value['status']) {
-                                case 1:
-                                    echo '<span class="status-label wait">chờ xác nhận</span>';
-                                    break;
-                                case 2:
-                                    echo '<span class="status-label confirmed">đã xác nhận</span>';
-                                    break;
-                                case 3:
-                                    echo '<span class="status-label in-progress">đang thực hiện tour</span>';
-                                    break;
-                                case 4:
-                                    echo '<span class="status-label completed">đã hoàn thành</span>';
-                                    break;
-                                case 5:
-                                    echo '<span class="status-label canceled">đã huỷ bỏ</span>';
-                                    break;
-                                default:
-                                    echo '<span class="status-label unknown">Unknown status</span>';
-                                    break;
-                            }
-                            ?>
-                        </td>
-
-
-                        <td class="table-cell">
-
-                            <a class="edit-btn table-btn"
-                                href="index.php?controller=trang-admin&action=detailOrder&id=<?php echo $value['id']; ?>">Detail</a>
-
-                            <?php
-                            $isAdd = 0;
-                            $isEdit = 0;
-                            $isDelete = 0;
-                            foreach ($role as $rowRole) {
-                                if ($rowRole['id_chucNang'] == 3) {
-                                    switch ($rowRole['HD']) {
-                                        case 'Add':
-                                            $isAdd = 1;
-                                            break;
-                                        case 'Edit':
-                                            $isEdit = 1;
-                                            break;
-                                        case 'Delete':
-                                            $isDelete = 1;
-                                            break;
-                                        default:
-                                            # code...
-                                            break;
-                                    }
-                                }
-                            }
-
-                            if ($isDelete) {
-                                //echo "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=editOrder&id={$value['id']}'>Edit</a>";
-                                echo "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=deleteOrder&id={$value['id']}'>Delete</a>";
-                            }
-                            ?>
-
-                        </td>
-                    </tr>
-                    <?php
-                    $stt++;
-                }
-                ?>
+                
             </tbody>
         </table>
+        <div class="paging" style="display: flex; align-item:center; justify-content: center; margin-top: 20px;">
+		</div>
     </div>
+    <?php require_once('js/phantrang.php')?>
     <script>
         // Lấy ô input và bảng dữ liệu
         var input = document.getElementById("filterInput");
@@ -247,8 +200,8 @@
             let dateStart = dateStartEle.value;
             let dateEnd = dateEndEle.value;
             let rows = table.getElementsByClassName("table-row");
-            if(dateStart=="" && dateEnd == "") {
-                for (let i = 0; i < rows.length; i++) { 
+            if (dateStart == "" && dateEnd == "") {
+                for (let i = 0; i < rows.length; i++) {
                     rows[i].style.display = ""; // Hiển thị hàng
                 }
                 return;
@@ -277,10 +230,10 @@
                 }
             }
         }
-        
+
 
         // Lắng nghe sự kiện input trên ô tìm kiếm
-        input.addEventListener("input", function () {
+        input.addEventListener("input", function() {
             let filter = input.value.toLowerCase(); // Chuyển đổi giá trị nhập vào thành chữ thường để so sánh
 
             // Lặp qua từng hàng trong tbody
@@ -312,8 +265,8 @@
         });
 
 
-        $(document).ready(function () {
-            $('.delete-btn').on('click', function (e) {
+        $(document).ready(function() {
+            $('.delete-btn').on('click', function(e) {
                 e.preventDefault();
                 var deleteUrl = $(this).attr('data-delete-url');
                 var rowToDelete = $(this).closest('.table-row');
@@ -322,13 +275,13 @@
                     $.ajax({
                         url: deleteUrl,
                         type: 'GET',
-                        success: function (response) {
+                        success: function(response) {
                             // Xử lý phản hồi thành công (nếu cần)
                             if (rowToDelete.length > 0) { // Kiểm tra nếu rowToDelete tồn tại
                                 rowToDelete.hide(); // Ẩn dòng bằng jQuery hide()
                             }
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             // Xử lý lỗi (nếu cần)
                         }
                     });
