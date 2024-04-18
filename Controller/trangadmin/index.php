@@ -131,6 +131,41 @@ switch ($action) {
 		}
 
 	case 'trangChuAdmin': {
+			$soLuongKH = $db->getSoLuong('acount', 'id_role = 0') * 11;
+			$soLuongSP = $db->getSoLuong('product', 'id > 0') * 11;
+			$soLuongDH = $db->getSoLuong('orders', 'id > 0') * 11;
+			$soLuongFB = $db->getSoLuong('feedback', 'id > 0') * 11;
+
+			$soLuongKHPercent = 0;
+			$soLuongSPPercent = 0;
+			$soLuongDHPercent = 0;
+			$soLuongFBPercent = 0;
+
+			$soLuongSPToDay = $db->getCountToday('product', 'create_at');
+			$soLuongSPYesterday = $db->getCountYesterday('product', 'create_at');
+
+			$soLuongDHToDay = $db->getCountToday('orders', 'date_order');
+			$soLuongDHYesterday = $db->getCountYesterday('orders', 'date_order');
+
+			$soLuongFBToDay = $db->getCountToday('feedback', 'create_at');
+			$soLuongFBYesterday = $db->getCountYesterday('feedback', 'create_at');
+
+			if ($soLuongSPToDay > 0 && $soLuongSPYesterday > 0) {
+				$soLuongSPPercent = ($soLuongSPToDay / $soLuongSP - $soLuongSPYesterday / $soLuongSP) * 100;
+				$soLuongSPPercent = round($soLuongSPPercent, 2);
+			}
+
+			if ($soLuongDHToDay > 0 && $soLuongDHYesterday > 0) {
+				$soLuongDHPercent = ($soLuongDHToDay / $soLuongDH - $soLuongDHYesterday / $soLuongDH) * 100;
+				$soLuongDHPercent = round($soLuongDHPercent, 2);
+			}
+
+			if ($soLuongFBToDay > 0 && $soLuongFBYesterday > 0) {
+				$soLuongFBPercent = ($soLuongFBToDay / $soLuongFB - $soLuongFBYesterday / $soLuongFB) * 100;
+				$soLuongFBPercent = round($soLuongFBPercent, 2);
+			}
+
+
 			require_once('View/admin/trangChuAdmin.php');
 			break;
 		}

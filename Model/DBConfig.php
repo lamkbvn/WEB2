@@ -812,4 +812,28 @@ class Database
     return $result;
   }
 
+  public function getSoLuong($table, $condi)
+  {
+    $sql = "SELECT COUNT(*) AS count FROM $table WHERE $condi";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['count'];
+  }
+
+  public function getCountYesterday($table, $date)
+  {
+    $yesterday = date("Y-m-d", strtotime("-1 day"));
+    $sql = "SELECT COUNT(*) AS count FROM $table WHERE DATE(DATE_FORMAT($date, '%Y-%m-%d')) = '$yesterday' && id > 0";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['count'];
+  }
+
+  public function getCountToday($table, $date)
+  {
+    $sql = "SELECT COUNT(*) AS count FROM $table WHERE DATE(DATE_FORMAT($date, '%Y-%m-%d')) = CURDATE() && id > 0";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['count'];
+  }
 }

@@ -76,11 +76,11 @@
         </a>
         <div class="nav-admin-list">
             <a href="index.php?controller=trang-admin&action=role" id="page2" class="nav-admin-item">
-                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <img src="css/icons/user-role-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Phân quyền</p>
             </a>
             <a href="index.php?controller=trang-admin&action=chucnang" id="page0" class="nav-admin-item">
-                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                <img src="css/icons/function-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Chức năng</p>
             </a>
             <?php
@@ -88,7 +88,7 @@
             foreach ($role as $rowRole) {
                 if ($rowRole['id_chucNang'] == 1 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item">
-                        <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                        <img src="css/icons/admin-nguoidung.svg" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Người dùng</p>
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 2 && $rowRole['HD'] == 'View') {
@@ -98,57 +98,29 @@
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 3 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=order" id="page7" class="nav-admin-item">
-                        <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                        <img src="css/icons/order-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Order</p>
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 4 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=dthongke" id="page6" class="nav-admin-item">
-                        <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                        <img src="css/icons/stats-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Thống kê</p>
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 5 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=dsbl" id="page4" class="nav-admin-item">
-                        <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                        <img src="css/icons/comment-alt-lines-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Bình luận</p>
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 6 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=dsvoucher" id="page5" class="nav-admin-item">
-                        <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
+                        <img src="css/icons/price-voucher-discount-offer-ticket-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Voucher</p>
                     </a>';
                 }
             }
 
             ?>
-            <!-- <a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item">
-                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-                <p class="nav-admin-item--title">Người dùng</p>
-            </a> -->
 
-
-
-            <!-- <a href="index.php?controller=trang-admin&action=tour" id="page3" class="nav-admin-item">
-                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-                <p class="nav-admin-item--title">Tour</p>
-            </a> -->
-
-            <!-- <a href="index.php?controller=trang-admin&action=dsbl" id="page4" class="nav-admin-item">
-                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-                <p class="nav-admin-item--title">Bình luận</p>
-            </a> -->
-            <!-- <a href="index.php?controller=trang-admin&action=dsvoucher" id="page5" class="nav-admin-item">
-                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-                <p class="nav-admin-item--title">Voucher</p>
-            </a> -->
-
-            <!-- <a href="index.php?controller=trang-admin&action=dthongke" id="page6" class="nav-admin-item">
-                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-                <p class="nav-admin-item--title">Thống kê</p>
-            </a> -->
-            <!-- <a href="index.php?controller=trang-admin&action=order" id="page3" class="nav-admin-item">
-                <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
-                <p class="nav-admin-item--title">Order</p>
-            </a> -->
         </div>
     </div>
     <div id="content">
