@@ -75,18 +75,27 @@
             <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo">
         </a>
         <div class="nav-admin-list">
-            <a href="index.php?controller=trang-admin&action=role" id="page2" class="nav-admin-item">
+            <!-- <a href="index.php?controller=trang-admin&action=role" id="page2" class="nav-admin-item">
                 <img src="css/icons/user-role-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Phân quyền</p>
-            </a>
-            <a href="index.php?controller=trang-admin&action=chucnang" id="page0" class="nav-admin-item">
+            </a> -->
+            <!-- <a href="index.php?controller=trang-admin&action=chucnang" id="page0" class="nav-admin-item">
                 <img src="css/icons/function-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Chức năng</p>
-            </a>
+            </a> -->
             <?php
             $role = $db->checkRoleAdmin($_SESSION['idUserLogin']);
             foreach ($role as $rowRole) {
-                if ($rowRole['id_chucNang'] == 1 && $rowRole['HD'] == 'View') {
+                if ($rowRole['id_role'] == 99) {
+                    echo '<a href="index.php?controller=trang-admin&action=role" id="page2" class="nav-admin-item">
+                        <img src="css/icons/user-role-svgrepo-com.svg" class="nav-admin-item--icon">
+                        <p class="nav-admin-item--title">Phân quyền</p>
+                    </a>';
+                    echo '<a href="index.php?controller=trang-admin&action=chucnang" id="page0" class="nav-admin-item">
+                        <img src="css/icons/function-svgrepo-com.svg" class="nav-admin-item--icon">
+                        <p class="nav-admin-item--title">Chức năng</p>
+                    </a>';
+                } elseif ($rowRole['id_chucNang'] == 1 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item">
                         <img src="css/icons/admin-nguoidung.svg" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Người dùng</p>
@@ -118,7 +127,11 @@
                     </a>';
                 }
             }
-
+            for($i=0; $i<20; $i++){
+                echo '<a href="index.php?controller=trang-admin" w>
+                        <p class="nav-admin-item--title"></p>
+                    </a>';
+            }
             ?>
 
         </div>

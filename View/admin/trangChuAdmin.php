@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="css/cssadmin.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <body>
 	<div class="trangchuadmin">
@@ -112,13 +113,77 @@
 				</div>
 			</div>
 			<div class="banthan">
-				<img src="css/icons/maxresdefault.jpg" alt="" class="jack">
-				<img src="css/icons/k-7391.jpg" alt="" class="kicm">
+				<div class="jack">
+					<canvas id="myChart" width="400" height="200"></canvas>
+					</br>
+					<div class="title_chart">Biểu đồ thống kê số tour bán được theo tuần</div>
+				</div>
+				<div class="kicm">
+					<table id="tableData" class="custom-table" style="box-shadow: none;">
+						<thead class="table-head">
+							<tr class="table--head" style="background-color:#a7bced;">
+								<th class="table-header" width="10px">Top</th>
+								<th class="table-header">Tour</th>
+								<th class="table-header">Số lượng bán</th>
+							</tr>
+						</thead>
+
+						<tbody class="table-body">
+							<?php $stt = 0;
+							foreach ($tourSellToday as $tour) :  $stt++;
+								if ($stt == 6) break;
+								$style="color: black;";
+								if ($stt == 1) $style="color: #8280ff; font-weight:600; font-size: 20px;";
+								elseif ($stt == 2) $style="color: #fec53d; font-weight:600; font-size: 17px;";
+								elseif ($stt == 3) $style="color: #4ad991; font-weight:600; font-size: 17px;";
+							?>
+
+								<tr class="table-row" height="42px" style="<?php echo $style?>;">
+									<td class="table-cell id">#<?php echo $stt ?></td>
+									<td class="table-cell id"><?php echo $tour['title']; ?></td>
+									<td class="table-cell id"><?php echo $tour['total_quantity']; ?></td>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+					</br>
+					<div class="title_chart tableTop">Top các tour bán chạy trong tuần</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script>
+	<?php 
+	
+	?>
+	var data=[1,2,3,4,5,6,7]
+	var ctx = document.getElementById('myChart').getContext('2d');
+
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ['Monday', 'Tuesday', 'Webnesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+			datasets: [{
+				label: 'This week',
+				data: <?php echo json_encode($dataPoints1); ?>,
+				fill: false,
+				borderColor: 'rgb(75, 192, 192)',
+				tension: 0.1
+			}, {
+				label: 'Last week',
+				data: <?php echo json_encode($dataPoints2); ?>,
+				fill: false,
+				borderColor: 'rgb(255, 99, 132)',
+				tension: 0.1
+			}]
+		},
+		options: {
+
+		}
+	});
+
 	// Lấy phần tử có id là "percentNumber"
 	var percentKH = document.getElementById("percentKH");
 	var soLuongKHPercent = <?php echo $soLuongKHPercent; ?>;

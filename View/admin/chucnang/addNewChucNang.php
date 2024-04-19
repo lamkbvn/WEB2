@@ -88,7 +88,7 @@
             let nameCNValue = $('#nameCN').val().trim();
             let span = $('.spanNameCN');
             $('#nameCN').on('input', function() {
-                if ($(this).val().trim() === "") {
+                if ($(this).val().trim() == "") {
                     span.css('display', 'block').css('margin-bottom', '5px');
                     span.show(); // Hiển thị thông báo lỗi nếu trường nhập liệu trống
                     isNameValid = false;
@@ -101,7 +101,7 @@
             $('#addForm').submit(function(e) {
                 e.preventDefault(); // Prevent the form from submitting normally
 
-                if(nameCNValue === ""){
+                if(document.getElementById('nameCN').value == ""){
                     span.css('display', 'block').css('margin-bottom', '5px');
                     span.show();
                     isNameValid = false;

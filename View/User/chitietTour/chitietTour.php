@@ -95,7 +95,15 @@
                         ?>
                     </div>
                     <div class="btn-chosse-dichvu">Chọn các gói dịch vụ</div>
-                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.6848201210955!2d106.52700897452064!3d11.06224015385782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310b32a98fc66351%3A0x2c229f5def3d1bff!2zxJDhu4thIMSQ4bqhbyBC4bq_biDEkMOsbmggQ-G7pyBDaGk!5e0!3m2!1svi!2s!4v1709368280963!5m2!1svi!2s" width="260" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <?php 
+                    $address = $rowTour["address"];
+
+                    // Tạo URL của Google Map
+                    $google_map_url = "https://www.google.com/maps/embed/v1/place?q=" . urlencode($address) . "&key=AIzaSyBT0zArw_eDN1rklr3lPrNFObbFOPSWjUk";
+            
+                    // Hiển thị iframe Google Map
+                    echo '<iframe width="260" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="' . $google_map_url . '" allowfullscreen></iframe>';
+                    ?>
                 </div>
             </div>
             <div class="package-option">
@@ -128,19 +136,23 @@
                                     $nameVou = $rowVou['code'];
                                     $detailVou = $rowVou['discount_name'];
                                     $percent = $rowVou['percent'];
-                                    $dateStart = new DateTime($rowVou['date_start']); // Chuyển đổi sang đối tượng DateTime
+                                    $dateStart = new DateTime(); // Chuyển đổi sang đối tượng DateTime
                                     $dateEnd = new DateTime($rowVou['date_end']);
-                                    $interval = $dateStart->diff($dateEnd);
-
-                                    // Lấy số ngày từ kết quả
-                                    $numDayVou = $interval->days;
+                                    if ($dateStart >= $dateEnd) {
+                                        $numDayVou = 0; // Trả về 0 nếu ngày hôm nay lớn hơn hoặc bằng ngày kết thúc
+                                    } else {
+                                        $interval = $dateStart->diff($dateEnd); // Tính khoảng cách giữa hai ngày
+                                        // Lấy số ngày từ kết quả
+                                        $numDayVou = $interval->days;
+                                    }
                                     echo '<div class="discount-card">';
                                     echo '<div class="infor-card">';
                                     echo '<div class="infor-card-main">';
                                     echo '<div class="title-infor-card">' . $detailVou . '</div>';
                                     echo '<div id="idVoucher" style="display: none;">' . $rowVou['id'] . '</div>';
                                     echo '<div class="detail-infor-card">Giảm ' . $percent . '%</div>';
-                                    echo '<div class="hansudung">Hạn sử dụng : Còn lại ' . $numDayVou . ' ngày</div>';
+                                    echo '<div class="hansudung">Hạn sử dụng : ' . $dateEnd->format('Y-m-d') . '</div>';
+                                    echo '<div class="hansudung">Còn lại ' . $numDayVou . ' ngày</div>';
                                     echo '</div>';
                                     echo '</div>';
                                     echo '<div class="cac-hinh-tron">';
@@ -152,7 +164,7 @@
                                     echo '<div class="title-use-card">Mã ưu đãi</div>';
                                     echo '<div class="code-use-card">' . $nameVou . '</div>';
                                     echo '<div class="percentDIV" style="display: none;" >Giảm ' . $percent . '%</div>';
-                                    echo '<button class="btn-use-card" id=' . $idVoucher . '>Sử dụng</button>';
+                                    echo '<button class="btn-use-card" id=' . $numDayVou . '>Sử dụng</button>';
                                     echo '</div>';
                                     echo '</div>';
                                 }

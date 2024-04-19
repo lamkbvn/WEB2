@@ -32,7 +32,10 @@ if ($result2 !== false && $result2->num_rows > 0) {
 // }
 
 if (isset($_REQUEST['btnAddTour'])) {
-    $id = date('dmyHis');
+    $LastID = $db->getLastID('product');
+    $result = $LastID->fetch_assoc();
+    $id = $result['id']+1;
+    // $id = date('dmyHis');
     $title = $_REQUEST['title'];
     $category = $_REQUEST['category'];
     $provincial = $_REQUEST['provincial'];

@@ -131,10 +131,10 @@ switch ($action) {
 		}
 
 	case 'trangChuAdmin': {
-			$soLuongKH = $db->getSoLuong('acount', 'id_role = 0') * 11;
-			$soLuongSP = $db->getSoLuong('product', 'id > 0') * 11;
-			$soLuongDH = $db->getSoLuong('orders', 'id > 0') * 11;
-			$soLuongFB = $db->getSoLuong('feedback', 'id > 0') * 11;
+			$soLuongKH = $db->getSoLuong('acount', 'id_role = 0');
+			$soLuongSP = $db->getSoLuong('product', 'id > 0');
+			$soLuongDH = $db->getSoLuong('orders', 'id > 0');
+			$soLuongFB = $db->getSoLuong('feedback', 'id > 0');
 
 			$soLuongKHPercent = 0;
 			$soLuongSPPercent = 0;
@@ -150,28 +150,45 @@ switch ($action) {
 			$soLuongFBToDay = $db->getCountToday('feedback', 'create_at');
 			$soLuongFBYesterday = $db->getCountYesterday('feedback', 'create_at');
 
-			if ($soLuongSPToDay > 0 && $soLuongSPYesterday > 0) {
+			if ($soLuongSPToDay > 0 && $soLuongSPYesterday >= 0) {
 				$soLuongSPPercent = ($soLuongSPToDay / $soLuongSP - $soLuongSPYesterday / $soLuongSP) * 100;
 				$soLuongSPPercent = round($soLuongSPPercent, 2);
 			}
 
-			if ($soLuongDHToDay > 0 && $soLuongDHYesterday > 0) {
+			if ($soLuongDHToDay > 0 && $soLuongDHYesterday >= 0) {
 				$soLuongDHPercent = ($soLuongDHToDay / $soLuongDH - $soLuongDHYesterday / $soLuongDH) * 100;
 				$soLuongDHPercent = round($soLuongDHPercent, 2);
 			}
 
-			if ($soLuongFBToDay > 0 && $soLuongFBYesterday > 0) {
+			if ($soLuongFBToDay > 0 && $soLuongFBYesterday >= 0) {
 				$soLuongFBPercent = ($soLuongFBToDay / $soLuongFB - $soLuongFBYesterday / $soLuongFB) * 100;
 				$soLuongFBPercent = round($soLuongFBPercent, 2);
 			}
 
+			$result = $db->getTourSellToday();
+			$tourSellToday = $db->getAll();
 
+			$dataPoints1 = array();
+
+			// Lấy dữ liệu từ cơ sở dữ liệu
+			$toursSellThisWeek = $db->getTourSellThisWeek(); // Thay thế 'getTourSellPerDay()' bằng hàm thích hợp để lấy dữ liệu từ cơ sở dữ liệu của bạn
+			while ($tour = mysqli_fetch_assoc($toursSellThisWeek)) {
+				$dataPoints1[] = $tour['total_tours_sold'];
+			}
+
+			$dataPoints2 = array();
+
+			// Lấy dữ liệu từ cơ sở dữ liệu
+			$toursSellLastWeek = $db->getTourSellLastWeek(); // Thay thế 'getTourSellPerDay()' bằng hàm thích hợp để lấy dữ liệu từ cơ sở dữ liệu của bạn
+			while ($tour = mysqli_fetch_assoc($toursSellLastWeek)) {
+				$dataPoints2[] = $tour['total_tours_sold'];
+			}
 			require_once('View/admin/trangChuAdmin.php');
 			break;
 		}
 
 	case 'indexAdmin': {
-		$table = "nguoidung";
+			$table = "nguoidung";
 			$listUsersTable = "nguoidung";
 			$data = $db->getAllData($listUsersTable);
 			require_once('View/admin/indexAdmin.php');
@@ -346,7 +363,7 @@ switch ($action) {
 
 		break;
 	case 'dsvoucher':
-		$table="discount";
+		$table = "discount";
 		$sql = "SELECT * FROM discount order by id desc";
 		$result = $db->execute($sql);
 		$listvoucher = $db->getAll();
@@ -417,7 +434,7 @@ switch ($action) {
 		include_once "View/ThongKe/thongke.php";
 		break;
 	case 'order':
-		$table="orders";
+		$table = "orders";
 		// $sql = "SELECT * FROM orders order by id desc";
 		// $result = $db->execute($sql);
 		// $listOrder = $db->getAll();
