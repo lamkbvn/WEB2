@@ -9,6 +9,8 @@
     height: 22px;
     background-color: var(--primary-color);
     border-radius: 10px;
+    margin-left: 12px;
+    margin-right: 12px;
   }
 
   .text{
@@ -31,10 +33,26 @@
     border-radius : 10px;
     border : 1px solid black;
     margin-top : 10px;
+
+    background: rgb(255 199 147 / 85%);
+
+  }
+
+  .txt-dh{
+    font-weight : bold;
+  }
+
+  .txt-date{
+    font-style : italic;
   }
 
   .btn-xemchitiet{
     cursor: pointer;
+    border : 1px solid black;
+    border-radius : 8px;
+    padding : 6px;
+    background: rgba(255, 122, 0, 0.85);
+
   }
 
   .detail-item-dh{
@@ -84,11 +102,14 @@
 
   .detail-dh{
     height : 100px;
-    border : 1px solid black;
+    border : 1px solid var(--primary-color);
     display : flex;
     padding : 10px;
     margin-bottom : 10px;
     margin-right : 10px;
+
+    border-radius : 10px;
+
   }
 
   .col-1{
@@ -103,9 +124,12 @@
 
   .col-3{
     margin-left: 10px;
+    display : flex;
+    align-items : center;
+    color : var(--primary-color);
   }
 
-  .hide{
+  .hide-on{
     display : none ;
   }
 </style>
@@ -137,7 +161,7 @@
     </div> -->
   </div>
 
-  <div class="detail-item-dh">
+  <div class="detail-item-dh hide-on">
       <div class="layout"></div>
       <div class="display">
         <div class="exit" onclick ="exitDetailDH(event)">X</div>

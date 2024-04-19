@@ -118,7 +118,7 @@ if (isset($_POST['action'])) {
           <div class="desc">' . $row['content'] . '</div>
           <div class="date-go">' . $row['date_go'] . '</div>
         </div>
-        <div class="col-3 price">' . $row['total_money'] . '</div>
+        <div class="col-3 price">' . $row['total_money'] . 'VNĐ</div>
       </div>
         ';
       }

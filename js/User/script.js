@@ -49,14 +49,14 @@ function useDiscount(event){
 function exitDetailDH(event){
   let button = event.target;
   let parent = button.parentNode.parentNode;
-  parent.classList.add('hide');
+  parent.classList.add('hide-on');
 }
 
 function displayDetailDH(event){
   let button = event.target;
   let parent = button.parentNode.parentNode.parentNode;
   let display =  parent.querySelector('.detail-item-dh');
-  display.classList.remove('hide');
+  display.classList.remove('hide-on');
 
   let idOrder = button.parentNode.classList[1];
   console.log(idOrder);
