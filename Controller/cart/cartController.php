@@ -7,7 +7,7 @@ if (isset($_REQUEST['action'])) {
 }
 
 
-include ("../../Model/DBConfig.php");
+include("../../Model/DBConfig.php");
 $db = new Database;
 $db->connect();
 
@@ -21,8 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Kiểm tra xem dữ liệu có được chuyển đổi thành công không
     if ($selectedProducts !== null) {
-        $first=1;
-        $id = date('dmyHis');
+        $first = 1;
+        // $id = date('dmyHis');
+        $LastID = $db->getLastID('orders');
+        $result = $LastID->fetch_assoc();
+        $id = $result['id'] + 1;
         // Dữ liệu đã được chuyển đổi thành công, bạn có thể thao tác với nó ở đây
         foreach ($selectedProducts as $product) {
             // Ví dụ: Lấy thông tin của từng sản phẩm và in ra
@@ -38,24 +41,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $diachi = $product['diachi']; // Thêm dữ liệu Địa chỉ
             $note_book_tour = $product['note_book_tour']; // Thêm dữ liệu Ghi chú
             $tongTien = $product['tongTien'];
-            if($first==1){
+            if ($first == 1) {
                 $db->InsertOrder($id, 1, $hoTen, $email, $sodienthoai, $diachi, $note_book_tour, $dateBuy, $tongTien, 1);
-                $first=0;
+                $first = 0;
             }
-            $db->InsertDetailOrder($id, $id_product, $price, $amount, $price*$amount, $date);
+            $db->InsertDetailOrder($id, $id_product, $price, $amount, $price * $amount, $date);
             $db->deleteItemCart($cart_id);
             echo "ID sản phẩm: $id_product, Số lượng book/tour: $amount, Tổng tiền: $tongTien, Số lượng: $amount, Giá: $price, Ngày: $date, cart: $cart_id<br>";
-   // Sau đó, bạn có thể thực hiện các thao tác xử lý dữ liệu khác tại đây
-}
-} else {
-    // Xử lý lỗi nếu dữ liệu không thể chuyển đổi thành mảng PHP
-    echo "Có lỗi xảy ra khi xử lý dữ liệu từ JavaScript.";
-}
-
+            // Sau đó, bạn có thể thực hiện các thao tác xử lý dữ liệu khác tại đây
+        }
+    } else {
+        // Xử lý lỗi nếu dữ liệu không thể chuyển đổi thành mảng PHP
+        echo "Có lỗi xảy ra khi xử lý dữ liệu từ JavaScript.";
+    }
 } else {
     // Xử lý lỗi nếu không phải là một request POST
     echo "Yêu cầu không hợp lệ.";
 }
 
 $db->disconnect();
-?>

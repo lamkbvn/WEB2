@@ -314,6 +314,11 @@ class Database
     $this->execute($sql);
     return mysqli_affected_rows($this->conn);
   }
+  // lấy id cuối cùng của tour
+  public function getLastID($table){
+    $sql = "SELECT id FROM $table ORDER BY id DESC LIMIT 1";
+    return $this->execute($sql);
+  }
   //edit Tour
   public function UpdateTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $dateUpdate, $address, $acount)
   {

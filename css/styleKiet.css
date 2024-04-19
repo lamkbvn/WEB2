@@ -844,6 +844,14 @@ body {
 
 /* responsive */
 @media (max-width: 600px){
+    .vouchers{
+        width: 300px;
+        padding: 20px 50px;
+    }
+    #form-book-tour{
+        width: 300px;
+        padding: 20px 50px;
+    }
     .container-submit-option{
         position: relative;
         margin-top: 20px;

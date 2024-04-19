@@ -95,7 +95,15 @@
                         ?>
                     </div>
                     <div class="btn-chosse-dichvu">Chọn các gói dịch vụ</div>
-                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.6848201210955!2d106.52700897452064!3d11.06224015385782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310b32a98fc66351%3A0x2c229f5def3d1bff!2zxJDhu4thIMSQ4bqhbyBC4bq_biDEkMOsbmggQ-G7pyBDaGk!5e0!3m2!1svi!2s!4v1709368280963!5m2!1svi!2s" width="260" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <?php 
+                    $address = $rowTour["address"];
+
+                    // Tạo URL của Google Map
+                    $google_map_url = "https://www.google.com/maps/embed/v1/place?q=" . urlencode($address) . "&key=AIzaSyBT0zArw_eDN1rklr3lPrNFObbFOPSWjUk";
+            
+                    // Hiển thị iframe Google Map
+                    echo '<iframe width="260" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="' . $google_map_url . '" allowfullscreen></iframe>';
+                    ?>
                 </div>
             </div>
             <div class="package-option">

@@ -76,10 +76,17 @@
                 <div class="highlighted-activities--list">
                     <?php $count = 0; ?>
                     <?php foreach ($dataHotProduct as $product) : ?>
-                        <?php if ($count < 4) : ?>
+                        <?php if ($count < 4) : 
+                            $result = $db->GetImgProduct($product['id']);
+                            $row = mysqli_fetch_array($result);
+                            $numImg = mysqli_num_rows($result);
+                            if($numImg>0) {
+                                $imageData = $row['image'];
+                                $url = 'data:image/jpeg;base64,' . base64_encode($imageData);
+                            }
+                            else $url = "images/no_image.gif";?>
                             <div class="highlighted-activities--item">
-                                <img src="/WEB2/images/bigimg.webp<?php //echo $product['id']; 
-                                                                    ?>" alt="<?php echo $product['title']; ?>" class="highlighted-activities--img">
+                                <img src="<?php echo $url?>" alt="<?php echo $product['title']; ?>" class="highlighted-activities--img">
                                 <div class="highlighted-activities--info">
                                     <p class="highlighted-activities--desc"><?php echo $product['content']; ?></p>
                                     <p class="highlighted-activities--title"><?php echo $product['title']; ?></p>
@@ -108,7 +115,7 @@
                         <h3 class="product-hot-item--heading">Hoạt Động Du Lịch Việt Nam Bán Chạy</h3>
                         <div class="sub-hot-list">
                             <div class="sub-hot-item">
-                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
+                                <img src="/WEB2/images/dalat.webp" alt="" class="sub-hot-item--img">
                                 <div class="sub-hot-item--info">
                                     <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
                                     <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
@@ -116,15 +123,41 @@
                             </div>
                             <div class="sub-hot-item">
                                 <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
+                                <div class="sub-hot-item--info">
+                                    <h4 class="sub-hot-item--heading">du lịch Cô Tô rất hấp dẫn khách hàng n</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
+                                </div>
+                            </div>
+                            <div class="sub-hot-item">
+                                <img src="/WEB2/images/danang.webp" alt="" class="sub-hot-item--img">
+                                <div class="sub-hot-item--info">
+                                    <h4 class="sub-hot-item--heading">chuyến đi Đà Nẵng đáng nhớ nhất nè b</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-hot-item">
+                        <h3 class="product-hot-item--heading">Hoạt Động Du Lịch Việt Nam Bán Chạy</h3>
+                        <div class="sub-hot-list">
+                            <div class="sub-hot-item">
+                                <img src="/WEB2/images/haiduong2.webp" alt="" class="sub-hot-item--img">
+                                <div class="sub-hot-item--info">
+                                    <h4 class="sub-hot-item--heading">chuyến đi Đà Nẵng đáng nhớ nhất nè b.</h4>
+                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
+                                </div>
+                            </div>
+                            <div class="sub-hot-item">
+                                <img src="/WEB2/images/nhatrang2.webp" alt="" class="sub-hot-item--img">
                                 <div class="sub-hot-item--info">
                                     <h4 class="sub-hot-item--heading">vé cáp treo Sun World BanaHill Đà nẵng</h4>
                                     <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
                                 </div>
                             </div>
                             <div class="sub-hot-item">
-                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
+                                <img src="/WEB2/images/dalat.webp" alt="" class="sub-hot-item--img">
                                 <div class="sub-hot-item--info">
-                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
+                                    <h4 class="sub-hot-item--heading">hãy đi Quy Nhơn đi nhé mọi người hi hi</h4>
                                     <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
                                 </div>
                             </div>
@@ -136,45 +169,19 @@
                             <div class="sub-hot-item">
                                 <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
                                 <div class="sub-hot-item--info">
-                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
+                                    <h4 class="sub-hot-item--heading">hãy đi Quy Nhơn đi nhé mọi người hi hi</h4>
                                     <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
                                 </div>
                             </div>
                             <div class="sub-hot-item">
-                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
+                                <img src="/WEB2/images/danang.webp" alt="" class="sub-hot-item--img">
                                 <div class="sub-hot-item--info">
-                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World BanaHill Đà nẵng</h4>
+                                    <h4 class="sub-hot-item--heading">chuyến đi Đà Nẵng đáng nhớ nhất nè b</h4>
                                     <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
                                 </div>
                             </div>
                             <div class="sub-hot-item">
-                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
-                                <div class="sub-hot-item--info">
-                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
-                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-hot-item">
-                        <h3 class="product-hot-item--heading">Hoạt Động Du Lịch Việt Nam Bán Chạy</h3>
-                        <div class="sub-hot-list">
-                            <div class="sub-hot-item">
-                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
-                                <div class="sub-hot-item--info">
-                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
-                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
-                                </div>
-                            </div>
-                            <div class="sub-hot-item">
-                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
-                                <div class="sub-hot-item--info">
-                                    <h4 class="sub-hot-item--heading">vé cáp treo Sun World BanaHill Đà nẵng</h4>
-                                    <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
-                                </div>
-                            </div>
-                            <div class="sub-hot-item">
-                                <img src="/WEB2/images/bigimg.webp" alt="" class="sub-hot-item--img">
+                                <img src="/WEB2/images/dalat.webp" alt="" class="sub-hot-item--img">
                                 <div class="sub-hot-item--info">
                                     <h4 class="sub-hot-item--heading">vé cáp treo Sun World Bân Hill Đà nẵng</h4>
                                     <p class="sub-hot-item--desc">Đây là hoạt động đặc biệt...</p>
