@@ -440,6 +440,31 @@ class Database
 
   public function resultThongKe($orderby, $selectCategory, $dateStart, $dateEnd, $namecoll)
   {
+    if ($selectCategory == 0) {
+      $sql = 'select * from category';
+      $result = $this->execute($sql);
+      $objects = array();
+      $id =0 ;
+      while($row = mysqli_fetch_array($result)) {
+        $key = 'key'.$id;
+        $objects[$key][0] = $row['name_category'];
+        $sql = 'SELECT SUM(amount) as total
+                FROM order_detail AS od , product AS p
+                WHERE p.id = od.id_product AND p.id_category = ' . $row['id'];
+        $result1 = $this->execute($sql);
+        $row1 = mysqli_fetch_array($result1);
+        $objects[$key][1] = $row1['total'];
+        $sql = 'SELECT SUM(total_money) as total
+        FROM order_detail AS od , product AS p
+        WHERE p.id = od.id_product AND p.id_category = ' . $row['id'];
+        $result1 = $this->execute($sql);
+        $row1 = mysqli_fetch_array($result1);
+        $objects[$key][2] = $row1['total'];
+        ++$id;
+      }
+
+      return $objects;
+    }
     $sql = 'SELECT od.id ,p.title ,od.price , od.amount , od.total_money , od.date_go
               FROM product as p , order_detail as od
               where p.id = od.id_product ';
@@ -457,17 +482,10 @@ class Database
     }
 
     ///sap xep san pham theo cot
-    if ($namecoll != 'title') {
-      if ($orderby == 'ASC')
-        $sql = $sql . ' ORDER BY od.' . $namecoll;
-      if ($orderby == 'DESC')
-        $sql = $sql . ' ORDER BY od.' . $namecoll . ' DESC';
-    } else {
-      if ($orderby == 'ASC')
-        $sql = $sql . ' ORDER BY ' . $namecoll;
-      if ($orderby == 'DESC')
-        $sql = $sql . ' ORDER BY ' . $namecoll . ' DESC';
-    }
+    if ($orderby == 'ASC')
+      $sql = $sql . ' ORDER BY ' . $namecoll;
+    elseif ($orderby == 'DESC')
+      $sql = $sql . ' ORDER BY ' . $namecoll . ' DESC';
 
     $result = null;
     if ($dateStart != '' && $dateEnd == '') {
@@ -492,31 +510,7 @@ class Database
       $result = $stmt->get_result();
     } else
       $result = $this->execute($sql);
-    $stt = 1;
-    $tongTien = 0;
-    $tongSL = 0;
-    while ($row = mysqli_fetch_array($result)) {
-      echo '
-        <tr>
-          <th class = "table-cell stt">' . $row['id'] . '</th>
-          <th class ="table-cell nameTour ">' . $row['title'] . '</th>
-          <th class = "table-cell price-tk">' . $row['price'] . '</th>
-          <th class = "table-cell num-bought ">' . $row['amount'] . '</th>
-          <th class = "table-cell total-money">' . $row['total_money'] . '</th>
-          <th class ="slcl table-cell">' . $row['date_go'] . '</th>
-        </tr>';
-      $tongTien = $tongTien + $row['total_money'];
-      $tongSL = $tongSL + $row['amount'];
-      $stt = $stt + 1;
-    }
-    echo '
-        <tr style = "font-weight : 600">
-          <th class = "table-cell">Tổng :
-          <th class = "table-cell"> </th>
-          <th class = "table-cell"> </th>
-          <th class = "table-cell"> ' . $tongSL . '</th>
-          <th class = "table-cell"> ' . $tongTien . '</th>
-        </tr>';
+    return $result;
   }
 
   public function resultEmailUser($idUser, $emailChange)
