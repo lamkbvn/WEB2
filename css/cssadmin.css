@@ -583,7 +583,17 @@ a {
     display: flex;
     justify-content: space-between;
 }
-.jack {
+.jack, .kicm {
     width: 600px;
     height: auto;
+}
+.title_chart{
+    font-style: italic;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tableTop{
+    margin-top: 25px
 }

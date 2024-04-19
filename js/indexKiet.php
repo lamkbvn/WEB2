@@ -416,6 +416,10 @@
                     alert("Vui lòng chọn số vé trước khi chọn mã");
                     return;
                 }
+                if(this.id==0){
+                    alert("Voucher này đã hết hạn sử dụng");
+                    return;
+                }
                 buttons.forEach(function(btn) {
                     btn.textContent = "Sử dụng";
                     btn.style.backgroundColor = "#f08044"; // Đặt lại màu ban đầu

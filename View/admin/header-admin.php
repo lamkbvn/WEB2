@@ -127,7 +127,11 @@
                     </a>';
                 }
             }
-
+            for($i=0; $i<20; $i++){
+                echo '<a href="index.php?controller=trang-admin" w>
+                        <p class="nav-admin-item--title"></p>
+                    </a>';
+            }
             ?>
 
         </div>

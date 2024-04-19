@@ -315,7 +315,8 @@ class Database
     return mysqli_affected_rows($this->conn);
   }
   // lấy id cuối cùng của tour
-  public function getLastID($table){
+  public function getLastID($table)
+  {
     $sql = "SELECT id FROM $table ORDER BY id DESC LIMIT 1";
     return $this->execute($sql);
   }
@@ -444,9 +445,9 @@ class Database
       $sql = 'select * from category';
       $result = $this->execute($sql);
       $objects = array();
-      $id =0 ;
-      while($row = mysqli_fetch_array($result)) {
-        $key = 'key'.$id;
+      $id = 0;
+      while ($row = mysqli_fetch_array($result)) {
+        $key = 'key' . $id;
         $objects[$key][0] = $row['name_category'];
         $sql = 'SELECT SUM(amount) as total
                 FROM order_detail AS od , product AS p
@@ -834,5 +835,71 @@ class Database
     $result = $this->execute($sql);
     $row = $result->fetch_assoc();
     return $row['count'];
+  }
+
+
+  // thống kê: hàm lấy ra các tour bán và ngày bán
+  public function getTourSellThisWeek()
+  {
+    $sql = "SELECT 
+    DATE_FORMAT(orders.date_order, '%W') AS day_of_week,
+    COUNT(order_detail.id_product) AS total_tours_sold
+FROM 
+    orders
+JOIN 
+    order_detail ON orders.id = order_detail.id_order
+WHERE 
+    WEEK(orders.date_order) = WEEK(CURDATE())
+    GROUP BY 
+    DATE_FORMAT(orders.date_order, '%W')
+ORDER BY 
+    MIN(orders.date_order);
+";
+    return $this->execute($sql);
+  }
+
+  // Hàm để lấy dữ liệu cho mảng dataPoints2 từ cơ sở dữ liệu
+public function getTourSellLastWeek()
+{
+    // Thực hiện truy vấn SQL để lấy số lượng tour bán được trong mỗi ngày trong tuần trước
+    $sql = "SELECT 
+    DATE_FORMAT(orders.date_order, '%W') AS day_of_week,
+    COUNT(order_detail.id_product) AS total_tours_sold
+FROM 
+    orders
+JOIN 
+    order_detail ON orders.id = order_detail.id_order
+WHERE 
+    WEEK(orders.date_order) = WEEK(CURDATE()) - 1
+GROUP BY 
+    DATE_FORMAT(orders.date_order, '%W')
+ORDER BY 
+    MIN(orders.date_order);
+";
+
+    // Thực hiện truy vấn và trả về kết quả
+    return $this->execute($sql);
+}
+
+  // lấy ra id sản phẩm bán được hôm nay
+  public function getTourSellToday()
+  {
+    $sql = "SELECT 
+    order_detail.id_product, 
+    COUNT(order_detail.id_product) AS total_quantity, 
+    product.title
+FROM 
+    orders
+JOIN 
+    order_detail ON orders.id = order_detail.id_order
+JOIN 
+    product ON order_detail.id_product = product.id
+WHERE 
+WEEK(orders.date_order) = WEEK(CURDATE())
+GROUP BY 
+    order_detail.id_product
+ORDER BY 
+    total_quantity DESC;";
+    return $this->execute($sql);
   }
 }
