@@ -118,8 +118,8 @@
 
   .col-2{
     margin-left: 10px;
-    line-height : 20px;
-    width : 80%;
+    line-height : 23px;
+    width :56%;
   }
 
   .col-3{

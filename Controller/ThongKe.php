@@ -42,7 +42,7 @@ function thongKe()
     while ($row = mysqli_fetch_array($result)) {
       echo '
       <tr>
-        <th class = "table-cell stt">' . $row['id'] . '</th>
+        <th class = "table-cell stt">' . $stt . '</th>
         <th class ="table-cell nameTour ">' . $row['title'] . '</th>
         <th class = "table-cell price-tk">' . $row['price'] . '</th>
         <th class = "table-cell num-bought ">' . $row['amount'] . '</th>

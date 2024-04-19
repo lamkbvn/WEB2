@@ -439,9 +439,9 @@ class Database
       $sql = 'select * from category';
       $result = $this->execute($sql);
       $objects = array();
-      $id =0 ;
-      while($row = mysqli_fetch_array($result)) {
-        $key = 'key'.$id;
+      $id = 0;
+      while ($row = mysqli_fetch_array($result)) {
+        $key = 'key' . $id;
         $objects[$key][0] = $row['name_category'];
         $sql = 'SELECT SUM(amount) as total
                 FROM order_detail AS od , product AS p
@@ -455,12 +455,16 @@ class Database
         $result1 = $this->execute($sql);
         $row1 = mysqli_fetch_array($result1);
         $objects[$key][2] = $row1['total'];
+        if ($objects[$key][1] == null) {
+          $objects[$key][2] = 0;
+          $objects[$key][1] = 0;
+        }
         ++$id;
       }
 
       return $objects;
     }
-    $sql = 'SELECT od.id ,p.title ,od.price , od.amount , od.total_money , od.date_go
+    $sql = 'SELECT p.title ,od.price , od.amount , od.total_money , od.date_go
               FROM product as p , order_detail as od
               where p.id = od.id_product ';
     ///chon san pham theo ten loai
@@ -583,71 +587,7 @@ class Database
       $query = "SELECT * FROM discount as d,discountuser as du where code like '%$stringFind%'and date_end > CURRENT_DATE and id_user = " . $idUser . " and du.id_discount = d.id  ";
       $result = mysqli_query($this->conn, $query);
     }
-
-    if (mysqli_num_rows($result) == 0) {
-      echo '
-            <div class="no-find-discount">
-              <div class="title-no-find1">
-                Mã mời khuyến mãi mới
-              </div>
-              <div class="title-no-find2">
-                Bạn có mã ưu đãi? Nhập vào để lưu ở bên trên.Hoặc bạn có thể mời bạn bè sử dụng Klook và kiếm điểm thưởng.
-              </div>
-            </div>
-            ';
-      return;
-    }
-    while ($row = mysqli_fetch_array($result)) {
-      $timezone = new DateTimeZone('Asia/Ho_Chi_Minh');
-      // Tạo đối tượng DateTime cho hai mốc thời gian
-      $now = new DateTime('now', $timezone); // Thời điểm hiện tại
-      $futureDate = new DateTime($row['date_end'] . ' 23:59:59'); // Mốc thời gian trong tương lai
-      if ($futureDate < $now) {
-        continue;
-      }
-      // Tính khoảng thời gian giữa hai mốc
-      $interval = $now->diff($futureDate);
-
-      // Lấy số ngày còn lại từ DateInterval
-      $daysRemaining = $interval->days;
-      $hoursRemaining = $interval->h;
-      echo '
-                <div class="discount-card">
-                <div class="infor-card">
-                  <div class="infor-card-main">
-                    <div class="title-infor-card">
-                      ' . $row['discount_name'] . '
-                    </div>
-                    <div class="detail-infor-card">
-                    ' . $row['description'] . '
-                    </div>
-                    <div class="hansudung">
-                      Hạn sử dụng : Còn lại ' . ($daysRemaining > 0 ? $daysRemaining : $hoursRemaining / 3) . ($daysRemaining > 0 ? ' ngày' : ' giờ') . '
-                    </div>
-                  </div>
-                </div>
-                <div class="cac-hinh-tron">
-                  <div class="hinhtron"></div>
-                  <div class="hinhtron"></div>
-                  <div class="hinhtron"></div>
-                  <div class="hinhtron"></div>
-                  <div class="hinhtron"></div>
-                </div>
-                <div class="use-card">
-                  <div class="title-use-card">
-                    Mã ưu đãi
-                  </div>
-                  <div class="code-use-card">
-                  ' . $row['code'] . '
-                  </div>
-                  <button class="btn-use-card" onclick ="useDiscount(event)">Sử dụng</button>
-                </div>
-              </div>
-                ';
-    }
-
-    //kiet
-
+    return $result;
   }
   public function getAll()
   {
