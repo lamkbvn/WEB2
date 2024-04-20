@@ -115,4 +115,14 @@
   .filter-advance .icon-kill svg path {
     stroke: #ff5b00;
   }
+  .wrapper-filter-all {
+    width: auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 25px 20px;
+    top: 41px;
+  }
+  .price-input-all .separator-all {
+    width: auto;
+  }
 }

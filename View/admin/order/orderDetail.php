@@ -174,6 +174,12 @@
     .btn-update:hover {
         background-color: #dc3545;
     }
+    .img-product-detail {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
 </style>
 <div class="body-order-detail">
     <h1>Chi tiết đơn hàng
@@ -339,7 +345,22 @@
                                 <?php echo $stt++; ?>
                             </td>
                             <td class="table-cell id">
-                                chua co
+                                <?php 
+                                    include "../../Model/DBConfig.php";
+                                    $dbbb = new Database();
+                                    $dbbb->connect();
+                                    $result = $dbbb->GetImgProduct($value['id_product']);
+                                    $row = mysqli_fetch_array($result);
+                                    $numImg = mysqli_num_rows($result);
+                                    if($numImg>0) {
+                                        $imageData = $row['image'];
+                                        $url = 'data:image/jpeg;base64,' . base64_encode($imageData);
+                                    }
+                                    else {
+                                        $url = "images/no_image.gif";
+                                    }
+                                ?>
+                            <img src="<?php echo $url?>" alt="" class="img-product-detail" />
                             </td>
                             <td class="table-cell id">
                                 <?= $value['title'] ?>

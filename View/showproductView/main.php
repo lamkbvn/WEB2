@@ -116,7 +116,7 @@
                                                 <span>Min</span>
                                                 <input type="number" class="input-min-all" value="0" id="price-min">
                                             </div>
-                                            <div class="separator-all">-</div>
+                                            <div class="separator-all hidden_tablet_mobile">-</div>
                                             <div class="field-all">
                                                 <span>Max</span>
                                                 <input type="number" class="input-max-all" value="5000000" id="price-max">
