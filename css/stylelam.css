@@ -946,3 +946,9 @@ h4 {
 }
 
 /* admin */
+
+@media (max-width: 1199.98px) {
+    .hidden_tablet_mobile {
+      display: none;
+    }
+}
