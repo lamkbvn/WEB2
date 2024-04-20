@@ -6,8 +6,9 @@ if (isset($_COOKIE['userIDForReset'])) {
     // Kiểm tra xem người dùng đã gửi mật khẩu mới hay chưa
     if (isset($_POST['password-forgot'])) {
         $password = $_POST['password-forgot'];
-
-        // Kết nối CSDL và cập nhật mật khẩu
+        // if(strlen($password) < 6 || !preg_match('/[^a-zA-Z0-9]/', $password)){ // hoac password không chứ kí tự đặc biệt
+        //     exit();
+        // }
         $db = new Database();
         $db->connect();
         $db->updatePasswordById($idUserForReset, $password);
@@ -255,14 +256,14 @@ if (isset($_COOKIE['userIDForReset'])) {
 
         .icon {
             position: fixed;
-            top: 37%;
+            top: 41%;
             left: 12%;
             transform: translate(-50%, -50%);
         }
 
         .icon-kill {
             position: fixed;
-            top: 37%;
+            top: 41%;
             left: 88%;
             transform: translate(-50%, -50%);
             padding: 6px;
@@ -350,6 +351,10 @@ if (isset($_COOKIE['userIDForReset'])) {
             /* opacity: 0;
             visibility: hidden; */
         }
+        .reject {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
     </style>
     <header class="header">
         <div class="container">
@@ -394,27 +399,8 @@ if (isset($_COOKIE['userIDForReset'])) {
                         Dài ít nhất 6 kí tự
                     </p>
                 </div>
-                <div class="error notifi character">
-
-                    <svg width="16" height="16" viewBox="0 0 48 48" fill="none" class="check-chars-false">
-                        <circle cx="24" cy="24" r="21" fill="#F44622" stroke="#F44622" stroke-width="3.6"></circle>
-                        <path d="M17.636 17.636L30.3639 30.3639" stroke="#FFF" stroke-width="3.6"
-                            stroke-linecap="round"></path>
-                        <path d="M17.636 30.364L30.3639 17.6361" stroke="#FFF" stroke-width="3.6"
-                            stroke-linecap="round"></path>
-                    </svg>
-                    <svg width="16" height="16" viewBox="0 0 48 48" fill="none" class="none check-chars-success">
-                        <circle cx="24" cy="24" r="21" fill="#08B371" stroke="#08B371" stroke-width="3.6"></circle>
-                        <path d="M15 24L21.364 30.364L32.6777 19.0503" stroke="#FFF" stroke-width="3.6"
-                            stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                    <p style="padding-left: 5px;">
-                        Bao gồm số và kí tự đặt biệt
-                    </p>
-
-                </div>
             </div>
-            <button value="submit">Đặt lại và đăng nhập</button>
+            <button value="submit" class="submit reject">Đặt lại và đăng nhập</button>
         </form>
     </div>
 
@@ -431,8 +417,14 @@ if (isset($_COOKIE['userIDForReset'])) {
         var input = document.querySelector("#password-forgot");
         var checkLengthSuccess = document.querySelector(".check-length-success");
         var checkLengthFalse = document.querySelector(".check-length-false");
-        var checkCharsFalse = document.querySelector(".check-chars-false");
-        var checkCharsSuccess = document.querySelector(".check-chars-success");
+        var submitBtn = document.querySelector(".submit");
+
+        submitBtn.addEventListener("click", function (event) {
+
+            if (input.value.length < 6) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định của sự kiện click
+            }
+        });
 
 
         console.log(checkLengthFalse);
@@ -442,20 +434,13 @@ if (isset($_COOKIE['userIDForReset'])) {
             if (input.value.trim().length < 6) {
                 checkLengthSuccess.classList.add('none');
                 checkLengthFalse.classList.remove('none');
+                submitBtn.classList.add("reject");
             } else {
                 checkLengthSuccess.classList.remove('none');
                 checkLengthFalse.classList.add('none');
+                submitBtn.classList.remove("reject");
             }
-            var containsNumber = /[0-9]/.test(input.value);
-            var containsSpecialChar = /[^A-Za-z0-9]/.test(input.value);
-
-            if (containsNumber && containsSpecialChar) {
-                checkCharsSuccess.classList.remove('none');
-                checkCharsFalse.classList.add('none');
-            } else {
-                checkCharsSuccess.classList.add('none');
-                checkCharsFalse.classList.remove('none');
-            }
+            
         })
 
         var icon_eye_password = document.querySelector(".icon-kill");
@@ -472,8 +457,6 @@ if (isset($_COOKIE['userIDForReset'])) {
                 icon_eye_open.classList.add("none");
                 input.type = "password";
             }
-
-
         })
     </script>
 </body>
