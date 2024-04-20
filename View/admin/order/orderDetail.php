@@ -346,10 +346,10 @@
                             </td>
                             <td class="table-cell id">
                                 <?php 
-                                    include "../../Model/DBConfig.php";
-                                    $dbbb = new Database();
-                                    $dbbb->connect();
-                                    $result = $dbbb->GetImgProduct($value['id_product']);
+                                    // include "../../Model/DBConfig.php";
+                                    // $dbbb = new Database();
+                                    // $dbbb->connect();
+                                    $result = $db->GetImgProduct($value['id_product']);
                                     $row = mysqli_fetch_array($result);
                                     $numImg = mysqli_num_rows($result);
                                     if($numImg>0) {
