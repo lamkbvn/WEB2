@@ -11,7 +11,6 @@
             <div class="slider">
                 <img src="css/icons/header-01.webp" alt="" class="slide" />
                 <img src="css/icons/header-02.webp" alt="" class="slide" />
-                <!-- <img src="css/icons/header-03.webp" alt="" class="slide" /> -->
             </div>
             <div class="header-info">
                 <h1 class="header-heading">THẾ GIỚI TRỌN NIỀM VUI</h1>
@@ -47,23 +46,6 @@
                         <img src="css/icons/banner-03.png" alt="">
                         <button class="attractive-offer--btn">Xem thêm</button>
                     </li>
-
-                    <li class="attractive-offer--item">
-                        <img src="css/icons/banner-03.png" alt="">
-                        <button class="attractive-offer--btn">Xem thêm</button>
-                    </li>
-                    <li class="attractive-offer--item">
-                        <img src="css/icons/banner-02.png" alt="">
-                        <button class="attractive-offer--btn">Xem thêm</button>
-                    </li>
-                    <li class="attractive-offer--item">
-                        <img src="css/icons/banner-03.png" alt="">
-                        <button class="attractive-offer--btn">Xem thêm</button>
-                    </li>
-                    <li class="attractive-offer--item">
-                        <img src="css/icons/banner-03.png" alt="">
-                        <button class="attractive-offer--btn">Xem thêm</button>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -76,17 +58,16 @@
                 <div class="highlighted-activities--list">
                     <?php $count = 0; ?>
                     <?php foreach ($dataHotProduct as $product) : ?>
-                        <?php if ($count < 4) : 
+                        <?php if ($count < 4) :
                             $result = $db->GetImgProduct($product['id']);
                             $row = mysqli_fetch_array($result);
                             $numImg = mysqli_num_rows($result);
-                            if($numImg>0) {
+                            if ($numImg > 0) {
                                 $imageData = $row['image'];
                                 $url = 'data:image/jpeg;base64,' . base64_encode($imageData);
-                            }
-                            else $url = "images/no_image.gif";?>
+                            } else $url = "images/no_image.gif"; ?>
                             <div class="highlighted-activities--item">
-                                <img src="<?php echo $url?>" alt="<?php echo $product['title']; ?>" class="highlighted-activities--img">
+                                <img src="<?php echo $url ?>" alt="<?php echo $product['title']; ?>" class="highlighted-activities--img">
                                 <div class="highlighted-activities--info">
                                     <p class="highlighted-activities--desc"><?php echo $product['content']; ?></p>
                                     <p class="highlighted-activities--title"><?php echo $product['title']; ?></p>
@@ -97,15 +78,10 @@
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
-
-                <?php if (count($dataHotProduct) > 4) : ?>
-                <?php endif; ?>
-
-
-
             </div>
         </div>
     </div>
+
     <div class="product-list--hot">
         <div class="container">
             <div class="product-list--hot__inner">
@@ -395,6 +371,41 @@
             } else {
                 alert('Vui lòng nhập địa chỉ email.');
             }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const prevButton = document.getElementById("prevButton");
+        const nextButton = document.getElementById("nextButton");
+        const list = document.querySelector(".highlighted-activities--list");
+        const items = document.querySelectorAll(".highlighted-activities--item");
+        const itemCount = items.length;
+        const visibleItems = 4;
+        let currentIndex = 0;
+
+        function moveList(direction) {
+            const itemWidth = items[0].offsetWidth + 15; // Lấy kích thước của mỗi phần tử
+            const listWidth = itemCount * itemWidth; // Tính kích thước tổng của danh sách
+            const containerWidth = list.parentElement.offsetWidth; // Lấy kích thước của phần tử chứa danh sách
+            const maxIndex = Math.ceil((listWidth - containerWidth) / itemWidth); // Tính chỉ số tối đa có thể di chuyển đến
+
+            if (direction === 'prev') {
+                currentIndex = Math.max(currentIndex - visibleItems, 0); // Di chuyển sang trái
+            } else {
+                currentIndex = Math.min(currentIndex + visibleItems, maxIndex); // Di chuyển sang phải
+            }
+
+            list.style.transform = `translateX(-${currentIndex * itemWidth}px)`; // Di chuyển danh sách
+        }
+
+        prevButton.addEventListener("click", function() {
+            moveList('prev');
+        });
+
+        nextButton.addEventListener("click", function() {
+            moveList('next');
         });
     });
 </script>

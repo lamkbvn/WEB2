@@ -15,42 +15,10 @@ if (isset($_GET['action'])) {
 
 $alert;
 
-
 switch ($action) {
 	case 'add': {
 			$listRoleTable = "role";
 			$roles = $db->getAllData($listRoleTable);
-			// if (isset($_POST['add_user'])) {
-			// 	$fullname = $_POST['fullname'];
-			// 	$email = $_POST['email'];
-			// 	$phone_number = $_POST['phone_number'];
-			// 	$create_at = $_POST['create_at'];
-			// 	$status = $_POST['status'];
-			// 	$address = $_POST['address'];
-			// 	$acount;
-			// 	$password;
-			// 	$role;
-			// 	if (isset($_POST['acount']) && isset($_POST['password'])) {
-			// 		$acount = $_POST['acount'];
-			// 		$password = $_POST['password'];
-			// 	}
-
-			// 	if (isset($_POST['role'])) {
-			// 		$role = $_POST['role'];
-			// 	}
-			// 	if (
-			// 		$db->insertUserData($fullname, $email, $phone_number, $create_at, $status, $address)
-			// 		&& $hadAcount
-			// 	) {
-			// 		header('location: index.php?controller=trang-admin&action=indexAdmin');
-			// 	}
-			// }
-			// if (isset($_POST['add_user'])) {
-			// 	$fullname = $_POST['fullname'];
-			// 	$email = $_POST['email'];
-			// 	$phone_number = $_POST['phone_number'];
-			// 	echo "Dữ liệu đã được xử lý thành công!";
-			// }
 			require_once('View/admin/add.php');
 			break;
 		}

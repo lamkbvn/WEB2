@@ -302,7 +302,6 @@ h4 {
     gap: 20px;
     transition: transform 0.5s ease;
     padding: 20px 20px 20px 0px;
-    overflow: hidden;
 }
 
 .attractive-offer--item {
@@ -425,10 +424,12 @@ h4 {
 
 .highlighted-activities--list {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     gap: 15px;
     margin-top: 20px;
+    transition: transform 0.3s ease;
+    /* overflow: hidden; */
 }
 
 .highlighted-activities--item {
@@ -473,6 +474,23 @@ h4 {
     font-weight: 600;
     line-height: 1.5;
     word-break: break-word;
+}
+
+#prevButton,
+#nextButton {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+#prevButton:hover,
+#nextButton:hover {
+    background-color: #999;
 }
 
 /* product-list--hot */
