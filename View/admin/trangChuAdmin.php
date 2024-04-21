@@ -130,6 +130,7 @@
 
 						<tbody class="table-body">
 							<?php $stt = 0;
+							if($tourSellToday!=null){
 							foreach ($tourSellToday as $tour) :  $stt++;
 								if ($stt == 6) break;
 								$style="color: black;";
@@ -144,7 +145,7 @@
 									<td class="table-cell id"><?php echo $tour['total_quantity']; ?></td>
 									</td>
 								</tr>
-							<?php endforeach; ?>
+							<?php endforeach; }?>
 						</tbody>
 					</table>
 					</br>
@@ -164,7 +165,7 @@
 	var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: ['Monday', 'Tuesday', 'Webnesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+			labels: ['Sunday', 'Monday', 'Tuesday', 'Webnesday', 'Thursday', 'Friday', 'Saturday'],
 			datasets: [{
 				label: 'This week',
 				data: <?php echo json_encode($dataPoints1); ?>,
