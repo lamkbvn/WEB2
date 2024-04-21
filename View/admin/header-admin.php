@@ -71,15 +71,15 @@
     </header>
 
     <div class="navigation-admin">
-        <a href="index.php?controller=trang-admin&action=trangChuAdmin" id="nav-item--logo">
+        <a href="index.php?controller=trang-admin&action=trangChuAdmin" id="nav-item--logo" class="nav-admin-item-a">
             <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo">
         </a>
         <div class="nav-admin-list">
-            <!-- <a href="index.php?controller=trang-admin&action=role" id="page2" class="nav-admin-item">
+            <!-- <a href="index.php?controller=trang-admin&action=role" id="page2" class="nav-admin-item-a nav-admin-item">
                 <img src="css/icons/user-role-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Phân quyền</p>
             </a> -->
-            <!-- <a href="index.php?controller=trang-admin&action=chucnang" id="page0" class="nav-admin-item">
+            <!-- <a href="index.php?controller=trang-admin&action=chucnang" id="page0" class="nav-admin-item-a nav-admin-item">
                 <img src="css/icons/function-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Chức năng</p>
             </a> -->
@@ -87,41 +87,41 @@
             $role = $db->checkRoleAdmin($_SESSION['idUserLogin']);
             foreach ($role as $rowRole) {
                 if ($rowRole['id_role'] == 99) {
-                    echo '<a href="index.php?controller=trang-admin&action=role" id="page2" class="nav-admin-item">
+                    echo '<a href="index.php?controller=trang-admin&action=role" id="page2" class="nav-admin-item-a nav-admin-item">
                         <img src="css/icons/user-role-svgrepo-com.svg" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Phân quyền</p>
                     </a>';
-                    echo '<a href="index.php?controller=trang-admin&action=chucnang" id="page0" class="nav-admin-item">
+                    echo '<a href="index.php?controller=trang-admin&action=chucnang" id="page0" class="nav-admin-item-a nav-admin-item">
                         <img src="css/icons/function-svgrepo-com.svg" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Chức năng</p>
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 1 && $rowRole['HD'] == 'View') {
-                    echo '<a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item">
+                    echo '<a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item-a nav-admin-item">
                         <img src="css/icons/admin-nguoidung.svg" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Người dùng</p>
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 2 && $rowRole['HD'] == 'View') {
-                    echo '<a href="index.php?controller=trang-admin&action=tour" id="page3" class="nav-admin-item">
+                    echo '<a href="index.php?controller=trang-admin&action=tour" id="page3" class="nav-admin-item-a nav-admin-item">
                         <img src="css/icons/userslist-admin-icon.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Tour</p>
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 3 && $rowRole['HD'] == 'View') {
-                    echo '<a href="index.php?controller=trang-admin&action=order" id="page7" class="nav-admin-item">
+                    echo '<a href="index.php?controller=trang-admin&action=order" id="page7" class="nav-admin-item-a nav-admin-item">
                         <img src="css/icons/order-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Order</p>
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 4 && $rowRole['HD'] == 'View') {
-                    echo '<a href="index.php?controller=trang-admin&action=dthongke" id="page6" class="nav-admin-item">
+                    echo '<a href="index.php?controller=trang-admin&action=dthongke" id="page6" class="nav-admin-item-a nav-admin-item">
                         <img src="css/icons/stats-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Thống kê</p>
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 5 && $rowRole['HD'] == 'View') {
-                    echo '<a href="index.php?controller=trang-admin&action=dsbl" id="page4" class="nav-admin-item">
+                    echo '<a href="index.php?controller=trang-admin&action=dsbl" id="page4" class="nav-admin-item-a nav-admin-item">
                         <img src="css/icons/comment-alt-lines-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Bình luận</p>
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 6 && $rowRole['HD'] == 'View') {
-                    echo '<a href="index.php?controller=trang-admin&action=dsvoucher" id="page5" class="nav-admin-item">
+                    echo '<a href="index.php?controller=trang-admin&action=dsvoucher" id="page5" class="nav-admin-item-a nav-admin-item">
                         <img src="css/icons/price-voucher-discount-offer-ticket-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Voucher</p>
                     </a>';
@@ -132,34 +132,86 @@
 
         </div>
     </div>
-    <div id="content">
-
-    </div>
-
-
 </body>
 
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const action = urlParams.get('action');
+    $(document).ready(function() {
+        // Kiểm tra khi trang được tải và khi một .nav-admin-item được click
+        checkUrl();
 
-    if (action === 'indexAdmin' || action === 'edit' || action === 'editrole' || action === 'add') {
-        document.getElementById('page1').classList.add('header-admin-active');
-    } else if (action === 'role' || action === 'editRole' || action === 'addRole') {
-        document.getElementById('page2').classList.add('header-admin-active');
-    } else if (action === 'tour' || action === 'editTour' || action === 'addTour') {
-        document.getElementById('page3').classList.add('header-admin-active');
-    } else if (action === 'dsbl') {
-        document.getElementById('page4').classList.add('header-admin-active');
-    } else if (action === 'dsvoucher' || action === 'suavoucher') {
-        document.getElementById('page5').classList.add('header-admin-active');
-    } else if (action === 'dthongke') {
-        document.getElementById('page6').classList.add('header-admin-active');
-    } else if (action === 'order' || action === 'detailOrder') {
-        document.getElementById('page7').classList.add('header-admin-active');
-    } else if (action === 'chucnang') {
-        document.getElementById('page0').classList.add('header-admin-active');
-    }
+        $('.nav-admin-item-a').click(function(e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
+
+            var url = $(this).attr('href'); // Lấy đường dẫn từ thuộc tính href của thẻ a
+
+            // Gửi yêu cầu Ajax
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    // Cập nhật nội dung của trang
+                    $('body').html(data);
+
+                    // Thay đổi URL của trình duyệt
+                    history.pushState(null, null, url);
+
+                    // Kiểm tra và thêm class high
+                    checkUrl();
+                },
+                error: function(xhr, status, error) {
+                    // Xử lý lỗi nếu có
+                    console.error(error);
+                }
+            });
+        });
+
+        // Lắng nghe sự kiện khi người dùng bấm nút Back/Forward trên trình duyệt
+        window.onpopstate = function(event) {
+            // Thực hiện lại yêu cầu Ajax khi người dùng quay lại trang trước đó
+            $.ajax({
+                url: location.pathname, // Sử dụng đường dẫn hiện tại
+                type: 'GET',
+                success: function(data) {
+                    // Cập nhật nội dung của trang
+                    $('body').html(data);
+
+                    // Kiểm tra và thêm class high
+                    checkUrl();
+                },
+                error: function(xhr, status, error) {
+                    // Xử lý lỗi nếu có
+                    console.error(error);
+                }
+            });
+        };
+
+        // Hàm kiểm tra và thêm class high
+        function checkUrl() {
+            // Lấy action từ URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const action = urlParams.get('action');
+            if (action === 'indexAdmin' || action === 'edit' || action === 'editrole' || action === 'add') {
+                $('#page1').addClass('header-admin-active');
+            } else if (action === 'role' || action === 'editRole' || action === 'addRole') {
+                $('#page2').addClass('header-admin-active');
+            } else if (action === 'tour' || action === 'editTour' || action === 'addTour') {
+                $('#page3').addClass('header-admin-active');
+            } else if (action === 'dsbl') {
+                $('#page4').addClass('header-admin-active');
+            } else if (action === 'dsvoucher' || action === 'suavoucher') {
+                $('#page5').addClass('header-admin-active');
+            } else if (action === 'dthongke') {
+                $('#page6').addClass('header-admin-active');
+            } else if (action === 'order' || action === 'detailOrder') {
+                $('#page7').addClass('header-admin-active');
+            } else if (action === 'chucnang') {
+                $('#page0').addClass('header-admin-active');
+            }
+
+        }
+    });
 </script>
