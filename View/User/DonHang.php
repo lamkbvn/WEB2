@@ -21,6 +21,8 @@
     display :flex;
     align-items : center;
     flex-direction: column;
+    height : 100%;
+    overflow: auto;
   }
 
   .item-dh{
@@ -118,8 +120,8 @@
 
   .col-2{
     margin-left: 10px;
-    line-height : 20px;
-    width : 80%;
+    line-height : 23px;
+    width :56%;
   }
 
   .col-3{
@@ -154,11 +156,68 @@
       ';
     }
     ?>
-    <!-- <div class="item-dh 1">
+    <div class="item-dh 1">
       <div class="txt-dh">Don hang 1</div>
       <div class="txt-date">30-1-2024</div>
       <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div> -->
+    </div>
+    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+    </div>
   </div>
 
   <div class="detail-item-dh hide-on">
@@ -175,7 +234,7 @@
             </div>
             <div class="col-3 price">3000000</div>
           </div> -->
-        </div>
+        </div>    
       </div>
   </div>
 <!-- <script src="js/User/script.js" ></script> -->

@@ -1,8 +1,8 @@
 <main class="main">
     <div class="filter-row" id="filter-row-anchor-for-pagination">
         <div class="container">
-            <div class="filter-left">
-                <div class="all-category category">
+            <div class="filter-left hidden_tablet_mobile">
+                <div class="all-category category ">
                     <span>Tất cả danh mục</span>
                     <!-- <img src="../View/icon/icon-list-bottom.svg" alt="" class="icon-list-bottom" /> -->
                     <svg class="icon-list-bottom" width="13" height="9" viewBox="0 0 13 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,9 +41,9 @@
                 <div class="optionCategory-get-from-url" data-value-from-url="<?= $_GET['category'] ?>"></div>
 
             </div>
-            <div class="separete-center"></div>
+            <div class="separete-center hidden_tablet_mobile"></div>
             <div class="filter-right">
-                <div class="filter-date-price-group">
+                <div class="filter-date-price-group hidden_tablet_mobile">
 
                     <div class="all-category category filter-price">
                         <span>Lọc theo giá</span>
@@ -116,7 +116,7 @@
                                                 <span>Min</span>
                                                 <input type="number" class="input-min-all" value="0" id="price-min">
                                             </div>
-                                            <div class="separator-all">-</div>
+                                            <div class="separator-all hidden_tablet_mobile">-</div>
                                             <div class="field-all">
                                                 <span>Max</span>
                                                 <input type="number" class="input-max-all" value="5000000" id="price-max">
@@ -196,7 +196,7 @@
 
             </div>
             <div class="sort">
-                <span>Sắp xếp theo</span>
+                <span class="hidden_tablet_mobile">Sắp xếp theo</span>
                 <!-- <div class="list-item">
                         <span>KLook giới thiệu</span>
                         <img src="../View/icon/icon-list-bottom.svg" alt="" />

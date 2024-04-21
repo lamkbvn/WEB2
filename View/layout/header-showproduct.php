@@ -99,8 +99,8 @@
 				</div>
 				<div class="nav-top--right">
 					<div class="nav-top--right__inner">
-						<a href="#!" class="nav-top--right__panner">Mở ứng dụng</a>
-						<a href="#!" class="nav-top--right__panner">Xem gần đây</a>
+						<a href="#!" class="nav-top--right__panner hidden_tablet_mobile">Mở ứng dụng</a>
+						<a href="#!" class="nav-top--right__panner hidden_tablet_mobile">Xem gần đây</a>
 						<?php
 						if (session_status() == PHP_SESSION_NONE) {
 							session_start();
@@ -116,7 +116,7 @@
 						<?php
 						if (isset($_SESSION['isLogin'])) {
 							if ($_SESSION['isLogin'] == 1) {
-								echo '<a href="/WEB2/index.php?controller=trang-chu&action=cart" id="cartIcon" class="option-header-right nav-top--right__panner">Giỏ hàng
+								echo '<a href="/WEB2/index.php?controller=trang-chu&action=cart" id="cartIcon" class="option-header-right nav-top--right__panner hidden_tablet_mobile">Giỏ hàng
           								<div id="numCart">';
 								// Embedding PHP to display $totalRowsNumCart
 								echo $totalRowsNumCart;

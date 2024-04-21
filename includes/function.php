@@ -161,10 +161,24 @@ function sendMailUpdateOrder($to, $idOrder, $oldStatus, $newStatus, $listOrderDe
         $subject_content_table = '';
         $stt = 1;
         foreach ($listOrderDetail as $value) {
+                    $dbbbb = new Database();
+                    $dbbbb->connect();
+                    $result = $dbbbb->GetImgProduct($value['id_product']);
+                    $row = mysqli_fetch_array($result);
+                    $numImg = mysqli_num_rows($result);
+                    if($numImg>0) {
+                            $imageData = $row['image'];
+                            $url = 'data:image/jpeg;base64,' . base64_encode($imageData);
+                    }
+                    else {
+                            $url = "images/no_image.gif";
+                    }
             $subject_content_table .= '
             <tr class="table-row" style="border: 1px solid #333;">
                 <td class="table-cell id" style="border: 1px solid #333; padding: 5px">' . $stt++ . '</td>
-                <td class="table-cell id" style="border: 1px solid #333; padding: 5px">chưa có</td>
+                <td class="table-cell id" style="border: 1px solid #333; padding: 5px">
+                <img src="' . $url . '" alt="" class="img-product-detail" style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px" />
+                </td>
                 <td class="table-cell id" style="border: 1px solid #333; padding: 5px">' . $value["title"] . '</td>
                 <td class="table-cell id" style="border: 1px solid #333; padding: 5px">' . $value["price"] . ' vnđ</td>
                 <td class="table-cell id" style="border: 1px solid #333; padding: 5px">' . $value["amount"] . '</td>

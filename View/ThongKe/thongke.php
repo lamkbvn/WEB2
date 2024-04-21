@@ -196,7 +196,7 @@
           </svg>
         </th>
       </tr>
-    </thead>
+    </thead>  
     <tbody class = "bodyTable">
     </tbody>
   </table>

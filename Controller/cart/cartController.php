@@ -21,6 +21,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Kiểm tra xem dữ liệu có được chuyển đổi thành công không
     if ($selectedProducts !== null) {
+        session_start();
+        if (isset($_SESSION['idUserLogin'])) {
+            $idUser = $_SESSION['idUserLogin'];
+        }
         $first = 1;
         // $id = date('dmyHis');
         $LastID = $db->getLastID('orders');
@@ -42,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $note_book_tour = $product['note_book_tour']; // Thêm dữ liệu Ghi chú
             $tongTien = $product['tongTien'];
             if ($first == 1) {
-                $db->InsertOrder($id, 1, $hoTen, $email, $sodienthoai, $diachi, $note_book_tour, $dateBuy, $tongTien, 1);
+                $db->InsertOrder($id, $idUser, $hoTen, $email, $sodienthoai, $diachi, $note_book_tour, $dateBuy, $tongTien, 1);
                 $first = 0;
             }
             $db->InsertDetailOrder($id, $id_product, $price, $amount, $price * $amount, $date);

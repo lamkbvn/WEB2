@@ -64,7 +64,7 @@
             ?>
             <div class="container-img">
                 <div class="big-image">
-                    <img src='<?php echo $srcArray[0] ?>' height="474" alt="Big Image">
+                    <img src='<?php echo $srcArray[0] ?>'  alt="Big Image">
                 </div>
                 <div class="small-images">
                     <div class="small-image">
@@ -136,19 +136,23 @@
                                     $nameVou = $rowVou['code'];
                                     $detailVou = $rowVou['discount_name'];
                                     $percent = $rowVou['percent'];
-                                    $dateStart = new DateTime($rowVou['date_start']); // Chuyển đổi sang đối tượng DateTime
+                                    $dateStart = new DateTime(); // Chuyển đổi sang đối tượng DateTime
                                     $dateEnd = new DateTime($rowVou['date_end']);
-                                    $interval = $dateStart->diff($dateEnd);
-
-                                    // Lấy số ngày từ kết quả
-                                    $numDayVou = $interval->days;
+                                    if ($dateStart >= $dateEnd) {
+                                        $numDayVou = 0; // Trả về 0 nếu ngày hôm nay lớn hơn hoặc bằng ngày kết thúc
+                                    } else {
+                                        $interval = $dateStart->diff($dateEnd); // Tính khoảng cách giữa hai ngày
+                                        // Lấy số ngày từ kết quả
+                                        $numDayVou = $interval->days;
+                                    }
                                     echo '<div class="discount-card">';
                                     echo '<div class="infor-card">';
                                     echo '<div class="infor-card-main">';
                                     echo '<div class="title-infor-card">' . $detailVou . '</div>';
                                     echo '<div id="idVoucher" style="display: none;">' . $rowVou['id'] . '</div>';
                                     echo '<div class="detail-infor-card">Giảm ' . $percent . '%</div>';
-                                    echo '<div class="hansudung">Hạn sử dụng : Còn lại ' . $numDayVou . ' ngày</div>';
+                                    echo '<div class="hansudung">Hạn sử dụng : ' . $dateEnd->format('Y-m-d') . '</div>';
+                                    echo '<div class="hansudung">Còn lại ' . $numDayVou . ' ngày</div>';
                                     echo '</div>';
                                     echo '</div>';
                                     echo '<div class="cac-hinh-tron">';
@@ -160,7 +164,7 @@
                                     echo '<div class="title-use-card">Mã ưu đãi</div>';
                                     echo '<div class="code-use-card">' . $nameVou . '</div>';
                                     echo '<div class="percentDIV" style="display: none;" >Giảm ' . $percent . '%</div>';
-                                    echo '<button class="btn-use-card" id=' . $idVoucher . '>Sử dụng</button>';
+                                    echo '<button class="btn-use-card" id=' . $numDayVou . '>Sử dụng</button>';
                                     echo '</div>';
                                     echo '</div>';
                                 }
@@ -258,15 +262,15 @@
                         <?php echo $rowTour['content'] ?>
                     </p>
                     <div class="container-img-content">
-                        <img src='<?php echo $srcArray[0] ?>' width="848" height="444" alt="" class="img-tour">
+                        <img src='<?php echo $srcArray[0] ?>' width="848" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                     <div class="container-img-content">
-                        <img src='<?php echo $srcArray[1] ?>' width="848" height="444" alt="" class="img-tour">
+                        <img src='<?php echo $srcArray[1] ?>' width="848" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                     <div class="container-img-content">
-                        <img src='<?php echo $srcArray[2] ?>' width="848" height="444" alt="" class="img-tour">
+                        <img src='<?php echo $srcArray[2] ?>' width="848" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                 </div>
