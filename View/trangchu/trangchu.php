@@ -55,11 +55,10 @@
         <div class="container">
             <div class="highlighted-activities--inner">
                 <h3 class="highlighted-activities--heading">Các hoạt động nổi bật</h3>
-                <button id="prevButton">←</button>
                 <div class="highlighted-activities--list">
                     <?php $count = 0; ?>
                     <?php foreach ($dataHotProduct as $product) : ?>
-                        <?php if ($count < 11) :
+                        <?php if ($count < 4) :
                             $result = $db->GetImgProduct($product['id']);
                             $row = mysqli_fetch_array($result);
                             $numImg = mysqli_num_rows($result);
@@ -79,7 +78,6 @@
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
-                <button id="nextButton">→</button>
             </div>
         </div>
     </div>
