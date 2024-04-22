@@ -119,7 +119,7 @@
 					<div class="title_chart">Biểu đồ thống kê số tour bán được theo tuần</div>
 				</div>
 				<div class="kicm">
-					<table id="tableData" class="custom-table" style="box-shadow: none;">
+					<table id="tableData" class="custom-table tableTopTour" style="box-shadow: none;">
 						<thead class="table-head">
 							<tr class="table--head" style="background-color:#a7bced;">
 								<th class="table-header" width="10px">Top</th>
@@ -169,12 +169,18 @@
 
 	?>
 
-	function createGradient(ctx, chartArea, gradientColor) {
-		const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-		gradient.addColorStop(0, gradientColor);
-		gradient.addColorStop(1, 'rgba(255, 255, 255, 0)'); // Màu trong suốt ở đáy
-		return gradient;
-	}
+	document.addEventListener("DOMContentLoaded", function() {
+		// Lấy danh sách các hàng của bảng
+		var rows = document.querySelectorAll(".tableTopTour tr");
+
+		// Duyệt qua từng hàng và áp dụng hiệu ứng nhảy vào
+		rows.forEach(function(row, index) {
+			setTimeout(function() {
+				row.classList.add("show");
+			}, index * 200); // Tạo khoảng cách thời gian giữa các hiệu ứng
+		});
+	});
+
 	var data = [1, 2, 3, 4, 5, 6, 7]
 	var ctx = document.getElementById('myChart').getContext('2d');
 

@@ -597,3 +597,13 @@ a {
 .tableTop{
     margin-top: 25px
 }
+
+.tableTopTour tr {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Hiển thị các hàng một cách dần dần */
+.tableTopTour tr.show {
+    opacity: 1;
+}
