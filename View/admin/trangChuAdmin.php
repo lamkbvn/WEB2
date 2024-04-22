@@ -130,58 +130,107 @@
 
 						<tbody class="table-body">
 							<?php $stt = 0;
-							if($tourSellToday!=null){
-							foreach ($tourSellToday as $tour) :  $stt++;
-								if ($stt == 6) break;
-								$style="color: black;";
-								if ($stt == 1) $style="color: #8280ff; font-weight:600; font-size: 20px;";
-								elseif ($stt == 2) $style="color: #fec53d; font-weight:600; font-size: 17px;";
-								elseif ($stt == 3) $style="color: #4ad991; font-weight:600; font-size: 17px;";
+							if ($tourSellToday != null) {
+								foreach ($tourSellToday as $tour) :  $stt++;
+									if ($stt == 6) break;
+									$style = "color: black;";
+									if ($stt == 1) $style = "color: #8280ff; font-weight:600; font-size: 20px;";
+									elseif ($stt == 2) $style = "color: #fec53d; font-weight:600; font-size: 17px;";
+									elseif ($stt == 3) $style = "color: #4ad991; font-weight:600; font-size: 17px;";
 							?>
 
-								<tr class="table-row" height="42px" style="<?php echo $style?>;">
-									<td class="table-cell id">#<?php echo $stt ?></td>
-									<td class="table-cell id"><?php echo $tour['title']; ?></td>
-									<td class="table-cell id"><?php echo $tour['total_quantity']; ?></td>
-									</td>
-								</tr>
-							<?php endforeach; }?>
+									<tr class="table-row" height="42px" style="<?php echo $style ?>;">
+										<td class="table-cell id">#<?php echo $stt ?></td>
+										<td class="table-cell id"><?php echo $tour['title']; ?></td>
+										<td class="table-cell id"><?php echo $tour['total_quantity']; ?></td>
+										</td>
+									</tr>
+							<?php endforeach;
+							} ?>
 						</tbody>
 					</table>
 					</br>
 					<div class="title_chart tableTop">Top các tour bán chạy trong tuần</div>
 				</div>
 			</div>
+			<div class="banthan">
+				<div class="jack">
+					<canvas id="myChartDuDoan" width="400" height="230"></canvas>
+				</div>
+				<div class="kicm">
+
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
 <script>
-	<?php 
-	
+	<?php
+
 	?>
-	var data=[1,2,3,4,5,6,7]
+
+	function createGradient(ctx, chartArea, gradientColor) {
+		const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+		gradient.addColorStop(0, gradientColor);
+		gradient.addColorStop(1, 'rgba(255, 255, 255, 0)'); // Màu trong suốt ở đáy
+		return gradient;
+	}
+	var data = [1, 2, 3, 4, 5, 6, 7]
 	var ctx = document.getElementById('myChart').getContext('2d');
 
 	var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: ['Sunday', 'Monday', 'Tuesday', 'Webnesday', 'Thursday', 'Friday', 'Saturday'],
+			labels: ['Monday', 'Tuesday', 'Webnesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 			datasets: [{
 				label: 'This week',
 				data: <?php echo json_encode($dataPoints1); ?>,
-				fill: false,
+				fill: true,
+				backgroundColor: 'rgba(75, 192, 192, 0.3)',
 				borderColor: 'rgb(75, 192, 192)',
-				tension: 0.1
+				tension: 0.3
 			}, {
 				label: 'Last week',
 				data: <?php echo json_encode($dataPoints2); ?>,
-				fill: false,
+				fill: true,
+				backgroundColor: 'rgba(255, 99, 132, 0.3)',
 				borderColor: 'rgb(255, 99, 132)',
-				tension: 0.1
+				tension: 0.3
 			}]
 		},
 		options: {
 
+		}
+	});
+
+	var ctx2 = document.getElementById('myChartDuDoan').getContext('2d');
+
+	var myChart2 = new Chart(ctx2, {
+		type: 'line',
+		data: {
+			labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+			datasets: [{
+				label: '2024',
+				data: <?php echo json_encode($predicted_sales_this_year); ?>,
+				fill: true,
+				backgroundColor: 'rgba(74, 217, 145, 0.3)',
+				borderColor: '#4ad991',
+				tension: 0.3
+			}]
+		},
+		options: {
+			plugins: {
+				title: {
+					display: true,
+					text: 'Dự đoán số lượng tour bán theo tháng trong năm nay',
+					align: 'center', // Canh giữa tiêu đề
+					position: 'bottom',
+					padding: {
+						bottom: 20,
+						top: 20 // Khoảng cách dưới tiêu đề
+					}
+				}
+			}
 		}
 	});
 
