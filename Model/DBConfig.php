@@ -799,8 +799,8 @@ ORDER BY
   }
 
   // Hàm để lấy dữ liệu cho mảng dataPoints2 từ cơ sở dữ liệu
-public function getTourSellLastWeek()
-{
+  public function getTourSellLastWeek()
+  {
     // Thực hiện truy vấn SQL để lấy số lượng tour bán được trong mỗi ngày trong tuần trước
     $sql = "SELECT 
     DATE_FORMAT(orders.date_order, '%W') AS day_of_week,
@@ -819,7 +819,7 @@ ORDER BY
 
     // Thực hiện truy vấn và trả về kết quả
     return $this->execute($sql);
-}
+  }
 
   // lấy ra id sản phẩm bán được hôm nay
   public function getTourSellToday()
