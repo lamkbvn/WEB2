@@ -18,8 +18,7 @@ body {
 }
 
 .container-desktop {
-  width: 92%;
-  max-width: 100%;
+  width: 1160px;
   margin: 0 auto;
   padding-top: 32px;
 }
@@ -172,9 +171,7 @@ header h1 {
 /* Right Section Styles */
 .right {
   width: 35%;
-  display: flex;
   align-items: center;
-  justify-content: flex-end;
 }
 
 .unit-box {
@@ -273,14 +270,8 @@ header h1 {
   text-decoration: underline;
 }
 
-.left {
-  display: flex;
-  align-items: center;
-}
-
 .price-box {
-  display: flex;
-  align-items: center;
+  padding-left: 105px;
 }
 
 .total-saving {
@@ -296,13 +287,6 @@ header h1 {
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
-}
-
-.right {
-  width: 35%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
 }
 
 .action-bar {
@@ -461,19 +445,29 @@ header h1 {
   font-size: 12px;
 }
 
+/* Ipad */
 @media screen and (max-width: 1024px) {
   #form_book_tour {
     padding: 10px 60px;
     top: 1%;
   }
+
+  .container-desktop {
+    width: 92%;
+    max-width: 100%;
+  }
+
+  .price-box {
+    padding-left: 75px;
+  }
+
+  button {
+    padding: 5px 20px;
+  }
 }
 
+/* iphone 12 pro max */
 @media screen and (max-width: 390px) {
-  /* span,
-  p {
-    font-size: 8px;
-  } */
-
   .container-desktop {
     width: 100%;
     padding: 0;
@@ -539,25 +533,9 @@ header h1 {
     margin-right: 0;
   }
 
-  /* .middle-info-box a p:first-child {
-    font-size: 10px;
-  }
-
-  .total-price {
-    font-size: 10px;
-  } */
-
   .shopping-cart-item_footer {
     padding: 5px 180px 5px 76px;
   }
-
-  /* .shopping-cart-item_body-right {
-    flex-direction: column;
-  } */
-
-  /* .counter-input input {
-    font-size: 10px;
-  } */
 
   .counter-decrease,
   .counter-increase {
@@ -566,7 +544,7 @@ header h1 {
   }
 
   .counter-small svg {
-    font-size: 5px;
+    font-size: 8px;
   }
 
   .book-section {
@@ -585,6 +563,10 @@ header h1 {
   .book-section-content_right {
     margin-top: 9px;
     margin-right: 12px;
+  }
+
+  .price-box {
+    padding-left: 110px;
   }
 
   button {
