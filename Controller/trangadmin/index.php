@@ -15,42 +15,10 @@ if (isset($_GET['action'])) {
 
 $alert;
 
-
 switch ($action) {
 	case 'add': {
 			$listRoleTable = "role";
 			$roles = $db->getAllData($listRoleTable);
-			// if (isset($_POST['add_user'])) {
-			// 	$fullname = $_POST['fullname'];
-			// 	$email = $_POST['email'];
-			// 	$phone_number = $_POST['phone_number'];
-			// 	$create_at = $_POST['create_at'];
-			// 	$status = $_POST['status'];
-			// 	$address = $_POST['address'];
-			// 	$acount;
-			// 	$password;
-			// 	$role;
-			// 	if (isset($_POST['acount']) && isset($_POST['password'])) {
-			// 		$acount = $_POST['acount'];
-			// 		$password = $_POST['password'];
-			// 	}
-
-			// 	if (isset($_POST['role'])) {
-			// 		$role = $_POST['role'];
-			// 	}
-			// 	if (
-			// 		$db->insertUserData($fullname, $email, $phone_number, $create_at, $status, $address)
-			// 		&& $hadAcount
-			// 	) {
-			// 		header('location: index.php?controller=trang-admin&action=indexAdmin');
-			// 	}
-			// }
-			// if (isset($_POST['add_user'])) {
-			// 	$fullname = $_POST['fullname'];
-			// 	$email = $_POST['email'];
-			// 	$phone_number = $_POST['phone_number'];
-			// 	echo "Dữ liệu đã được xử lý thành công!";
-			// }
 			require_once('View/admin/add.php');
 			break;
 		}
@@ -183,6 +151,37 @@ switch ($action) {
 			while ($tour = mysqli_fetch_assoc($toursSellLastWeek)) {
 				$dataPoints2[] = $tour['total_tours_sold'];
 			}
+
+			// hồi quy tuyến tính
+			$monthly_sales_last_year = $db->getMonthlySalesLastYear();
+			foreach ($monthly_sales_last_year as $key => $value) {
+				echo "Key: " . $key . ", Value: " . $value . "<br>";
+			}
+			$months = range(1, 12);
+			$sales = array_values($monthly_sales_last_year);
+			$n = count($months);
+			$sum_x = array_sum($months);
+			$sum_y = array_sum($sales);
+			$sum_x2 = 0;
+			$sum_xy = 0;
+
+			foreach ($months as $key => $month) {
+				$sum_x2 += pow($month, 2);
+				$sum_xy += $month * $sales[$key];
+			}
+
+			$slope = ($n * $sum_xy - $sum_x * $sum_y) / ($n * $sum_x2 - pow($sum_x, 2));
+			$intercept = ($sum_y - $slope * $sum_x) / $n;
+
+			// Dự đoán số lượng tour bán được trong các tháng của năm nay
+			$predicted_sales_this_year = array();
+			$current_year = date('Y');
+			for ($i = 1; $i <= 12; $i++) {
+				// Chỉ lưu số lượt bán vào mảng
+				$predicted_sales_this_year[] = round($intercept + $slope * $i);
+			}
+
+
 			require_once('View/admin/trangChuAdmin.php');
 			break;
 		}

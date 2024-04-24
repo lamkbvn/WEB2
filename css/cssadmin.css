@@ -482,7 +482,7 @@ a {
     width: 1280px;
     background: #fff;
     margin-left: 220px;
-    margin-top: 85px;
+    margin-top: 52px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     padding-bottom: 5px;
@@ -596,4 +596,14 @@ a {
 }
 .tableTop{
     margin-top: 25px
+}
+
+.tableTopTour tr {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Hiển thị các hàng một cách dần dần */
+.tableTopTour tr.show {
+    opacity: 1;
 }

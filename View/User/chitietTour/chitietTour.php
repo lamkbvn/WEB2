@@ -64,7 +64,7 @@
             ?>
             <div class="container-img">
                 <div class="big-image">
-                    <img src='<?php echo $srcArray[0] ?>' height="474" alt="Big Image">
+                    <img src='<?php echo $srcArray[0] ?>'  alt="Big Image">
                 </div>
                 <div class="small-images">
                     <div class="small-image">
@@ -262,15 +262,15 @@
                         <?php echo $rowTour['content'] ?>
                     </p>
                     <div class="container-img-content">
-                        <img src='<?php echo $srcArray[0] ?>' width="848" height="444" alt="" class="img-tour">
+                        <img src='<?php echo $srcArray[0] ?>' width="848" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                     <div class="container-img-content">
-                        <img src='<?php echo $srcArray[1] ?>' width="848" height="444" alt="" class="img-tour">
+                        <img src='<?php echo $srcArray[1] ?>' width="848" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                     <div class="container-img-content">
-                        <img src='<?php echo $srcArray[2] ?>' width="848" height="444" alt="" class="img-tour">
+                        <img src='<?php echo $srcArray[2] ?>' width="848" alt="" class="img-tour">
                         <p class="detail-img">Thoát khỏi sự hối hả và nhộn nhịp của đô thị và tham gia một tour lịch sử đến khu di tích Địa Đạo Củ Chi và đồng bằng sông Cửu Long</p>
                     </div>
                 </div>

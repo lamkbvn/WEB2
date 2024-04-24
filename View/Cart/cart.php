@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="Css/user/cart.css">
+    <link rel="stylesheet" href="css/user/cart.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -64,9 +64,7 @@
                                                 <p><?php echo $itemCart['title']; ?></p>
                                                 <p><?php echo $itemCart['content']; ?> </p>
                                                 <p name="date"><?php echo $itemCart['create_at']; ?></p>
-                                                <span class="tagging-tag_text">
-                                                    <!-- <span><?php echo $discount; ?></span> -->
-                                                </span>
+
                                             </a>
                                         </div>
                                     </div>
@@ -113,7 +111,7 @@
                                     </div>
                                     <div class="right">
                                         <div class="price-box">
-                                            <span class="total-saving"></span>
+
                                             <span
                                                 class="total-price"><?php echo number_format($itemCart['price'] * $itemCart['amount'], 0, '.',',') ; ?>đ</span>
 
@@ -137,8 +135,8 @@
                                     <span>Tổng cộng</span>
                                 </div>
                                 <div class="price-info-box">
-                                    <span class="price-detail" name="totalMoney">0 ₫</span>
-                                    <!-- <span class="total-saving">Giảm 159,941₫</span> -->
+                                    <span class="price-detail" name="totalMoney">0.000 ₫</span>
+
                                 </div>
                             </div>
                             <div class="book-section-content_right">

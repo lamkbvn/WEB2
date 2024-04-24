@@ -894,4 +894,27 @@ ORDER BY
     total_quantity DESC;";
     return $this->execute($sql);
   }
+  // Hàm lấy dữ liệu số lượng tour bán được trong mỗi tháng của năm trước
+  public function getMonthlySalesLastYear() {
+    $sql = "SELECT 
+                DATE_FORMAT(orders.date_order, '%Y-%m') AS month_year,
+                COUNT(order_detail.id_product) AS total_quantity
+            FROM 
+                orders
+            JOIN 
+                order_detail ON orders.id = order_detail.id_order
+            WHERE 
+                YEAR(orders.date_order) = YEAR(CURDATE())
+            GROUP BY 
+                DATE_FORMAT(orders.date_order, '%Y-%m')
+            ORDER BY 
+                month_year";
+    $result = $this->execute($sql);
+    $sales_data = array();
+    while ($row = $result->fetch_assoc()) {
+        $sales_data[$row['month_year']] = $row['total_quantity'];
+    }
+    return $sales_data;
 }
+}
+
