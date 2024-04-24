@@ -21,7 +21,7 @@
     display :flex;
     align-items : center;
     flex-direction: column;
-    height : 100%;
+    height : 95%;
     overflow: auto;
   }
 
@@ -48,7 +48,12 @@
     font-style : italic;
   }
 
-  .btn-xemchitiet{
+  .btn-item-dh{
+    display : flex;
+    gap : 10px;
+  }
+
+  .btn{
     cursor: pointer;
     border : 1px solid black;
     border-radius : 8px;
@@ -81,13 +86,13 @@
     width : 600px;
     height : 570px;
     padding  : 20px 0px 20px 20px;
+    border-radius : 8px;
   }
 
   .container-dh{
     overflow : auto;
     height :98%;
     margin-top : 5px;
-
   }
 
   .exit {
@@ -111,6 +116,7 @@
     margin-right : 10px;
 
     border-radius : 10px;
+    background : rgb(255 199 147 / 85%);
 
   }
 
@@ -124,11 +130,23 @@
     width :56%;
   }
 
+  .col-2 .name {
+    font-weight : bold;
+  }
+
+  .col-2 .desc{
+    font-size : 14px;
+  }
+
+  .col-2 .date-go{
+    font-style : italic;
+  }
+
   .col-3{
     margin-left: 10px;
     display : flex;
     align-items : center;
-    color : var(--primary-color);
+    /* color : var(--primary-color); */
   }
 
   .hide-on{
@@ -151,73 +169,24 @@
       <div class="item-dh ' . $row['id'] . '">
       <div class="txt-dh">Don hang ' . $i++ . '</div>
       <div class="txt-date">' . $row['date_order'] . '</div>
-      <div class="btn-xemchitiet" id = "btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+      <div class="txt-status">Trạng thái : ' . ($row['status'] == 1 ? 'Đã xử lí' : 'Chưa xử lí') . '</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        ' . ($row['status'] == 0 ? '<div class="btn-huy btn" onclick = "destroyDetailDH(event)">Hủy</div>' : '') . '
+      </div>
       </div>
       ';
     }
     ?>
-    <div class="item-dh 1">
+    <!-- <div class="item-dh 1">
       <div class="txt-dh">Don hang 1</div>
       <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>
-    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>    <div class="item-dh 1">
-      <div class="txt-dh">Don hang 1</div>
-      <div class="txt-date">30-1-2024</div>
-      <div class="btn-xemchitiet" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-    </div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div> -->
   </div>
 
   <div class="detail-item-dh hide-on">
@@ -234,7 +203,7 @@
             </div>
             <div class="col-3 price">3000000</div>
           </div> -->
-        </div>    
+        </div>
       </div>
   </div>
 <!-- <script src="js/User/script.js" ></script> -->

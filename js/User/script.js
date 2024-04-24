@@ -54,11 +54,11 @@ function exitDetailDH(event){
 
 function displayDetailDH(event){
   let button = event.target;
-  let parent = button.parentNode.parentNode.parentNode;
+  let parent = button.parentNode.parentNode.parentNode.parentNode;
   let display =  parent.querySelector('.detail-item-dh');
   display.classList.remove('hide-on');
 
-  let idOrder = button.parentNode.classList[1];
+  let idOrder = button.parentNode.parentNode.classList[1];
   console.log(idOrder);
   $.ajax({
     type: 'POST',
@@ -73,3 +73,23 @@ function displayDetailDH(event){
 });
 
 }
+
+function destroyDetailDH(event){
+  let button = event.target;
+
+  let idOrder = button.parentNode.parentNode.classList[1];
+  console.log(idOrder);
+  $.ajax({
+    type: 'POST',
+    url: './Controller/User.php',
+    data: {
+      idOrder : idOrder,
+      action : 'destroyOrder' },
+    
+    success: function(response) {
+      $('.body-dh').html(response);
+    }
+});
+
+}
+

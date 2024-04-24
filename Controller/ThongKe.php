@@ -23,15 +23,16 @@ function thongKe()
   $tongTien = 0;
   $tongSL = 0;
   if ($selectCategory == 0) {
-    for ($i = 0; $i < count($result); $i++) {
-      $key = 'key' . $i;
+    // for ($i = 0; $i < count($result); $i++) 
+    foreach ($result as $key => $value) {
+      // $key = 'key' . $i;
       echo '
       <tr>
-        <th class = "table-cell stt">' . $stt . '</th>
-        <th class ="table-cell nameTour ">' . $result[$key][0] . '</th>
+        <th class = "table-cell stt">' . $value[3] . '</th>
+        <th class ="table-cell nameTour ">' . $value[0] . '</th>
         <th class = "table-cell price-tk">' . '~' . '</th>
-        <th class = "table-cell num-bought ">' . $result[$key][1] . '</th>
-        <th class = "table-cell total-money">' . $result[$key][2] . '</th>
+        <th class = "table-cell num-bought ">' . $value[1] . '</th>
+        <th class = "table-cell total-money">' . $value[2] . '</th>
         <th class ="date-go table-cell">' . '~' . '</th>
       </tr>';
       $tongTien = $tongTien + $result[$key][2];
@@ -39,18 +40,19 @@ function thongKe()
       $stt = $stt + 1;
     }
   } else {
-    while ($row = mysqli_fetch_array($result)) {
+    // while ($row = mysqli_fetch_array($result)) 
+    foreach ($result as $key => $value) {
       echo '
       <tr>
-        <th class = "table-cell stt">' . $stt . '</th>
-        <th class ="table-cell nameTour ">' . $row['title'] . '</th>
-        <th class = "table-cell price-tk">' . $row['price'] . '</th>
-        <th class = "table-cell num-bought ">' . $row['amount'] . '</th>
-        <th class = "table-cell total-money">' . $row['total_money'] . '</th>
-        <th class ="date-go table-cell">' . $row['date_go'] . '</th>
+        <th class = "table-cell stt">' . $value[0] . '</th>
+        <th class ="table-cell nameTour ">' . $value[1] . '</th>
+        <th class = "table-cell price-tk">' . $value[2] . '</th>
+        <th class = "table-cell num-bought ">' . $value[3] . '</th>
+        <th class = "table-cell total-money">' . $value[4] . '</th>
+        <th class ="date-go table-cell">' . $value[5] . '</th>
       </tr>';
-      $tongTien = $tongTien + $row['total_money'];
-      $tongSL = $tongSL + $row['amount'];
+      $tongTien = $tongTien + $value[4];
+      $tongSL = $tongSL + $value[3];
       $stt = $stt + 1;
     }
   }

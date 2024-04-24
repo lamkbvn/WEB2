@@ -441,6 +441,7 @@ class Database
 
   public function resultThongKe($orderby, $selectCategory, $dateStart, $dateEnd, $namecoll)
   {
+
     if ($selectCategory == 0) {
       $sql = 'select * from category';
       $result = $this->execute($sql);
@@ -455,22 +456,44 @@ class Database
         $result1 = $this->execute($sql);
         $row1 = mysqli_fetch_array($result1);
         $objects[$key][1] = $row1['total'];
+
         $sql = 'SELECT SUM(total_money) as total
         FROM order_detail AS od , product AS p
         WHERE p.id = od.id_product AND p.id_category = ' . $row['id'];
         $result1 = $this->execute($sql);
         $row1 = mysqli_fetch_array($result1);
         $objects[$key][2] = $row1['total'];
+
         if ($objects[$key][1] == null) {
           $objects[$key][2] = 0;
           $objects[$key][1] = 0;
         }
+        $objects[$key][3] = $id + 1;
         ++$id;
+      }
+      $listOrder = [
+        'title' => 0,
+        'amount' => 1,
+        'total_money' => 2,
+        'id' => 3,
+      ];
+      if ($namecoll != '' && $namecoll != 'price' && $namecoll != 'date_go') {
+        $column = [];
+        foreach ($objects as $keyx => $value) {
+          $column[$keyx] = $value[$listOrder[$namecoll]]; // Chỉ lấy giá trị cột 1
+        }
+        // Sắp xếp mảng dựa trên giá trị của cột
+        if ($orderby == 'ASC')
+          array_multisort($column, SORT_ASC, $objects);
+        else
+          if ($orderby == 'DESC')
+            array_multisort($column, SORT_DESC, $objects);
       }
 
       return $objects;
     }
-    $sql = 'SELECT p.title ,od.price , od.amount , od.total_money , od.date_go
+
+    $sql = ' SELECT  od.id, p.title ,od.price , od.amount , od.total_money , od.date_go
               FROM product as p , order_detail as od
               where p.id = od.id_product ';
     ///chon san pham theo ten loai
@@ -485,12 +508,6 @@ class Database
     if ($dateEnd != '') {
       $sql = $sql . ' and od.date_go <= ? ';
     }
-
-    ///sap xep san pham theo cot
-    if ($orderby == 'ASC')
-      $sql = $sql . ' ORDER BY ' . $namecoll;
-    elseif ($orderby == 'DESC')
-      $sql = $sql . ' ORDER BY ' . $namecoll . ' DESC';
 
     $result = null;
     if ($dateStart != '' && $dateEnd == '') {
@@ -515,7 +532,43 @@ class Database
       $result = $stmt->get_result();
     } else
       $result = $this->execute($sql);
-    return $result;
+
+
+    $listOrder = [
+      'id' => 0,
+      'title' => 1,
+      'price' => 2,
+      'amount' => 3,
+      'total_money' => 4,
+      'date_go' => 5
+    ];
+    $objects = array();
+    $id = 1;
+    while ($row = mysqli_fetch_array($result)) {
+      $key = 'key' . $id;
+      $objects[$key][0] = $id;
+      $objects[$key][1] = $row['title'];
+      $objects[$key][2] = $row['price'];
+      $objects[$key][3] = $row['amount'];
+      $objects[$key][4] = $row['total_money'];
+      $objects[$key][5] = $row['date_go'];
+      ++$id;
+    }
+
+    if ($namecoll != '') {
+      $column = [];
+      foreach ($objects as $keyx => $value) {
+        $column[$keyx] = $value[$listOrder[$namecoll]]; // Chỉ lấy giá trị cột 1
+      }
+      // Sắp xếp mảng dựa trên giá trị của cột
+      if ($orderby == 'ASC')
+        array_multisort($column, SORT_ASC, $objects);
+      else
+        if ($orderby == 'DESC')
+          array_multisort($column, SORT_DESC, $objects);
+    }
+
+    return $objects;
   }
 
   public function resultEmailUser($idUser, $emailChange)
@@ -681,13 +734,12 @@ class Database
   public function deleteOrder($orderId)
   {
     $this->connect();
-
     // Chuẩn bị truy vấn xóa
     $sql = "DELETE FROM orders WHERE id = $orderId";
     $result = $this->execute($sql);
     $sql = "DELETE FROM order_detail WHERE id_order = $orderId";
     $result = $this->execute($sql);
-
+    $this->disconnect();
     return $result;
   }
   public function getDetailOrderByOrderId($orderId)
@@ -799,8 +851,8 @@ ORDER BY
   }
 
   // Hàm để lấy dữ liệu cho mảng dataPoints2 từ cơ sở dữ liệu
-public function getTourSellLastWeek()
-{
+  public function getTourSellLastWeek()
+  {
     // Thực hiện truy vấn SQL để lấy số lượng tour bán được trong mỗi ngày trong tuần trước
     $sql = "SELECT 
     DATE_FORMAT(orders.date_order, '%W') AS day_of_week,
@@ -819,7 +871,7 @@ ORDER BY
 
     // Thực hiện truy vấn và trả về kết quả
     return $this->execute($sql);
-}
+  }
 
   // lấy ra id sản phẩm bán được hôm nay
   public function getTourSellToday()

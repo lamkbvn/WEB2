@@ -106,7 +106,7 @@ function sdtUser($idUser)
 
 function loadDataDonHang()
 {
-  include "../Model/DBConfig.php";
+  include_once "../Model/DBConfig.php";
   if (session_status() == PHP_SESSION_NONE) {
     session_start();
   }
@@ -183,6 +183,31 @@ if (isset($_POST['action'])) {
       </div>
         ';
       }
+  }
+
+  if ($_POST['action'] == 'destroyOrder') {
+    require_once ('../Model/DBConfig.php');
+    if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+    }
+    $idOrder = isset($_POST['idOrder']) ? $_POST['idOrder'] : '';
+    $db = new Database();
+    $db->deleteOrder($idOrder);
+    $i = 1;
+    $result = loadDataDonHang();
+    while ($row = mysqli_fetch_array($result)) {
+      echo '
+      <div class="item-dh ' . $row['id'] . '">
+      <div class="txt-dh">Don hang ' . $i++ . '</div>
+      <div class="txt-date">' . $row['date_order'] . '</div>
+      <div class="txt-status">Trạng thái : ' . ($row['status'] == 1 ? 'Đã xử lí' : 'Chưa xử lí') . '</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        ' . ($row['status'] == 0 ? '<div class="btn-huy btn" onclick = "destroyDetailDH(event)">Hủy</div>' : '') . '
+      </div>
+      </div>
+      ';
+    }
   }
 }
 
