@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 <style>
     .nameRoleValidation,
     .validationTableRole {
@@ -128,11 +118,11 @@
                     if ($pqld['id_chucNang'] === $idCN) {
                         if ($pqld['HD'] === "View") {
                             $viewChecked = 'checked';
-                        }elseif ($pqld['HD'] === "Add") {
+                        } elseif ($pqld['HD'] === "Add") {
                             $addChecked = 'checked';
-                        }elseif ($pqld['HD'] === "Delete") {
+                        } elseif ($pqld['HD'] === "Delete") {
                             $deleteChecked = 'checked';
-                        }elseif ($pqld['HD'] === "Edit") {
+                        } elseif ($pqld['HD'] === "Edit") {
                             $editChecked = 'checked';
                         }
                     }
@@ -187,22 +177,22 @@
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status === 200) {
-                            alert('Cập nhật thành công')
-                            // Xử lý kết quả thành công ở đây nếu cần thiết
-                            console.log(xhr.responseText);
+                            // Hiển thị thông báo từ phía server
+                            alert(xhr.responseText);
+                            // Làm mới trang sau khi thông báo đã được hiển thị
+                            window.location.href = '/WEB2/index.php?controller=trang-admin&action=role';
                         } else {
-                            alert('Cập nhật thất bại')
-                            // Xử lý lỗi nếu cần thiết
+                            alert('Cập nhật thất bại');
                             alert('Error: ' + xhr.status);
                         }
                     }
                 }
-                console.log(formData);
+
                 // Sử dụng phương thức POST để gửi dữ liệu form
                 xhr.open("POST", url + "?addRole='1'&action=addRole", true);
                 xhr.send(formData);
-                window.location.href = '/WEB2/index.php?controller=trang-admin&action=role';
             }
+
         }
     </script>
 </body>

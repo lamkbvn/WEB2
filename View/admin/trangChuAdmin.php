@@ -155,31 +155,64 @@
 			</div>
 			<div class="banthan">
 				<div class="jack">
-					<canvas id="myChartDuDoan" width="400" height="230"></canvas>
+					<div class="containChartDonut">
+						<canvas id="myDoughnutChart" width="200" height="200"></canvas>
+					</div>
 				</div>
 				<div class="kicm">
-
+					<canvas id="myChartDuDoan" width="400" height="230"></canvas>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script>
-	<?php
+	var ctxDonut = document.getElementById('myDoughnutChart').getContext('2d');
 
-	?>
-
-	document.addEventListener("DOMContentLoaded", function() {
-		// Lấy danh sách các hàng của bảng
-		var rows = document.querySelectorAll(".tableTopTour tr");
-
-		// Duyệt qua từng hàng và áp dụng hiệu ứng nhảy vào
-		rows.forEach(function(row, index) {
-			setTimeout(function() {
-				row.classList.add("show");
-			}, index * 200); // Tạo khoảng cách thời gian giữa các hiệu ứng
-		});
+	// Khởi tạo biểu đồ Doughnut
+	var myDoughnutChart = new Chart(ctxDonut, {
+		type: 'doughnut',
+		data: {
+			labels: ['Tour hủy', 'Tour đặt'],
+			datasets: [{
+				label: 'Dataset',
+				data: [<?php echo json_encode($tourHuy).','.json_encode($tongTour); ?>], // Dữ liệu
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.5)',
+					'rgba(54, 162, 235, 0.5)'
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			plugins: {
+				title: {
+					display: true,
+					text: 'Số tour bị hủy so với tổng tour đã đặt thành công',
+					align: 'center', // Canh giữa tiêu đề
+					position: 'bottom',
+					padding: {
+						bottom: 20,
+						top: 20 // Khoảng cách dưới tiêu đề
+					}
+				}
+			}
+		}
 	});
+
+	// Lấy danh sách các hàng của bảng
+	var rows = document.querySelectorAll(".tableTopTour tr");
+
+// Duyệt qua từng hàng và áp dụng hiệu ứng nhảy vào
+rows.forEach(function(row, index) {
+	setTimeout(function() {
+		row.classList.add("show");
+	}, index * 200); // Tạo khoảng cách thời gian giữa các hiệu ứng
+});
 
 	var data = [1, 2, 3, 4, 5, 6, 7]
 	var ctx = document.getElementById('myChart').getContext('2d');

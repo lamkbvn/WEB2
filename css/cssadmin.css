@@ -587,6 +587,10 @@ a {
     width: 600px;
     height: auto;
 }
+.containChartDonut{
+    margin: 0 auto;
+    width: 340px;
+}
 .title_chart{
     font-style: italic;
     font-size: 13px;
