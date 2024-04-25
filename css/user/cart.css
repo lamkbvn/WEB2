@@ -18,10 +18,9 @@ body {
 }
 
 .container-desktop {
-    width: 92%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding-top: 32px;
+  width: 1160px;
+  margin: 0 auto;
+  padding-top: 32px;
 }
 
 a {
@@ -171,10 +170,8 @@ header h1 {
 
 /* Right Section Styles */
 .right {
-    width: 35%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  width: 35%;
+  align-items: center;
 }
 
 .unit-box {
@@ -273,14 +270,8 @@ header h1 {
     text-decoration: underline;
 }
 
-.left {
-    display: flex;
-    align-items: center;
-}
-
 .price-box {
-    display: flex;
-    align-items: center;
+  padding-left: 105px;
 }
 
 .total-saving {
@@ -296,13 +287,6 @@ header h1 {
     font-size: 16px;
     font-weight: 600;
     line-height: 24px;
-}
-
-.right {
-    width: 35%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
 }
 
 .action-bar {
@@ -461,23 +445,33 @@ header h1 {
     font-size: 12px;
 }
 
+/* Ipad */
 @media screen and (max-width: 1024px) {
-    #form_book_tour {
-        padding: 10px 60px;
-        top: 1%;
-    }
+  #form_book_tour {
+    padding: 10px 60px;
+    top: 1%;
+  }
+
+  .container-desktop {
+    width: 92%;
+    max-width: 100%;
+  }
+
+  .price-box {
+    padding-left: 75px;
+  }
+
+  button {
+    padding: 5px 20px;
+  }
 }
 
+/* iphone 12 pro max */
 @media screen and (max-width: 390px) {
-    /* span,
-  p {
-    font-size: 8px;
-  } */
-
-    .container-desktop {
-        width: 100%;
-        padding: 0;
-    }
+  .container-desktop {
+    width: 100%;
+    padding: 0;
+  }
 
     .wrapper {
         margin: 0;
@@ -534,30 +528,14 @@ header h1 {
         height: 65px;
     }
 
-    input[type="checkbox"] {
-        transform: scale(0.8);
-        margin-right: 0;
-    }
-
-    /* .middle-info-box a p:first-child {
-    font-size: 10px;
+  input[type='checkbox'] {
+    transform: scale(0.8);
+    margin-right: 0;
   }
 
-  .total-price {
-    font-size: 10px;
-  } */
-
-    .shopping-cart-item_footer {
-        padding: 5px 180px 5px 76px;
-    }
-
-    /* .shopping-cart-item_body-right {
-    flex-direction: column;
-  } */
-
-    /* .counter-input input {
-    font-size: 10px;
-  } */
+  .shopping-cart-item_footer {
+    padding: 5px 180px 5px 76px;
+  }
 
     .counter-decrease,
     .counter-increase {
@@ -565,9 +543,9 @@ header h1 {
         height: 0px;
     }
 
-    .counter-small svg {
-        font-size: 5px;
-    }
+  .counter-small svg {
+    font-size: 8px;
+  }
 
     .book-section {
         padding: 5px 8px;
@@ -582,10 +560,14 @@ header h1 {
         margin-left: 12px;
     }
 
-    .book-section-content_right {
-        margin-top: 9px;
-        margin-right: 12px;
-    }
+  .book-section-content_right {
+    margin-top: 9px;
+    margin-right: 12px;
+  }
+
+  .price-box {
+    padding-left: 110px;
+  }
 
     button {
         padding: 10px 4px;

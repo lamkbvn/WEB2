@@ -111,7 +111,7 @@
                                     </div>
                                     <div class="right">
                                         <div class="price-box">
-                                            <span class="total-saving"></span>
+
                                             <span
                                                 class="total-price"><?php echo number_format($itemCart['price'] * $itemCart['amount'], 0, '.',',') ; ?>đ</span>
 
@@ -136,7 +136,7 @@
                                 </div>
                                 <div class="price-info-box">
                                     <span class="price-detail" name="totalMoney">0.000 ₫</span>
-                                    <!-- <span class="total-saving">Giảm 159,941₫</span> -->
+
                                 </div>
                             </div>
                             <div class="book-section-content_right">

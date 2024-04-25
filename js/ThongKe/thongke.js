@@ -47,7 +47,7 @@ function resetOrder(){
 function filterThongKe(event){
   let button = event.target;
   let order =button.parentNode;
-  console.log(order);
+
   let orderby ;
   let namecoll = order.classList[1];
   if(order.classList.contains("asc"))
@@ -89,7 +89,7 @@ function filterThongKe(event){
     }
   }
 
-  console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData.value);
+  console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData.value,namecoll);
   let displayTitleTable = document.querySelector('.titleTable');
   displayTitleTable.classList.remove('hide');
   $.ajax({
@@ -151,7 +151,7 @@ function DrawChartData(){
     chartStatus.destroy();
   }
   mychart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
       labels:convertNameTour,
       datasets: [{
@@ -177,7 +177,7 @@ function DrawChartData(){
   }
 
   mychart1 = new Chart(ctx1 , {
-    type : 'bar',
+    type : 'line',
     data : {
       labels : convertNameTour ,
       datasets :[{
