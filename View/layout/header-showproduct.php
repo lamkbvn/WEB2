@@ -10,7 +10,7 @@
 
 	.header-avatar .item {
 		height: 40px;
-		width: 180px;
+		width: 160px;
 		text-align: center;
 		display: flex;
 		align-items: center;
@@ -131,11 +131,9 @@
 							<div class = "header-avatar">
 								<img src="/WEB2/images/avatar.png" width = "34" />
 								<div class = "drop-user-side-bar">
-									<a href="/WEB2/index.php?controller=trang-chu&action=userprofile&pageuser=cs">
-										<div class = "trangcanhan item">
+									<a class = "trangcanhan item" href="/WEB2/index.php?controller=trang-chu&action=userprofile">
 										<img src="/WEB2/IMAGEofLam/person.svg" width = "22" />
-											<div class = "text">Trang cá nhân</div>
-										</div>
+										<div class = "text">Trang cá nhân</div>
 									</a>
 									<a class = "dangxuat item" href="/WEB2/includes/session/del_session.php"> 
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -147,7 +145,7 @@
 								</div>
 							</div>';
 							//echo '<a href="includes/session/del_session.php">Thoát</a>';
-
+						
 
 							// Ẩn liên kết "Đăng kí" và "Đăng nhập"
 						} else {

@@ -2,6 +2,9 @@
 <style>
   .header-dh {
     display : flex;
+    margin-top: 30px;
+    margin-left: 12px;
+    margin-bottom: 10px;
   }
 
   .hinhchunhat {
@@ -19,22 +22,27 @@
 
   .body-dh{
     display :flex;
+    max-height : 550px;
     align-items : center;
     flex-direction: column;
-    height : 95%;
-    overflow: auto;
+    overflow-y : auto;
+    padding-bottom: 10px;
   }
 
   .item-dh{
-    width : 794px;
-    height : 30px;
+    width : 90%;
+    max-height : 50px;
+    height : 10%;
     display : flex;
+    flex-wrap :wrap;
+    row-gap : 8px;
     justify-content: space-between;
     align-items : center;
     padding : 12px;
     border-radius : 10px;
     border : 1px solid black;
     margin-top : 10px;
+    margin-bottom: 10px;
 
     background: rgb(255 199 147 / 85%);
 
@@ -164,8 +172,12 @@
     include_once ("../Controller/User.php");
     $i = 1;
     $result = loadDataDonHang();
+    if (mysqli_num_rows($result) <= 0) {
+      echo "Không có đơn hàng nào";
+    }
     while ($row = mysqli_fetch_array($result)) {
-      echo '
+      if ($row['status'] != 4) {
+        echo '
       <div class="item-dh ' . $row['id'] . '">
       <div class="txt-dh">Don hang ' . $i++ . '</div>
       <div class="txt-date">' . $row['date_order'] . '</div>
@@ -176,9 +188,147 @@
       </div>
       </div>
       ';
+      }
     }
     ?>
+
     <!-- <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+        <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+
+        <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+        <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+        <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+        <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+    <div class="item-dh 1">
+      <div class="txt-dh">Don hang 1</div>
+      <div class="txt-date">30-1-2024</div>
+      <div class="txt-status">Trạng thái : Chưa xử lí</div>
+      <div class="btn-item-dh">
+        <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
+        <div class="btn-huy btn">Hủy</div>
+      </div>
+    </div>
+    <div class="item-dh 1">
       <div class="txt-dh">Don hang 1</div>
       <div class="txt-date">30-1-2024</div>
       <div class="txt-status">Trạng thái : Chưa xử lí</div>

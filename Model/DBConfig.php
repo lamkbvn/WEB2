@@ -742,6 +742,15 @@ class Database
     $this->disconnect();
     return $result;
   }
+
+  public function destroyOrder($orderId)
+  {
+    $this->connect();
+    // Chuẩn bị truy vấn xóa
+    $sql = "Update orders Set status = 4 WHERE id = " . $orderId;
+    $result = $this->execute($sql);
+    $this->disconnect();
+  }
   public function getDetailOrderByOrderId($orderId)
   {
     $this->connect();
@@ -895,7 +904,8 @@ ORDER BY
     return $this->execute($sql);
   }
   // Hàm lấy dữ liệu số lượng tour bán được trong mỗi tháng của năm trước
-  public function getMonthlySalesLastYear() {
+  public function getMonthlySalesLastYear()
+  {
     $sql = "SELECT 
                 DATE_FORMAT(orders.date_order, '%Y-%m') AS month_year,
                 COUNT(order_detail.id_product) AS total_quantity
@@ -912,9 +922,9 @@ ORDER BY
     $result = $this->execute($sql);
     $sales_data = array();
     while ($row = $result->fetch_assoc()) {
-        $sales_data[$row['month_year']] = $row['total_quantity'];
+      $sales_data[$row['month_year']] = $row['total_quantity'];
     }
     return $sales_data;
-}
+  }
 }
 

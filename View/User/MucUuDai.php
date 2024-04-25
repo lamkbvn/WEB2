@@ -28,6 +28,223 @@
       }
       searchDiscount($_SESSION['idUserLogin']);
       ?>
+            <!-- <div class="discount-card">
+              <div class="infor-card">
+                <div class="infor-card-main">
+                  <div class="title-infor-card">
+                    Khuyến mãi Lễ Hội
+                  </div>
+                  <div class="detail-infor-card">
+                  Ưu đãi đặc biệt cho mùa lễ hội
+                  </div>
+                  <div class="hansudung">
+                    Hạn sử dụng : Còn lại 18 ngày
+                  </div>
+                </div>
+              </div>
+              <div class="cac-hinh-tron">
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+              </div>
+              <div class="use-card">
+                <div class="title-use-card">
+                  Mã ưu đãi
+                </div>
+                <div class="code-use-card">
+                HOLIDAY12
+                </div>
+                <button class="btn-use-card" onclick="useDiscount(event)">Sử dụng</button>
+              </div>
+            </div>
+            <div class="discount-card">
+              <div class="infor-card">
+                <div class="infor-card-main">
+                  <div class="title-infor-card">
+                    Khuyến mãi Lễ Hội
+                  </div>
+                  <div class="detail-infor-card">
+                  Ưu đãi đặc biệt cho mùa lễ hội
+                  </div>
+                  <div class="hansudung">
+                    Hạn sử dụng : Còn lại 18 ngày
+                  </div>
+                </div>
+              </div>
+              <div class="cac-hinh-tron">
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+              </div>
+              <div class="use-card">
+                <div class="title-use-card">
+                  Mã ưu đãi
+                </div>
+                <div class="code-use-card">
+                HOLIDAY12
+                </div>
+                <button class="btn-use-card" onclick="useDiscount(event)">Sử dụng</button>
+              </div>
+            </div>
+            <div class="discount-card">
+              <div class="infor-card">
+                <div class="infor-card-main">
+                  <div class="title-infor-card">
+                    Khuyến mãi Lễ Hội
+                  </div>
+                  <div class="detail-infor-card">
+                  Ưu đãi đặc biệt cho mùa lễ hội
+                  </div>
+                  <div class="hansudung">
+                    Hạn sử dụng : Còn lại 18 ngày
+                  </div>
+                </div>
+              </div>
+              <div class="cac-hinh-tron">
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+              </div>
+              <div class="use-card">
+                <div class="title-use-card">
+                  Mã ưu đãi
+                </div>
+                <div class="code-use-card">
+                HOLIDAY12
+                </div>
+                <button class="btn-use-card" onclick="useDiscount(event)">Sử dụng</button>
+              </div>
+            </div>
+            <div class="discount-card">
+              <div class="infor-card">
+                <div class="infor-card-main">
+                  <div class="title-infor-card">
+                    Khuyến mãi Lễ Hội
+                  </div>
+                  <div class="detail-infor-card">
+                  Ưu đãi đặc biệt cho mùa lễ hội
+                  </div>
+                  <div class="hansudung">
+                    Hạn sử dụng : Còn lại 18 ngày
+                  </div>
+                </div>
+              </div>
+              <div class="cac-hinh-tron">
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+              </div>
+              <div class="use-card">
+                <div class="title-use-card">
+                  Mã ưu đãi
+                </div>
+                <div class="code-use-card">
+                HOLIDAY12
+                </div>
+                <button class="btn-use-card" onclick="useDiscount(event)">Sử dụng</button>
+              </div>
+            </div>
+            <div class="discount-card">
+              <div class="infor-card">
+                <div class="infor-card-main">
+                  <div class="title-infor-card">
+                    Khuyến mãi Lễ Hội
+                  </div>
+                  <div class="detail-infor-card">
+                  Ưu đãi đặc biệt cho mùa lễ hội
+                  </div>
+                  <div class="hansudung">
+                    Hạn sử dụng : Còn lại 18 ngày
+                  </div>
+                </div>
+              </div>
+              <div class="cac-hinh-tron">
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+              </div>
+              <div class="use-card">
+                <div class="title-use-card">
+                  Mã ưu đãi
+                </div>
+                <div class="code-use-card">
+                HOLIDAY12
+                </div>
+                <button class="btn-use-card" onclick="useDiscount(event)">Sử dụng</button>
+              </div>
+            </div>
+            <div class="discount-card">
+              <div class="infor-card">
+                <div class="infor-card-main">
+                  <div class="title-infor-card">
+                    Khuyến mãi Lễ Hội
+                  </div>
+                  <div class="detail-infor-card">
+                  Ưu đãi đặc biệt cho mùa lễ hội
+                  </div>
+                  <div class="hansudung">
+                    Hạn sử dụng : Còn lại 18 ngày
+                  </div>
+                </div>
+              </div>
+              <div class="cac-hinh-tron">
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+              </div>
+              <div class="use-card">
+                <div class="title-use-card">
+                  Mã ưu đãi
+                </div>
+                <div class="code-use-card">
+                HOLIDAY12
+                </div>
+                <button class="btn-use-card" onclick="useDiscount(event)">Sử dụng</button>
+              </div>
+            </div>
+            <div class="discount-card">
+              <div class="infor-card">
+                <div class="infor-card-main">
+                  <div class="title-infor-card">
+                    Khuyến mãi Lễ Hội
+                  </div>
+                  <div class="detail-infor-card">
+                  Ưu đãi đặc biệt cho mùa lễ hội
+                  </div>
+                  <div class="hansudung">
+                    Hạn sử dụng : Còn lại 18 ngày
+                  </div>
+                </div>
+              </div>
+              <div class="cac-hinh-tron">
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+                <div class="hinhtron"></div>
+              </div>
+              <div class="use-card">
+                <div class="title-use-card">
+                  Mã ưu đãi
+                </div>
+                <div class="code-use-card">
+                HOLIDAY12
+                </div>
+                <button class="btn-use-card" onclick="useDiscount(event)">Sử dụng</button>
+              </div>
+            </div> -->
     </div>
   </div>
 </body>

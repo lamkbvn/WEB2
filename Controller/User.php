@@ -36,7 +36,7 @@ function searchDiscount($idUser)
     $daysRemaining = $interval->days;
     $hoursRemaining = $interval->h;
     echo '
-              <div class="discount-card">
+                <div class="discount-card">
               <div class="infor-card">
                 <div class="infor-card-main">
                   <div class="title-infor-card">
@@ -192,11 +192,12 @@ if (isset($_POST['action'])) {
     }
     $idOrder = isset($_POST['idOrder']) ? $_POST['idOrder'] : '';
     $db = new Database();
-    $db->deleteOrder($idOrder);
+    $db->destroyOrder($idOrder);
     $i = 1;
     $result = loadDataDonHang();
     while ($row = mysqli_fetch_array($result)) {
-      echo '
+      if ($row['status'] != 4) {
+        echo '
       <div class="item-dh ' . $row['id'] . '">
       <div class="txt-dh">Don hang ' . $i++ . '</div>
       <div class="txt-date">' . $row['date_order'] . '</div>
@@ -207,6 +208,7 @@ if (isset($_POST['action'])) {
       </div>
       </div>
       ';
+      }
     }
   }
 }
