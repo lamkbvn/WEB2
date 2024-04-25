@@ -181,6 +181,13 @@ switch ($action) {
 				$predicted_sales_this_year[] = round($intercept + $slope * $i);
 			}
 
+			// biểu đồ tròn
+			$result = $db->getTourHuy();
+			while ($tour = mysqli_fetch_assoc($result)) {
+				$tongTour = $tour['total_tours'];
+				$tourHuy = $tour['tour_huy'];
+			}
+
 
 			require_once('View/admin/trangChuAdmin.php');
 			break;

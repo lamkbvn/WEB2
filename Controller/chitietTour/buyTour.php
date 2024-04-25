@@ -16,6 +16,11 @@ require_once('../../View/User/chitietTour/chitietTour.php');
 switch ($action) {
     case 'book-tour': {
             if (isset($_REQUEST['buy-now']) && isset($_REQUEST['id'])) {
+                $idPro = $_REQUEST['id'];
+                if($db->checkAvailableTour($idPro) == false){
+                    echo '<script>alert("Tour này đã hết!")</script>';
+                    break;
+                }
                 // Xử lý khi người dùng nhấn nút "Mua ngay"
                 //date này là date book tour
                 $dateBook = $_REQUEST['datePhp'];
@@ -32,10 +37,10 @@ switch ($action) {
                 $result = $LastID->fetch_assoc();
                 $id = $result['id'] + 1;
                 // $id = date('dmyHis');
-                $idPro = $_REQUEST['id'];
                 $idVoucher = $_REQUEST['idVoucher'];
-                $db->InsertOrder($id, $idUser, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, 1);
-                $db->InsertDetailOrder($id, $idPro, $rowTour['price'], $soLuong, $totalPrice,  $dateBook);
+                $rs = $db->InsertOrder($id, $idUser, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, 1);
+                $rs2 = $db->InsertDetailOrder($id, $idPro, $rowTour['price'], $soLuong, $totalPrice,  $dateBook);
+                if($rs && $rs2) echo '<script>alert("Mua tour này thành công!")</script>';
                 if ($idVoucher != 0) $db->XoaVoucherKhiAddMa($idVoucher, $idUser);
                 //nếu muốn dùng idOrder để truyền vào DetailOrder thì dùng biến id này
                 echo "<script>window.location.href='../chitietTour/buyTour.php?id=$idPro';</script>";
@@ -49,7 +54,8 @@ switch ($action) {
                 $currentDate = date("Y-m-d H:i:s");
                 $star = $_REQUEST['rating'];
                 $idPro = $_REQUEST['id'];
-                $db->InsertCmt($idUser, $idPro, $cmt, $currentDate, $star);
+                $rs = $db->InsertCmt($idUser, $idPro, $cmt, $currentDate, $star);
+                if($rs) echo '<script>alert("Gửi bình luận thành công!")</script>';
                 $db->updateStarOfTour($idPro);
                 echo "<script>window.location.href='../chitietTour/buyTour.php?id=$idPro';</script>";
                 // exit();

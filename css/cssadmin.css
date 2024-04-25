@@ -597,7 +597,15 @@ a {
     width: 600px;
     height: auto;
 }
+<<<<<<< HEAD
 .title_chart {
+=======
+.containChartDonut{
+    margin: 0 auto;
+    width: 340px;
+}
+.title_chart{
+>>>>>>> f711a724a2bbde22ff4ac04a3a82c32b1cd9062b
     font-style: italic;
     font-size: 13px;
     display: flex;
