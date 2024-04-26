@@ -1,4 +1,4 @@
-let inputStartTemp = document.querySelector('.input-date-start');
+// let inputStartTemp = document.querySelector('.input-date-start');
 
 function selectDateStart(event){
   let inputStart = event.target ;
@@ -24,12 +24,10 @@ function selectDateEnd(event){
 
 
 
-let btnTableData = document.querySelector('.btnTableData');
-let btnChartData = document.querySelector('.btnChartData');
-let btnOrderByASC = document.querySelector('.btnOrderByASC');
-let btnOrderByDECR = document.querySelector('.btnOrderByDECR');
-let tableData = document.querySelector('.tableData');
-let chartData = document.querySelector('.chartData');
+// let btnTableData = document.querySelector('.btnTableData');
+// let btnChartData = document.querySelector('.btnChartData');
+// let btnOrderByASC = document.querySelector('.btnOrderByASC');
+// let btnOrderByDECR = document.querySelector('.btnOrderByDECR');
 
 
 function resetOrder(){
@@ -45,6 +43,8 @@ function resetOrder(){
 }
 
 function filterThongKe(event){
+  let tableData = document.querySelector('.tableData');
+  let chartData = document.querySelector('.chartData');
   let button = event.target;
   let order =button.parentNode;
 
@@ -73,23 +73,23 @@ function filterThongKe(event){
 
   //chọn  kiểu hiển thị dữ liệu
   let buttonTypeData  = parent.querySelector('.kieudulieu');
-  buttonTypeData.classList.remove('hide');
-  if(buttonTypeData.value == 0)
-  {
-    if(tableData.classList.contains('hide')){
-      tableData.classList.remove('hide');
-      chartData.classList.add('hide');
-    }
-  }
-  else if(buttonTypeData.value == 1)
-  {
-    if(chartData.classList.contains('hide')){
-      chartData.classList.remove('hide');
-      tableData.classList.add('hide');
-    }
-  }
+  // buttonTypeData.classList.remove('hide');
+  // if(buttonTypeData.value == 0)
+  // {
+  //   if(tableData.classList.contains('hide')){
+  //     tableData.classList.remove('hide');
+  //     chartData.classList.add('hide');
+  //   }
+  // }
+  // else if(buttonTypeData.value == 1)
+  // {
+  //   if(chartData.classList.contains('hide')){
+  //     chartData.classList.remove('hide');
+  //     tableData.classList.add('hide');
+  //   }
+  // }
 
-  console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData.value,namecoll);
+  console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData,namecoll);
   let displayTitleTable = document.querySelector('.titleTable');
   displayTitleTable.classList.remove('hide');
   $.ajax({
@@ -113,14 +113,18 @@ function filterThongKe(event){
 
 let myChart = null;
 let mychart1 =null;
-function DrawChartData(){
-  let nameTour = document.querySelectorAll('.nameTour');
-  let numBought = document.querySelectorAll('.num-bought');
-  let priceTK = document.querySelectorAll('.total-money');
 
-  let convertnumBought = [];
-  let convertNameTour = [];
-  let convertpriceTK = [];
+function DrawChartData(){
+
+  let nameTour = document.querySelectorAll('.nameTour');
+let numBought = document.querySelectorAll('.num-bought');
+let priceTK = document.querySelectorAll('.total-money');
+let dateGo = document.querySelectorAll('.date-go');
+
+let convertnumBought = [];
+let convertNameTour = [];
+let convertpriceTK = [];
+let convertDateGo = [];
 
   //convert data
   for(let i = 0; i < numBought.length; i++)
@@ -128,15 +132,15 @@ function DrawChartData(){
     convertnumBought.push(parseInt(numBought[i].innerHTML));
     convertNameTour.push(nameTour[i].innerHTML);
     convertpriceTK.push(parseInt(priceTK[i].innerHTML));
+    convertDateGo.push(dateGo.innerHTML);
   }
-
   //lọc các dữ liệu trùng nhau
   for(let i =  0 ; i  < numBought.length - 1 ; i++){
-        let name = convertNameTour ;
+        let name = convertNameTour[i] ;
         for(let j = i + 1 ; j < numBought.length ; j++){
           if(name ==  convertNameTour[j]){
-              convertnumBought[i] += convertNameTour[j];
-              convertpriceTK[i] += convertNameTour[j];
+              convertnumBought[i] += convertnumBought[j];
+              convertpriceTK[i] += convertpriceTK[j];
               convertNameTour.splice(j, 1);
               convertpriceTK.splice(j, 1);
               convertnumBought.splice(j, 1);
@@ -151,7 +155,7 @@ function DrawChartData(){
     chartStatus.destroy();
   }
   mychart = new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
       labels:convertNameTour,
       datasets: [{
@@ -177,7 +181,7 @@ function DrawChartData(){
   }
 
   mychart1 = new Chart(ctx1 , {
-    type : 'line',
+    type : 'bar',
     data : {
       labels : convertNameTour ,
       datasets :[{

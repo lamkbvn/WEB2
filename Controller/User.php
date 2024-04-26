@@ -2,6 +2,7 @@
 //gia su da dang nhap thanh cong vo user 1
 // function searchDiscounts---------------------
 $idOrder;
+
 function searchDiscount($idUser)
 {
   $db = new Database();

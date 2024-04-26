@@ -11,7 +11,6 @@
   <title>Trang chủ</title>
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/stylelam.css" />
-  <script src="js/User/script.js" defer></script>
 
   <!-- font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
