@@ -11,6 +11,9 @@ $recordsPerPage = isset($_GET['numRow']) ? $_GET['numRow'] : 5;
 
 $startFrom = ($page - 1) * $recordsPerPage;
 $sql = "SELECT * FROM $table LIMIT $startFrom, $recordsPerPage";
+if($table == 'orders'){
+    $sql = "SELECT * FROM $table ORDER BY id DESC LIMIT $startFrom, $recordsPerPage";
+}
 $data = $conn->query($sql);
 
 // $data = $pagination->getRecords('product', $page, $recordsPerPage);
@@ -95,8 +98,8 @@ switch ($table) {
                 $htmlTable .= "<td class='table-cell'>$stt</td>";
                 $htmlTable .= "<td class='table-cell id'>{$value['id']}</td>";
                 $htmlTable .= "<td class='table-cell'>{$value['fullname']}</td>";
-                $htmlTable .= "<td class='table-cell'>{$value['date_order']}</td>";
-                $htmlTable .= "<td class='table-cell'>{$value['total_money']}</td>";
+                $htmlTable .= "<td class='table-cell table-roww'>{$value['date_order']}</td>";
+                $htmlTable .= "<td class='table-cell'>" . number_format($value['total_money'], 0, ',', '.') . "</td>";
                 $htmlTable .= "<td class='table-cell'>";
                 switch ($value['status']) {
                     case 1:
