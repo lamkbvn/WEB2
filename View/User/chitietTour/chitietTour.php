@@ -11,21 +11,13 @@
 
 <body>
     <?php
-    if (isset($_REQUEST['id'])) {
-        $idTour = $_REQUEST['id'];
-    }
 
-    $idUser = (isset($_SESSION['idUserLogin']))?$_SESSION['idUserLogin']:0;
-    $result = $db->execute("SELECT * FROM product WHERE id = '$idTour'");
-    $rowTour = $db->getData();
-    $result2 = $db->execute("SELECT * FROM feedback WHERE product_id = '$idTour'");
-    $resultVoucher = $db->execute("SELECT * FROM discountuser WHERE id_user = '$idUser'");
     ?>
     <div class="nen-den"></div>
     <div class="container">
         <?php include "../../View/layout/header-showproduct.php" ?>
         <div class="container-body">
-            <a class="back" href="/WEB2/index.php?controller=trang-chu&action=showproduct&category=<?php echo (isset($_REQUEST['category']))?$_REQUEST['category']:1 ?>">
+            <a class="back" href="/WEB2/index.php?controller=trang-chu&action=showproduct&category=<?php echo (isset($_REQUEST['category'])) ? $_REQUEST['category'] : 1 ?>">
                 Quay lại
             </a>
             <h1 class="title-tour">
@@ -64,7 +56,7 @@
             ?>
             <div class="container-img">
                 <div class="big-image">
-                    <img src='<?php echo $srcArray[0] ?>'  alt="Big Image">
+                    <img src='<?php echo $srcArray[0] ?>' alt="Big Image">
                 </div>
                 <div class="small-images">
                     <div class="small-image">
@@ -89,18 +81,25 @@
                 <div class="tam-tinh">
                     <div class="money-tamtinh" id="<?php echo $rowTour['price']; ?>">
                         <?php
-                        $price = $rowTour['price'];
-                        $formatted_price = number_format($price, 0, '.', ',');
-                        echo "Giá chỉ: " . $formatted_price . " đ";
+                        if (mysqli_num_rows($listTicket0) > 0) {
+                            $maxPrice = 0;
+                            // Duyệt qua từng dòng dữ liệu
+                            while ($row = mysqli_fetch_assoc($listTicket0)) {
+                                if ($maxPrice < $row['price']) $maxPrice = $row['price'];
+                            }
+                        }
+                        // $price = $rowTour['price'];
+                        $formatted_price = number_format($maxPrice, 0, '.', ',');
+                        echo "Giá từ: " . $formatted_price . " đ";
                         ?>
                     </div>
                     <div class="btn-chosse-dichvu">Chọn các gói dịch vụ</div>
-                    <?php 
+                    <?php
                     $address = $rowTour["address"];
 
                     // Tạo URL của Google Map
                     $google_map_url = "https://www.google.com/maps/embed/v1/place?q=" . urlencode($address) . "&key=AIzaSyBT0zArw_eDN1rklr3lPrNFObbFOPSWjUk";
-            
+
                     // Hiển thị iframe Google Map
                     echo '<iframe width="260" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="' . $google_map_url . '" allowfullscreen></iframe>';
                     ?>
@@ -114,8 +113,21 @@
                 <div class="box-option">
                     <h3 class="title-box-option">Vui lòng chọn ngày & gói dịch vụ</h3>
                     <div class="option-item">
-                        <p class="label-option">Xin chọn ngày đi tour</p>
-                        <input type="date" name="select-date" id="select-date" class="select-date">
+                        <p class="label-option">Xin chọn ngày đi tour có sẵn</p>
+                        <div class="contain_selectDate">
+                            <div class="maxTicket" style="display:none;">0</div>
+                            <?php
+                            if (mysqli_num_rows($listTicket) > 0) {
+                                // Duyệt qua từng dòng dữ liệu
+                                while ($row = mysqli_fetch_assoc($listTicket)) {
+                                    echo "<div class='wrapper'>";
+                                    echo "<div data-idTicket=" . $row['id'] . " id=" . $row['price'] . " class='select-date'>" . $row['dateStart'] . "</div>";
+                                    echo "<div class='numTicket' id=" . $row['numTicketAvailable'] . "> Còn " . $row['numTicketAvailable'] . " vé</div>";
+                                    echo "</div>";
+                                }
+                            }
+                            ?>
+                        </div>
                         <span class="validation">Không được chọn ngày đã qua</span>
                     </div>
                     <div class="option-item">
@@ -206,6 +218,7 @@
                                 <input type="hidden" name="id" value='<?php echo $idTour; ?>'>
                                 <input type="hidden" name="add-cart" value="1">
                                 <input type="hidden" name="numTicketphp" value="0">
+                                <input type="hidden" name="idTicketCart" value="0">
                                 <button type="button" class="add-cart btn-submit-option">Thêm vào giỏ hàng</button>
                             </form>
                             <div id="dot"></div>
@@ -222,7 +235,9 @@
                     <input type="hidden" name="controller" value="chi-tiet-tour">
                     <input type="hidden" name="action" value="book-tour">
                     <input type="hidden" name="datePhp" value="0">
+                    <input type="hidden" name="priceTourNe" value="0">
                     <input type="hidden" name="idVoucher" value="0">
+                    <input type="hidden" name="idTicket" value="0">
                     <input type="hidden" name="totalMoneyphp" value="0">
                     <input type="hidden" name="id" value='<?php echo $idTour; ?>'>
                     <h2>Vui lòng điền thông tin</h1>

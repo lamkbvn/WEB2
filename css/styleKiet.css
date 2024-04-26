@@ -250,11 +250,14 @@ body {
     font-size: 14px;
     color: var(--third-color);
 }
-
+.contain_selectDate{
+    display: flex;
+}
 .select-date {
+    margin-right: 10px;
     cursor: pointer;
-    background-color: var(--primary-color);
-    color: #fff;
+    background-color: #fff;
+    color: #000;
     width: 150px;
     height: 36px;
     display: flex;
@@ -262,8 +265,25 @@ body {
     justify-content: center;
     border-radius: 8px;
     font-size: 14px;
-    border: 0;
+    border: solid var(--primary-color) 1px;
+    /* position: relative; */
+}
+.wrapper{
     position: relative;
+}
+.numTicket {
+    width: 90px;
+    display: none; /* Ẩn phần tử .numTicket ban đầu */
+    position: absolute; /* Thiết lập vị trí tuyệt đối */
+    top: -100%;
+    left: 50%; /* Di chuyển sang bên phải của phần tử .select-date */
+    background-color: white; /* Màu nền */
+    border: 1px solid black; /* Viền */
+    padding: 5px; /* Khoảng cách với nội dung */
+}
+
+.select-date:hover + .numTicket {
+    display: block; /* Hiển thị phần tử .numTicket khi di chuột vào .select-date */
 }
 
 .discount {

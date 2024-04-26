@@ -271,6 +271,38 @@ switch ($action) {
 			require_once('View/admin/DSTour/editTour.php');
 			break;
 		}
+	case 'ticket': {
+			if (isset($_REQUEST['id'])) {
+				$id = $_REQUEST['id'];
+			}
+			$tour = $db->getDataId("product", $id);
+			$tickets = $db->getListTicketByidTour($id);
+			require_once('View/admin/DSTour/ticket.php');
+			break;
+		}
+	case 'addTicket':{
+		require_once('View/admin/DSTour/addTicket.php');
+			break;
+	}
+	case 'deleteTicket': {
+		if (isset($_REQUEST['id'])) {
+			$id = $_REQUEST['id'];
+		}
+		if (isset($_REQUEST['idTicket'])) {
+			$idTicket = $_REQUEST['idTicket'];
+			$db->deleteTicket($idTicket);
+		}
+		$tour = $db->getDataId("product", $id);
+		$tickets = $db->getListTicketByidTour($id);
+		require_once('View/admin/DSTour/ticket.php');
+		break;
+	}
+	case 'editTicket':{
+		$id = $_REQUEST['idTicket'];
+		$ticket = $db->getDataId("tickettour", $id);
+		require_once('View/admin/DSTour/editTicket.php');
+			break;
+	}
 	case 'deleteTour': {
 			if (isset($_REQUEST['id'])) {
 				$id = $_REQUEST['id'];

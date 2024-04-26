@@ -201,7 +201,7 @@
                 $('#page1').addClass('header-admin-active');
             } else if (action === 'role' || action === 'editRole' || action === 'addRole') {
                 $('#page2').addClass('header-admin-active');
-            } else if (action === 'tour' || action === 'editTour' || action === 'addTour') {
+            } else if (action === 'tour' || action === 'editTour' || action === 'addTour' || action === 'ticket' || action === 'addTicket' || action === 'editTicket' ) {
                 $('#page3').addClass('header-admin-active');
             } else if (action === 'dsbl') {
                 $('#page4').addClass('header-admin-active');

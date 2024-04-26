@@ -5,7 +5,8 @@
 <body>
 
 	<div class="user--table">
-		<h2 class="table--heading">Danh sách Tour</h2>
+
+		<h2 class="table--heading"><?php echo $tour['title']?></h2>
 		
 		<div class="list-feature">
 			<div class="filter-container">
@@ -19,54 +20,31 @@
 			<option value="100">100</option>
 		</select>
 			</div>
-			
-			<?php
-			$isAdd = 0;
-			$isEdit = 0;
-			$isDelete = 0;
-			foreach ($role as $rowRole) {
-				if ($rowRole['id_chucNang'] == 2) {
-					switch ($rowRole['HD']) {
-						case 'Add':
-							$isAdd = 1;
-							break;
-						case 'Edit':
-							$isEdit = 1;
-							break;
-						case 'Delete':
-							$isDelete = 1;
-							break;
-						default:
-							# code...
-							break;
-					}
-				}
-			}
-			if ($isAdd == 1) {
-				echo "<a href='index.php?controller=trang-admin&action=addTour' class='list-feature-item add-user-btn'>
+			<a href="index.php?controller=trang-admin&action=addTicket&id=<?php echo $tour['id'] ?>" class='list-feature-item add-user-btn'>
 						<img src='css/icons/favorites-admin-icon.svg' alt='' class='list-feature-item--icon'>
-						<p class='nav-admin-item--title'>Thêm mới</p>
-					</a>";
-			}
-			?>
+						<p class='nav-admin-item--title'>Thêm vé mới</p>
+					</a>
 		</div>
 		<table id="tableData" class="custom-table">
 			<thead class="table-head">
 				<tr class="table--head">
-					<th class="table-header">Hình ảnh</th>
-					<th class="table-header" onclick="sortTable(1)">Tiêu đề
+					<th class="table-header">Id</th>
+					<th class="table-header" onclick="sortTable(1)">Tên vé
 						<img id="sortIcon1" src="images/arrow-point-to-up.png" width="14px">
 					</th>
-					<th class="table-header" onclick="sortTable(2)">Giá
+					<th class="table-header" onclick="sortTable(2)">Giá vé
 						<img id="sortIcon2" src="images/arrow-point-to-up.png" width="14px">
 					</th>
-					<th class="table-header" onclick="sortTable(3)">Ngày tạo
+					<th class="table-header" onclick="sortTable(3)">Ngày đi
 						<img id="sortIcon3" src="images/arrow-point-to-up.png" width="14px">
 					</th>
-					<th class="table-header" onclick="sortTable(4)">Số lượng mua
+					<th class="table-header" onclick="sortTable(4)">Ngày kết thúc
 						<img id="sortIcon4" src="images/arrow-point-to-up.png" width="14px">
 					</th>
-					<th class="table-header" onclick="sortTable(6)">Số sao
+					<th class="table-header" onclick="sortTable(5)">Còn lại
+						<img id="sortIcon5" src="images/arrow-point-to-up.png" width="14px">
+					</th>
+					<th class="table-header" onclick="sortTable(6)">Đã mua
 						<img id="sortIcon6" src="images/arrow-point-to-up.png" width="14px">
 					</th>
 					<th class="table-header">Hành động</th>
@@ -74,15 +52,27 @@
 			</thead>
 
 			<tbody class="table-body">
-				
+				<?php 
+                    if($tickets!=null)
+                    while ($value = mysqli_fetch_assoc($tickets)){
+                        echo "<tr class='table-row'>
+                        <td class='table-cell id'>{$value['id']}</td>
+                        <td class='table-cell'>{$value['name']}</td>
+                        <td class='table-cell'>{$value['price']}</td>
+                        <td class='table-cell'>{$value['dateStart']}</td>
+                        <td class='table-cell'>{$value['dateEnd']}</td>
+                        <td class='table-cell status'>{$value['numTicketAvailable']}</td>
+                        <td class='table-cell status'>{$value['num_bought']}</td>
+                        <td class='table-cell elet'>";
+                        echo "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=editTicket&id={$tour['id']}&idTicket={$value['id']}'>Edit</a>";
+                        echo "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=deleteTicket&id={$tour['id']}&idTicket={$value['id']}'>Delete</a>";
+                        echo "</td></tr>";
+                    }
+                ?>
 			</tbody>
 		</table>
-		<!-- Bảng phân trang cho table1 -->
-		<div class="paging" style="display: flex; align-item:center; justify-content: center; margin-top: 20px;">
-		</div>
 	</div>
 	<script src="js/sapxep.js"></script>
-	<?php require_once('js/phantrang.php')?>
 	<!-- <script src="js/phantrang.js"></script> -->
 	<script>
 		// Lấy ô input và bảng dữ liệu
@@ -125,7 +115,7 @@
 				e.preventDefault();
 				var deleteUrl = $(this).attr('data-delete-url');
 				var rowToDelete = $(this).closest('.table-row');
-				var confirmDelete = confirm('Bạn có chắc chắn muốn xóa tour này không?');
+				var confirmDelete = confirm('Bạn có chắc chắn muốn xóa vé này không?');
 				if (confirmDelete) {
 					$.ajax({
 						url: deleteUrl,

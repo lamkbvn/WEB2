@@ -207,11 +207,11 @@
                     </div>
                     <div class="flex">
                         <div class="containFieldAddTour">
-                            <label for="price">Giá</label>
+                            <label for="price">Giá gốc</label>
                             <input name="price" type="number" value='<?php echo $data["price"] ?>'>
                             <span class="valiFormAddTour" id="priceValidation">Dữ liệu không hợp lệ</span>
                         </div>
-                        <div class="containFieldAddTour">
+                        <div style="display: none;" class="containFieldAddTour">
                             <label for="acount">Số lượng</label>
                             <input name="acount" type="number" value='<?php echo $data["soLuongConLai"] ?>'>
                             <span class="valiFormAddTour" id="acountValidation">Dữ liệu không hợp lệ</span>

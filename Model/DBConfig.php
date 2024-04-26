@@ -251,19 +251,19 @@ class Database
     return $data;
   }
   // thêm giỏ hàng
-  public function InsertCart($id_user, $id_product, $amount, $status)
+  public function InsertCart($id_user, $id_product, $amount, $idTicket, $status)
   {
-    $sql = "INSERT INTO cart (id_user, id_product, amount, status) VALUES ('$id_user', '$id_product', '$amount', '$status')";
+    $sql = "INSERT INTO cart (id_user, id_product, amount, status, idTicket) VALUES ('$id_user', '$id_product', '$amount', '$status', '$idTicket')";
     return $this->execute($sql);
   }
 
-  public function checkAvailableTour($idTour){
-    $sql="SELECT * FROM product WHERE id = $idTour and soLuongConLai>0;";
-    $rs = $this->execute($sql);
-    $numRows = mysqli_num_rows($rs);
-    if($numRows>0) return true;
-    else return false;
-  }
+  // public function checkAvailableTour($idTour){
+  //   $sql="SELECT * FROM product WHERE id = $idTour and soLuongConLai>0;";
+  //   $rs = $this->execute($sql);
+  //   $numRows = mysqli_num_rows($rs);
+  //   if($numRows>0) return true;
+  //   else return false;
+  // }
   // thêm orrder
   public function InsertOrder($id, $id_user, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount)
   {
@@ -285,7 +285,7 @@ class Database
   // thêm detailOrder
   public function InsertDetailOrder($id_order, $id_pro, $price, $amount, $totalmoney, $dateGo)
   {
-    $sqlTangSoLuongMua = "UPDATE product SET num_bought = num_bought + $amount, soLuongConLai = soLuongConLai-1 WHERE id = $id_pro";
+    $sqlTangSoLuongMua = "UPDATE product SET num_bought = num_bought + $amount WHERE id = $id_pro";
     $this->execute($sqlTangSoLuongMua);
     $sql = "INSERT INTO order_detail (id_order, id_product, price, amount, total_money, date_go)
     VALUES ( '$id_order', '$id_pro', '$price', '$amount', '$totalmoney', '$dateGo')";
@@ -322,11 +322,75 @@ class Database
     return $this->execute($update_sql);
   }
   // phần của admin
+  public function updateNumBoughtTour($id, $sove){
+    $sql = "UPDATE product SET num_bought = num_bought + $sove where id = $id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+  }
+  public function addTicket($idTour, $name, $price, $dateStart, $dateEnd, $sove){
+    $sql = "insert into tickettour (idTour, dateStart, dateEnd, price, numTicketAvailable, name, num_bought) values ('$idTour', '$dateStart', '$dateEnd', '$price', '$sove', '$name', 0);";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+  }
+  public function buyTicket($id, $sove){
+    $sql = "UPDATE tickettour SET numTicketAvailable = numTicketAvailable - '$sove', num_bought = num_bought + $sove where id = $id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+  }
+  public function updateTicket($id, $name, $price, $dateStart, $dateEnd, $sove){
+    $sql = "UPDATE tickettour SET dateStart = '$dateStart', dateEnd = '$dateEnd', price = '$price', numTicketAvailable = '$sove', name = '$name' WHERE id = '$id';";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+  }
+  public function deleteTicket($id){
+    $sql = "delete from tickettour where id = $id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+  }
+  public function getListTicketByidTour($idTour){
+    $sql = "select * from tickettour where idTour = $idTour";
+    return $this->execute($sql);
+  }
   // thêm tour mới
   public function InsertTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $address, $datecreate, $acount)
   {
-    $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, address, soLuongConLai, star_feedback)
-    VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$address', '$acount', '0')";
+    $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, address, star_feedback)
+    VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$address', '0')";
     $rs = $this->execute($sql);
     if($rs){
       return true;
@@ -349,8 +413,7 @@ class Database
             price = '$price', 
             content = '$content',
             update_at = '$dateUpdate',  
-            address = '$address', 
-            soLuongConLai = '$acount' 
+            address = '$address'
             WHERE id = '$id'";
     // $this->execute($sql);
     $stmt = $this->conn->prepare($sql);
@@ -988,7 +1051,7 @@ ORDER BY
 
   public function getTourHuy(){
     $sql="SELECT 
-      COUNT(CASE WHEN status = 4 THEN 1 END) AS tour_huy,
+      COUNT(CASE WHEN status = 5 THEN 1 END) AS tour_huy,
       COUNT(*) AS total_tours
       FROM 
       orders;";

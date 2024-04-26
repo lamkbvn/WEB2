@@ -19,6 +19,18 @@
         let num = numTicket.textContent;
         let percentVou = document.getElementsByClassName('percentVou')[0];
         btnPlus.addEventListener('click', function(e) {
+            if (btnChonNgay.value == "0") {
+                e.preventDefault();
+                spanValidationDate.textContent = "Vui lòng chọn ngày đi";
+                spanValidationDate.style.display = 'block';
+                return;
+            }
+            var numMaxTicket = document.getElementsByClassName('maxTicket')[0].textContent
+            if(numMaxTicket<=(num)){
+                e.preventDefault();
+                alert('Số vé còn lại không đủ');
+                return;
+            }
             num++;
             numTicket.textContent = num;
             numTicketphp.value = num;
@@ -28,6 +40,12 @@
         });
         btnMinus.addEventListener('click', function(e) {
             if (num > 0) {
+                if (btnChonNgay.value == "0") {
+                    e.preventDefault();
+                    spanValidationDate.textContent = "Vui lòng chọn ngày đi";
+                    spanValidationDate.style.display = 'block';
+                    return;
+                }
                 num--;
                 numTicket.textContent = num;
                 numTicketphp2.value = num;
@@ -56,33 +74,86 @@
 
         // chọn ngày, validation phải sau ngày hiện tại
         let datePhp = document.getElementsByName('datePhp')[0]; // cập nhật ngày để dùng php
-        let btnChonNgay = document.getElementById('select-date');
+        let btnChonNgay = document.getElementsByName('datePhp')[0];
+        let btnChonNgayCoSan = document.getElementsByClassName('select-date');
         let spanValidationDate = document.getElementsByClassName('validation')[0];
-        btnChonNgay.addEventListener('change', function() {
-            // Lấy ngày hiện tại
-            var today = new Date();
-
-            // Lấy giá trị ngày được chọn từ input
-            var selectedDate = new Date(document.getElementById("select-date").value);
-
-            // Kiểm tra xem ngày được chọn có sau ngày hôm nay không
-            if (selectedDate <= today) {
-                spanValidationDate.textContent = "Không được chọn ngày đã qua";
-                spanValidationDate.style.display = 'block';
-                // Đặt giá trị của input ngày thành rỗng để yêu cầu người dùng nhập lại
-                document.getElementById("select-date").value = "";
-            } else {
+        for (var i = 0; i < btnChonNgayCoSan.length; i++) {
+            btnChonNgayCoSan[i].addEventListener('click', function() {
+                for (var i = 0; i < btnChonNgayCoSan.length; i++) {
+                    btnChonNgayCoSan[i].style.backgroundColor = "#fff";
+                    btnChonNgayCoSan[i].style.color = "#000";
+                }
+                this.style.backgroundColor = "#ff5b00";
+                this.style.color = "#fff";
+                datePhp.value = this.textContent;
                 spanValidationDate.style.display = 'none';
-                var formattedDate = selectedDate.getFullYear() + '-' + ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + ('0' + selectedDate.getDate()).slice(-2);
-                datePhp.value = formattedDate;
+                var priceNe = this.id;
+                document.getElementsByName('priceTourNe')[0].value = priceNe;
+                priceNe = formatCurrencyVND(priceNe);
+                document.getElementsByClassName('money-tamtinh')[0].textContent = "Giá từ: " + priceNe;
+                document.getElementsByClassName('money-tamtinh')[0].id = this.id; //idTicket idTicketCart
+                document.getElementsByName('idTicketCart')[0].value = this.getAttribute('data-idTicket');
+                document.getElementsByName('idTicket')[0].value = this.getAttribute('data-idTicket');
+                var numTicket = this.nextElementSibling;
+                // Lấy id của '.numTicket'priceTour
+                document.getElementsByClassName('maxTicket')[0].textContent = numTicket.id;
+
+                // Lấy ngày hiện tại
+                // var today = new Date();
+
+                // // Lấy giá trị ngày được chọn từ input
+                // var selectedDate = new Date(document.getElementById("select-date").value);
+
+                // // Kiểm tra xem ngày được chọn có sau ngày hôm nay không
+                // if (selectedDate <= today) {
+                //     spanValidationDate.textContent = "Không được chọn ngày đã qua";
+                //     spanValidationDate.style.display = 'block';
+                //     // Đặt giá trị của input ngày thành rỗng để yêu cầu người dùng nhập lại
+                //     document.getElementById("select-date").value = "";
+                // } else {
+                //     spanValidationDate.style.display = 'none';
+                //     var formattedDate = selectedDate.getFullYear() + '-' + ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + ('0' + selectedDate.getDate()).slice(-2);
+                //     datePhp.value = formattedDate;
+                // }
+            })
+        }
+
+        function formatCurrencyVND(amount) {
+            if (amount == null) return 0;
+            // Chuyển số thành chuỗi
+            var amountString = amount.toString();
+
+            // Tạo một mảng để lưu trữ từng phần của số
+            var parts = [];
+
+            // Tạo một biến đếm để theo dõi vị trí của dấu chấm (phân tách hàng nghìn)
+            var count = 0;
+
+            // Duyệt qua từng ký tự của chuỗi số, bắt đầu từ cuối
+            for (var i = amountString.length - 1; i >= 0; i--) {
+                // Thêm ký tự vào phần tử đầu tiên của mảng parts
+                parts.unshift(amountString[i]);
+                // Tăng biến đếm lên 1
+                count++;
+                // Nếu biến đếm là 3 và chưa ở cuối chuỗi số
+                if (count % 3 === 0 && i !== 0) {
+                    // Thêm dấu chấm vào trước số vừa thêm vào mảng parts
+                    parts.unshift(',');
+                }
             }
-        })
+
+            // Ghép các phần của số và thêm dấu '₫'
+            return parts.join('') + ' đ ';
+        }
+
+        // Sử dụng hàm để định dạng số tiền và gán vào phần tử HTML
+        // document.getElementsByClassName('money-tamtinh')[0].textContent = formatCurrencyVND(this.id);
 
         // scroll đến gói dịch vụ
         let btnScrollDichVu = document.getElementsByClassName('btn-chosse-dichvu')[0];
         btnScrollDichVu.addEventListener('click', function() {
             var targetDiv = document.getElementsByClassName("package-option")[0];
-            var offsetTop = targetDiv.offsetTop - 60; // 100px độ lệch từ đỉnh của div
+            var offsetTop = targetDiv.offsetTop - 74; // 100px độ lệch từ đỉnh của div
             window.scrollTo({
                 top: offsetTop,
                 behavior: 'smooth'
@@ -103,7 +174,7 @@
                 // Nếu người dùng đã đăng nhập
             ?>
                 flag2 = 0;
-                if (btnChonNgay.value == "") {
+                if (btnChonNgay.value == "0") {
                     e.preventDefault();
                     spanValidationDate.textContent = "Vui lòng chọn ngày đi";
                     spanValidationDate.style.display = 'block';
@@ -137,7 +208,7 @@
                 // Nếu người dùng đã đăng nhập
             ?>
                 let flag3 = 0;
-                if (btnChonNgay.value == "") {
+                if (btnChonNgay.value == "0") {
                     e.preventDefault();
                     spanValidationDate.textContent = "Vui lòng chọn ngày đi";
                     spanValidationDate.style.display = 'block';
@@ -416,7 +487,7 @@
                     alert("Vui lòng chọn số vé trước khi chọn mã");
                     return;
                 }
-                if(this.id==0){
+                if (this.id == 0) {
                     alert("Voucher này đã hết hạn sử dụng");
                     return;
                 }
@@ -435,7 +506,8 @@
         });
 
         function capnhatGiamGia(e) {
-            document.getElementsByName('idVoucher')[0].value = document.getElementById('idVoucher').textContent;
+            if (document.getElementById('idVoucher') != null)
+                document.getElementsByName('idVoucher')[0].value = document.getElementById('idVoucher').textContent;
             // Lấy phần trăm giảm
 
             percentVou.id = e;

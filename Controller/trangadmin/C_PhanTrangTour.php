@@ -44,7 +44,6 @@ switch ($table) {
             <td class='table-cell'>{$value['price']}</td>
             <td class='table-cell'>{$value['create_at']}</td>
             <td class='table-cell'>{$value['num_bought']}</td>
-            <td class='table-cell'>{$value['soLuongConLai']}</td>
             <td class='table-cell status'>{$value['star_feedback']}</td>
             <td class='table-cell elet'>";
             if ($isEdit == 1) {
@@ -52,6 +51,9 @@ switch ($table) {
             }
             if ($isDelete == 1) {
                 $htmlTable .= "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=deleteTour&id={$value['id']}'>Delete</a>";
+            }
+            if ($isEdit == 1) {
+                $htmlTable .= "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=ticket&id={$value['id']}'>Ticket</a>";
             }
             $htmlTable .= "</td></tr>";
         }
