@@ -502,6 +502,16 @@ switch ($action) {
 			$result = $db->getInfoPersonOrder($orderId);
 			$infoPersonOrder = $db->getAll();
 			$totalAllMoney = $db->getTotalMoneyByIdOrder($orderId);
+			$email = $db->getMailOrderByIdOrder($orderId);
+			$totalOrderByUser = $db->getTotalOrderByUser($email);
+			$totalRejectOrderByUser = $db->getTotalRejectOrderByUser($email);
+			if ($totalOrderByUser > 0) {
+				$rejectPercentage = ($totalRejectOrderByUser / $totalOrderByUser) * 100;
+			} else {
+				// Handle the case when there are no orders
+				$rejectPercentage = 0;
+			}
+			$successPercentage = 100 - $rejectPercentage;
 			include "View/admin/order/orderDetail.php";
 		}
 		break;

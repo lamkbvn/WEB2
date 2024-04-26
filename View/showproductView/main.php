@@ -292,7 +292,7 @@
     </div>
     <div class="info-path">
         <div class="container">
-            <p>Trang chủ > <span class="support-info"> Tour trải nghiệm</span></p>
+            <p><a href="http://localhost/WEB2/" style="color: #333; text-decoration: none;">Trang chủ ></a> <span class="support-info"> Tour trải nghiệm</span></p>
         </div>
     </div>
     <div class="question">

@@ -199,7 +199,10 @@
         function filterDate() {
             let dateStart = dateStartEle.value;
             let dateEnd = dateEndEle.value;
-            let rows = table.getElementsByClassName("table-row");
+
+            console.log(dateStart);
+            console.log(dateEnd);
+            let rows = table.getElementsByClassName("table-roww");
             if (dateStart == "" && dateEnd == "") {
                 for (let i = 0; i < rows.length; i++) {
                     rows[i].style.display = ""; // Hiển thị hàng
@@ -208,7 +211,8 @@
             }
 
             for (let i = 0; i < rows.length; i++) {
-                let date = rows[i].getElementsByClassName("date")[0]; // Sử dụng getElementsByClassName vì không có id duy nhất
+                let date = rows[i].getElementsByClassName("date");
+                console.log(date) // Sử dụng getElementsByClassName vì không có id duy nhất
                 let dateString = date.textContent;
                 let rowVisible = false;
 

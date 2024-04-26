@@ -913,6 +913,14 @@ class Database
     $result = $this->execute($sql);
     return $result->fetch_assoc()['email'];
   }
+  public function getMailOrderByIdOrder($orderId)
+  {
+    $this->connect();
+    $sql = "select u.email as emailOrder from orders o, nguoiDung u where o.id = $orderId and o.id_user = u.id";
+    $result = $this->execute($sql);
+    return $result->fetch_assoc()['emailOrder'];
+  }
+
   public function getTotalMoneyByIdOrder($orderId)
   {
     $this->connect();
@@ -934,6 +942,21 @@ class Database
     $result = $this->execute($sql);
     return $result;
   }
+  public function getTotalOrderByUser($email)
+  {
+    $sql = "SELECT COUNT(*) AS total FROM orders o, nguoidung u WHERE u.id = o.id_user and u.email like '$email'";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['total'];
+  }
+  public function getTotalRejectOrderByUser($email) {
+    $sql = "SELECT COUNT(*) AS totalReject FROM orders o, nguoidung u WHERE u.id = o.id_user AND o.status = 5 AND u.email LIKE '$email'";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['totalReject'];
+  }
+
+
 
   public function getSoLuong($table, $condi)
   {

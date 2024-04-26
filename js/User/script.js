@@ -1,3 +1,37 @@
+let isMuc = false;
+let quaylaisidebar = document.querySelector('.quay-lai-profile');
+let sidebar = document.querySelector('.side-bar-main');
+let display = document.querySelector('.display-detail');
+
+function OnOff() {
+  quaylaisidebar = document.querySelector('.quay-lai-profile');
+  sidebar = document.querySelector('.side-bar-main');
+  display = document.querySelector('.display-detail');
+  if(screen.width > 620){
+    sidebar.style.display = 'flex';
+    display.style.display = 'block';
+    quaylaisidebar.style.display = 'none'; //
+
+  }
+  if(screen.width <= 620){
+    display.style.display = 'none';
+  }
+  if(screen.width <= 620 && isMuc){
+    sidebar.style.display = 'none';
+    quaylaisidebar.style.display = 'block'; //
+    display.style.display = 'block';
+  }
+}
+setInterval(OnOff, 1);
+
+function onSideBar(){
+    sidebar.style.display = 'flex';
+    quaylaisidebar.style.display = 'none'; //
+    display.style.display = 'none';
+    isMuc = false;
+    display.innerHTML = "";
+}
+
 function searchDiscount(value) {
   var searchTerm = value;
   console.log(searchTerm);
@@ -26,7 +60,15 @@ function selectPageUser(event){
     if(button.classList.contains(listPageUser[i]))
     {
       pageuser = listPageUser[i];
+      isMuc = true;
       break;
+    }
+
+    if(screen.width <= 620){
+      let sidebar = document.querySelector('.side-bar-main');
+      let display = document.querySelector('.display-detail');
+      sidebar.style.display = 'none';
+      display.style.display = 'block';
     }
 
     $.ajax({

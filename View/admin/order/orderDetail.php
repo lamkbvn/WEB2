@@ -180,6 +180,22 @@
         object-fit: cover;
         border-radius: 4px;
     }
+    .red {
+        color: red;
+        font-weight: 600;
+
+    }
+    .blue {
+        color: #0550fa;
+        font-weight: 600;
+        background-color: #fff;
+    }
+    .yellow {
+        color: #ffc107;
+        font-weight: 600;
+        background-color: #fff;
+
+    }
 </style>
 <div class="body-order-detail">
     <h1>Chi tiết đơn hàng
@@ -232,6 +248,19 @@
                     <span class="label">Địa chỉ: </span>
                     <?= $infoPersonOrder[0]['address'] ?>
                 </p>
+                <p class="info-content">
+                    <span class="label">Số đơn đã đặt:  </span>
+                    <?= $totalOrderByUser ?>
+                </p>
+                <p class="info-content">
+                    <span class="label">Số đơn huỷ:  </span>
+                    <?= $totalRejectOrderByUser ?>
+                </p>
+                <div class="info-content">
+                    <div class="label">Tỉ lệ giao đơn giao thành công: <span class="check-red-or-blue red" style="font-weight: 400;"><?= $successPercentage ?> %</span></div>
+                </div>
+               
+
             </div>
             <div class="infor-reciver">
                 <h2 class="title">Thông tin người nhận hàng</h2>
@@ -314,7 +343,7 @@
 
                     <input type="radio" name="status" id="canceled" value="5" <?= $status == 5 ? 'checked' : '' ?>>
                     <label for="canceled" class="lb_canceled">đã huỷ bỏ</label>
-                    <button class="btn-update">Cập nhật</button>
+                    <button class="btn-update" style="background-color: #4880ff;">Cập nhật</button>
                 </form>
 
 
@@ -396,3 +425,20 @@
 
 
 </div>
+<script>
+    let checkRedOrBlue = document.querySelector(".check-red-or-blue");
+    console.log(checkRedOrBlue.textContent);
+    if (parseInt(checkRedOrBlue.textContent) < 50) {
+        checkRedOrBlue.classList.add("red");
+        checkRedOrBlue.classList.remove("blue");
+        checkRedOrBlue.classList.remove("yellow");
+    } else if (parseInt(checkRedOrBlue.textContent) >= 50 && parseInt(checkRedOrBlue.textContent) <= 79){
+        checkRedOrBlue.classList.add("yellow");
+        checkRedOrBlue.classList.remove("blue");
+        checkRedOrBlue.classList.remove("red");
+    } else {
+        checkRedOrBlue.classList.add("blue");
+        checkRedOrBlue.classList.remove("red");
+        checkRedOrBlue.classList.remove("yellow");
+    }
+</script>
