@@ -3,7 +3,7 @@ let quaylaisidebar = document.querySelector('.quay-lai-profile');
 let sidebar = document.querySelector('.side-bar-main');
 let display = document.querySelector('.display-detail');
 
-function sayHello() {
+function OnOff() {
   quaylaisidebar = document.querySelector('.quay-lai-profile');
   sidebar = document.querySelector('.side-bar-main');
   display = document.querySelector('.display-detail');
@@ -22,7 +22,7 @@ function sayHello() {
     display.style.display = 'block';
   }
 }
-setInterval(sayHello, 1);
+setInterval(OnOff, 1);
 
 function onSideBar(){
     sidebar.style.display = 'flex';

@@ -59,6 +59,7 @@
   .btn-item-dh{
     display : flex;
     gap : 10px;
+    width : 150px;
   }
 
   .btn{
@@ -167,6 +168,10 @@
   color: blue;
   cursor: pointer;
   margin : 10px 0px 0px 10px;
+  }
+
+  .txt-status{
+    width: 165px;
   }
 </style>
 <body>
