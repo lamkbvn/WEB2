@@ -22,9 +22,9 @@ if(isset($_REQUEST['addRole'])){
         $idRole = $_REQUEST['idRole'];
     }
     $isSuccess = $db->UpdateNameRole($idRole, $nameRole);
-    if($isSuccess>0){
-        echo "<script> alert('Cập nhật thành công') </script>";
-    } else echo "<script> alert('Cập nhật thất bại') </script>";
+    if($isSuccess){
+        echo "Cập nhật thành công";
+    } else echo "Không có gì thay đổi";
     $db->DeleteRoleLinhDong($idRole);
     foreach ($rowsCN as $rowCN) {
         $idCN = $rowCN['id'];
@@ -32,19 +32,19 @@ if(isset($_REQUEST['addRole'])){
         // Lấy giá trị của các checkbox từ $_POST
         if(isset($_POST['view'][$idCN])){
             $HD = "View";
-            $db->UpdateRoleLinhDong($idRole, $idCN, $HD);
+            $isSuccess = $db->UpdateRoleLinhDong($idRole, $idCN, $HD);
         } 
         if(isset($_POST['add'][$idCN])){
             $HD = "Add";
-            $db->UpdateRoleLinhDong($idRole, $idCN, $HD);
+            $isSuccess = $db->UpdateRoleLinhDong($idRole, $idCN, $HD);
         } 
         if(isset($_POST['delete'][$idCN])){
             $HD = "Delete";
-            $db->UpdateRoleLinhDong($idRole, $idCN, $HD);
+            $isSuccess = $db->UpdateRoleLinhDong($idRole, $idCN, $HD);
         } 
         if(isset($_POST['edit'][$idCN])){
             $HD = "Edit";
-            $db->UpdateRoleLinhDong($idRole, $idCN, $HD);
+            $isSuccess = $db->UpdateRoleLinhDong($idRole, $idCN, $HD);
         }
     }
         

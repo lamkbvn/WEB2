@@ -47,33 +47,35 @@ if (isset($_REQUEST['btnAddTour'])) {
     $category = $_REQUEST['category'];
     echo $idEdit;
     $isSuccess = $db->UpdateTour($idEdit, $category, 1, $provincial, $title, $price, $content, $currentDate, $address, $acount);
-    if($isSuccess>0){
-        echo "<script> alert('Cập nhật thành công') </script>";
-    } else echo "<script> alert('Cập nhật thất bại') </script>";
+    
     if (!empty($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
         $img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
         if(isset($_REQUEST['idImg0'])){
             $idimg = $_REQUEST['idImg0'];
             echo $idimg;
-            $db->UpdateImg($idimg, $img1);
-        } else $db->InsertImg($id, '1', $img1);
+            $rsImg = $db->UpdateImg($idimg, $img1);
+        } else $rsInsImg = $db->InsertImg($id, '1', $img1);
     }
     
     if (!empty($_FILES['img2']['tmp_name']) && getimagesize($_FILES['img2']['tmp_name']) !== false) {
         $img2 = addslashes(file_get_contents($_FILES['img2']['tmp_name']));
         if(isset($_REQUEST['idImg1'])){
             $idimg = $_REQUEST['idImg1'];
-            $db->UpdateImg($idimg, $img2);
-        } else $db->InsertImg($id, '2', $img2);
+            $rsImg1 = $db->UpdateImg($idimg, $img2);
+        } else $rsInsImg1 = $db->InsertImg($id, '2', $img2);
     }
     
     if (!empty($_FILES['img3']['tmp_name']) && getimagesize($_FILES['img3']['tmp_name']) !== false) {
         $img3 = addslashes(file_get_contents($_FILES['img3']['tmp_name']));
         if(isset($_REQUEST['idImg2'])){
             $idimg = $_REQUEST['idImg2'];
-            $db->UpdateImg($idimg, $img3);
-        } else $db->InsertImg($id, '3', $img3);
+            $rsImg2 = $db->UpdateImg($idimg, $img3);
+        } else $rsInsImg2 = $db->InsertImg($id, '3', $img3);
     }
+
+    if($isSuccess || $rsImg || $rsImg1 || $rsImg2 || $rsInsImg || $rsInsImg1 || $rsInsImg2){
+        echo "<script> alert('Cập nhật thành công') </script>";
+    } else echo "<script> alert('Không có gì thay đổi') </script>";
 } else 
 echo "error";
 $db->disconnect();

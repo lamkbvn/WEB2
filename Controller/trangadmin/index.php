@@ -181,6 +181,13 @@ switch ($action) {
 				$predicted_sales_this_year[] = round($intercept + $slope * $i);
 			}
 
+			// biểu đồ tròn
+			$result = $db->getTourHuy();
+			while ($tour = mysqli_fetch_assoc($result)) {
+				$tongTour = $tour['total_tours'];
+				$tourHuy = $tour['tour_huy'];
+			}
+
 
 			require_once('View/admin/trangChuAdmin.php');
 			break;
@@ -463,6 +470,16 @@ switch ($action) {
 			$result = $db->getInfoPersonOrder($orderId);
 			$infoPersonOrder = $db->getAll();
 			$totalAllMoney = $db->getTotalMoneyByIdOrder($orderId);
+			$email = $db->getMailOrderByIdOrder($orderId);
+			$totalOrderByUser = $db->getTotalOrderByUser($email);
+			$totalRejectOrderByUser = $db->getTotalRejectOrderByUser($email);
+			if ($totalOrderByUser > 0) {
+				$rejectPercentage = ($totalRejectOrderByUser / $totalOrderByUser) * 100;
+			} else {
+				// Handle the case when there are no orders
+				$rejectPercentage = 0;
+			}
+			$successPercentage = 100 - $rejectPercentage;
 			include "View/admin/order/orderDetail.php";
 		}
 		break;

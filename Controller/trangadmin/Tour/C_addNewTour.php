@@ -47,9 +47,9 @@ if (isset($_REQUEST['btnAddTour'])) {
     $category = $_REQUEST['category'];
 
     $isSuccess = $db->InsertTour($id, $category, 1, $provincial, $title, $price, $content, $address, $currentDate, $acount);
-    if($isSuccess>0){
-        echo "<script> alert('Cập nhật thành công') </script>";
-    } else echo "<script> alert('Cập nhật thất bại') </script>";
+    if($isSuccess){
+        echo "<script> alert('Thêm Tour thành công') </script>";
+    } else echo "<script> alert('Thêm Tour thất bại') </script>";
     if (!empty($_FILES['img1']['tmp_name']) && getimagesize($_FILES['img1']['tmp_name']) !== false) {
         $img1 = addslashes(file_get_contents($_FILES['img1']['tmp_name']));
         $db->InsertImg($id, '1', $img1);

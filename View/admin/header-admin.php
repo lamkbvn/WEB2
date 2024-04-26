@@ -12,14 +12,6 @@
 </head>
 
 
-<style>
-    .header-admin-active {
-        color: #fff;
-        background: #4880ff;
-    }
-</style>
-
-
 <body>
     <header class="header-admin">
         <div class="header-left">
@@ -83,6 +75,7 @@
                 <img src="css/icons/function-svgrepo-com.svg" alt="" class="nav-admin-item--icon">
                 <p class="nav-admin-item--title">Chức năng</p>
             </a> -->
+            <img src="../../css/icons/userslist-admin-icon.svg" alt="">
             <?php
             $role = $db->checkRoleAdmin($_SESSION['idUserLogin']);
             foreach ($role as $rowRole) {
@@ -97,7 +90,7 @@
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 1 && $rowRole['HD'] == 'View') {
                     echo '<a href="index.php?controller=trang-admin&action=indexAdmin" id="page1" class="nav-admin-item-a nav-admin-item">
-                        <img src="css/icons/admin-nguoidung.svg" class="nav-admin-item--icon">
+                        <img src="css/icons/admin-nguoidung.svg" alt="" class="nav-admin-item--icon">
                         <p class="nav-admin-item--title">Người dùng</p>
                     </a>';
                 } elseif ($rowRole['id_chucNang'] == 2 && $rowRole['HD'] == 'View') {
@@ -127,7 +120,7 @@
                     </a>';
                 }
             }
-            for($i=0; $i<20; $i++){
+            for ($i = 0; $i < 20; $i++) {
                 echo '<a href="index.php?controller=trang-admin" w>
                         <p class="nav-admin-item--title"></p>
                     </a>';
@@ -214,7 +207,6 @@
             } else if (action === 'chucnang') {
                 $('#page0').addClass('header-admin-active');
             }
-
         }
     });
 </script>

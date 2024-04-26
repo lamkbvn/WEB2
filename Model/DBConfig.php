@@ -257,12 +257,22 @@ class Database
     return $this->execute($sql);
   }
 
+  public function checkAvailableTour($idTour){
+    $sql="SELECT * FROM product WHERE id = $idTour and soLuongConLai>0;";
+    $rs = $this->execute($sql);
+    $numRows = mysqli_num_rows($rs);
+    if($numRows>0) return true;
+    else return false;
+  }
   // thêm orrder
   public function InsertOrder($id, $id_user, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount)
   {
     $sql = "INSERT INTO orders (id, id_user, fullname, email, phone_number, address, note, date_order, total_money, status, id_discount)
     VALUES ('$id', '$id_user', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1', '$id_discount')";
-    return $this->execute($sql);
+    $rs = $this->execute($sql);
+    if($rs){
+      return true;
+    } else return false;
   }
 
   // xóa voucher
@@ -279,7 +289,10 @@ class Database
     $this->execute($sqlTangSoLuongMua);
     $sql = "INSERT INTO order_detail (id_order, id_product, price, amount, total_money, date_go)
     VALUES ( '$id_order', '$id_pro', '$price', '$amount', '$totalmoney', '$dateGo')";
-    return $this->execute($sql);
+    $rs = $this->execute($sql);
+    if($rs){
+      return true;
+    } else return false;
   }
   // lấy ảnh sản phẩm
   public function GetImgProduct($product_id)
@@ -292,7 +305,10 @@ class Database
   {
     $sql = "INSERT INTO feedback (user_id, product_id, note, create_at, num_star)
     VALUES ('$user_id', '$product_id', '$cmt', '$create_at', '$num_star')";
-    return $this->execute($sql);
+    $rs = $this->execute($sql);
+    if($rs){
+      return true;
+    } else return false;
   }
 
   // cập nhật số sao của sản phẩm
@@ -311,8 +327,10 @@ class Database
   {
     $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, address, soLuongConLai, star_feedback)
     VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$address', '$acount', '0')";
-    $this->execute($sql);
-    return mysqli_affected_rows($this->conn);
+    $rs = $this->execute($sql);
+    if($rs){
+      return true;
+    } else return false;
   }
   // lấy id cuối cùng của tour
   public function getLastID($table)
@@ -334,8 +352,16 @@ class Database
             address = '$address', 
             soLuongConLai = '$acount' 
             WHERE id = '$id'";
-    $this->execute($sql);
-    return mysqli_affected_rows($this->conn);
+    // $this->execute($sql);
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+        return true;
+    } else {
+        return false;
+    }
   }
 
   //xóa tour
@@ -348,12 +374,23 @@ class Database
   public function InsertImg($id_product, $id_user, $img)
   {
     $sql = "INSERT INTO image_product (id_product, id_user, image) VALUES ('$id_product', '$id_user', '$img')";
-    return $this->execute($sql);
+    $rs = $this->execute($sql);
+    if($rs){
+      return true;
+    } else return false;
   }
   public function UpdateImg($id, $img)
   {
     $sql = 'Update image_product SET image = "' . $img . '"  WHERE id = ' . $id;
-    return $this->execute($sql);
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+        return true;
+    } else {
+        return false;
+    }
   }
 
   // thêm chức năng
@@ -379,15 +416,26 @@ class Database
   public function InsertRole($name)
   {
     $sql = "INSERT INTO role (decription) VALUES ('$name')";
-    $this->execute($sql);
-    return mysqli_affected_rows($this->conn);
+    $rs = $this->execute($sql);
+    if($rs){
+      return true;
+    } else return false;
   }
   // update role
   public function UpdateNameRole($id, $name)
   {
     $sql = "UPDATE role SET decription = '$name' WHERE id = $id";
-    $this->execute($sql);
-    return mysqli_affected_rows($this->conn);
+    // $rs = $this->execute($sql);
+    // $affectedRows = mysqli_affected_rows($this->conn);
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+        return true;
+    } else {
+        return false;
+    }
   }
   // tìm role theo id
   public function FindRole($idRole)
@@ -411,7 +459,18 @@ class Database
   public function UpdateRoleLinhDong($idRole, $id_CN, $HD)
   {
     $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucNang, HD) values ('$idRole', '$id_CN', '$HD')";
-    return $this->execute($sql);
+    
+    // $rs = $this->execute($sql);
+    // $affectedRows = mysqli_affected_rows($this->conn);
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+        return true;
+    } else {
+        return false;
+    }
   }
   public function InsertRoleLinhDong($id_CN, $HD)
   {
@@ -791,6 +850,14 @@ class Database
     $result = $this->execute($sql);
     return $result->fetch_assoc()['email'];
   }
+  public function getMailOrderByIdOrder($orderId)
+  {
+    $this->connect();
+    $sql = "select u.email as emailOrder from orders o, nguoiDung u where o.id = $orderId and o.id_user = u.id";
+    $result = $this->execute($sql);
+    return $result->fetch_assoc()['emailOrder'];
+  }
+
   public function getTotalMoneyByIdOrder($orderId)
   {
     $this->connect();
@@ -812,6 +879,21 @@ class Database
     $result = $this->execute($sql);
     return $result;
   }
+  public function getTotalOrderByUser($email)
+  {
+    $sql = "SELECT COUNT(*) AS total FROM orders o, nguoidung u WHERE u.id = o.id_user and u.email like '$email'";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['total'];
+  }
+  public function getTotalRejectOrderByUser($email) {
+    $sql = "SELECT COUNT(*) AS totalReject FROM orders o, nguoidung u WHERE u.id = o.id_user AND o.status = 5 AND u.email LIKE '$email'";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['totalReject'];
+  }
+
+
 
   public function getSoLuong($table, $condi)
   {
@@ -925,6 +1007,15 @@ ORDER BY
       $sales_data[$row['month_year']] = $row['total_quantity'];
     }
     return $sales_data;
+}
+
+  public function getTourHuy(){
+    $sql="SELECT 
+      COUNT(CASE WHEN status = 4 THEN 1 END) AS tour_huy,
+      COUNT(*) AS total_tours
+      FROM 
+      orders;";
+    return $this->execute($sql);
   }
 }
 

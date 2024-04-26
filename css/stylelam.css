@@ -49,6 +49,7 @@ h4 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
 }
 
 .nav-top--logo {
@@ -284,7 +285,6 @@ h4 {
 
 .attractive-offer--inner {
     position: relative;
-    padding-top: 50px;
 }
 
 .attractive-offer--heading {
@@ -292,13 +292,13 @@ h4 {
     font-size: 28px;
     font-weight: 600;
     line-height: 36px;
+    padding-top: 50px;
 }
 
 .attractive-offer--list {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-top: 30px;
     gap: 20px;
     transition: transform 0.5s ease;
     padding: 20px 20px 20px 0px;
@@ -363,13 +363,13 @@ h4 {
 }
 
 .why-choose-klook--inner {
-    padding-top: 30px;
 }
 
 .why-choose-klook--heading {
     color: #212121;
     font-size: 28px;
     font-weight: 600;
+    padding-top: 30px;
 }
 
 .why-choose-klook--list {
@@ -379,7 +379,7 @@ h4 {
 }
 
 .why-choose-klook--item {
-    width: 266px;
+    max-width: 266px;
 }
 
 .why-choose-klook--img {
@@ -412,7 +412,6 @@ h4 {
 }
 
 .highlighted-activities--inner {
-    padding-top: 50px;
 }
 
 .highlighted-activities--heading {
@@ -420,6 +419,7 @@ h4 {
     font-size: 28px;
     font-weight: 600;
     line-height: 36px;
+    padding-top: 50px;
 }
 
 .highlighted-activities--list {
@@ -500,13 +500,13 @@ h4 {
 }
 
 .product-list--hot__inner {
-    padding-top: 50px;
 }
 
 .product-list--hot--heading {
     color: #212121;
     font-size: 28px;
     font-weight: 600;
+    padding-top: 50px;
     line-height: 36px;
 }
 
@@ -796,10 +796,10 @@ h4 {
     font-size: 28px;
     font-weight: 600;
     line-height: 36px;
+    margin-top: 30px;
 }
 
 .go-where--list {
-    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -863,8 +863,10 @@ h4 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 0;
     transition: transform 0.3s ease;
+    width: 373px;
+    height: 375px;
 }
 
 .blog-page--item:hover {
@@ -877,6 +879,14 @@ h4 {
     width: 230px;
     height: 166px;
     object-fit: cover;
+}
+
+.blog-page--info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px 20px;
 }
 
 .blog-page--heading {
@@ -967,6 +977,6 @@ h4 {
 
 @media (max-width: 1199.98px) {
     .hidden_tablet_mobile {
-      display: none;
+        display: none;
     }
 }

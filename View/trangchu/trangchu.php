@@ -1,12 +1,13 @@
-<?php
-?>
+<link rel="stylesheet" href="css/csslamresponsive.css">
 
 <body>
     <?php
     require_once("View/layout/header.php");
     require_once('includes/handle_mail.php');
     ?>
-    <header class="header">
+
+
+    <header class="header display-none-mobile">
         <div class="header-inner">
             <div class="slider">
                 <img src="css/icons/header-01.webp" alt="" class="slide" />
@@ -30,8 +31,8 @@
 
     <div class="attractive-offer">
         <div class="container">
+            <h3 class="attractive-offer--heading">Ưu đãi hấp dẫn</h3>
             <div class="attractive-offer--inner">
-                <h3 class="attractive-offer--heading">Ưu đãi hấp dẫn</h3>
                 <ul class="attractive-offer--list">
                     <li class="attractive-offer--item">
                         <img src="css/icons/banner-01.png" alt="">
@@ -41,7 +42,6 @@
                         <img src="css/icons/banner-02.png" alt="">
                         <button class="attractive-offer--btn">Xem thêm</button>
                     </li>
-
                     <li class="attractive-offer--item">
                         <img src="css/icons/banner-03.png" alt="">
                         <button class="attractive-offer--btn">Xem thêm</button>
@@ -53,8 +53,8 @@
 
     <div class="highlighted-activities">
         <div class="container">
+            <h3 class="highlighted-activities--heading">Các hoạt động nổi bật</h3>
             <div class="highlighted-activities--inner">
-                <h3 class="highlighted-activities--heading">Các hoạt động nổi bật</h3>
                 <div class="highlighted-activities--list">
                     <?php $count = 0; ?>
                     <?php foreach ($dataHotProduct as $product) : ?>
@@ -84,8 +84,8 @@
 
     <div class="product-list--hot">
         <div class="container">
+            <h3 class="product-list--hot--heading">Hot nhất tại Klook</h3>
             <div class="product-list--hot__inner">
-                <h3 class="product-list--hot--heading">Hot nhất tại Klook</h3>
                 <div class="list--hot">
                     <div class="product-hot-item">
                         <h3 class="product-hot-item--heading">Hoạt Động Du Lịch Việt Nam Bán Chạy</h3>
@@ -206,8 +206,8 @@
 
     <div class="go-where">
         <div class="container">
+            <h3 class="go-where--heading">Bạn muốn đi đâu chơi?</h3>
             <div class="go-where--inner">
-                <h3 class="go-where--heading">Bạn muốn đi đâu chơi?</h3>
                 <div class="go-where--list">
                     <div class="go-where--item">
                         <img src="css/icons/go-where=01.webp" alt="" class="go-where--item__img">
@@ -244,8 +244,8 @@
             <div class="explorer-collection--inner">
                 <h3 class="explorer-collection--heading">Thêm nhiều khám phá thú vị</h3>
                 <div class="explorer-collection--block">
-                    <img src="css/icons/guimail-01.webp" alt="" class="img-decor-mail img-decor-mail-01">
-                    <img src="css/icons/guimail-02.webp" alt="" class="img-decor-mail img-decor-mail-02">
+                    <img src="css/icons/guimail-01.webp" alt="" class="img-decor-mail img-decor-mail-01 display-none-mobile">
+                    <img src="css/icons/guimail-02.webp" alt="" class="img-decor-mail img-decor-mail-02 display-none-mobile">
 
                     <div class="explorer-collection--info">
                         <h4 class="explorer-collection--info__heading">Giảm 5% cho đơn hàng đầu tiên trên ứng dụng</h4>
@@ -269,21 +269,27 @@
                 <div class="blog-page--list">
                     <div class="blog-page--item">
                         <img src="css/icons/blog-page-01.png" alt="" class="blog-page--img">
-                        <h4 class="blog-page--heading">Xem blog của Klook</h4>
-                        <p class="blog-page--desc">Klook gợi ý cho bạn các xu hướng du lịch, lịch trình chi tiết và các mẹo hữu ích</p>
-                        <button class="blog-page--btn">Xem ngay</button>
+                        <div class="blog-page--info">
+                            <h4 class="blog-page--heading">Xem blog của Klook</h4>
+                            <p class="blog-page--desc">Klook gợi ý cho bạn các xu hướng du lịch, lịch trình chi tiết và các mẹo hữu ích</p>
+                            <button class="blog-page--btn">Xem ngay</button>
+                        </div>
                     </div>
                     <div class="blog-page--item">
-                        <img src="css/icons/blog-page-01.png" alt="" class="blog-page--img">
-                        <h4 class="blog-page--heading">Xem blog của Klook</h4>
-                        <p class="blog-page--desc">Klook gợi ý cho bạn các xu hướng du lịch, lịch trình chi tiết và các mẹo hữu ích</p>
-                        <button class="blog-page--btn">Xem ngay</button>
+                        <img src="css/icons/blog-page-02.png" alt="" class="blog-page--img">
+                        <div class="blog-page--info">
+                            <h4 class="blog-page--heading">Tặng bạn mã ưu đãi</h4>
+                            <p class="blog-page--desc">'BetterOnApp' giảm 5% cho đơn hàng đầu tiên trên ứng dụng</p>
+                            <button class="blog-page--btn">Xem ngay</button>
+                        </div>
                     </div>
                     <div class="blog-page--item">
-                        <img src="css/icons/blog-page-01.png" alt="" class="blog-page--img">
-                        <h4 class="blog-page--heading">Xem blog của Klook</h4>
-                        <p class="blog-page--desc">Klook gợi ý cho bạn các xu hướng du lịch, lịch trình chi tiết và các mẹo hữu ích</p>
-                        <button class="blog-page--btn">Xem ngay</button>
+                        <img src="css/icons/blog-page-03.png" alt="" class="blog-page--img">
+                        <div class="blog-page--info">
+                            <h4 class="blog-page--heading">Tiết kiệm hơn với credit</h4>
+                            <p class="blog-page--desc">Klook gợi ý cho bạn các xu hướng du lịch</p>
+                            <button class="blog-page--btn">Xem ngay</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -291,42 +297,42 @@
     </div>
     <div class="why-choose-klook">
         <div class="container">
-            <div class="why-choose-klook--inner">
-                <h3 class="why-choose-klook--heading">Vì sao bạn nên chọn Klook
-                </h3>
-                <ul class="why-choose-klook--list">
-                    <li class="why-choose-klook--item">
-                        <img src="css/icons/why-choose-01.webp" alt="" class="why-choose-klook--img">
-                        <div class="why-choose-klook--info">
-                            <h4 class="why-choose-klook--title">Vô vàn lựa chọn</h4>
-                            <p class="why-choose-klook--desc">Tìm kiếm niềm vui với gần nửa triệu điểm tham quan, phòng khách sạn và nhiều trải nghiệm thú vị</p>
-                        </div>
-                    </li>
-                    <li class="why-choose-klook--item">
-                        <img src="css/icons/why-choose-02.webp" alt="" class="why-choose-klook--img">
-                        <div class="why-choose-klook--info">
-                            <h4 class="why-choose-klook--title">Chơi vui, giá tốt</h4>
-                            <p class="why-choose-klook--desc">Trải nghiệm chất lượng với giá tốt. Tích luỹ Klook credit để được thêm ưu đãi</p>
-                        </div>
-                    </li>
-                    <li class="why-choose-klook--item">
-                        <img src="css/icons/why-choose-03.webp" alt="" class="why-choose-klook--img">
-                        <div class="why-choose-klook--info">
-                            <h4 class="why-choose-klook--title">Dễ dàng và tiện lợi</h4>
-                            <p class="why-choose-klook--desc">Đặt vé xác nhận ngay, miễn xếp hàng, miễn phí hủy, tiện lợi cho bạn tha hồ khám phá</p>
-                        </div>
-                    </li>
-                    <li class="why-choose-klook--item">
-                        <img src="css/icons/why-choose-04.webp" alt="" class="why-choose-klook--img">
-                        <div class="why-choose-klook--info">
-                            <h4 class="why-choose-klook--title">Đáng tin cậy</h4>
-                            <p class="why-choose-klook--desc">Tham khảo đánh giá chân thực. Dịch vụ hỗ trợ tận tình, đồng hành cùng bạn mọi lúc, mọi nơi</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            <h3 class="why-choose-klook--heading">Vì sao bạn nên chọn Klook
+                <div class="why-choose-klook--inner">
+            </h3>
+            <ul class="why-choose-klook--list">
+                <li class="why-choose-klook--item">
+                    <img src="css/icons/why-choose-01.webp" alt="" class="why-choose-klook--img">
+                    <div class="why-choose-klook--info">
+                        <h4 class="why-choose-klook--title">Vô vàn lựa chọn</h4>
+                        <p class="why-choose-klook--desc">Tìm kiếm niềm vui với gần nửa triệu điểm tham quan, phòng khách sạn và nhiều trải nghiệm thú vị</p>
+                    </div>
+                </li>
+                <li class="why-choose-klook--item">
+                    <img src="css/icons/why-choose-02.webp" alt="" class="why-choose-klook--img">
+                    <div class="why-choose-klook--info">
+                        <h4 class="why-choose-klook--title">Chơi vui, giá tốt</h4>
+                        <p class="why-choose-klook--desc">Trải nghiệm chất lượng với giá tốt. Tích luỹ Klook credit để được thêm ưu đãi</p>
+                    </div>
+                </li>
+                <li class="why-choose-klook--item">
+                    <img src="css/icons/why-choose-03.webp" alt="" class="why-choose-klook--img">
+                    <div class="why-choose-klook--info">
+                        <h4 class="why-choose-klook--title">Dễ dàng và tiện lợi</h4>
+                        <p class="why-choose-klook--desc">Đặt vé xác nhận ngay, miễn xếp hàng, miễn phí hủy, tiện lợi cho bạn tha hồ khám phá</p>
+                    </div>
+                </li>
+                <li class="why-choose-klook--item">
+                    <img src="css/icons/why-choose-04.webp" alt="" class="why-choose-klook--img">
+                    <div class="why-choose-klook--info">
+                        <h4 class="why-choose-klook--title">Đáng tin cậy</h4>
+                        <p class="why-choose-klook--desc">Tham khảo đánh giá chân thực. Dịch vụ hỗ trợ tận tình, đồng hành cùng bạn mọi lúc, mọi nơi</p>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
+
     <?php
     require_once("View/layout/footer.php");
     ?>
