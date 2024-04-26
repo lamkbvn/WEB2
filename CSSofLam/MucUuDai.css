@@ -7,9 +7,17 @@
     padding: 10px;
 }
 
+@media screen and (max-width: 620px) {
+  .mucUuDai-container{
+    padding : 4px;
+  }
+}
+
+
+
 .find-discount-group{
   max-width: 500px;
-  width: 100%;
+  width: 95%;
   height: 40px;
   display: flex;
   margin-top: 20px;
@@ -35,9 +43,7 @@
 .nav-discount{
   display: flex;
   column-gap: 5px;
-
-  width: 100%;
-
+  width: 95%;
   margin-top : 30px;
   font-weight: 600;
 }
@@ -83,12 +89,12 @@
   column-gap: 10px;
   margin-left: 5px;
   overflow-y: auto;
-  margin-top: 40px;
+  margin: 40px 0px 0px 0px;
 }
 
 .discount-card{
   max-width: 400px;
-  width: 100%;
+  width: 95%;
   max-height: 110px;
   height: 24%;
   border: 1px solid black;

@@ -219,12 +219,21 @@ if (isset($_POST['pageuser'])) {
   switch ($_POST['pageuser']) {
     case 'mud':
       include ("../View/User/MucUuDai.php");
+      echo "<script>
+      console.log(screen.width);
+      </script>";
       break;
     case 'dh':
       include ("../View/User/DonHang.php");
+      echo "<script>
+      console.log(screen.width);
+      </script>";
       break;
     case 'dg':
       include ("../View/User/DanhGia.php");
+      echo "<script>
+      console.log(screen.width);
+      </script>";
       break;
     case 'cs':
       include ("../View/User/ChinhSua.php");

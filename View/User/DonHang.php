@@ -160,8 +160,22 @@
   .hide-on{
     display : none ;
   }
+
+  .quay-lai-profile{
+  width: 95%;
+  font-style: bold;
+  color: blue;
+  cursor: pointer;
+  margin : 10px 0px 0px 10px;
+  }
 </style>
 <body>
+  <div class="quay-lai-profile" onclick = "onSideBar()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+    </svg>
+  Quay lại
+  </div>
   <div class="header-dh">
     <div class="hinhchunhat"></div>
     <div class="text">Đơn hàng</div>
@@ -179,8 +193,8 @@
       if ($row['status'] != 4) {
         echo '
       <div class="item-dh ' . $row['id'] . '">
-      <div class="txt-dh">Don hang ' . $i++ . '</div>
-      <div class="txt-date">' . $row['date_order'] . '</div>
+      <div class="txt-dh">Đơn hàng ' . $i++ . '</div>
+      <div class="txt-date">Đặt ngày:' . $row['date_order'] . '</div>
       <div class="txt-status">Trạng thái : ' . ($row['status'] == 1 ? 'Đã xử lí' : 'Chưa xử lí') . '</div>
       <div class="btn-item-dh">
         <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>

@@ -15,3 +15,21 @@ body{
   margin-top: 50px;
 }
 
+
+@media screen and (max-width: 620px) {
+  .user{
+    font-size:smaller;
+  }
+}
+
+.quay-lai-profile{
+  width: 95%;
+  font-style: bold;
+  color: blue;
+  cursor: pointer;
+}
+
+.quay-lai-profile svg{
+  vertical-align: center;
+}
+

@@ -144,8 +144,8 @@
         </div>
       </div>
     </div>
-
     <div class="display-detail">
+      <div class="quay-lai-profile">
     </div>
   </section>
 </body>
