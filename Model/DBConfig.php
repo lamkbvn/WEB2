@@ -270,7 +270,7 @@ class Database
     $sql = "INSERT INTO orders (id, id_user, fullname, email, phone_number, address, note, date_order, total_money, status, id_discount)
     VALUES ('$id', '$id_user', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1', '$id_discount')";
     $rs = $this->execute($sql);
-    if($rs){
+    if ($rs) {
       return true;
     } else return false;
   }
@@ -290,7 +290,7 @@ class Database
     $sql = "INSERT INTO order_detail (id_order, id_product, price, amount, total_money, date_go)
     VALUES ( '$id_order', '$id_pro', '$price', '$amount', '$totalmoney', '$dateGo')";
     $rs = $this->execute($sql);
-    if($rs){
+    if ($rs) {
       return true;
     } else return false;
   }
@@ -306,7 +306,7 @@ class Database
     $sql = "INSERT INTO feedback (user_id, product_id, note, create_at, num_star)
     VALUES ('$user_id', '$product_id', '$cmt', '$create_at', '$num_star')";
     $rs = $this->execute($sql);
-    if($rs){
+    if ($rs) {
       return true;
     } else return false;
   }
@@ -322,67 +322,73 @@ class Database
     return $this->execute($update_sql);
   }
   // phần của admin
-  public function updateNumBoughtTour($id, $sove){
+  public function updateNumBoughtTour($id, $sove)
+  {
     $sql = "UPDATE product SET num_bought = num_bought + $sove where id = $id";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
     // Nếu có ít nhất một dòng được cập nhật, trả về true
     if ($affectedRows > 0) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
-  public function addTicket($idTour, $name, $price, $dateStart, $dateEnd, $sove){
+  public function addTicket($idTour, $name, $price, $dateStart, $dateEnd, $sove)
+  {
     $sql = "insert into tickettour (idTour, dateStart, dateEnd, price, numTicketAvailable, name, num_bought) values ('$idTour', '$dateStart', '$dateEnd', '$price', '$sove', '$name', 0);";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
     // Nếu có ít nhất một dòng được cập nhật, trả về true
     if ($affectedRows > 0) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
-  public function buyTicket($id, $sove){
+  public function buyTicket($id, $sove)
+  {
     $sql = "UPDATE tickettour SET numTicketAvailable = numTicketAvailable - '$sove', num_bought = num_bought + $sove where id = $id";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
     // Nếu có ít nhất một dòng được cập nhật, trả về true
     if ($affectedRows > 0) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
-  public function updateTicket($id, $name, $price, $dateStart, $dateEnd, $sove){
+  public function updateTicket($id, $name, $price, $dateStart, $dateEnd, $sove)
+  {
     $sql = "UPDATE tickettour SET dateStart = '$dateStart', dateEnd = '$dateEnd', price = '$price', numTicketAvailable = '$sove', name = '$name' WHERE id = '$id';";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
     // Nếu có ít nhất một dòng được cập nhật, trả về true
     if ($affectedRows > 0) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
-  public function deleteTicket($id){
+  public function deleteTicket($id)
+  {
     $sql = "delete from tickettour where id = $id";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
     // Nếu có ít nhất một dòng được cập nhật, trả về true
     if ($affectedRows > 0) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
-  public function getListTicketByidTour($idTour){
+  public function getListTicketByidTour($idTour)
+  {
     $sql = "select * from tickettour where idTour = $idTour";
     return $this->execute($sql);
   }
@@ -392,7 +398,7 @@ class Database
     $sql = "INSERT INTO product (id, id_category, id_user, id_provincial, title, price, content, create_at, num_bought, status, address, star_feedback)
     VALUES ('$id','$id_cate', '$id_user', '$id_provin', '$title', '$price', '$content', '$datecreate', '0', '1', '$address', '0')";
     $rs = $this->execute($sql);
-    if($rs){
+    if ($rs) {
       return true;
     } else return false;
   }
@@ -421,9 +427,9 @@ class Database
     $affectedRows = $stmt->affected_rows;
     // Nếu có ít nhất một dòng được cập nhật, trả về true
     if ($affectedRows > 0) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
 
@@ -438,7 +444,7 @@ class Database
   {
     $sql = "INSERT INTO image_product (id_product, id_user, image) VALUES ('$id_product', '$id_user', '$img')";
     $rs = $this->execute($sql);
-    if($rs){
+    if ($rs) {
       return true;
     } else return false;
   }
@@ -450,9 +456,9 @@ class Database
     $affectedRows = $stmt->affected_rows;
     // Nếu có ít nhất một dòng được cập nhật, trả về true
     if ($affectedRows > 0) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
 
@@ -480,7 +486,7 @@ class Database
   {
     $sql = "INSERT INTO role (decription) VALUES ('$name')";
     $rs = $this->execute($sql);
-    if($rs){
+    if ($rs) {
       return true;
     } else return false;
   }
@@ -495,9 +501,9 @@ class Database
     $affectedRows = $stmt->affected_rows;
     // Nếu có ít nhất một dòng được cập nhật, trả về true
     if ($affectedRows > 0) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
   // tìm role theo id
@@ -522,7 +528,7 @@ class Database
   public function UpdateRoleLinhDong($idRole, $id_CN, $HD)
   {
     $sql = "INSERT INTO phanquyenlinhdong (id_role, id_chucNang, HD) values ('$idRole', '$id_CN', '$HD')";
-    
+
     // $rs = $this->execute($sql);
     // $affectedRows = mysqli_affected_rows($this->conn);
     $stmt = $this->conn->prepare($sql);
@@ -530,9 +536,9 @@ class Database
     $affectedRows = $stmt->affected_rows;
     // Nếu có ít nhất một dòng được cập nhật, trả về true
     if ($affectedRows > 0) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
   public function InsertRoleLinhDong($id_CN, $HD)
@@ -609,7 +615,7 @@ class Database
           array_multisort($column, SORT_ASC, $objects);
         else
           if ($orderby == 'DESC')
-            array_multisort($column, SORT_DESC, $objects);
+          array_multisort($column, SORT_DESC, $objects);
       }
 
       return $objects;
@@ -687,7 +693,7 @@ class Database
         array_multisort($column, SORT_ASC, $objects);
       else
         if ($orderby == 'DESC')
-          array_multisort($column, SORT_DESC, $objects);
+        array_multisort($column, SORT_DESC, $objects);
     }
 
     return $objects;
@@ -949,7 +955,8 @@ class Database
     $row = $result->fetch_assoc();
     return $row['total'];
   }
-  public function getTotalRejectOrderByUser($email) {
+  public function getTotalRejectOrderByUser($email)
+  {
     $sql = "SELECT COUNT(*) AS totalReject FROM orders o, nguoidung u WHERE u.id = o.id_user AND o.status = 5 AND u.email LIKE '$email'";
     $result = $this->execute($sql);
     $row = $result->fetch_assoc();
@@ -1070,15 +1077,28 @@ ORDER BY
       $sales_data[$row['month_year']] = $row['total_quantity'];
     }
     return $sales_data;
-}
+  }
 
-  public function getTourHuy(){
-    $sql="SELECT 
+  public function getTourHuy()
+  {
+    $sql = "SELECT 
       COUNT(CASE WHEN status = 5 THEN 1 END) AS tour_huy,
       COUNT(*) AS total_tours
       FROM 
       orders;";
     return $this->execute($sql);
   }
+  public function getTourHuyAndUser()
+  {
+    $sql = "SELECT id_user, COUNT(*) AS tourhuy FROM orders WHERE status = 4 GROUP BY id_user";
+    $this->execute($sql);
+    if ($this->num_rows() == 0) {
+      $data = 0;
+    } else {
+      while ($datas = $this->getData()) {
+        $data[] = $datas;
+      }
+    }
+    return $data;
+  }
 }
-
