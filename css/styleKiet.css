@@ -252,9 +252,11 @@ body {
 }
 .contain_selectDate{
     display: flex;
+    flex-wrap: wrap;
 }
 .select-date {
     margin-right: 10px;
+    margin-bottom: 10px;
     cursor: pointer;
     background-color: #fff;
     color: #000;
