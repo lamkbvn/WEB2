@@ -272,7 +272,8 @@ class Database
     $rs = $this->execute($sql);
     if ($rs) {
       return true;
-    } else return false;
+    } else
+      return false;
   }
 
   // xóa voucher
@@ -292,7 +293,8 @@ class Database
     $rs = $this->execute($sql);
     if ($rs) {
       return true;
-    } else return false;
+    } else
+      return false;
   }
   // lấy ảnh sản phẩm
   public function GetImgProduct($product_id)
@@ -308,7 +310,8 @@ class Database
     $rs = $this->execute($sql);
     if ($rs) {
       return true;
-    } else return false;
+    } else
+      return false;
   }
 
   // cập nhật số sao của sản phẩm
@@ -400,7 +403,8 @@ class Database
     $rs = $this->execute($sql);
     if ($rs) {
       return true;
-    } else return false;
+    } else
+      return false;
   }
   // lấy id cuối cùng của tour
   public function getLastID($table)
@@ -446,7 +450,8 @@ class Database
     $rs = $this->execute($sql);
     if ($rs) {
       return true;
-    } else return false;
+    } else
+      return false;
   }
   public function UpdateImg($id, $img)
   {
@@ -488,7 +493,8 @@ class Database
     $rs = $this->execute($sql);
     if ($rs) {
       return true;
-    } else return false;
+    } else
+      return false;
   }
   // update role
   public function UpdateNameRole($id, $name)
@@ -621,21 +627,23 @@ class Database
       return $objects;
     }
 
-    $sql = ' SELECT  od.id, p.title ,od.price , od.amount , od.total_money , od.date_go
+    $sql = ' SELECT  p.title , od.price , SUM(od.amount) as amount , SUM(od.total_money) as total_money , od.date_go
               FROM product as p , order_detail as od
               where p.id = od.id_product ';
     ///chon san pham theo ten loai
     if ($selectCategory != 0)
       $sql = $sql . ' and p.id_category = ' . $selectCategory;
-    ///loc san pham theo ngay di nho  nhat
+    ///loc san pham chon ngay bat dau lo
     if ($dateStart != '') {
       $sql = $sql . ' and od.date_go >= ? ';
     }
 
-    //loc san pham theo ngay di lon nhat
+    //loc san pham chon ngay ket thuc
     if ($dateEnd != '') {
       $sql = $sql . ' and od.date_go <= ? ';
     }
+
+    $sql = $sql . ' group by p.title ,od.price   , od.date_go';
 
     $result = null;
     if ($dateStart != '' && $dateEnd == '') {

@@ -73,21 +73,21 @@ function filterThongKe(event){
 
   //chọn  kiểu hiển thị dữ liệu
   let buttonTypeData  = parent.querySelector('.kieudulieu');
-  // buttonTypeData.classList.remove('hide');
-  // if(buttonTypeData.value == 0)
-  // {
-  //   if(tableData.classList.contains('hide')){
-  //     tableData.classList.remove('hide');
-  //     chartData.classList.add('hide');
-  //   }
-  // }
-  // else if(buttonTypeData.value == 1)
-  // {
-  //   if(chartData.classList.contains('hide')){
-  //     chartData.classList.remove('hide');
-  //     tableData.classList.add('hide');
-  //   }
-  // }
+  buttonTypeData.classList.remove('hide');
+  if(buttonTypeData.value == 0)
+  {
+    if(tableData.classList.contains('hide')){
+      tableData.classList.remove('hide');
+      chartData.classList.add('hide');
+    }
+  }
+  else if(buttonTypeData.value == 1)
+  {
+    if(chartData.classList.contains('hide')){
+      chartData.classList.remove('hide');
+      tableData.classList.add('hide');
+    }
+  }
 
   console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData,namecoll);
   let displayTitleTable = document.querySelector('.titleTable');
