@@ -82,6 +82,16 @@
 	.dangxuat svg {
 		margin-left: 3px;
 	}
+
+	@media (max-width: 1100px) {
+		.re {
+			display: none !important;
+		}
+		.nav-top--right__panner{
+			padding-left: 5px;
+			padding-right: 12px;
+		}
+	}
 </style>
 
 <div class="nav">
@@ -99,8 +109,8 @@
 				</div>
 				<div class="nav-top--right">
 					<div class="nav-top--right__inner">
-						<a href="#!" class="nav-top--right__panner hidden_tablet_mobile">Mở ứng dụng</a>
-						<a href="#!" class="nav-top--right__panner hidden_tablet_mobile">Xem gần đây</a>
+						<a href="#!" class="nav-top--right__panner hidden_tablet_mobile re">Mở ứng dụng</a>
+						<a href="#!" class="nav-top--right__panner hidden_tablet_mobile re">Xem gần đây</a>
 						<?php
 						if (session_status() == PHP_SESSION_NONE) {
 							session_start();
@@ -145,7 +155,7 @@
 								</div>
 							</div>';
 							//echo '<a href="includes/session/del_session.php">Thoát</a>';
-						
+
 
 							// Ẩn liên kết "Đăng kí" và "Đăng nhập"
 						} else {
