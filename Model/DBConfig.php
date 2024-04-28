@@ -621,7 +621,7 @@ class Database
           array_multisort($column, SORT_ASC, $objects);
         else
           if ($orderby == 'DESC')
-            array_multisort($column, SORT_DESC, $objects);
+          array_multisort($column, SORT_DESC, $objects);
       }
 
       return $objects;
@@ -701,7 +701,7 @@ class Database
         array_multisort($column, SORT_ASC, $objects);
       else
         if ($orderby == 'DESC')
-          array_multisort($column, SORT_DESC, $objects);
+        array_multisort($column, SORT_DESC, $objects);
     }
 
     return $objects;
@@ -1096,5 +1096,17 @@ ORDER BY
       orders;";
     return $this->execute($sql);
   }
+  public function getTourHuyAndUser()
+  {
+    $sql = "SELECT id_user, COUNT(*) AS tourhuy FROM orders WHERE status = 4 GROUP BY id_user";
+    $this->execute($sql);
+    if ($this->num_rows() == 0) {
+      $data = 0;
+    } else {
+      while ($datas = $this->getData()) {
+        $data[] = $datas;
+      }
+    }
+    return $data;
+  }
 }
-
