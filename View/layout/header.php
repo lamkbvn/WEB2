@@ -118,7 +118,7 @@
                             <?php
                             if (isset($_SESSION['isLogin'])) {
                                 if ($_SESSION['isLogin'] == 1) {
-                                    echo '<a href="/WEB2/index.php?controller=trang-chu&action=cart" id="cartIcon" class="option-header-right nav-top--right__panner">
+                                    echo '<a href="/WEB2/index.php?controller=trang-chu&action=cart" id="cartIcon" class="option-header-right nav-top--right__panner toggle-nav--item a-href-ajax">
                                         Giỏ hàng 
           								<div id="numCart">';
                                     echo $totalRowsNumCart;
@@ -154,7 +154,7 @@
                                 // Ẩn liên kết "Đăng kí" và "Đăng nhập"
                             } else {
                                 //echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner">Đăng kí</a>';
-                                echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn">Đăng nhập</a>';
+                                echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn a-href-ajax">Đăng nhập</a>';
                             }
                             ?>
 
@@ -166,20 +166,41 @@
         <div class="nav-bottom">
             <div class="container">
                 <div class="nav-bottom--inner">
-                    <ul class="nav-bottom--list">
-                        <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=0">
-                            <li class="nav-bottom--item">
+                    <div class="nav-bottom--list">
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=0" class="toggle-nav--item a-href-ajax">
+                            <p class="nav-bottom--item">
                                 Tất cả danh mục
-                            </li>
+                            </p>
                         </a>
-                        <?php foreach ($listCategory as $item) : ?>
-                            <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=<?= $item['id'] ?>">
-                                <li class="nav-bottom--item">
-                                    <?= $item['name_category'] ?>
-                                </li>
-                            </a>
-                        <?php endforeach; ?>
-                    </ul>
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=1" class="toggle-nav--item a-href-ajax">
+                            <p class="nav-bottom--item">
+                                Tour
+                            </p>
+                        </a>
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=2" class="toggle-nav--item a-href-ajax">
+                            <p class="nav-bottom--item">
+                                Du thuyền
+                            </p>
+                        </a>
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=3" class="toggle-nav--item a-href-ajax">
+                            <p class="nav-bottom--item">
+                                Hoạt động dưới nước
+                            </p>
+                        </a>
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=4" class="toggle-nav--item a-href-ajax">
+                            <p class="nav-bottom--item">
+                                Phiêu lưu & Khám phá thiên nhiên
+
+                            </p>
+                        </a>
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=5" class="toggle-nav--item a-href-ajax">
+                            <p class="nav-bottom--item">
+                                Trải nghiệm văn hoá
+
+                            </p>
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -192,7 +213,7 @@
                 <div class="nav-top--inner">
                     <div class="nav-top--left">
                         <img src="css/icons/line-3-svgrepo-com.svg" alt="" id="toggleIcon" class="nav-top--toggle-icon ">
-                        <a href="index.php?controller=trang-chu">
+                        <a href="index.php?controller=trang-chu" class="a-href-ajax">
                             <img src="css/icons/8939fe11b96fc40d9c65ca88a0ad1fd1.png" alt="" class="nav-top--logo">
                         </a>
                         <div class="nav-top--find">
@@ -219,7 +240,7 @@
                             <?php
                             if (isset($_SESSION['isLogin'])) {
                                 if ($_SESSION['isLogin'] == 1) {
-                                    echo '<a href="/WEB2/index.php?controller=trang-chu&action=cart" id="cartIcon" class="option-header-right nav-top--right__panner">
+                                    echo '<a href="/WEB2/index.php?controller=trang-chu&action=cart" id="cartIcon" class="option-header-right nav-top--right__panner a-href-ajax">
                                         Giỏ hàng 
           								<div id="numCart">';
                                     // Embedding PHP to display $totalRowsNumCart
@@ -256,7 +277,7 @@
                                 // Ẩn liên kết "Đăng kí" và "Đăng nhập"
                             } else {
                                 //echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner">Đăng kí</a>';
-                                echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn">Đăng nhập</a>';
+                                echo '<a href="index.php?controller=trang-chu&action=login" class="nav-top--right__panner login-btn a-href-ajax">Đăng nhập</a>';
                             }
                             ?>
 
@@ -268,39 +289,39 @@
         <div class="toggle-nav display-none-mobile display-none-pc" id="toggleNav">
             <div class="toggle-nav--inner">
                 <div class="toggle-nav--list">
-                    <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=0" class="toggle-nav--item">
+                    <a href="index.php?controller=trang-chu&action=showproduct&category=0" class="toggle-nav--item a-href-ajax">
                         <img src="css/icons/category-mobile-00.webp" alt="" class="toggle-nav--icon">
                         <p class="toggle-nav-title">
                             Tất cả danh mục
                         </p>
                     </a>
 
-                    <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=1" class="toggle-nav--item">
+                    <a href="index.php?controller=trang-chu&action=showproduct&category=1" class="toggle-nav--item a-href-ajax">
                         <img src="css/icons/category-mobile-01.webp" alt="" class="toggle-nav--item-icon">
                         <p class="toggle-nav--item-title">
                             Tour
                         </p>
                     </a>
-                    <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=2" class="toggle-nav--item">
+                    <a href="index.php?controller=trang-chu&action=showproduct&category=2" class="toggle-nav--item a-href-ajax">
                         <img src="css/icons/category-mobile-02.webp" alt="" class="toggle-nav--item-icon">
                         <p class="toggle-nav--item-title">
                             Du thuyền
                         </p>
                     </a>
-                    <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=3" class="toggle-nav--item">
+                    <a href="index.php?controller=trang-chu&action=showproduct&category=3" class="toggle-nav--item a-href-ajax">
                         <img src="css/icons/category-mobile-03.webp" alt="" class="toggle-nav--item-icon">
                         <p class="toggle-nav--item-title">
                             Hoạt động dưới nước
                         </p>
                     </a>
-                    <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=4" class="toggle-nav--item">
+                    <a href="index.php?controller=trang-chu&action=showproduct&category=4" class="toggle-nav--item a-href-ajax">
                         <img src="css/icons/category-mobile-04.webp" alt="" class="toggle-nav--item-icon">
                         <p class="toggle-nav--item-title">
                             Phiêu lưu & Khám phá thiên nhiên
 
                         </p>
                     </a>
-                    <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=5" class="toggle-nav--item">
+                    <a href="index.php?controller=trang-chu&action=showproduct&category=5" class="toggle-nav--item a-href-ajax">
                         <img src="css/icons/category-mobile-05.webp" alt="" class="toggle-nav--item-icon">
                         <p class="toggle-nav--item-title">
                             Trải nghiệm văn hoá
@@ -325,38 +346,38 @@
 
                 <div class="header-mobile--category">
                     <ul class="header-mobile--list">
-                        <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=0" class="header-mobile--item">
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=0" class="header-mobile--item a-href-ajax">
                             <img src="css/icons/category-mobile-00.webp" alt="" class="header-mobile--item-icon">
                             <p class="header-mobile--item-title">
                                 Tất cả danh mục
                             </p>
                         </a>
-                        <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=1" class="header-mobile--item">
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=1" class="header-mobile--item a-href-ajax">
                             <img src="css/icons/category-mobile-01.webp" alt="" class="header-mobile--item-icon">
                             <p class="header-mobile--item-title">
                                 Tour
                             </p>
                         </a>
-                        <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=2" class="header-mobile--item">
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=2" class="header-mobile--item a-href-ajax">
                             <img src="css/icons/category-mobile-02.webp" alt="" class="header-mobile--item-icon">
                             <p class="header-mobile--item-title">
                                 Du thuyền
                             </p>
                         </a>
-                        <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=3" class="header-mobile--item">
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=3" class="header-mobile--item a-href-ajax">
                             <img src="css/icons/category-mobile-03.webp" alt="" class="header-mobile--item-icon">
                             <p class="header-mobile--item-title">
                                 Hoạt động dưới nước
                             </p>
                         </a>
-                        <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=4" class="header-mobile--item">
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=4" class="header-mobile--item a-href-ajax">
                             <img src="css/icons/category-mobile-04.webp" alt="" class="header-mobile--item-icon">
                             <p class="header-mobile--item-title">
                                 Phiêu lưu & Khám phá thiên nhiên
 
                             </p>
                         </a>
-                        <a href="http://localhost/WEB2/index.php?controller=trang-chu&action=showproduct&category=5" class="header-mobile--item">
+                        <a href="index.php?controller=trang-chu&action=showproduct&category=5" class="header-mobile--item a-href-ajax">
                             <img src="css/icons/category-mobile-05.webp" alt="" class="header-mobile--item-icon">
                             <p class="header-mobile--item-title">
                                 Trải nghiệm văn hoá
@@ -397,4 +418,44 @@
             element.classList.add(className);
         }
     }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Bắt sự kiện click trên các liên kết
+        $('.a-href-ajax').click(function(e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+
+            var url = $(this).attr('href'); // Lấy đường dẫn từ thuộc tính href của liên kết
+            // Thực hiện yêu cầu AJAX
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    // Xử lý phản hồi từ máy chủ (nếu cần)
+                    // Ví dụ: cập nhật nội dung của một phần của trang với dữ liệu mới
+                    // Ví dụ: $('.content').html(response);
+
+                    // Thay đổi URL mà không làm tải lại trang
+                    history.pushState(null, null, url);
+
+                    // Cập nhật nội dung của trang
+                    document.open();
+                    document.write(response);
+                    document.close();
+                },
+                error: function(xhr, status, error) {
+                    // Xử lý lỗi (nếu cần)
+                    console.error(error);
+                }
+            });
+        });
+
+        // Bắt sự kiện popstate để xử lý khi người dùng điều hướng qua lịch sử trình duyệt
+        $(window).on('popstate', function() {
+            // Load lại nội dung hoặc thực hiện các hành động cần thiết khi người dùng quay lại từ lịch sử trình duyệt
+            // Ví dụ: load lại nội dung tương ứng với URL hiện tại
+        });
+    });
 </script>

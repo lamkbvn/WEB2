@@ -5,8 +5,11 @@ let display = document.querySelector('.display-detail');
 
 function OnOff() {
   quaylaisidebar = document.querySelector('.quay-lai-profile');
+  if(quaylaisidebar == null) return;
   sidebar = document.querySelector('.side-bar-main');
+  if(sidebar == null) return;
   display = document.querySelector('.display-detail');
+  if(display == null) return;
   if(screen.width > 620){
     sidebar.style.display = 'flex';
     display.style.display = 'block';

@@ -133,12 +133,12 @@
       <option value="0">Sắp xếp tăng dần</option>
       <option value="1">Sắp xếp giảm dần</option>
     </select>
-    <select name="kieudulieu" id="kieudulieu" class="kieudulieu hide" onchange = "filterThongKe(event)">
+    <!-- <select name="kieudulieu" id="kieudulieu" class="kieudulieu hide" onchange = "filterThongKe(event)">
       <option value="0">Bảng</option>
       <option value="1">Biểu đồ</option>
-    </select>
+    </select> -->
   </div>
-  <table border="1" class = "tableData custom-table">
+  <table border="1" class = "tableData hide custom-table">
     <thead class = "titleTable hide table-head">
       <tr class = "table--head">
         <th class="table-header">Stt
@@ -200,7 +200,7 @@
     <tbody class = "bodyTable">
     </tbody>
   </table>
-  <div class = "chartData hide" style = "width: 100%;">
+  <div class = "chartData" style = "width: 100%;">
     <canvas width="400px" height="200px" id="myChart">
     </canvas>
     <canvas width="400px" height="200px" id="myChart1">
