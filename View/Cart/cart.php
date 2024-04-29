@@ -29,6 +29,7 @@
                             if ($rowticket['id'] == $idTicket) {
                                 $price=$rowticket['price'];
                                 $date=$rowticket['dateStart'];
+                                $numTicketAvailable=$rowticket['numTicketAvailable'];
                                 break;
                             }
                         }
@@ -61,6 +62,8 @@
                                     <input type="hidden" name="priceProduct" value="<?php echo $itemCart['price']; ?>">
                                     <input type="hidden" name="price" value="<?php echo $price; ?>">
                                     <input type="hidden" name="date" value="<?php echo $date; ?>">
+                                    <input type="hidden" name="numTicketAvailable"
+                                        value="<?php echo $numTicketAvailable; ?>">
                                 </div>
                                 <div class="shopping-cart-item_body-right">
                                     <div class="left">
@@ -73,7 +76,7 @@
                                             <a>
                                                 <p><?php echo $itemCart['title']; ?></p>
                                                 <p><?php echo $itemCart['content']; ?> </p>
-                                                <p name="date"><?php echo $itemCart['create_at']; ?></p>
+                                                <p name="date"><?php echo $date; ?></p>
 
                                             </a>
                                         </div>

@@ -134,24 +134,29 @@ function increaseValue(x, i) {
   let div = x.closest('.shopping-cart-item');
   let sl = parseInt(div.querySelector('input[name="numBook"]').value);
   let price = parseInt(div.querySelector('input[name="priceProduct"]').value);
-  //++
-  var slmoi = sl + 1;
-  //gán trở  lại input
-  div.querySelector('input[name="numBook"]').value = slmoi;
+  let numTicketAvailable = parseInt(
+    div.querySelector('input[name="numTicketAvailable"]').value
+  );
+  if (sl < numTicketAvailable) {
+    //++
+    var slmoi = sl + 1;
+    //gán trở  lại input
+    div.querySelector('input[name="numBook"]').value = slmoi;
 
-  // Gọi hàm cập nhật tổng giá trị khi có thay đổi
-  updateTotalPrice();
+    // Gọi hàm cập nhật tổng giá trị khi có thay đổi
+    updateTotalPrice();
 
-  //cập nhật giá trị lại cho input hidden có name="amount"
-  div.querySelector('input[name="amount"]').value = slmoi;
+    //cập nhật giá trị lại cho input hidden có name="amount"
+    div.querySelector('input[name="amount"]').value = slmoi;
 
-  //cập nhật giá tiền
-  div.querySelector('.total-price').textContent = (
-    price * slmoi
-  ).toLocaleString('vi-VN', {
-    style: 'currency',
-    currency: 'VND',
-  });
+    //cập nhật giá tiền
+    div.querySelector('.total-price').textContent = (
+      price * slmoi
+    ).toLocaleString('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+    });
+  }
 }
 
 // Function giảm số lượng
