@@ -58,6 +58,7 @@
                                         value="<?php echo $itemCart['id_product']; ?>">
                                     <input type="hidden" name="cart_id" value="<?php echo $itemCart['cart_id']; ?>">
                                     <input type="hidden" name="amount" value="<?php echo $itemCart['amount']; ?>">
+                                    <input type="hidden" name="priceProduct" value="<?php echo $itemCart['price']; ?>">
                                     <input type="hidden" name="price" value="<?php echo $price; ?>">
                                     <input type="hidden" name="date" value="<?php echo $date; ?>">
                                 </div>
