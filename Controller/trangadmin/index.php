@@ -154,9 +154,9 @@ switch ($action) {
 
 			// hồi quy tuyến tính
 			$monthly_sales_last_year = $db->getMonthlySalesLastYear();
-			foreach ($monthly_sales_last_year as $key => $value) {
-				echo "Key: " . $key . ", Value: " . $value . "<br>";
-			}
+			// foreach ($monthly_sales_last_year as $key => $value) {
+			// 	echo "Key: " . $key . ", Value: " . $value . "<br>";
+			// }
 			$months = range(1, 12);
 			$sales = array_values($monthly_sales_last_year);
 			$n = count($months);

@@ -1068,13 +1068,13 @@ ORDER BY
   {
     $sql = "SELECT 
                 DATE_FORMAT(orders.date_order, '%Y-%m') AS month_year,
-                COUNT(order_detail.id_product) AS total_quantity
+                SUM(order_detail.amount) AS total_quantity
             FROM 
                 orders
             JOIN 
                 order_detail ON orders.id = order_detail.id_order
             WHERE 
-                YEAR(orders.date_order) = YEAR(CURDATE())
+                YEAR(orders.date_order) = YEAR(CURDATE()) - 1
             GROUP BY 
                 DATE_FORMAT(orders.date_order, '%Y-%m')
             ORDER BY 
