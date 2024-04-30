@@ -340,7 +340,7 @@ class Database
   }
   public function addTicket($idTour, $name, $price, $dateStart, $dateEnd, $sove)
   {
-    $sql = "insert into tickettour (idTour, dateStart, dateEnd, price, numTicketAvailable, name, num_bought) values ('$idTour', '$dateStart', '$dateEnd', '$price', '$sove', '$name', 0);";
+    $sql = "insert into tickettour (idTour, dateStart, dateEnd, price, numTicketAvailable, name, num_bought, status) values ('$idTour', '$dateStart', '$dateEnd', '$price', '$sove', '$name', 0, 1);";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
@@ -364,9 +364,9 @@ class Database
       return false;
     }
   }
-  public function updateTicket($id, $name, $price, $dateStart, $dateEnd, $sove)
+  public function updateTicket($id, $name, $price, $dateStart, $dateEnd, $sove, $status)
   {
-    $sql = "UPDATE tickettour SET dateStart = '$dateStart', dateEnd = '$dateEnd', price = '$price', numTicketAvailable = '$sove', name = '$name' WHERE id = '$id';";
+    $sql = "UPDATE tickettour SET dateStart = '$dateStart', dateEnd = '$dateEnd', price = '$price', numTicketAvailable = '$sove', name = '$name', status = '$status' WHERE id = '$id';";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
@@ -1004,13 +1004,13 @@ class Database
   {
     $sql = "SELECT 
     DATE_FORMAT(orders.date_order, '%W') AS day_of_week,
-    COUNT(order_detail.id_product) AS total_tours_sold
+    SUM(order_detail.amount) AS total_tours_sold
 FROM 
     orders
 JOIN 
     order_detail ON orders.id = order_detail.id_order
 WHERE 
-    WEEK(orders.date_order) = WEEK(CURDATE())
+YEARWEEK(orders.date_order) = YEARWEEK(CURDATE())
     GROUP BY 
     DATE_FORMAT(orders.date_order, '%W')
 ORDER BY 
@@ -1025,13 +1025,13 @@ ORDER BY
     // Thực hiện truy vấn SQL để lấy số lượng tour bán được trong mỗi ngày trong tuần trước
     $sql = "SELECT 
     DATE_FORMAT(orders.date_order, '%W') AS day_of_week,
-    COUNT(order_detail.id_product) AS total_tours_sold
+    SUM(order_detail.amount) AS total_tours_sold
 FROM 
     orders
 JOIN 
     order_detail ON orders.id = order_detail.id_order
 WHERE 
-    WEEK(orders.date_order) = WEEK(CURDATE()) - 1
+YEARWEEK(orders.date_order) = YEARWEEK(CURDATE()) - 1
 GROUP BY 
     DATE_FORMAT(orders.date_order, '%W')
 ORDER BY 

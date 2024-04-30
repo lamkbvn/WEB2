@@ -10,7 +10,8 @@ if(isset($_REQUEST['updateTicket'])){
     $dateStart = $_REQUEST['dateStart'];
     $dateEnd = $_REQUEST['dateEnd'];
     $sove = $_REQUEST['numTicket'];
-    $rs = $db->updateTicket($id, $name, $price, $dateStart, $dateEnd, $sove);
+    $status = $_REQUEST['status'];
+    $rs = $db->updateTicket($id, $name, $price, $dateStart, $dateEnd, $sove, $status);
     if($rs){
         echo "<script> alert('Cập nhật thành công') </script>";
     } else echo "<script> alert('Không có gì thay đổi') </script>";
