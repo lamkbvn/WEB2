@@ -24,7 +24,7 @@
                     <div class="wrapper-body-left_body">
                         <?php foreach ($listCart as $i => $itemCart) :
                         $idTicket = $itemCart['idTicket'];
-                        $rowsticket = $db->getAllData('tickettour2');
+                        $rowsticket = $db->getAllData('tickettour');
                         $price=$itemCart['price'];
                         $date=$itemCart['create_at'];
                         $numTicketAvailable=PHP_INT_MAX;
