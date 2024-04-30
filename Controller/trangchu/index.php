@@ -51,29 +51,27 @@ switch ($action) {
 		require_once('Controller/showproductController/showproduct.php');
 		break;
 	case "cart":
-			session_start();
+		session_start();
 		
-			// lầy id user trên session
-			$idUser = $_SESSION['idUserLogin'];
-		
-			$sql = "SELECT cart.*, product.* , cart.id AS cart_id
-					FROM cart 
-					INNER JOIN product ON  cart.id_product = product.id
-					WHERE cart.id_user = $idUser";
-		
-			$result = $db->execute($sql);
-		
-			if ($result && $result->num_rows > 0) {
-				// Fetch all cart items into an array
-				$listCart = $db->getAll();
-			} else {
-				// If no cart items found, initialize an empty array
-				$listCart = array();
-			}
-		
-			// Include the cart view file and pass the cart items array
-			include "View/Cart/cart.php";
-		break;
+		// lầy id user trên session
+		$idUser = $_SESSION['idUserLogin'];
+		$sql = "SELECT cart.*, product.*, tickettour.*, cart.id AS cart_id
+		FROM cart 
+		INNER JOIN product ON cart.id_product = product.id
+		INNER JOIN tickettour ON cart.idTicket = tickettour.id
+		WHERE cart.id_user = $idUser";
+	
+		$result = $db->execute($sql);
+	
+		if ($result && $result->num_rows > 0) {
+			// Tìm nạp tất cả các mục trong giỏ hàng vào một mảng
+			$listCart = $db->getAll();
+		} else {
+			//Nếu không tìm thấy mục nào trong giỏ hàng, hãy khởi tạo một mảng trống
+			$listCart = array();
+		}
+		include "View/Cart/cart.php";
+	break;
 	case 'deleteItemCart':
 		session_start();
 		
