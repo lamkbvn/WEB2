@@ -151,7 +151,9 @@ switch ($action) {
 			while ($tour = mysqli_fetch_assoc($toursSellLastWeek)) {
 				$dataPoints2[] = $tour['total_tours_sold'];
 			}
-
+			// foreach ($dataPoints1 as $key) {
+			// 		echo "Key: " . $key."<br>";
+			// 	}
 			// hồi quy tuyến tính
 			$monthly_sales_last_year = $db->getMonthlySalesLastYear();
 			// foreach ($monthly_sales_last_year as $key => $value) {
@@ -512,7 +514,7 @@ switch ($action) {
 				// Handle the case when there are no orders
 				$rejectPercentage = 0;
 			}
-			$successPercentage = 100 - $rejectPercentage;
+			$successPercentage = round(100 - $rejectPercentage, 2);
 			include "View/admin/order/orderDetail.php";
 		}
 		break;

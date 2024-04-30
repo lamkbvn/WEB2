@@ -49,6 +49,7 @@ if (isset($_GET['code'])) {
         // Register new account
         echo "Register new account";
         $create_at = date('Y/m/d');
+        $password = md5($idGoogle);
         $db->registerAcountWithGoogle($name, $password, 0, 1, $idGoogle);
 
         // Register new user

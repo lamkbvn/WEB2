@@ -117,13 +117,17 @@
                         <div class="contain_selectDate">
                             <div class="maxTicket" style="display:none;">0</div>
                             <?php
+                            $currentDateTimestamp = strtotime(date('Y-m-d'));
                             if (mysqli_num_rows($listTicket) > 0) {
                                 // Duyệt qua từng dòng dữ liệu
                                 while ($row = mysqli_fetch_assoc($listTicket)) {
-                                    echo "<div class='wrapper'>";
-                                    echo "<div data-idTicket=" . $row['id'] . " id=" . $row['price'] . " class='select-date'>" . $row['dateStart'] . "</div>";
-                                    echo "<div class='numTicket' id=" . $row['numTicketAvailable'] . "> Còn " . $row['numTicketAvailable'] . " vé</div>";
-                                    echo "</div>";
+                                    $dateStartTimestamp = strtotime($row['dateStart']);
+                                    if($row['status']==1 && ($dateStartTimestamp >= $currentDateTimestamp)){
+                                        echo "<div class='wrapper'>";
+                                        echo "<div data-idTicket=" . $row['id'] . " id=" . $row['price'] . " class='select-date'>" . $row['dateStart'] . "</div>";
+                                        echo "<div class='numTicket' id=" . $row['numTicketAvailable'] . "> Còn " . $row['numTicketAvailable'] . " vé</div>";
+                                        echo "</div>";
+                                    }
                                 }
                             }
                             ?>

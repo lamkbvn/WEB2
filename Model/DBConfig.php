@@ -340,7 +340,7 @@ class Database
   }
   public function addTicket($idTour, $name, $price, $dateStart, $dateEnd, $sove)
   {
-    $sql = "insert into tickettour (idTour, dateStart, dateEnd, price, numTicketAvailable, name, num_bought) values ('$idTour', '$dateStart', '$dateEnd', '$price', '$sove', '$name', 0);";
+    $sql = "insert into tickettour (idTour, dateStart, dateEnd, price, numTicketAvailable, name, num_bought, status) values ('$idTour', '$dateStart', '$dateEnd', '$price', '$sove', '$name', 0, 1);";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
@@ -364,9 +364,9 @@ class Database
       return false;
     }
   }
-  public function updateTicket($id, $name, $price, $dateStart, $dateEnd, $sove)
+  public function updateTicket($id, $name, $price, $dateStart, $dateEnd, $sove, $status)
   {
-    $sql = "UPDATE tickettour SET dateStart = '$dateStart', dateEnd = '$dateEnd', price = '$price', numTicketAvailable = '$sove', name = '$name' WHERE id = '$id';";
+    $sql = "UPDATE tickettour SET dateStart = '$dateStart', dateEnd = '$dateEnd', price = '$price', numTicketAvailable = '$sove', name = '$name', status = '$status' WHERE id = '$id';";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
@@ -621,29 +621,29 @@ class Database
           array_multisort($column, SORT_ASC, $objects);
         else
           if ($orderby == 'DESC')
-          array_multisort($column, SORT_DESC, $objects);
+            array_multisort($column, SORT_DESC, $objects);
       }
 
       return $objects;
     }
 
-    $sql = ' SELECT  p.title , od.price , SUM(od.amount) as amount , SUM(od.total_money) as total_money , od.date_go
-              FROM product as p , order_detail as od
-              where p.id = od.id_product ';
+    $sql = ' SELECT  p.title , od.price , SUM(od.amount) as amount , SUM(od.total_money) as total_money , o.date_order
+              FROM product as p , order_detail as od , orders as o
+              where p.id = od.id_product and o.id = od.id_order ';
     ///chon san pham theo ten loai
     if ($selectCategory != 0)
       $sql = $sql . ' and p.id_category = ' . $selectCategory;
     ///loc san pham chon ngay bat dau lo
     if ($dateStart != '') {
-      $sql = $sql . ' and od.date_go >= ? ';
+      $sql = $sql . ' and o.date_order >= ? ';
     }
 
     //loc san pham chon ngay ket thuc
     if ($dateEnd != '') {
-      $sql = $sql . ' and od.date_go <= ? ';
+      $sql = $sql . ' and o.date_order <= ? ';
     }
 
-    $sql = $sql . ' group by p.title ,od.price   , od.date_go';
+    $sql = $sql . ' group by p.title ,od.price   , o.date_order';
 
     $result = null;
     if ($dateStart != '' && $dateEnd == '') {
@@ -676,7 +676,7 @@ class Database
       'price' => 2,
       'amount' => 3,
       'total_money' => 4,
-      'date_go' => 5
+      'date_order' => 5
     ];
     $objects = array();
     $id = 1;
@@ -687,7 +687,7 @@ class Database
       $objects[$key][2] = $row['price'];
       $objects[$key][3] = $row['amount'];
       $objects[$key][4] = $row['total_money'];
-      $objects[$key][5] = $row['date_go'];
+      $objects[$key][5] = $row['date_order'];
       ++$id;
     }
 
@@ -701,7 +701,7 @@ class Database
         array_multisort($column, SORT_ASC, $objects);
       else
         if ($orderby == 'DESC')
-        array_multisort($column, SORT_DESC, $objects);
+          array_multisort($column, SORT_DESC, $objects);
     }
 
     return $objects;
@@ -1004,13 +1004,13 @@ class Database
   {
     $sql = "SELECT 
     DATE_FORMAT(orders.date_order, '%W') AS day_of_week,
-    COUNT(order_detail.id_product) AS total_tours_sold
+    SUM(order_detail.amount) AS total_tours_sold
 FROM 
     orders
 JOIN 
     order_detail ON orders.id = order_detail.id_order
 WHERE 
-    WEEK(orders.date_order) = WEEK(CURDATE())
+YEARWEEK(orders.date_order) = YEARWEEK(CURDATE())
     GROUP BY 
     DATE_FORMAT(orders.date_order, '%W')
 ORDER BY 
@@ -1025,13 +1025,13 @@ ORDER BY
     // Thực hiện truy vấn SQL để lấy số lượng tour bán được trong mỗi ngày trong tuần trước
     $sql = "SELECT 
     DATE_FORMAT(orders.date_order, '%W') AS day_of_week,
-    COUNT(order_detail.id_product) AS total_tours_sold
+    SUM(order_detail.amount) AS total_tours_sold
 FROM 
     orders
 JOIN 
     order_detail ON orders.id = order_detail.id_order
 WHERE 
-    WEEK(orders.date_order) = WEEK(CURDATE()) - 1
+YEARWEEK(orders.date_order) = YEARWEEK(CURDATE()) - 1
 GROUP BY 
     DATE_FORMAT(orders.date_order, '%W')
 ORDER BY 
