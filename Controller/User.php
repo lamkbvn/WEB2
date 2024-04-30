@@ -123,7 +123,10 @@ function getDataDetailDH($idOrder)
   include_once "../Model/DBConfig.php";
   $db = new Database();
   $db->connect();
-  $result = $db->getDataChiTietDonHang($idOrder);
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
+  $result = $db->getDataChiTietDonHang($idOrder, $_SESSION['idUserLogin']);
   $db->disconnect();
   return $result;
 }
@@ -172,9 +175,12 @@ if (isset($_POST['action'])) {
       echo "khong co ket qua";
     else
       while ($row = mysqli_fetch_array($result)) {
+        $urlIMG = '../../images/heart.png';
+        $imageData = $row['image'];
+        $urlIMG = 'data:image/jpeg;base64,' . base64_encode($imageData) . '';
         echo '
         <div class="detail-dh">
-        <img src="images/heart.png" alt="" class = "col-1 img">
+        <img loading="lazy" src=" ' . $urlIMG . '" alt="" class = "col-1 img">
         <div class="col-2">
           <div class="name">' . $row['title'] . '</div>
           <div class="desc">' . $row['content'] . '</div>

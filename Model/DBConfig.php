@@ -950,9 +950,11 @@ class Database
     return $result;
   }
 
-  public function getDataChiTietDonHang($idOrder)
+  public function getDataChiTietDonHang($idOrder, $idUser)
   {
-    $sql = 'select p.title , p.content , od.total_money , od.date_go from order_detail as od , product as p where od.id_product = p.id and od.id_order = ' . $idOrder;
+    $sql = 'select p.title , p.content , od.total_money , od.date_go , ip.image
+            from order_detail as od , product as p , image_product as ip
+            where od.id_product = p.id and od.id_order = ' . $idOrder . ' and p.id = ip.id_product and ip.id_user = ' . $idUser;
     $result = $this->execute($sql);
     return $result;
   }
