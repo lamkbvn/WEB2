@@ -23,6 +23,16 @@
                     </div>
                     <div class="wrapper-body-left_body">
                         <?php foreach ($listCart as $i => $itemCart) :
+                        $idTicket = $itemCart['idTicket'];
+                        $rowsticket = $db->getAllData('tickettour');
+                        foreach ($rowsticket as $rowticket) {
+                            if ($rowticket['id'] == $idTicket) {
+                                $price=$rowticket['price'];
+                                $date=$rowticket['dateStart'];
+                                $numTicketAvailable=$rowticket['numTicketAvailable'];
+                                break;
+                            }
+                        }
                         //để hiện thị hình ảnh
                             $stt = 1;
                             $idProduct = $itemCart['id_product'];
@@ -49,8 +59,11 @@
                                         value="<?php echo $itemCart['id_product']; ?>">
                                     <input type="hidden" name="cart_id" value="<?php echo $itemCart['cart_id']; ?>">
                                     <input type="hidden" name="amount" value="<?php echo $itemCart['amount']; ?>">
-                                    <input type="hidden" name="price" value="<?php echo $itemCart['price']; ?>">
-                                    <input type="hidden" name="date" value="<?php echo $itemCart['create_at']; ?>">
+                                    <input type="hidden" name="priceProduct" value="<?php echo $itemCart['price']; ?>">
+                                    <input type="hidden" name="price" value="<?php echo $price; ?>">
+                                    <input type="hidden" name="date" value="<?php echo $date; ?>">
+                                    <input type="hidden" name="numTicketAvailable"
+                                        value="<?php echo $numTicketAvailable; ?>">
                                 </div>
                                 <div class="shopping-cart-item_body-right">
                                     <div class="left">
@@ -63,7 +76,7 @@
                                             <a>
                                                 <p><?php echo $itemCart['title']; ?></p>
                                                 <p><?php echo $itemCart['content']; ?> </p>
-                                                <p name="date"><?php echo $itemCart['create_at']; ?></p>
+                                                <p name="date"><?php echo $date; ?></p>
 
                                             </a>
                                         </div>

@@ -36,7 +36,17 @@
         border-radius: 4px;
         box-sizing: border-box;
     }
-    .themuser form input[type="date"]{
+
+    #status{
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .themuser form input[type="date"] {
         width: 186px;
     }
 
@@ -63,11 +73,12 @@
         display: flex;
         gap: 30px;
     }
+
     .validation {
-		color: red;
-		font-size: 12px;
-		/* display: none; */
-	}
+        color: red;
+        font-size: 12px;
+        /* display: none; */
+    }
 </style>
 
 <body>
@@ -79,8 +90,8 @@
             <h3>Sửa Vé</h3>
             <form action="Controller/trangadmin/Tour/C_editTicket.php" method="POST" class="form" onsubmit="return validateForm()">
                 <div class="form--inner">
-                <input type="hidden" name="id" value="<?php echo $_REQUEST['id']; ?>">
-                <input type="hidden" name="idTicket" value="<?php echo $_REQUEST['idTicket']; ?>">
+                    <input type="hidden" name="id" value="<?php echo $_REQUEST['id']; ?>">
+                    <input type="hidden" name="idTicket" value="<?php echo $_REQUEST['idTicket']; ?>">
                     <div class="flex">
 
                         <label for="fullname">Tên vé:</label><br>
@@ -100,11 +111,19 @@
                         <label for="phone_number">Ngày đi:</label><br>
                         <input type="date" id="dateStart" name="dateStart" value="<?php echo $ticket['dateStart'] ?>"><br>
                         <span id="dateStartValidation" class="validation"></span>
-                        
+
 
                         <label for="create_at">Ngày kết thúc:</label><br>
                         <input type="date" id="dateEnd" name="dateEnd" value="<?php echo $ticket['dateEnd'] ?>"><br>
                         <span id="dateEndValidation" class="validation"></span>
+
+                        <label for="create_at">Status:</label><br>
+                        <select id="status" name="status">
+                            <option value="1" <?php if ($ticket['status'] == 1) echo "selected"; ?>>1</option>
+                            <option value="0" <?php if ($ticket['status'] == 0) echo "selected"; ?>>0</option>
+                            <!-- Thêm các option khác nếu cần -->
+                        </select><br>
+                        <span id="StatusValidation" class="validation"></span>
 
                     </div>
                 </div>
@@ -176,4 +195,5 @@
         return isValid;
     }
 </script>
+
 </html>

@@ -151,12 +151,14 @@ switch ($action) {
 			while ($tour = mysqli_fetch_assoc($toursSellLastWeek)) {
 				$dataPoints2[] = $tour['total_tours_sold'];
 			}
-
+			// foreach ($dataPoints1 as $key) {
+			// 		echo "Key: " . $key."<br>";
+			// 	}
 			// hồi quy tuyến tính
 			$monthly_sales_last_year = $db->getMonthlySalesLastYear();
-			foreach ($monthly_sales_last_year as $key => $value) {
-				echo "Key: " . $key . ", Value: " . $value . "<br>";
-			}
+			// foreach ($monthly_sales_last_year as $key => $value) {
+			// 	echo "Key: " . $key . ", Value: " . $value . "<br>";
+			// }
 			$months = range(1, 12);
 			$sales = array_values($monthly_sales_last_year);
 			$n = count($months);

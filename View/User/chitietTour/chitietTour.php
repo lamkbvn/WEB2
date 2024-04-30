@@ -101,7 +101,7 @@
                     $google_map_url = "https://www.google.com/maps/embed/v1/place?q=" . urlencode($address) . "&key=AIzaSyBT0zArw_eDN1rklr3lPrNFObbFOPSWjUk";
 
                     // Hiển thị iframe Google Map
-                    echo '<iframe width="260" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="' . $google_map_url . '" allowfullscreen></iframe>';
+                    echo '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85041.64026301184!2d107.77957549740518!3d20.97131910388879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314b740755b39e17%3A0x2a986b2520bf63dd!2zSOG6o2kgxJDEg25nIEPDtCBUw7Q!5e0!3m2!1svi!2s!4v1714138236422!5m2!1svi!2s" width="260" height="200" style="border:0; margin-top: 30px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
                     ?>
                 </div>
             </div>
@@ -117,13 +117,17 @@
                         <div class="contain_selectDate">
                             <div class="maxTicket" style="display:none;">0</div>
                             <?php
+                            $currentDateTimestamp = strtotime(date('Y-m-d'));
                             if (mysqli_num_rows($listTicket) > 0) {
                                 // Duyệt qua từng dòng dữ liệu
                                 while ($row = mysqli_fetch_assoc($listTicket)) {
-                                    echo "<div class='wrapper'>";
-                                    echo "<div data-idTicket=" . $row['id'] . " id=" . $row['price'] . " class='select-date'>" . $row['dateStart'] . "</div>";
-                                    echo "<div class='numTicket' id=" . $row['numTicketAvailable'] . "> Còn " . $row['numTicketAvailable'] . " vé</div>";
-                                    echo "</div>";
+                                    $dateStartTimestamp = strtotime($row['dateStart']);
+                                    if($row['status']==1 && ($dateStartTimestamp >= $currentDateTimestamp)){
+                                        echo "<div class='wrapper'>";
+                                        echo "<div data-idTicket=" . $row['id'] . " id=" . $row['price'] . " class='select-date'>" . $row['dateStart'] . "</div>";
+                                        echo "<div class='numTicket' id=" . $row['numTicketAvailable'] . "> Còn " . $row['numTicketAvailable'] . " vé</div>";
+                                        echo "</div>";
+                                    }
                                 }
                             }
                             ?>
@@ -132,7 +136,7 @@
                     </div>
                     <div class="option-item">
                         <div class="discount">
-                            <div class="percentVou" id="1" style="display: none;">Giảm giá</div>
+                            <div class="percentVou" id="0" style="display: none;">Giảm giá</div>
                             <div class="label-discount">Giảm giá</div>
                             <p class="content-discount">Xem voucher có sẵn</p>
                         </div>

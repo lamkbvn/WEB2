@@ -220,7 +220,7 @@ rows.forEach(function(row, index) {
 	var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: ['Monday', 'Tuesday', 'Webnesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+			labels: ['Sunday', 'Monday', 'Tuesday', 'Webnesday', 'Thursday', 'Friday', 'Saturday'],
 			datasets: [{
 				label: 'This week',
 				data: <?php echo json_encode($dataPoints1); ?>,

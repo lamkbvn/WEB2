@@ -115,6 +115,7 @@
                 //     var formattedDate = selectedDate.getFullYear() + '-' + ('0' + (selectedDate.getMonth() + 1)).slice(-2) + '-' + ('0' + selectedDate.getDate()).slice(-2);
                 //     datePhp.value = formattedDate;
                 // }
+                capnhatTongTien();
             })
         }
 
