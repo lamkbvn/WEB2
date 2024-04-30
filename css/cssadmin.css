@@ -42,7 +42,7 @@ body {
     align-items: flex-start;
     flex-direction: column;
     gap: 10px;
-    padding-bottom: 100px;
+    padding-bottom: 300px;
 }
 
 .nav-admin-item {
@@ -309,6 +309,7 @@ body {
 /* add user */
 
 .add-user-box {
+    margin-top: 64px;
     margin-left: 204px;
     margin-right: 50px;
     overflow-x: auto;
@@ -435,7 +436,6 @@ a {
     border-radius: 10px;
     box-shadow: -1px 5px 15px 0px rgb(171, 171, 171);
     width: 180px;
-    height: 100px;
     position: absolute;
     top: 50px;
     right: 40px;

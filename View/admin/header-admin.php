@@ -39,12 +39,6 @@
 							<div class = "header-avatar">
 								<img src="/WEB2/images/avatar.png" width = "34" />
 								<div class = "drop-user-side-bar">
-									<a href="index.php?controller=trang-chu&action=userprofile&pageuser=cs">
-										<div class = "trangcanhan item">
-										<img src="/WEB2/IMAGEofLam/person.svg" width = "22" />
-											<div class = "text">Trang cá nhân</div>
-										</div>
-									</a>
 									<a class = "dangxuat item" href="includes/session/del_session.php" >
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
 											<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
@@ -135,11 +129,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        // Kiểm tra khi trang được tải và khi một .nav-admin-item được click
-        checkUrl();
+    $(document).ready(function() { // Khi trang đã tải xong
+        checkUrl(); // Kiểm tra và thêm class active cho phần tử thanh điều hướng
 
-        $('.nav-admin-item-a').click(function(e) {
+        $('.nav-admin-item-a').click(function(e) { // Khi một phần tử .nav-admin-item được nhấp vào
             e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
 
             var url = $(this).attr('href'); // Lấy đường dẫn từ thuộc tính href của thẻ a
@@ -148,17 +141,17 @@
             $.ajax({
                 url: url,
                 type: 'GET',
-                success: function(data) {
+                success: function(data) { // Nếu yêu cầu Ajax thành công
                     // Cập nhật nội dung của trang
                     $('body').html(data);
 
-                    // Thay đổi URL của trình duyệt
+                    // Thay đổi URL của trình duyệt mà không làm tải lại trang
                     history.pushState(null, null, url);
 
-                    // Kiểm tra và thêm class high
+                    // Kiểm tra và thêm class active cho phần tử thanh điều hướng
                     checkUrl();
                 },
-                error: function(xhr, status, error) {
+                error: function(xhr, status, error) { // Nếu có lỗi xảy ra
                     // Xử lý lỗi nếu có
                     console.error(error);
                 }
@@ -169,32 +162,33 @@
         window.onpopstate = function(event) {
             // Thực hiện lại yêu cầu Ajax khi người dùng quay lại trang trước đó
             $.ajax({
-                url: location.pathname, // Sử dụng đường dẫn hiện tại
+                url: location.href, // Sử dụng đường dẫn hiện tại
                 type: 'GET',
-                success: function(data) {
+                success: function(data) { // Nếu yêu cầu Ajax thành công
                     // Cập nhật nội dung của trang
                     $('body').html(data);
-
-                    // Kiểm tra và thêm class high
+                    // Thay đổi URL của trình duyệt mà không làm tải lại trang
+                    // Kiểm tra và thêm class active cho phần tử thanh điều hướng
                     checkUrl();
                 },
-                error: function(xhr, status, error) {
+                error: function(xhr, status, error) { // Nếu có lỗi xảy ra
                     // Xử lý lỗi nếu có
                     console.error(error);
                 }
             });
         };
 
-        // Hàm kiểm tra và thêm class high
+        // Hàm kiểm tra và thêm class active cho phần tử thanh điều hướng
         function checkUrl() {
             // Lấy action từ URL
             const urlParams = new URLSearchParams(window.location.search);
             const action = urlParams.get('action');
+            // Kiểm tra action và thêm class active cho phần tử thanh điều hướng tương ứng
             if (action === 'indexAdmin' || action === 'edit' || action === 'editrole' || action === 'add') {
                 $('#page1').addClass('header-admin-active');
             } else if (action === 'role' || action === 'editRole' || action === 'addRole') {
                 $('#page2').addClass('header-admin-active');
-            } else if (action === 'tour' || action === 'editTour' || action === 'addTour' || action === 'ticket' || action === 'addTicket' || action === 'editTicket' ) {
+            } else if (action === 'tour' || action === 'editTour' || action === 'addTour' || action === 'ticket' || action === 'addTicket' || action === 'editTicket') {
                 $('#page3').addClass('header-admin-active');
             } else if (action === 'dsbl') {
                 $('#page4').addClass('header-admin-active');

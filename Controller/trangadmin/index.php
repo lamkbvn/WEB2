@@ -514,7 +514,7 @@ switch ($action) {
 				// Handle the case when there are no orders
 				$rejectPercentage = 0;
 			}
-			$successPercentage = 100 - $rejectPercentage;
+			$successPercentage = round(100 - $rejectPercentage, 2);
 			include "View/admin/order/orderDetail.php";
 		}
 		break;

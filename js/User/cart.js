@@ -133,7 +133,7 @@ function increaseValue(x, i) {
   //get số lương trong thẻ input
   let div = x.closest('.shopping-cart-item');
   let sl = parseInt(div.querySelector('input[name="numBook"]').value);
-  let price = parseInt(div.querySelector('input[name="priceProduct"]').value);
+  let price = parseInt(div.querySelector('input[name="price"]').value);
   let numTicketAvailable = parseInt(
     div.querySelector('input[name="numTicketAvailable"]').value
   );
@@ -164,7 +164,7 @@ function decreaseValue(x, i) {
   //get số lương trong thẻ input
   let div = x.closest('.shopping-cart-item');
   let sl = parseInt(div.querySelector('input[name="numBook"]').value);
-  let price = parseInt(div.querySelector('input[name="priceProduct"]').value);
+  let price = parseInt(div.querySelector('input[name="price"]').value);
   //--
   if (sl > 1) {
     var slmoi = sl - 1;
@@ -205,7 +205,7 @@ function calculateTotalPrice() {
       let price = parseInt(
         checkbox
           .closest('.shopping-cart-item')
-          .querySelector('input[name="priceProduct"]').value
+          .querySelector('input[name="price"]').value
       );
       // Tính tổng giá trị của sản phẩm và cập nhật vào biến total
       total += quantity * price;
