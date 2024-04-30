@@ -52,6 +52,7 @@
                                     <input type="hidden" name="amount" value="<?php echo $itemCart['amount']; ?>">
                                     <input type="hidden" name="price" value="<?php echo $itemCart['price']; ?>">
                                     <input type="hidden" name="date" value="<?php echo $itemCart['dateStart']; ?>">
+                                    <input type="hidden" name="idTicket" value="<?php echo $itemCart['ticket_id']; ?>">
                                     <input type="hidden" name="numTicketAvailable"
                                         value="<?php echo $itemCart['numTicketAvailable']; ?>">
                                 </div>
