@@ -22,22 +22,7 @@
                         </span>
                     </div>
                     <div class="wrapper-body-left_body">
-                        <?php foreach ($listCart as $i => $itemCart) :
-                        $idTicket = $itemCart['idTicket'];
-                        $rowsticket = $db->getAllData('tickettour');
-                        $price=$itemCart['price'];
-                        $date=$itemCart['create_at'];
-                        $numTicketAvailable=PHP_INT_MAX;
-                        if($idTicket!=NULL){
-                            foreach ($rowsticket as $rowticket) {
-                                if ($rowticket['id'] == $idTicket) {
-                                    $price=$rowticket['price'];
-                                    $date=$rowticket['dateStart'];
-                                    $numTicketAvailable=$rowticket['numTicketAvailable'];
-                                    break;
-                                }
-                            }
-                        }
+                        <?php foreach ($listCart as $i => $itemCart) :       
                         
                         //để hiện thị hình ảnh
                             $stt = 1;
@@ -65,10 +50,11 @@
                                         value="<?php echo $itemCart['id_product']; ?>">
                                     <input type="hidden" name="cart_id" value="<?php echo $itemCart['cart_id']; ?>">
                                     <input type="hidden" name="amount" value="<?php echo $itemCart['amount']; ?>">
-                                    <input type="hidden" name="price" value="<?php echo $price; ?>">
-                                    <input type="hidden" name="date" value="<?php echo $date; ?>">
+                                    <input type="hidden" name="price" value="<?php echo $itemCart['price']; ?>">
+                                    <input type="hidden" name="date" value="<?php echo $itemCart['dateStart']; ?>">
+                                    <input type="hidden" name="idTicket" value="<?php echo $itemCart['ticket_id']; ?>">
                                     <input type="hidden" name="numTicketAvailable"
-                                        value="<?php echo $numTicketAvailable; ?>">
+                                        value="<?php echo $itemCart['numTicketAvailable']; ?>">
                                 </div>
                                 <div class="shopping-cart-item_body-right">
                                     <div class="left">
@@ -81,7 +67,7 @@
                                             <a>
                                                 <p><?php echo $itemCart['title']; ?></p>
                                                 <p><?php echo $itemCart['content']; ?> </p>
-                                                <p name="date"><?php echo $date; ?></p>
+                                                <p name="date"><?php echo $itemCart['dateStart']; ?></p>
 
                                             </a>
                                         </div>
@@ -131,7 +117,7 @@
                                         <div class="price-box">
 
                                             <span
-                                                class="total-price"><?php echo number_format($price* $itemCart['amount'], 0, '.',',') ; ?>đ</span>
+                                                class="total-price"><?php echo number_format($itemCart['price']* $itemCart['amount'], 0, '.',',') ; ?>đ</span>
 
                                         </div>
                                     </div>

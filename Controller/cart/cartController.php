@@ -39,18 +39,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $price = $product['price'];
             $date = $product['date'];
             $dateBuy = date('y-m-d');
-            $hoTen = $product['hoTen']; // Thêm dữ liệu Họ tên
-            $email = $product['email']; // Thêm dữ liệu Email
-            $sodienthoai = $product['sodienthoai']; // Thêm dữ liệu Số điện thoại
-            $diachi = $product['diachi']; // Thêm dữ liệu Địa chỉ
-            $note_book_tour = $product['note_book_tour']; // Thêm dữ liệu Ghi chú
+            $hoTen = $product['hoTen']; 
+            $email = $product['email']; 
+            $sodienthoai = $product['sodienthoai']; 
+            $diachi = $product['diachi']; 
+            $note_book_tour = $product['note_book_tour']; 
             $tongTien = $product['tongTien'];
+            $idTicket = $product['idTicket'];
+            $numTicketAvailable = $product['numTicketAvailable'];
             if ($first == 1) {
                 $db->InsertOrder($id, $idUser, $hoTen, $email, $sodienthoai, $diachi, $note_book_tour, $dateBuy, $tongTien, 1);
                 $first = 0;
             }
             $db->InsertDetailOrder($id, $id_product, $price, $amount, $price * $amount, $date);
-            $db->deleteItemCart($cart_id);
+             $db->deleteItemCart($cart_id);
+            $db->updateNumTicketAvailable($idTicket, $numTicketAvailable);
             echo "ID sản phẩm: $id_product, Số lượng book/tour: $amount, Tổng tiền: $tongTien, Số lượng: $amount, Giá: $price, Ngày: $date, cart: $cart_id<br>";
             // Sau đó, bạn có thể thực hiện các thao tác xử lý dữ liệu khác tại đây
         }
