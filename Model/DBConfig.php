@@ -1111,4 +1111,10 @@ ORDER BY
     }
     return $data;
   }
+
+  public function updateNumTicketAvailable($idTicket,$numTicketAvai)
+  {
+    $sql = "update tickettour set numTicketAvailable = $numTicketAvai where id = $idTicket";
+    return $this->execute($sql);
+  }
 }

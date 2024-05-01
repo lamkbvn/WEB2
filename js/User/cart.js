@@ -65,6 +65,9 @@ btnMuaNgay.addEventListener('click', function (e) {
         var amount = productDetails.find('input[name="amount"]').val();
         var price = productDetails.find('input[name="price"]').val();
         var date = productDetails.find('input[name="date"]').val();
+        var idTicket = productDetails.find('input[name="idTicket"]').val();
+        var numTicketAvailable =
+          productDetails.find('input[name="numTicketAvailable"]').val() - 1;
 
         var hoTen = $('.hoTen').val();
         var email = $('.email').val();
@@ -85,13 +88,15 @@ btnMuaNgay.addEventListener('click', function (e) {
           diachi: diachi,
           note_book_tour: note_book_tour,
           tongTien: tongTien,
+          idTicket: idTicket,
+          numTicketAvailable: numTicketAvailable,
         });
       }
     });
     console.log(JSON.stringify(selectedProducts));
 
     $.ajax({
-      url: 'Controller/cart/cartController.php', // Thay đổi thành URL của server endpoint của bạn
+      url: 'Controller/cart/cartController.php', // Thay đổi thành URL của server endpoint
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(selectedProducts),

@@ -55,7 +55,7 @@ switch ($action) {
 		
 		// lầy id user trên session
 		$idUser = $_SESSION['idUserLogin'];
-		$sql = "SELECT cart.*, product.*, tickettour.*, cart.id AS cart_id
+		$sql = "SELECT cart.*, product.*, tickettour.*,tickettour.id AS ticket_id, cart.id AS cart_id
 		FROM cart 
 		INNER JOIN product ON cart.id_product = product.id
 		INNER JOIN tickettour ON cart.idTicket = tickettour.id
