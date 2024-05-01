@@ -92,8 +92,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color : white;
-    width : 600px;
-    height : 570px;
+    max-width : 430px;
+    width : 90%;
+    max-height : 570px;
+    height : 80%;
     padding  : 20px 0px 20px 20px;
     border-radius : 8px;
   }
@@ -117,7 +119,8 @@
   }
 
   .detail-dh{
-    height : 100px;
+    max-height : 100px;
+    height : 90%;
     border : 1px solid var(--primary-color);
     display : flex;
     padding : 10px;
@@ -152,7 +155,6 @@
   }
 
   .col-3{
-    margin-left: 10px;
     display : flex;
     align-items : center;
     /* color : var(--primary-color); */
@@ -173,6 +175,20 @@
   .txt-status{
     width: 165px;
   }
+
+  @media screen and (max-width: 620px) {
+    .display {
+      max-width: 380px;
+    }
+
+    .col-1{
+      height : 90px;
+    }
+
+    .detail-dh{
+      max-height: 90px;
+    }
+}
 </style>
 <body>
   <div class="quay-lai-profile" onclick = "onSideBar()">
@@ -221,10 +237,9 @@
             <img src="images/heart.png" alt="" class = "col-1 img">
             <div class="col-2">
               <div class="name">Tour đảo cô tô</div>
-              <div class="desc">Khám phá thiên nhiên</div>
-              <div class="date-go">30-1-2024</div>
+              <div class="date-go"> Đặt ngày : 30-1-2024</div>
+              <div class="col-3 price">Tổng tiền : 3000000 VNĐ</div>
             </div>
-            <div class="col-3 price">3000000</div>
           </div> -->
         </div>
       </div>

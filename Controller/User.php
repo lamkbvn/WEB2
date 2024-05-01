@@ -179,15 +179,15 @@ if (isset($_POST['action'])) {
         $imageData = $row['image'];
         $urlIMG = 'data:image/jpeg;base64,' . base64_encode($imageData) . '';
         echo '
-        <div class="detail-dh">
+        <a class="detail-dh" href = "./Controller/chitietTour/buyTour.php?id=' . $row['id'] . '&category=' . $row['id_category'] . '">
         <img loading="lazy" src=" ' . $urlIMG . '" alt="" class = "col-1 img">
         <div class="col-2">
           <div class="name">' . $row['title'] . '</div>
-          <div class="desc">' . $row['content'] . '</div>
-          <div class="date-go">' . $row['date_go'] . '</div>
+          <div class="date-go"> Ngày đi : ' . $row['date_go'] . '</div>
+          <div class="col-3 price"> Tổng tiền : ' . number_format($row['total_money']) . ' VNĐ</div>
         </div>
-        <div class="col-3 price">' . number_format($row['total_money']) . ' VNĐ</div>
-      </div>
+        
+      </a>
         ';
       }
   }

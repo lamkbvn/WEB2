@@ -33,7 +33,6 @@ function thongKe()
         <th class = "table-cell price-tk">' . '~' . '</th>
         <th class = "table-cell num-bought ">' . $value[1] . '</th>
         <th class = "table-cell total-money">' . $value[2] . '</th>
-        <th class ="date-go table-cell">' . '~' . '</th>
       </tr>';
       $tongTien = $tongTien + $result[$key][2];
       $tongSL = $tongSL + $result[$key][1];
@@ -49,7 +48,6 @@ function thongKe()
         <th class = "table-cell price-tk">' . $value[2] . '</th>
         <th class = "table-cell num-bought ">' . $value[3] . '</th>
         <th class = "table-cell total-money">' . $value[4] . '</th>
-        <th class ="date-go table-cell">' . $value[5] . '</th>
       </tr>';
       $tongTien = $tongTien + $value[4];
       $tongSL = $tongSL + $value[3];
