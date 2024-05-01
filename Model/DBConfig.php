@@ -954,7 +954,7 @@ class Database
   {
     $sql = 'select p.title , p.content , od.total_money , od.date_go , ip.image
             from order_detail as od , product as p , image_product as ip
-            where od.id_product = p.id and od.id_order = ' . $idOrder . ' and p.id = ip.id_product and ip.id_user = ' . $idUser;
+            where od.id_product = p.id and od.id_order = ' . $idOrder . ' and p.id = ip.id_product and ip.id_user = 1 ';
     $result = $this->execute($sql);
     return $result;
   }
@@ -1110,11 +1110,5 @@ ORDER BY
       }
     }
     return $data;
-  }
-
-  public function updateNumTicketAvailable($idTicket,$numTicketAvai)
-  {
-    $sql = "update tickettour set numTicketAvailable = $numTicketAvai where id = $idTicket";
-    return $this->execute($sql);
   }
 }
