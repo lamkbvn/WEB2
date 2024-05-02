@@ -251,11 +251,23 @@ class Database
     return $data;
   }
   // thêm giỏ hàng
-  public function InsertCart($id_user, $id_product, $amount, $idTicket, $status)
-  {
-    $sql = "INSERT INTO cart (id_user, id_product, amount, status, idTicket) VALUES ('$id_user', '$id_product', '$amount', '$status', '$idTicket')";
-    return $this->execute($sql);
-  }
+  public function InsertOrUpdateCart($id_user, $id_product, $amount, $idTicket, $status)
+{
+    // Kiểm tra xem có bản ghi nào trong bảng cart có id_user và idTicket đã cho hay không
+    $sql_check = "SELECT * FROM cart WHERE id_user = '$id_user' AND idTicket = '$idTicket'";
+    $result = $this->execute($sql_check);
+
+    if ($result->num_rows > 0) {
+        // Nếu tìm thấy bản ghi, cập nhật số lượng bằng cách cộng thêm giá trị mới
+        $sql_update = "UPDATE cart SET amount = amount + $amount WHERE id_user = '$id_user' AND idTicket = '$idTicket'";
+        return $this->execute($sql_update);
+    } else {
+        // Nếu không tìm thấy bản ghi, thêm bản ghi mới vào bảng cart
+        $sql_insert = "INSERT INTO cart (id_user, id_product, amount, status, idTicket) VALUES ('$id_user', '$id_product', '$amount', '$status', '$idTicket')";
+        return $this->execute($sql_insert);
+    }
+}
+
 
   // public function checkAvailableTour($idTour){
   //   $sql="SELECT * FROM product WHERE id = $idTour and soLuongConLai>0;";
@@ -413,7 +425,7 @@ class Database
     return $this->execute($sql);
   }
   //edit Tour
-  public function UpdateTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $dateUpdate, $address, $acount)
+  public function UpdateTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $dateUpdate, $address)
   {
     $sql = "UPDATE product SET 
             id_category = '$id_cate', 
@@ -456,6 +468,19 @@ class Database
   public function UpdateImg($id, $img)
   {
     $sql = 'Update image_product SET image = "' . $img . '"  WHERE id = ' . $id;
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  public function DeleteImg($id)
+  {
+    $sql = 'delete from image_product where  id = ' . $id;
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
