@@ -273,8 +273,15 @@
 						alert("Nhập sai số điện thoại, vui lòng nhập lại!");
 					} else if (response.trim() === "exists phone") {
 						alert("Số điện thoại đã tồn tại, vui lòng nhập lại!");
-					} else if (response.trim() === "valid") {
+					} else if (response.trim() === "valid1") {
 						alert("Sửa thành công");
+						window.location.href = `index.php?controller=trang-admin&action=edit&id=${userID}`;
+					} else if (response.trim() === "valid2") {
+						alert("Sửa thành công");
+						window.location.href = `index.php?controller=trang-admin&action=edit&id=${userID}`;
+					} else if (response.trim() === "valid3") {
+						alert("Sửa thành công");
+						window.location.href = `index.php?controller=trang-admin&action=edit&id=${userID}`;
 					} else if (response.trim() === "inva") {
 						alert("Không có dữ liệu được cập nhật");
 					} else {

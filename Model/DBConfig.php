@@ -1066,6 +1066,14 @@ class Database
     return $row['count'];
   }
 
+  public function getTongDoanhThu($table)
+  {
+    $sql = "SELECT SUM(total_money) AS SUM FROM $table";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['SUM'];
+  }
+
   public function getCountYesterday($table, $date)
   {
     $yesterday = date("Y-m-d", strtotime("-1 day"));

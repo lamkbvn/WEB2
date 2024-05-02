@@ -101,7 +101,7 @@ switch ($action) {
 		}
 
 	case 'trangChuAdmin': {
-			$soLuongKH = $db->getSoLuong('acount', 'id_role = 0');
+			$tongDoanhThu = $db->getTongDoanhThu('orders');
 			$soLuongSP = $db->getSoLuong('product', 'id > 0');
 			$soLuongDH = $db->getSoLuong('orders', 'id > 0');
 			$soLuongFB = $db->getSoLuong('feedback', 'id > 0');

@@ -64,16 +64,16 @@ if (
 	} else if (!preg_match("/^\d{10,11}$/", $phone_number)) {
 		echo "invalid phone";
 	} else {
+		$updateResult = $db->updateEditData($userID, $fullname, $email, $phone_number, $create_at, $address);
 		if (
-			$db->updateEditData($userID, $fullname, $email, $phone_number, $create_at, $address)
-			&& $db->roleAccount($userID, $role)
+			$updateResult && $db->roleAccount($userID, $role)
 		) {
-			echo "valid";
-		} else if ($db->updateEditData($userID, $fullname, $email, $phone_number, $create_at, $address))
-			echo "valid";
-		else if ($db->roleAccount($userID, $role))
-			echo "valid";
-		else {
+			echo "valid1";
+		} elseif ($db->roleAccount($userID, $role)) {
+			echo "valid1";
+		} elseif ($updateResult) {
+			echo "valid1";
+		} else {
 			echo "inva";
 		}
 	}

@@ -10,8 +10,8 @@
 				<div class="trangchuadmin--total-item blue">
 					<div class="trangchuadmin--total-item__row">
 						<div class="trangchuadmin--total-item__info">
-							<h2 class="trangchuadmin--total-item__heading">Khách hàng</h2>
-							<p class="trangchuadmin--total-item__number"><?php echo $soLuongKH; ?></p>
+							<h2 class="trangchuadmin--total-item__heading">Tổng doanh thu</h2>
+							<p class="trangchuadmin--total-item__number"><?php echo $tongDoanhThu; ?></p>
 						</div>
 						<img src="css/icons/total-item-01.svg" alt="" class="trangchuadmin--total-item__icon">
 					</div>
@@ -136,7 +136,7 @@
 						<tbody class="table-body">
 							<?php $stt = 0;
 							if ($tourSellToday != null) {
-								foreach ($tourSellToday as $tour):
+								foreach ($tourSellToday as $tour) :
 									$stt++;
 									if ($stt == 6)
 										break;
@@ -147,15 +147,15 @@
 										$style = "color: #fec53d; font-weight:600; font-size: 17px;";
 									elseif ($stt == 3)
 										$style = "color: #4ad991; font-weight:600; font-size: 17px;";
-									?>
+							?>
 
-																	<tr class="table-row" height="42px" style="<?php echo $style ?>;">
-																		<td class="table-cell id">#<?php echo $stt ?></td>
-																		<td class="table-cell id"><?php echo $tour['title']; ?></td>
-																		<td class="table-cell id"><?php echo $tour['total_quantity']; ?></td>
-																		</td>
-																	</tr>
-											<?php endforeach;
+									<tr class="table-row" height="42px" style="<?php echo $style ?>;">
+										<td class="table-cell id">#<?php echo $stt ?></td>
+										<td class="table-cell id"><?php echo $tour['title']; ?></td>
+										<td class="table-cell id"><?php echo $tour['total_quantity']; ?></td>
+										</td>
+									</tr>
+							<?php endforeach;
 							} ?>
 						</tbody>
 					</table>
@@ -217,12 +217,12 @@
 	// Lấy danh sách các hàng của bảng
 	var rows = document.querySelectorAll(".tableTopTour tr");
 
-// Duyệt qua từng hàng và áp dụng hiệu ứng nhảy vào
-rows.forEach(function(row, index) {
-	setTimeout(function() {
-		row.classList.add("show");
-	}, index * 200); // Tạo khoảng cách thời gian giữa các hiệu ứng
-});
+	// Duyệt qua từng hàng và áp dụng hiệu ứng nhảy vào
+	rows.forEach(function(row, index) {
+		setTimeout(function() {
+			row.classList.add("show");
+		}, index * 200); // Tạo khoảng cách thời gian giữa các hiệu ứng
+	});
 
 	var data = [1, 2, 3, 4, 5, 6, 7]
 	var ctx = document.getElementById('myChart').getContext('2d');
