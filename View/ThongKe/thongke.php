@@ -159,15 +159,6 @@
             <path onclick = "filterThongKe(event)"  class="coll" d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
           </svg>
         </th>
-        <th class="table-header">Giá
-        <svg  width="16" height="16" fill="currentColor" class="coll price asc" viewBox="0 0 16 16" >
-            <path onclick = "filterThongKe(event)"  class="coll" d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-          </svg>
-
-          <svg  width="16" height="16" fill="currentColor" class="coll price desc hide" viewBox="0 0 16 16" >
-            <path onclick = "filterThongKe(event)"  class="coll" d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-          </svg>
-        </th>
         <th class="table-header">Số lượng đã bán
         <svg  width="16" height="16" fill="currentColor" class="coll amount asc" viewBox="0 0 16 16" >
             <path onclick = "filterThongKe(event)"  class="coll" d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>

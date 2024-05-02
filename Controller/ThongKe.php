@@ -30,7 +30,6 @@ function thongKe()
       <tr>
         <th class = "table-cell stt">' . $value[3] . '</th>
         <th class ="table-cell nameTour ">' . $value[0] . '</th>
-        <th class = "table-cell price-tk">' . '~' . '</th>
         <th class = "table-cell num-bought ">' . $value[1] . '</th>
         <th class = "table-cell total-money">' . $value[2] . '</th>
       </tr>';
@@ -45,7 +44,6 @@ function thongKe()
       <tr>
         <th class = "table-cell stt">' . $value[0] . '</th>
         <th class ="table-cell nameTour ">' . $value[1] . '</th>
-        <th class = "table-cell price-tk">' . $value[2] . '</th>
         <th class = "table-cell num-bought ">' . $value[3] . '</th>
         <th class = "table-cell total-money">' . $value[4] . '</th>
       </tr>';
@@ -57,7 +55,6 @@ function thongKe()
   echo '
       <tr style = "font-weight : 600">
         <th class = "table-cell">Tổng :
-        <th class = "table-cell"> </th>
         <th class = "table-cell"> </th>
         <th class = "table-cell"> ' . $tongSL . '</th>
         <th class = "table-cell"> ' . $tongTien . '</th>

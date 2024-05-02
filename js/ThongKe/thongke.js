@@ -111,8 +111,8 @@ function filterThongKe(event){
 
 }
 
-let myChart = null;
-let mychart1 =null;
+let myChartSoLuong = null;
+let myChartDoanhThu =null;
 
 function DrawChartData(){
 
@@ -151,7 +151,7 @@ let convertpriceTK = [];
   if (chartStatus != undefined) {
     chartStatus.destroy();
   }
-  mychart = new Chart(ctx, {
+  myChartSoLuong = new Chart(ctx, {
     type: 'bar',
     data: {
       labels:convertNameTour,
@@ -177,7 +177,7 @@ let convertpriceTK = [];
     chartStatus.destroy();
   }
 
-  mychart1 = new Chart(ctx1 , {
+  myChartDoanhThu = new Chart(ctx1 , {
     type : 'bar',
     data : {
       labels : convertNameTour ,

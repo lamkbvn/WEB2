@@ -40,6 +40,7 @@ function changeNameProfile(event){
         action : 'nameUser',
         nameChange: nameChange },
       success: function(response) {
+          alert("Thay đổi tên thành công");
           $('.profile-name-user').html(response);
           $('.tennguoidung').html(response);
           $('.name-user').html(response);
@@ -97,6 +98,7 @@ function changeAddressProfile(event) {
       addressChange : addressChange
     },
     success  : function(response) {
+      alert("Thay đổi số địa chỉ thành công");
       $('.address-user').html(response);
       offEditProfile(event);
       errorMess[0].innerHTML = '';
@@ -126,6 +128,7 @@ function changesdtProfile(event) {
     },
     success  : function(response) {
       console.log(response);
+      alert("Thay đổi số điện thoại thành công");
       $('.sdt-user').html(response);
       offEditProfile(event);
     }

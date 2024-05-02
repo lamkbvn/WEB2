@@ -611,7 +611,7 @@ class Database
         'total_money' => 2,
         'id' => 3,
       ];
-      if ($namecoll != '' && $namecoll != 'price' && $namecoll != 'date_go') {
+      if ($namecoll != '') {
         $column = [];
         foreach ($objects as $keyx => $value) {
           $column[$keyx] = $value[$listOrder[$namecoll]]; // Chỉ lấy giá trị cột 1
@@ -708,28 +708,32 @@ class Database
   public function resultEmailUser($idUser, $emailChange)
   {
 
+    $sql = 'select * from nguoidung where id = ' . $idUser;
+    $result = mysqli_query($this->conn, $sql);
+    $row = mysqli_fetch_array($result);
+
     if ($emailChange != '') {
-      $sql = 'select * from nguoidung where email =  ?';
-      $stmt = $this->conn->prepare($sql);
+      $sql1 = 'select * from nguoidung where email =  ?';
+      $stmt = $this->conn->prepare($sql1);
       $stmt->bind_param('s', $emailChange);
       $stmt->execute();
       $result = $stmt->get_result();
       if (mysqli_num_rows($result) > 0) {
         echo '
         <script> alert("Tên email đã tồn tại"); </script>
-        ';
+        ' . $row['email'];
+        return;
       }
     }
-
-    $sql = 'select * from nguoidung where id = ' . $idUser;
-    $result = mysqli_query($this->conn, $sql);
-    $row = mysqli_fetch_array($result);
 
     $fullemailprofile = $row['email'];
     if ($emailChange != '') {
       $fullemailprofile = $_POST['emailChange'];
       $sql = 'Update nguoidung SET email = "' . $fullemailprofile . '"  WHERE id = ' . $idUser;
       mysqli_query($this->conn, $sql);
+      echo '
+        <script> alert("Thay đổi email thành công"); </script>
+        ';
     }
     echo $fullemailprofile;
   }
@@ -783,6 +787,7 @@ class Database
       $sql = 'Update nguoidung SET fullname = "' . $fullnameprofile . '"  WHERE id = ' . $idUser;
       mysqli_query($this->conn, $sql);
     }
+
     echo $fullnameprofile;
   }
 
@@ -798,6 +803,7 @@ class Database
       $sql = 'Update nguoidung SET phone_number = ' . $sdtprofile . '  WHERE id = ' . $idUser;
       mysqli_query($this->conn, $sql);
     }
+
     echo $sdtprofile;
   }
 
