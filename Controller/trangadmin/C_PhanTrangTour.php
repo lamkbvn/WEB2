@@ -153,7 +153,7 @@ switch ($table) {
             $htmlTable .= "<td class='table-cell'>";
             $htmlTable .= "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=detailOrder&id={$value['id']}'>Detail</a>";
             if ($isDelete) {
-                $htmlTable .= "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=deleteOrder&id={$value['id']}'>Delete</a>";
+                $htmlTable .= "<a class='delete-btn table-btn' onclick='handleDeleteClick(this)' data-delete-url='index.php?controller=trang-admin&action=deleteOrder&id={$value['id']}'>Delete</a>";
             }
             $htmlTable .= "</td>";
             $htmlTable .= "</tr>";
