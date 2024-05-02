@@ -113,18 +113,29 @@ class Database
     return $this->execute($sql);
   }
 
-  // edit user
-  public function updateEditData($id, $fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)
+  public function checkUpdate()
   {
-    $sql = "UPDATE nguoidung SET fullname='$fullname', email='$email', phone_number='$phone_number', create_at='$create_at', status='$status', address='$address', id_acount='$id_acount' WHERE id='$id'";
-    return $this->execute($sql);
+    if ($this->result !== false && $this->conn->affected_rows > 0) {
+      return true; // Cập nhật thành công
+    } else {
+      return false; // Không có bản ghi nào được cập nhật
+    }
   }
+
+  public function updateEditData($id, $fullname, $email, $phone_number, $create_at, $address)
+  {
+    $sql = "UPDATE nguoidung SET fullname='$fullname', email='$email', phone_number='$phone_number', create_at='$create_at', address='$address' WHERE id='$id'";
+    $this->execute($sql);
+    return $this->checkUpdate(); // Kiểm tra kết quả của câu lệnh UPDATE
+  }
+
   public function roleAccount($id, $role)
   {
     $sql = "UPDATE acount SET id_role = '$role' WHERE id = '$id'";
 
     return $this->execute($sql);
   }
+  
   // delete user
   public function deleteUser($table, $id)
   {
@@ -163,11 +174,25 @@ class Database
   }
 
 
+  public function getNguoiDungByIDAcount($idAccount)
+  {
+    $sql = "SELECT * FROM nguoidung WHERE id_acount = '$idAccount' ";
+    return $this->execute($sql);
+  }
+
+
   public function checkLogin($username, $password)
   {
     $sql = "SELECT * FROM acount WHERE user_name = '$username' AND password = '$password'";
     return $this->execute($sql);
   }
+
+  public function getUserByIdAcount($username)
+  {
+    $sql = "SELECT * FROM nguoidung WHERE id_acount = '$username' ";
+    return $this->execute($sql);
+  }
+
 
   public function getRole()
   {
@@ -621,7 +646,7 @@ class Database
           array_multisort($column, SORT_ASC, $objects);
         else
           if ($orderby == 'DESC')
-            array_multisort($column, SORT_DESC, $objects);
+          array_multisort($column, SORT_DESC, $objects);
       }
 
       return $objects;
@@ -699,7 +724,7 @@ class Database
         array_multisort($column, SORT_ASC, $objects);
       else
         if ($orderby == 'DESC')
-          array_multisort($column, SORT_DESC, $objects);
+        array_multisort($column, SORT_DESC, $objects);
     }
 
     return $objects;

@@ -18,6 +18,7 @@ switch ($action) {
 	case 'login': {
 			session_start();
 			ob_start();
+			$ban = 1;
 			if (isset($_REQUEST['login'])) {
 				$username = $_REQUEST['username'];
 				$password = $_REQUEST['password'];
@@ -31,17 +32,27 @@ switch ($action) {
 					$flagLogin = 1;
 					$_SESSION['isLogin'] = $flagLogin;
 					$idRole = $rowCheckLogin['id_role'];
-					if ($idRole != 0) {
+
+					$resuiltidAcount = $db->getUserByIdAcount($idUser);
+					$rowidAcount = $resuiltidAcount->fetch_assoc();
+					// $statusUser = $rowidAcount['status'];
+
+
+					if ($idRole != 0 && $rowidAcount['status'] != 0) {
 						header("Location: index.php?controller=trang-admin&action=trangChuAdmin");
-					} else {
+					} else if ($idRole == 0 && $rowidAcount['status'] != 0) {
 						header("Location: index.php?controller=trang-chu");
+					} else if ($rowidAcount['status'] == 0) {
+						header("Location: index.php?controller=trang-chu&action=login");
+						$_SESSION['error_message'] = "Tài khoản đã bị vô hiệu hóa!";
 					}
+
 					exit();
 				} else {
 					$flagLogin = 0;
 					$_SESSION['isLogin'] = $flagLogin;
 					http_response_code(401);
-					echo '<div style="color:red; margin-bottom: 10px;">Tên đăng nhập hoặc mật khẩu không đúng!</div>';
+					$_SESSION['error_username_password'] = "Tên đăng nhập hoặc mật khẩu không đúng!";
 				}
 			}
 			require_once('View/trangchu/login.php');
@@ -52,7 +63,7 @@ switch ($action) {
 		break;
 	case "cart":
 		session_start();
-		
+
 		// lầy id user trên session
 		$idUser = $_SESSION['idUserLogin'];
 		$sql = "SELECT cart.*, product.*, tickettour.*,tickettour.id AS ticket_id, cart.id AS cart_id
@@ -60,9 +71,9 @@ switch ($action) {
 		INNER JOIN product ON cart.id_product = product.id
 		INNER JOIN tickettour ON cart.idTicket = tickettour.id
 		WHERE cart.id_user = $idUser";
-	
+
 		$result = $db->execute($sql);
-	
+
 		if ($result && $result->num_rows > 0) {
 			// Tìm nạp tất cả các mục trong giỏ hàng vào một mảng
 			$listCart = $db->getAll();
@@ -71,33 +82,33 @@ switch ($action) {
 			$listCart = array();
 		}
 		include "View/Cart/cart.php";
-	break;
+		break;
 	case 'deleteItemCart':
 		session_start();
-		
+
 		if (isset($_GET['id']) && $_GET['id'] > 0) {
 			// Kiểm tra quyền truy cập ở đây nếu cần
-			
+
 			$ItemId = $_GET['id'];
 			$result = $db->deleteItemCart($ItemId);
-		
+
 			// Nếu xóa thành công, hiển thị lại danh sách giỏ hàng
 			if ($result) {
 				$idUser = $_SESSION['idUserLogin'];
-		
+
 				$sql = "SELECT cart.*, product.* , cart.id AS cart_id
 						FROM cart 
 						INNER JOIN product ON cart.id_product = product.id
 						WHERE cart.id_user = $idUser";
-		
+
 				$result = $db->execute($sql);
-		
+
 				if ($result && $result->num_rows > 0) {
 					$listCart = $db->getAll();
 				} else {
 					$listCart = array();
 				}
-		
+
 				include "View/Cart/cart.php";
 			} else {
 				// Xử lý khi xóa không thành công nếu cần

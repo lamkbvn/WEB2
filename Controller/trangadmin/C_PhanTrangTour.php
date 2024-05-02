@@ -100,7 +100,6 @@ switch ($table) {
                 $htmlTable .= "<td class='table-cell'>";
 
                 if ($isEdit == 1) {
-                    $htmlTable .= "<a  href='index.php?controller=trang-admin&action=editrole&id={$value['id']}' class='edit-role table-btn'>Role</a>";
                     $htmlTable .= "<a class='edit-btn table-btn a-href-ajax' href='index.php?controller=trang-admin&action=edit&id={$value['id']}'>Edit</a>";
 
                     $status = $value['status'];
@@ -194,4 +193,3 @@ $numPaging .= "<span style='border-radius: 5px;display: block; border: solid 1px
 
 $htmlArray = array('table' => $htmlTable, 'paging' => $numPaging);
 echo json_encode($htmlArray);
-
