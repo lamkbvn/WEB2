@@ -241,7 +241,7 @@ if (isset($_POST['action'])) {
         echo '
       <div class="item-dh ' . $row['id'] . '">
       <div class="txt-dh">Don hang ' . $i++ . '</div>
-      <div class="txt-date">' . $row['date_order'] . '</div>
+      <div class="txt-date">Đặt ngày : ' . $row['date_order'] . '</div>
       <div class="txt-status">Trạng thái : ' . $trangThai . '</div>
       <div class="btn-item-dh">
         <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>

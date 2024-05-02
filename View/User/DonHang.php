@@ -31,7 +31,7 @@
 
   .item-dh{
     width : 90%;
-    max-height : 60px;
+    max-height : 70px;
     height : 10%;
     display : flex;
     flex-wrap :wrap;
@@ -173,11 +173,11 @@
   }
 
   .txt-status{
-    width: 165px;
+    width: 200px;
     font-size : 14px;
   }
 
-  @media screen and (max-width: 620px) {
+  @media screen and (width <= 620px) {
     .display {
       max-width: 380px;
     }
@@ -189,6 +189,12 @@
     .detail-dh{
       max-height: 90px;
     }
+}
+
+@media screen and (width <= 431px) {
+  .btn-item-dh{
+    width : 135px;
+  }
 }
 </style>
 <body>
@@ -237,7 +243,7 @@
         echo '
       <div class="item-dh ' . $row['id'] . '">
       <div class="txt-dh">Don hang ' . $i++ . '</div>
-      <div class="txt-date">' . $row['date_order'] . '</div>
+      <div class="txt-date"> Đặt ngày : ' . $row['date_order'] . '</div>
       <div class="txt-status">Trạng thái : ' . $trangThai . '</div>
       <div class="btn-item-dh">
         <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
