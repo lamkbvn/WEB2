@@ -199,14 +199,27 @@
         function filterDate() {
             let dateStart = dateStartEle.value;
             let dateEnd = dateEndEle.value;
+            let startDate = new Date(dateStart);
+            let endDate = new Date(dateEnd);
 
             console.log(dateStart);
             console.log(dateEnd);
             let rows = table.getElementsByClassName("table-roww");
+            for(let i = 0; i < rows.length; i++) {
+                rows[i].parentElement.style.display = "";
+            }
             if (dateStart == "" && dateEnd == "") {
                 for (let i = 0; i < rows.length; i++) {
                     rows[i].style.display = ""; // Hiển thị hàng
                 }
+                return;
+            }
+            if (dateStart == "" || dateEnd == "") {
+                alert("Vui lòng chọn cả 2 ngày bắt đầu và kết thúc");
+                return;
+            }
+            if(startDate > endDate){
+                alert("Ngày bắt đầu không thể lớn hơn ngày kết thúc");
                 return;
             }
             for(let i = 0; i < rows.length; i++) {
@@ -216,8 +229,7 @@
                 let rowVisible = false;
 
                 let rowDate = new Date(dateString);
-                let startDate = new Date(dateStart);
-                let endDate = new Date(dateEnd);
+                
 
                 // Kiểm tra xem ngày trong khoảng thời gian được chọn không
                 if (rowDate >= startDate && rowDate <= endDate) {
@@ -232,29 +244,6 @@
                 }
 
             }
-            // for (let i = 0; i < rows.length; i++) {
-            //     let date = rows[i].getElementsByClassName("date");
-            //     console.log(date) // Sử dụng getElementsByClassName vì không có id duy nhất
-            //     let dateString = date.textContent;
-            //     let rowVisible = false;
-
-            //     // Chuyển đổi các chuỗi ngày thành đối tượng Date để so sánh
-            //     let rowDate = new Date(dateString);
-            //     let startDate = new Date(dateStart);
-            //     let endDate = new Date(dateEnd);
-
-            //     // Kiểm tra xem ngày trong khoảng thời gian được chọn không
-            //     if (rowDate >= startDate && rowDate <= endDate) {
-            //         rowVisible = true;
-            //     }
-
-            //     // Hiển thị hoặc ẩn hàng dựa trên kết quả kiểm tra ngày
-            //     if (rowVisible) {
-            //         rows[i].style.display = ""; // Hiển thị hàng
-            //     } else {
-            //         rows[i].style.display = "none"; // Ẩn hàng
-            //     }
-            // }
         }
 
 
