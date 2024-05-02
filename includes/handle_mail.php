@@ -1,40 +1,40 @@
 <?php
-require_once (__DIR__ . "/phpmailer/Exception.php");
-require_once (__DIR__ . "/phpmailer/PHPMailer.php");
-require_once (__DIR__ . "/phpmailer/SMTP.php");
-require_once (__DIR__ . "/function.php");
+require_once(__DIR__ . "/phpmailer/Exception.php");
+require_once(__DIR__ . "/phpmailer/PHPMailer.php");
+require_once(__DIR__ . "/phpmailer/SMTP.php");
+require_once(__DIR__ . "/function.php");
 
 
 // Kiểm tra xem có dữ liệu được gửi qua phương thức POST không
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
-	$hostname = 'localhost';
-	$username = 'root';
-	$password = '';
-	$dbname = 'web2';
-	$conn = new mysqli($hostname, $username, $password, $dbname);
-	if ($conn->connect_error) {
-		die("Kết nối CSDL thất bại: " . $conn->connect_error);
-	}
+	// $hostname = 'localhost';
+	// $username = 'root';
+	// $password = '';
+	// $dbname = 'web2';
+	// $conn = new mysqli($hostname, $username, $password, $dbname);
+	// if ($conn->connect_error) {
+	// 	die("Kết nối CSDL thất bại: " . $conn->connect_error);
+	// }
 	$email = $_POST['email'];
-	$discount_name = "Khuyến mãi cho người dùng mới";
-	$code = "NGUOIDUNGMOI" . rand();
-	$percent = 10;
-	$date_start = date('Y/m/d');
-	$date_end = date('Y/m/d', strtotime($date_start . ' +1 month'));
-	$description = "Hãy trải nghiệm những dịch vụ hấp dẫn của chúng tôi";
-	$sql = "INSERT INTO discount (discount_name, code, percent, date_start, date_end, description) 
-            VALUES (?, ?, ?, ?, ?, ?)";
-	$stmt = $conn->prepare($sql);
-	$stmt->bind_param("ssisss", $discount_name, $code, $percent, $date_start, $date_end, $description);
-	if ($stmt->execute()) {
-		// Gửi email
-		sendMail($email, 'Welcome to Klook', $code);
-		echo "Đã thêm mã giảm giá vào cơ sở dữ liệu và gửi email thành công.";
-	} else {
-		echo "Có lỗi xảy ra khi thêm mã giảm giá vào cơ sở dữ liệu: " . $conn->error;
-	}
-	// Đóng kết nối
-	$conn->close();
+	// $discount_name = "Khuyến mãi cho người dùng mới";
+	// $code = "NGUOIDUNGMOI" . rand();
+	// $percent = 10;
+	// $date_start = date('Y/m/d');
+	// $date_end = date('Y/m/d', strtotime($date_start . ' +1 month'));
+	// $description = "Hãy trải nghiệm những dịch vụ hấp dẫn của chúng tôi";
+	// $sql = "INSERT INTO discount (discount_name, code, percent, date_start, date_end, description) 
+	//         VALUES (?, ?, ?, ?, ?, ?)";
+	// $stmt = $conn->prepare($sql);
+	// $stmt->bind_param("ssisss", $discount_name, $code, $percent, $date_start, $date_end, $description);
+	// if ($stmt->execute()) {
+	// 	// Gửi email
+	sendMail($email, 'Welcome to Klook', $code);
+	// 	echo "Đã thêm mã giảm giá vào cơ sở dữ liệu và gửi email thành công.";
+	// } else {
+	// 	echo "Có lỗi xảy ra khi thêm mã giảm giá vào cơ sở dữ liệu: " . $conn->error;
+	// }
+	// // Đóng kết nối
+	// $conn->close();
 }
 
 if (isset($_POST['email_forgot'])) {

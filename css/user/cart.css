@@ -467,7 +467,7 @@ header h1 {
 }
 
 /* iphone 12 pro & iphone 14 pro max  */
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 480px) {
   .container-desktop {
     width: 100%;
     padding: 0;

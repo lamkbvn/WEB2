@@ -88,7 +88,7 @@ switch ($action) {
                     $idPro = $_REQUEST['id'];
                     $numTicket = $_REQUEST['numTicketphp'];
                     $idTicket = $_REQUEST['idTicketCart'];
-                    $db->InsertCart($idUser, $idPro, $numTicket, $idTicket, 1);
+                    $db->InsertOrUpdateCart($idUser, $idPro, $numTicket, $idTicket, 1);
                 }
                 // Xử lý khi người dùng nhấn nút "Thêm vào giỏ hàng"
 

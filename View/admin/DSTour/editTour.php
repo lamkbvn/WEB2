@@ -12,7 +12,7 @@
         color: red;
     }
 
-    .valiFormAddTour{
+    .valiFormAddTour {
         font-size: 12px;
         margin-bottom: 3px;
     }
@@ -155,6 +155,22 @@
     .inputfile:focus+.file-upload #uploaded-image3 {
         display: block;
     }
+
+
+    .remove-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 2px;
+        border-radius: 100%;
+    }
+
+    .remove-icon:hover {
+        background-color: rgba(255, 0, 0, 0.7);
+        color: white;
+    }
 </style>
 
 <body>
@@ -211,11 +227,6 @@
                             <input name="price" type="number" value='<?php echo $data["price"] ?>'>
                             <span class="valiFormAddTour" id="priceValidation">Dữ liệu không hợp lệ</span>
                         </div>
-                        <div style="display: none;" class="containFieldAddTour">
-                            <label for="acount">Số lượng</label>
-                            <input name="acount" type="number" value='<?php echo $data["soLuongConLai"] ?>'>
-                            <span class="valiFormAddTour" id="acountValidation">Dữ liệu không hợp lệ</span>
-                        </div>
                         <div class="containFieldAddTour">
                             <label for="address">Địa chỉ</label>
                             <input name="address" type="text" value='<?php echo $data["address"] ?>'>
@@ -234,15 +245,17 @@
                         for ($i = 0; $i < $numImg; $i++) {
                             $row = mysqli_fetch_array($result);
                             echo '<input type="hidden" name="idImg' . $i . '" value="' . $row['id'] . '">';
+                            echo '<input type="hidden" id="deleteImg' . $i . '" name="deleteImg' . $i . '" value="0">';
                             $imageData = $row['image']; // Giả sử cột chứa dữ liệu hình ảnh là 'image'
                             $srcArray[$i] = 'data:image/jpeg;base64,' . base64_encode($imageData);
                         }
-                        for ($i=2; $i>$numImg-1; $i--){
+                        for ($i = 2; $i > $numImg - 1; $i--) {
                             $srcArray[$i] = "images/no_image.gif";
                         }
                         ?>
                         <input type="file" name="img1" id="img1" class="inputfile" accept="image/*">
                         <label for="img1" class="file-upload">
+                            <div class="remove-icon" id="removeicon1" onclick="removeImage(1)">×</div>
                             <span class="spanplus">+</span>
                             <img class="uploaded-image" id="uploaded-image1" src="<?php echo $srcArray[0] ?>" alt="Uploaded Image">
                         </label> <br>
@@ -250,6 +263,7 @@
 
                         <input type="file" name="img2" id="img2" class="inputfile" accept="image/*">
                         <label for="img2" class="file-upload">
+                            <div class="remove-icon" id="removeicon2" onclick="removeImage(2)">×</div>
                             <span class="spanplus">+</span>
                             <img class="uploaded-image" id="uploaded-image2" src="<?php echo $srcArray[1] ?>" alt="Uploaded Image">
                         </label><br>
@@ -257,6 +271,7 @@
 
                         <input type="file" name="img3" id="img3" class="inputfile" accept="image/*">
                         <label for="img3" class="file-upload">
+                            <div class="remove-icon" id="removeicon3" onclick="removeImage(3)">×</div>
                             <span class="spanplus">+</span>
                             <img class="uploaded-image" id="uploaded-image3" src="<?php echo $srcArray[2] ?>" alt="Uploaded Image">
                         </label><br>
@@ -277,6 +292,47 @@
 
     </div>
     <script>
+        for (var i = 1; i <= 3; i++) {
+            var uploadedImage = document.getElementById('uploaded-image' + i);
+            var removeIcon = document.querySelector('#removeicon' + i);
+
+            if (uploadedImage && uploadedImage.src !== "http://localhost/WEB2/images/no_image.gif") {
+                removeIcon.style.display = 'block';
+            } else {
+                removeIcon.style.display = 'none';
+            }
+        }
+
+        var inputFiles = document.querySelectorAll('.inputfile');
+        for (var i = 0; i <= 2; i++) {
+            inputFiles[i].addEventListener('change', function() {
+                var uploadedImage = this.files[0];
+                var uploadedImageId = this.id.replace("img", "");
+                var imageElement = document.getElementById('uploaded-image' + uploadedImageId);
+                var removeIcon = document.getElementById('removeicon' + uploadedImageId);
+
+                if (uploadedImage) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        imageElement.src = e.target.result;
+                        removeIcon.style.display = 'block'; // Hiển thị biểu tượng sau khi tệp được chọn
+                    };
+                    reader.readAsDataURL(uploadedImage);
+                } else {
+                    imageElement.src = ''; // Xóa hình ảnh
+                    removeIcon.style.display = 'none'; // Ẩn biểu tượng
+                }
+            });
+        }
+
+        function removeImage(id) {
+            $('#removeicon' + id).hide(); // Ẩn biểu tượng xóa
+            $('#img' + id).on('click', function(event) {
+                event.preventDefault();
+            });
+            $('#uploaded-image' + id).attr('src', 'images/no_image.gif');
+            $('#deleteImg' + (id - 1)).attr('value', '1');
+        }
         $(document).ready(function() {
             $('.inputfile').change(function() {
                 var file = this.files[0];
@@ -335,7 +391,7 @@
                 document.getElementById('provincialValidation').style.display = 'none';
             }
 
-            if (price.value.trim() === '' || price.value<0) {
+            if (price.value.trim() === '' || price.value < 0) {
                 e.preventDefault();
                 document.getElementById('priceValidation').style.display = 'block';
                 isValid = false;
@@ -343,7 +399,7 @@
                 document.getElementById('priceValidation').style.display = 'none';
             }
 
-            if (acount.value.trim() === '' || acount.value<0) {
+            if (acount.value.trim() === '' || acount.value < 0) {
                 e.preventDefault();
                 document.getElementById('acountValidation').style.display = 'block';
                 isValid = false;

@@ -294,6 +294,7 @@
 
             // Validation
             var isValid = true;
+            
 
             if (title.value.trim() === '') {
                 e.preventDefault();
@@ -327,14 +328,6 @@
                 document.getElementById('priceValidation').style.display = 'none';
             }
 
-            if (acount.value.trim() === '' || acount.value<0) {
-                e.preventDefault();
-                document.getElementById('acountValidation').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('acountValidation').style.display = 'none';
-            }
-
             if (content.value.trim() === '') {
                 e.preventDefault();
                 document.getElementById('contentValidation').style.display = 'block';
@@ -351,6 +344,7 @@
                 document.getElementById('addressValidation').style.display = 'none';
             }
 
+            // console.log(isValid)
             //img1
             var fileInput = document.getElementById('img1');
             if (fileInput.files.length > 0) {
@@ -401,6 +395,7 @@
                     }
                 };
                 reader.readAsDataURL(file);
+                if(isValid) formAddTour.submit();
             }
         });
     </script>

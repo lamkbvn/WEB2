@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-function sendMail($to, $subject, $code)
+function sendMail($to, $subject)
 {
     $mail = new PHPMailer(true);
 
@@ -26,7 +26,6 @@ function sendMail($to, $subject, $code)
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = $subject;
-        $code;
         $mail->Body = '
 		<div class="explorer-collection" style="width: 100%; background-color: #f9f9f9; text-align: center;">
     <div class="container" style="display: inline-block; vertical-align: middle; padding: 5px;">
@@ -38,15 +37,14 @@ function sendMail($to, $subject, $code)
                     <h3 style="font-size: 16px; ">Tải ứng dụng</h3>
                     <img style="width: 600px;" src="https://res.klook.com/image/upload/v1669770702/ued/platform/OTA/email_usp_01.jpg" alt="Tải ứng dụng" style="max-width: 100%;">
                 </div>
-                <div style="margin-bottom: 20px; font-weight: 400;">
+                <deiv style="margin-bottom: 20px; font-weight: 400;">
                     <h3 style="font-size: 16px;">Tận hưởng nhiều ưu đãi hấp dẫn</h3>
                     <img style="width: 600px;" src="https://ci3.googleusercontent.com/meips/ADKq_NZA_dfzMVUJbQeC-puQfxl290tVx8KHzewcpdhiNc-QTJwnfDkL4UlMUOgvzorpUVE7l79p2FHkv_wCJdiUnX_jcuo3jSd3KUH8iC86VU-lUURqipMpVlckNQilOJY9Z1oX6qomYg=s0-d-e1-ft#https://res.klook.com/image/upload/v1669770702/ued/platform/OTA/email_usp_04.jpg" alt="Tận hưởng nhiều ưu đãi hấp dẫn" style="max-width: 100%;">
-                </div>
+                </deiv>
                 <div>
                     <h3 style="font-size: 16px; font-weight: 400;">Chuyến du lịch hoàn hảo trong tầm tay bạn</h3>
                     <img style="width: 600px;" src="https://ci3.googleusercontent.com/meips/ADKq_NbmV6MLGYRxfu2R8ynZFPFJwiNNGJxaZ-TqkfHkD1TEycwmUUjh9LnjhZ8lgItXFJOiq6lWdOU4vdN4RJn45rttXG3P1b50FDeMDEJJtks9PyjI3A7zT0t73hiz0o-08Fg_jwJbPA=s0-d-e1-ft#https://res.klook.com/image/upload/v1669770702/ued/platform/OTA/email_usp_02.jpg" alt="Chuyến du lịch hoàn hảo trong tầm tay bạn" style="max-width: 100%;">
                 </div>
-                <p style="font-size: 16px; font-weight: 400;">Mã ưu đãi: ' . $code . '</p> 
             </div>
           
         </div>
@@ -149,30 +147,29 @@ function sendMailUpdateOrder($to, $idOrder, $oldStatus, $newStatus, $listOrderDe
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
         $mail->Port = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         $mail->CharSet = 'UTF-8';
-        
+
         //Recipients
         $mail->setFrom('duylam468213@gmail.com', 'Klook');
         $mail->addAddress($to);     //Add a recipient
 
         //Content
         $mail->isHTML(true);
-        
+
         // Generate table content
         $subject_content_table = '';
         $stt = 1;
         foreach ($listOrderDetail as $value) {
-                    $dbbbb = new Database();
-                    $dbbbb->connect();
-                    $result = $dbbbb->GetImgProduct($value['id_product']);
-                    $row = mysqli_fetch_array($result);
-                    $numImg = mysqli_num_rows($result);
-                    if($numImg>0) {
-                            $imageData = $row['image'];
-                            $url = 'data:image/jpeg;base64,' . base64_encode($imageData);
-                    }
-                    else {
-                            $url = "images/no_image.gif";
-                    }
+            $dbbbb = new Database();
+            $dbbbb->connect();
+            $result = $dbbbb->GetImgProduct($value['id_product']);
+            $row = mysqli_fetch_array($result);
+            $numImg = mysqli_num_rows($result);
+            if ($numImg > 0) {
+                $imageData = $row['image'];
+                $url = 'data:image/jpeg;base64,' . base64_encode($imageData);
+            } else {
+                $url = "images/no_image.gif";
+            }
             $subject_content_table .= '
             <tr class="table-row" style="border: 1px solid #333;">
                 <td class="table-cell id" style="border: 1px solid #333; padding: 5px">' . $stt++ . '</td>
@@ -192,11 +189,11 @@ function sendMailUpdateOrder($to, $idOrder, $oldStatus, $newStatus, $listOrderDe
     <tr>
         <td colspan="8" style="border: 1px solid #333; padding: 5px"> Tổng tiền cuối: <span style="font-weight: 600">' . number_format($totalAllMoney, 0, ",", ".")  . ' vnđ</span></td>
     </tr>';
-        
+
         // Email content
         $subject_content = "[Klook] Cập nhật trạng thái đơn hàng [# " . $idOrder . "]";
         $subject_content_body_inform = "Chúng tôi xin thông báo với bạn rằng đơn hàng của bạn với mã số [# " . $idOrder . " ] đã được cập nhật trạng thái mới như sau: ";
-        
+
         switch ($oldStatus) {
             case 1:
                 $subject_content_body_status_before = "Trạng thái trước đó: <span style='font-weight: 600'>chờ xác nhận</span>";
@@ -217,7 +214,7 @@ function sendMailUpdateOrder($to, $idOrder, $oldStatus, $newStatus, $listOrderDe
                 $subject_content_body_status_before = "Trạng thái trước đó: <span style='font-weight: 600'>Unknown status</span>";
                 break;
         }
-        
+
         switch ($newStatus) {
             case 1:
                 $subject_content_body_status_after = "Trạng thái mới: <span style='font-weight: 600'>chờ xác nhận</span>";
@@ -235,7 +232,7 @@ function sendMailUpdateOrder($to, $idOrder, $oldStatus, $newStatus, $listOrderDe
                 $subject_content_body_status_after = "Trạng thái mới: <span style='font-weight: 600'>đã huỷ bỏ</span>";
                 break;
         }
-        
+
         $mail->Subject = mb_encode_mimeheader($subject_content, 'UTF-8');
 
         $mail->Body = '<div class="email-send-fogotpassword" style="background-color: #fff; padding: 20px">
@@ -246,11 +243,11 @@ function sendMailUpdateOrder($to, $idOrder, $oldStatus, $newStatus, $listOrderDe
         Chúng tôi xin gửi lời cảm ơn chân thành đến Quý khách hàng đã tin tưởng và sử dụng dịch vụ của chúng tôi. Chúng tôi mong muốn rằng bạn đang có một trải nghiệm du lịch thú vị và đáng nhớ.
         </p>
         <p style="color: #212121; font-size: 16px">
-            ' .$subject_content_body_inform .'
+            ' . $subject_content_body_inform . '
         </p>
 
-        <p style="color: #212121; font-size: 16px"> ' .$subject_content_body_status_before . '</p>
-        <p style="color: #212121; font-size: 16px"> ' .$subject_content_body_status_after . '</p>
+        <p style="color: #212121; font-size: 16px"> ' . $subject_content_body_status_before . '</p>
+        <p style="color: #212121; font-size: 16px"> ' . $subject_content_body_status_after . '</p>
 
         <table id="tableData" class="custom-table" style="border: 1px solid #ccc; border-collapse: collapse; padding: 5px">
                 <thead class="table-head">
@@ -266,7 +263,7 @@ function sendMailUpdateOrder($to, $idOrder, $oldStatus, $newStatus, $listOrderDe
                     </tr>
                 </thead>
                 <tbody>
-                    '. $subject_content_table .'
+                    ' . $subject_content_table . '
                 </tbody>
             </table>
 
@@ -291,7 +288,4 @@ function sendMailUpdateOrder($to, $idOrder, $oldStatus, $newStatus, $listOrderDe
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
-
 }
-
-

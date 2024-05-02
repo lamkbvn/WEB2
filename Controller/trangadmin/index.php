@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Promise\Is;
 
 if (isset($_GET['controller']) && $_GET['controller'] == 'trang-admin') {
 	include_once("View/admin/header-admin.php");
@@ -24,43 +25,44 @@ switch ($action) {
 		}
 
 	case 'edit': {
-			if (isset($_GET['id'])) {
-				$id = $_GET['id'];
-				$listUsersTable = "nguoidung";
-				$dataID = $db->getDataId($listUsersTable, $id);
-				if (isset($_POST['edit_user'])) {
-					$fullname = $_POST['fullname'];
-					$email = $_POST['email'];
-					$phone_number = $_POST['phone_number'];
-					$create_at = $_POST['create_at'];
-					$status = $_POST['status'];
-					$address = $_POST['address'];
-					$id_acount = $_POST['id_acount'];
+			// if (isset($_GET['id'])) {
+			// 	$id = $_GET['id'];
+			// 	$listUsersTable = "nguoidung";
+			// 	$dataID = $db->getDataId($listUsersTable, $id);
+			// 	if (isset($_POST['edit_user'])) {
+			// 		$fullname = $_POST['fullname'];
+			// 		$email = $_POST['email'];
+			// 		$phone_number = $_POST['phone_number'];
+			// 		$create_at = $_POST['create_at'];
+			// 		$status = $_POST['status'];
+			// 		$address = $_POST['address'];
 
-					if ($db->updateEditData($id, $fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)) {
-						header('location: index.php?controller=trang-admin&action=indexAdmin');
-					}
-				}
-			}
+			// 		if ($db->updateEditData($id, $fullname, $email, $phone_number, $create_at, $address)) {
+			// 			header('location: index.php?controller=trang-admin&action=indexAdmin');
+			// 		}
+			// 	}
+			// }
+			$listRoleTable = "role";
+			$roles = $db->getAllData($listRoleTable);
 			require_once('View/admin/edit.php');
 			break;
 		}
 
 	case 'editrole': {
-			$listRoleTable = "role";
-			$roles = $db->getAllData($listRoleTable);
+			// $listRoleTable = "role";
+			// $roles = $db->getAllData($listRoleTable);
 
-			if (isset($_GET['id'])) {
-				$id = $_GET['id'];
-				if ($_SERVER["REQUEST_METHOD"] == "POST") {
-					if (isset($_POST['role'])) {
-						$role = $_POST['role'];
-						if ($db->roleAccount($id, $role)) {
-							header('location: index.php?controller=trang-admin&action=indexAdmin');
-						}
-					}
-				}
-			}
+			// if (isset($_GET['id'])) {
+			// 	$id = $_GET['id'];
+			// 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			// 		if (isset($_POST['role'])) {
+			// 			$role = $_POST['role'];
+			// 			if ($db->roleAccount($id, $role)) {
+			// 				header('location: index.php?controller=trang-admin&action=indexAdmin');
+			// 			}
+			// 		}
+			// 	}
+			// }
 			require_once('View/admin/editrole.php');
 			break;
 		}
@@ -99,7 +101,7 @@ switch ($action) {
 		}
 
 	case 'trangChuAdmin': {
-			$soLuongKH = $db->getSoLuong('acount', 'id_role = 0');
+			$tongDoanhThu = $db->getTongDoanhThu('orders');
 			$soLuongSP = $db->getSoLuong('product', 'id > 0');
 			$soLuongDH = $db->getSoLuong('orders', 'id > 0');
 			$soLuongFB = $db->getSoLuong('feedback', 'id > 0');
@@ -488,12 +490,12 @@ switch ($action) {
 			$result = $db->deleteOrder($orderId);
 
 			//nếu thành công thì hiện thị lại ds voucher
-			if ($result) {
-				$sql = "SELECT * FROM orders order by id desc";
-				$result = $db->execute($sql);
-				$listOrder = $db->getAll();
-				include "View/admin/order/order.php";
-			}
+			// if ($result) {
+			// 	$sql = "SELECT * FROM orders order by id desc";
+			// 	$result = $db->execute($sql);
+			// 	$listOrder = $db->getAll();
+			// 	include "View/admin/order/order.php";
+			// }
 		}
 		break;
 	case 'detailOrder':

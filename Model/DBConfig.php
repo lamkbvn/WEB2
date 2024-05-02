@@ -113,18 +113,29 @@ class Database
     return $this->execute($sql);
   }
 
-  // edit user
-  public function updateEditData($id, $fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)
+  public function checkUpdate()
   {
-    $sql = "UPDATE nguoidung SET fullname='$fullname', email='$email', phone_number='$phone_number', create_at='$create_at', status='$status', address='$address', id_acount='$id_acount' WHERE id='$id'";
-    return $this->execute($sql);
+    if ($this->result !== false && $this->conn->affected_rows > 0) {
+      return true; // Cập nhật thành công
+    } else {
+      return false; // Không có bản ghi nào được cập nhật
+    }
   }
+
+  public function updateEditData($id, $fullname, $email, $phone_number, $create_at, $address)
+  {
+    $sql = "UPDATE nguoidung SET fullname='$fullname', email='$email', phone_number='$phone_number', create_at='$create_at', address='$address' WHERE id='$id'";
+    $this->execute($sql);
+    return $this->checkUpdate(); // Kiểm tra kết quả của câu lệnh UPDATE
+  }
+
   public function roleAccount($id, $role)
   {
     $sql = "UPDATE acount SET id_role = '$role' WHERE id = '$id'";
-
-    return $this->execute($sql);
+    $this->execute($sql);
+    return $this->checkUpdate();
   }
+
   // delete user
   public function deleteUser($table, $id)
   {
@@ -163,11 +174,25 @@ class Database
   }
 
 
+  public function getNguoiDungByIDAcount($idAccount)
+  {
+    $sql = "SELECT * FROM nguoidung WHERE id_acount = '$idAccount' ";
+    return $this->execute($sql);
+  }
+
+
   public function checkLogin($username, $password)
   {
     $sql = "SELECT * FROM acount WHERE user_name = '$username' AND password = '$password'";
     return $this->execute($sql);
   }
+
+  public function getUserByIdAcount($username)
+  {
+    $sql = "SELECT * FROM nguoidung WHERE id_acount = '$username' ";
+    return $this->execute($sql);
+  }
+
 
   public function getRole()
   {
@@ -251,11 +276,23 @@ class Database
     return $data;
   }
   // thêm giỏ hàng
-  public function InsertCart($id_user, $id_product, $amount, $idTicket, $status)
+  public function InsertOrUpdateCart($id_user, $id_product, $amount, $idTicket, $status)
   {
-    $sql = "INSERT INTO cart (id_user, id_product, amount, status, idTicket) VALUES ('$id_user', '$id_product', '$amount', '$status', '$idTicket')";
-    return $this->execute($sql);
+    // Kiểm tra xem có bản ghi nào trong bảng cart có id_user và idTicket đã cho hay không
+    $sql_check = "SELECT * FROM cart WHERE id_user = '$id_user' AND idTicket = '$idTicket'";
+    $result = $this->execute($sql_check);
+
+    if ($result->num_rows > 0) {
+      // Nếu tìm thấy bản ghi, cập nhật số lượng bằng cách cộng thêm giá trị mới
+      $sql_update = "UPDATE cart SET amount = amount + $amount WHERE id_user = '$id_user' AND idTicket = '$idTicket'";
+      return $this->execute($sql_update);
+    } else {
+      // Nếu không tìm thấy bản ghi, thêm bản ghi mới vào bảng cart
+      $sql_insert = "INSERT INTO cart (id_user, id_product, amount, status, idTicket) VALUES ('$id_user', '$id_product', '$amount', '$status', '$idTicket')";
+      return $this->execute($sql_insert);
+    }
   }
+
 
   // public function checkAvailableTour($idTour){
   //   $sql="SELECT * FROM product WHERE id = $idTour and soLuongConLai>0;";
@@ -413,7 +450,7 @@ class Database
     return $this->execute($sql);
   }
   //edit Tour
-  public function UpdateTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $dateUpdate, $address, $acount)
+  public function UpdateTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $dateUpdate, $address)
   {
     $sql = "UPDATE product SET 
             id_category = '$id_cate', 
@@ -456,6 +493,19 @@ class Database
   public function UpdateImg($id, $img)
   {
     $sql = 'Update image_product SET image = "' . $img . '"  WHERE id = ' . $id;
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  public function DeleteImg($id)
+  {
+    $sql = 'delete from image_product where  id = ' . $id;
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
@@ -621,7 +671,7 @@ class Database
           array_multisort($column, SORT_ASC, $objects);
         else
           if ($orderby == 'DESC')
-            array_multisort($column, SORT_DESC, $objects);
+          array_multisort($column, SORT_DESC, $objects);
       }
 
       return $objects;
@@ -699,7 +749,7 @@ class Database
         array_multisort($column, SORT_ASC, $objects);
       else
         if ($orderby == 'DESC')
-          array_multisort($column, SORT_DESC, $objects);
+        array_multisort($column, SORT_DESC, $objects);
     }
 
     return $objects;
@@ -1014,6 +1064,14 @@ class Database
     $result = $this->execute($sql);
     $row = $result->fetch_assoc();
     return $row['count'];
+  }
+
+  public function getTongDoanhThu($table)
+  {
+    $sql = "SELECT SUM(total_money) AS SUM FROM $table";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['SUM'];
   }
 
   public function getCountYesterday($table, $date)
