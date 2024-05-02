@@ -278,31 +278,32 @@
                 }
             }
         });
-        function handleDeleteClick(deleteBtn) {
-    console.log("da nhan vo nuts xoa don hang");
-    var deleteUrl = deleteBtn.getAttribute('data-delete-url');
-    var rowToDelete = deleteBtn.closest('.table-row');
-    console.log(rowToDelete);
-    var confirmDelete = confirm('Bạn có chắc chắn muốn xóa đơn hàng này không?');
-    console.log(deleteUrl);
-    if (confirmDelete) {
-        $.ajax({
-            url: deleteUrl,
-            type: 'GET',
-            success: function(response) {
-                // Xử lý phản hồi thành công (nếu cần)
-                if (rowToDelete) { // Kiểm tra nếu rowToDelete tồn tại
-                    rowToDelete.classList.add("hidden")// Ẩn dòng bằng jQuery hide()
-                }
-            },
-            error: function(xhr, status, error) {
-                // Xử lý lỗi (nếu cần)
-            }
-        });
-    } else {
-        // Nếu người dùng không đồng ý, không làm gì cả
-    }
-}
+        // tao fixed rồi nha
+    //     function handleDeleteClick(deleteBtn) {
+    // console.log("da nhan vo nuts xoa don hang");
+    // var deleteUrl = deleteBtn.getAttribute('data-delete-url');
+    // var rowToDelete = deleteBtn.closest('.table-row');
+    // console.log(rowToDelete);
+    // var confirmDelete = confirm('Bạn có chắc chắn muốn xóa đơn hàng này không?');
+    // console.log(deleteUrl);
+    // if (confirmDelete) {
+    //     $.ajax({
+    //         url: deleteUrl,
+    //         type: 'GET',
+    //         success: function(response) {
+    //             // Xử lý phản hồi thành công (nếu cần)
+    //             if (rowToDelete) { // Kiểm tra nếu rowToDelete tồn tại
+    //                 rowToDelete.classList.add("hidden")// Ẩn dòng bằng jQuery hide()
+    //             }
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Xử lý lỗi (nếu cần)
+    //         }
+    //     });
+    // } else {
+    //     // Nếu người dùng không đồng ý, không làm gì cả
+    // }
+// }
     </script>
     <script src="js/sapxep.js"></script>
 </body>
