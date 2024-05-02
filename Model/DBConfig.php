@@ -132,10 +132,10 @@ class Database
   public function roleAccount($id, $role)
   {
     $sql = "UPDATE acount SET id_role = '$role' WHERE id = '$id'";
-
-    return $this->execute($sql);
+    $this->execute($sql);
+    return $this->checkUpdate();
   }
-  
+
   // delete user
   public function deleteUser($table, $id)
   {
@@ -277,21 +277,21 @@ class Database
   }
   // thêm giỏ hàng
   public function InsertOrUpdateCart($id_user, $id_product, $amount, $idTicket, $status)
-{
+  {
     // Kiểm tra xem có bản ghi nào trong bảng cart có id_user và idTicket đã cho hay không
     $sql_check = "SELECT * FROM cart WHERE id_user = '$id_user' AND idTicket = '$idTicket'";
     $result = $this->execute($sql_check);
 
     if ($result->num_rows > 0) {
-        // Nếu tìm thấy bản ghi, cập nhật số lượng bằng cách cộng thêm giá trị mới
-        $sql_update = "UPDATE cart SET amount = amount + $amount WHERE id_user = '$id_user' AND idTicket = '$idTicket'";
-        return $this->execute($sql_update);
+      // Nếu tìm thấy bản ghi, cập nhật số lượng bằng cách cộng thêm giá trị mới
+      $sql_update = "UPDATE cart SET amount = amount + $amount WHERE id_user = '$id_user' AND idTicket = '$idTicket'";
+      return $this->execute($sql_update);
     } else {
-        // Nếu không tìm thấy bản ghi, thêm bản ghi mới vào bảng cart
-        $sql_insert = "INSERT INTO cart (id_user, id_product, amount, status, idTicket) VALUES ('$id_user', '$id_product', '$amount', '$status', '$idTicket')";
-        return $this->execute($sql_insert);
+      // Nếu không tìm thấy bản ghi, thêm bản ghi mới vào bảng cart
+      $sql_insert = "INSERT INTO cart (id_user, id_product, amount, status, idTicket) VALUES ('$id_user', '$id_product', '$amount', '$status', '$idTicket')";
+      return $this->execute($sql_insert);
     }
-}
+  }
 
 
   // public function checkAvailableTour($idTour){
