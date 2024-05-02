@@ -209,14 +209,12 @@
                 }
                 return;
             }
-
-            for (let i = 0; i < rows.length; i++) {
-                let date = rows[i].getElementsByClassName("date");
-                console.log(date) // Sử dụng getElementsByClassName vì không có id duy nhất
-                let dateString = date.textContent;
+            for(let i = 0; i < rows.length; i++) {
+                console.log(rows[i]);
+                let dateString = rows[i].textContent;
+                console.log(dateString);
                 let rowVisible = false;
 
-                // Chuyển đổi các chuỗi ngày thành đối tượng Date để so sánh
                 let rowDate = new Date(dateString);
                 let startDate = new Date(dateStart);
                 let endDate = new Date(dateEnd);
@@ -230,9 +228,33 @@
                 if (rowVisible) {
                     rows[i].style.display = ""; // Hiển thị hàng
                 } else {
-                    rows[i].style.display = "none"; // Ẩn hàng
+                    rows[i].parentElement.style.display = "none"; // Ẩn hàng
                 }
+
             }
+            // for (let i = 0; i < rows.length; i++) {
+            //     let date = rows[i].getElementsByClassName("date");
+            //     console.log(date) // Sử dụng getElementsByClassName vì không có id duy nhất
+            //     let dateString = date.textContent;
+            //     let rowVisible = false;
+
+            //     // Chuyển đổi các chuỗi ngày thành đối tượng Date để so sánh
+            //     let rowDate = new Date(dateString);
+            //     let startDate = new Date(dateStart);
+            //     let endDate = new Date(dateEnd);
+
+            //     // Kiểm tra xem ngày trong khoảng thời gian được chọn không
+            //     if (rowDate >= startDate && rowDate <= endDate) {
+            //         rowVisible = true;
+            //     }
+
+            //     // Hiển thị hoặc ẩn hàng dựa trên kết quả kiểm tra ngày
+            //     if (rowVisible) {
+            //         rows[i].style.display = ""; // Hiển thị hàng
+            //     } else {
+            //         rows[i].style.display = "none"; // Ẩn hàng
+            //     }
+            // }
         }
 
 

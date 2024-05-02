@@ -126,7 +126,7 @@ switch ($table) {
             $htmlTable .= "<td class='table-cell'>$stt</td>";
             $htmlTable .= "<td class='table-cell id'>{$value['id']}</td>";
             $htmlTable .= "<td class='table-cell'>{$value['fullname']}</td>";
-            $htmlTable .= "<td class='table-cell table-roww'>{$value['date_order']}</td>";
+            $htmlTable .= "<td class='table-cell table-roww date'>{$value['date_order']}</td>";
             $htmlTable .= "<td class='table-cell'>" . number_format($value['total_money'], 0, ',', '.') . "</td>";
             $htmlTable .= "<td class='table-cell'>";
             switch ($value['status']) {
