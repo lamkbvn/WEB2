@@ -217,15 +217,35 @@ if (isset($_POST['action'])) {
     $result = loadDataDonHang();
     while ($row = mysqli_fetch_array($result)) {
       $trangThai = "";
-      if ($row['status'] != 4) {
+      switch ($row['status']) {
+        case 1:
+          $trangThai = "chờ xác nhận";
+          break;
+        case 2:
+          $trangThai = "đã xác nhận";
+          break;
+        case 3:
+          $trangThai = "đang thực hiện tour";
+          break;
+        case 4:
+          $trangThai = "đã hoàn thành";
+          break;
+        case 5:
+          $trangThai = "đã hủy bỏ";
+          break;
+        default:
+          $trangThai = "";
+          break;
+      }
+      if ($row['status'] != 5) {
         echo '
       <div class="item-dh ' . $row['id'] . '">
       <div class="txt-dh">Don hang ' . $i++ . '</div>
       <div class="txt-date">' . $row['date_order'] . '</div>
-      <div class="txt-status">Trạng thái : ' . ($row['status'] == 1 ? 'Đã xử lí' : 'Chưa xử lí') . '</div>
+      <div class="txt-status">Trạng thái : ' . $trangThai . '</div>
       <div class="btn-item-dh">
         <div class="btn-xemchitiet btn" onclick = "displayDetailDH(event)">Xem chi tiet</div>
-        ' . ($row['status'] == 0 ? '<div class="btn-huy btn" onclick = "destroyDetailDH(event)">Hủy</div>' : '') . '
+        ' . ($row['status'] != 4 ? '<div class="btn-huy btn" onclick = "destroyDetailDH(event)">Hủy</div>' : '') . '
       </div>
       </div>
       ';

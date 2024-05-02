@@ -1,6 +1,4 @@
 <link rel="stylesheet" href="css/cssadmin.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 
 
 <body>
@@ -149,13 +147,13 @@
 										$style = "color: #4ad991; font-weight:600; font-size: 17px;";
 									?>
 
-																	<tr class="table-row" height="42px" style="<?php echo $style ?>;">
-																		<td class="table-cell id">#<?php echo $stt ?></td>
-																		<td class="table-cell id"><?php echo $tour['title']; ?></td>
-																		<td class="table-cell id"><?php echo $tour['total_quantity']; ?></td>
-																		</td>
-																	</tr>
-											<?php endforeach;
+																			<tr class="table-row" height="42px" style="<?php echo $style ?>;">
+																				<td class="table-cell id">#<?php echo $stt ?></td>
+																				<td class="table-cell id"><?php echo $tour['title']; ?></td>
+																				<td class="table-cell id"><?php echo $tour['total_quantity']; ?></td>
+																				</td>
+																			</tr>
+												<?php endforeach;
 							} ?>
 						</tbody>
 					</table>
@@ -327,3 +325,6 @@ rows.forEach(function(row, index) {
 		});
 	});
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
