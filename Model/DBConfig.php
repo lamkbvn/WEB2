@@ -627,7 +627,7 @@ class Database
       return $objects;
     }
 
-    $sql = ' SELECT  p.title , od.price , SUM(od.amount) as amount , SUM(od.total_money) as total_money , o.date_order
+    $sql = ' SELECT  p.title , od.price , SUM(od.amount) as amount , SUM(od.total_money) as total_money 
               FROM product as p , order_detail as od , orders as o
               where p.id = od.id_product and o.id = od.id_order ';
     ///chon san pham theo ten loai
@@ -643,7 +643,7 @@ class Database
       $sql = $sql . ' and o.date_order <= ? ';
     }
 
-    $sql = $sql . ' group by p.title ,od.price   , o.date_order';
+    $sql = $sql . ' group by p.title ,od.price ';
 
     $result = null;
     if ($dateStart != '' && $dateEnd == '') {
@@ -675,8 +675,7 @@ class Database
       'title' => 1,
       'price' => 2,
       'amount' => 3,
-      'total_money' => 4,
-      'date_order' => 5
+      'total_money' => 4
     ];
     $objects = array();
     $id = 1;
@@ -687,7 +686,6 @@ class Database
       $objects[$key][2] = $row['price'];
       $objects[$key][3] = $row['amount'];
       $objects[$key][4] = $row['total_money'];
-      $objects[$key][5] = $row['date_order'];
       ++$id;
     }
 
@@ -952,7 +950,7 @@ class Database
 
   public function getDataChiTietDonHang($idOrder, $idUser)
   {
-    $sql = 'select p.title , p.content , od.total_money , od.date_go , ip.image
+    $sql = 'select p.id ,p.title , p.id_category , p.content , od.total_money , od.date_go , ip.image
             from order_detail as od , product as p , image_product as ip
             where od.id_product = p.id and od.id_order = ' . $idOrder . ' and p.id = ip.id_product and ip.id_user = 1 ';
     $result = $this->execute($sql);

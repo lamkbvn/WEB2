@@ -119,12 +119,10 @@ function DrawChartData(){
   let nameTour = document.querySelectorAll('.nameTour');
 let numBought = document.querySelectorAll('.num-bought');
 let priceTK = document.querySelectorAll('.total-money');
-let dateGo = document.querySelectorAll('.date-go');
 
 let convertnumBought = [];
 let convertNameTour = [];
 let convertpriceTK = [];
-let convertDateGo = [];
 
   //convert data
   for(let i = 0; i < numBought.length; i++)
@@ -132,7 +130,6 @@ let convertDateGo = [];
     convertnumBought.push(parseInt(numBought[i].innerHTML));
     convertNameTour.push(nameTour[i].innerHTML);
     convertpriceTK.push(parseInt(priceTK[i].innerHTML));
-    convertDateGo.push(dateGo.innerHTML);
   }
   //lọc các dữ liệu trùng nhau
   for(let i =  0 ; i  < numBought.length - 1 ; i++){
