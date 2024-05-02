@@ -627,7 +627,7 @@ class Database
       return $objects;
     }
 
-    $sql = ' SELECT  p.title , od.price , SUM(od.amount) as amount , SUM(od.total_money) as total_money 
+    $sql = ' SELECT  p.title , AVG(od.price) as price , SUM(od.amount) as amount , SUM(od.total_money) as total_money 
               FROM product as p , order_detail as od , orders as o
               where p.id = od.id_product and o.id = od.id_order ';
     ///chon san pham theo ten loai
@@ -643,7 +643,7 @@ class Database
       $sql = $sql . ' and o.date_order <= ? ';
     }
 
-    $sql = $sql . ' group by p.title ,od.price ';
+    $sql = $sql . ' group by p.title  ';
 
     $result = null;
     if ($dateStart != '' && $dateEnd == '') {
@@ -707,6 +707,21 @@ class Database
 
   public function resultEmailUser($idUser, $emailChange)
   {
+
+    if ($emailChange != '') {
+      $sql = 'select * from nguoidung where email =  ?';
+      $stmt = $this->conn->prepare($sql);
+      $stmt->bind_param('s', $emailChange);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      if (mysqli_num_rows($result) > 0) {
+        echo '
+        <script> alert("Tên email đã tồn tại"); </script>
+        ' . $emailChange;
+        return;
+      }
+    }
+
     $sql = 'select * from nguoidung where id = ' . $idUser;
     $result = mysqli_query($this->conn, $sql);
     $row = mysqli_fetch_array($result);

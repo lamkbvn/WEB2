@@ -192,9 +192,9 @@
     </tbody>
   </table>
   <div class = "chartData  hide" style = "width: 100%;">
-    <canvas width="400px" height="200px" id="myChart">
+    <canvas width="400px" height="200px" id="myChartSoLuong">
     </canvas>
-    <canvas width="400px" height="200px" id="myChart1">
+    <canvas width="400px" height="200px" id="myChartDoanhThu">
     </canvas>
   </div>
   </div>

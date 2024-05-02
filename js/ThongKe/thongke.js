@@ -146,8 +146,8 @@ let convertpriceTK = [];
 
   }
 
-  const ctx = document.getElementById('myChart').getContext('2d');
-  let chartStatus = Chart.getChart("myChart"); // <canvas> id
+  const ctx = document.getElementById('myChartSoLuong').getContext('2d');
+  let chartStatus = Chart.getChart("myChartSoLuong"); // <canvas> id
   if (chartStatus != undefined) {
     chartStatus.destroy();
   }
@@ -171,8 +171,8 @@ let convertpriceTK = [];
     }
   });
 
-  const ctx1 =document.getElementById('myChart1').getContext('2d');
-  chartStatus = Chart.getChart('myChart1');
+  const ctx1 =document.getElementById('myChartDoanhThu').getContext('2d');
+  chartStatus = Chart.getChart('myChartDoanhThu');
   if(chartStatus != undefined){
     chartStatus.destroy();
   }

@@ -216,6 +216,7 @@ if (isset($_POST['action'])) {
     $i = 1;
     $result = loadDataDonHang();
     while ($row = mysqli_fetch_array($result)) {
+      $trangThai = "";
       if ($row['status'] != 4) {
         echo '
       <div class="item-dh ' . $row['id'] . '">
