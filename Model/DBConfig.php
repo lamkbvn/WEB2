@@ -717,8 +717,7 @@ class Database
       if (mysqli_num_rows($result) > 0) {
         echo '
         <script> alert("Tên email đã tồn tại"); </script>
-        ' . $emailChange;
-        return;
+        ';
       }
     }
 

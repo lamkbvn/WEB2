@@ -125,6 +125,7 @@ function changesdtProfile(event) {
       sdtChange : sdtChange
     },
     success  : function(response) {
+      console.log(response);
       $('.sdt-user').html(response);
       offEditProfile(event);
     }
