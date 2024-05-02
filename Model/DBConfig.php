@@ -719,6 +719,21 @@ class Database
     }
     echo $fullemailprofile;
   }
+
+  public function resultAddressUser($idUser, $addressChange)
+  {
+    $sql = 'select * from nguoidung where id = ' . $idUser;
+    $result = mysqli_query($this->conn, $sql);
+    $row = mysqli_fetch_array($result);
+
+    $fulladdressprofile = $row['address'];
+    if ($addressChange != '') {
+      $fulladdressprofile = $addressChange;
+      $sql = 'Update nguoidung SET address = "' . $fulladdressprofile . '"  WHERE id = ' . $idUser;
+      mysqli_query($this->conn, $sql);
+    }
+    echo $fulladdressprofile;
+  }
   public function getIdByEmail($email)
   {
     $sql = "SELECT id FROM nguoiDung WHERE email = '" . $email . "'";

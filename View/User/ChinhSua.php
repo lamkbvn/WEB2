@@ -51,6 +51,7 @@
           <div class="content-edit">
             <input type="text" name="textHo" placeholder="Nhập họ" class="textHo">
             <input type="text" name="textTen" placeholder="Nhập tên" class="textTen">
+            <div class="errorMes" style = "margin-top : 5px;"></div>
           </div>
           <button class="btn-luu" onclick="changeNameProfile(event)">Lưu</button>
         </div>
@@ -63,7 +64,6 @@
         </div>
         <div class="content-muc-edit row2 email-user">
         <?php
-        require_once ('../Model/DBConfig.php');
         if (session_status() == PHP_SESSION_NONE) {
           session_start();
         }
@@ -105,6 +105,31 @@
             <div class="errorMes" style = "margin-top : 5px;"></div>
           </div>
           <button class="btn-luu" onclick = "changesdtProfile(event)">Lưu</button>
+        </div>
+      </div>
+
+      <div class="muc-edit">
+      <div class="row1">
+          <div class="chitiet-muc-edit">Địa chỉ</div>
+          <div class="btn-on-edit" onclick="onEditProfile(event)">Chỉnh sửa</div>
+        </div>
+        <div class="content-muc-edit row2 address-user">
+        <?php
+        if (session_status() == PHP_SESSION_NONE) {
+          session_start();
+        }
+        addressUser($_SESSION['idUserLogin']) ?>
+        </div>
+        <div class="row3">
+          <div class="header-edit">
+            <span class="header-edit-address">Địa chỉ</span>
+            <span class="header-edit-btn-off-edit" onclick="offEditProfile1(event)">Hủy</span>
+          </div>
+          <div class="content-edit">
+            <input type="text" name="addressProfile" id="addressProfile" class="addressProfile" placeholder ="nhap địa chỉ mới">
+            <div class="errorMes" style = "margin-top : 5px;"></div>
+          </div>
+          <button class="btn-luu" onclick="changeAddressProfile(event)">Lưu</button>
         </div>
       </div>
     </div>

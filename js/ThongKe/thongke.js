@@ -89,7 +89,7 @@ function filterThongKe(event){
     }
   }
 
-  console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData,namecoll);
+  console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData.value,namecoll);
   let displayTitleTable = document.querySelector('.titleTable');
   displayTitleTable.classList.remove('hide');
   $.ajax({
