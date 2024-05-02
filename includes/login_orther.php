@@ -29,13 +29,13 @@ if (isset($_GET['code'])) {
     // Check if user exists in the database
     $db = new Database();
     $db->connect();
-    $sql = 'SELECT * FROM nguoiDung, acount WHERE nguoiDung.id_acount = acount.id AND email = "' . $email . '"';
+    $sql = 'SELECT * FROM nguoiDung, acount WHERE nguoiDung.id_acount = acount.id AND email like "' . $email . '"';
     $getData = $db->getAllDataBySql($sql);
 
     if ($db->num_rows() > 0) {
         $idGoogle = $getData[0]['idGoogle'];
         if ($idGoogle == null) {
-            echo "Account with this email already exists.";
+            echo '<p class="exist-email">Account with this email already exists</p>';
         } else {
             echo "Logged in with Google successfully.";
             $idUser = $db->getIdByEmail($email);
