@@ -89,7 +89,7 @@ function filterThongKe(event){
     }
   }
 
-  console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData,namecoll);
+  console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData.value,namecoll);
   let displayTitleTable = document.querySelector('.titleTable');
   displayTitleTable.classList.remove('hide');
   $.ajax({
@@ -111,8 +111,8 @@ function filterThongKe(event){
 
 }
 
-let myChart = null;
-let mychart1 =null;
+let myChartSoLuong = null;
+let myChartDoanhThu =null;
 
 function DrawChartData(){
 
@@ -146,12 +146,12 @@ let convertpriceTK = [];
 
   }
 
-  const ctx = document.getElementById('myChart').getContext('2d');
-  let chartStatus = Chart.getChart("myChart"); // <canvas> id
+  const ctx = document.getElementById('myChartSoLuong').getContext('2d');
+  let chartStatus = Chart.getChart("myChartSoLuong"); // <canvas> id
   if (chartStatus != undefined) {
     chartStatus.destroy();
   }
-  mychart = new Chart(ctx, {
+  myChartSoLuong = new Chart(ctx, {
     type: 'bar',
     data: {
       labels:convertNameTour,
@@ -171,13 +171,13 @@ let convertpriceTK = [];
     }
   });
 
-  const ctx1 =document.getElementById('myChart1').getContext('2d');
-  chartStatus = Chart.getChart('myChart1');
+  const ctx1 =document.getElementById('myChartDoanhThu').getContext('2d');
+  chartStatus = Chart.getChart('myChartDoanhThu');
   if(chartStatus != undefined){
     chartStatus.destroy();
   }
 
-  mychart1 = new Chart(ctx1 , {
+  myChartDoanhThu = new Chart(ctx1 , {
     type : 'bar',
     data : {
       labels : convertNameTour ,

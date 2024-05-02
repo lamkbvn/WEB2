@@ -488,12 +488,12 @@ switch ($action) {
 			$result = $db->deleteOrder($orderId);
 
 			//nếu thành công thì hiện thị lại ds voucher
-			if ($result) {
-				$sql = "SELECT * FROM orders order by id desc";
-				$result = $db->execute($sql);
-				$listOrder = $db->getAll();
-				include "View/admin/order/order.php";
-			}
+			// if ($result) {
+			// 	$sql = "SELECT * FROM orders order by id desc";
+			// 	$result = $db->execute($sql);
+			// 	$listOrder = $db->getAll();
+			// 	include "View/admin/order/order.php";
+			// }
 		}
 		break;
 	case 'detailOrder':

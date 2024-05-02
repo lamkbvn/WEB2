@@ -51,7 +51,7 @@ include_once 'includes/login_orther.php';
                         </svg>
                     </div>
                     <div class="login-google">
-                        <a href="<?php echo $client->createAuthUrl()?>">
+                        <a href="<?php echo $client->createAuthUrl() ?>">
                             <svg xmlns="http://www.w3.org/2000/svg" width="35" height="34" viewBox="0 0 35 34"
                                 fill="none">
                                 <circle cx="17.9824" cy="17" r="16.5" fill="white" stroke="#757575" />
