@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="css/cssadmin.css">
-
 <body>
     <style>
         .status-label {
@@ -128,6 +127,7 @@
 			<option value="20">20</option>
 			<option value="50">50</option>
 			<option value="100">100</option>
+			<option value="99999">Tất cả đơn hàng</option>
 		</select>
 
                 <div class="form-group-filter-date">
@@ -199,27 +199,37 @@
         function filterDate() {
             let dateStart = dateStartEle.value;
             let dateEnd = dateEndEle.value;
+            let startDate = new Date(dateStart);
+            let endDate = new Date(dateEnd);
 
             console.log(dateStart);
             console.log(dateEnd);
             let rows = table.getElementsByClassName("table-roww");
+            for(let i = 0; i < rows.length; i++) {
+                rows[i].parentElement.style.display = "";
+            }
             if (dateStart == "" && dateEnd == "") {
                 for (let i = 0; i < rows.length; i++) {
                     rows[i].style.display = ""; // Hiển thị hàng
                 }
                 return;
             }
-
-            for (let i = 0; i < rows.length; i++) {
-                let date = rows[i].getElementsByClassName("date");
-                console.log(date) // Sử dụng getElementsByClassName vì không có id duy nhất
-                let dateString = date.textContent;
+            if (dateStart == "" || dateEnd == "") {
+                alert("Vui lòng chọn cả 2 ngày bắt đầu và kết thúc");
+                return;
+            }
+            if(startDate > endDate){
+                alert("Ngày bắt đầu không thể lớn hơn ngày kết thúc");
+                return;
+            }
+            for(let i = 0; i < rows.length; i++) {
+                console.log(rows[i]);
+                let dateString = rows[i].textContent;
+                console.log(dateString);
                 let rowVisible = false;
 
-                // Chuyển đổi các chuỗi ngày thành đối tượng Date để so sánh
                 let rowDate = new Date(dateString);
-                let startDate = new Date(dateStart);
-                let endDate = new Date(dateEnd);
+                
 
                 // Kiểm tra xem ngày trong khoảng thời gian được chọn không
                 if (rowDate >= startDate && rowDate <= endDate) {
@@ -230,8 +240,9 @@
                 if (rowVisible) {
                     rows[i].style.display = ""; // Hiển thị hàng
                 } else {
-                    rows[i].style.display = "none"; // Ẩn hàng
+                    rows[i].parentElement.style.display = "none"; // Ẩn hàng
                 }
+
             }
         }
 
@@ -267,33 +278,32 @@
                 }
             }
         });
-
-
-        $(document).ready(function() {
-            $('.delete-btn').on('click', function(e) {
-                e.preventDefault();
-                var deleteUrl = $(this).attr('data-delete-url');
-                var rowToDelete = $(this).closest('.table-row');
-                var confirmDelete = confirm('Bạn có chắc chắn muốn xóa tour này không?');
-                if (confirmDelete) {
-                    $.ajax({
-                        url: deleteUrl,
-                        type: 'GET',
-                        success: function(response) {
-                            // Xử lý phản hồi thành công (nếu cần)
-                            if (rowToDelete.length > 0) { // Kiểm tra nếu rowToDelete tồn tại
-                                rowToDelete.hide(); // Ẩn dòng bằng jQuery hide()
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            // Xử lý lỗi (nếu cần)
-                        }
-                    });
-                } else {
-                    // Nếu người dùng không đồng ý, không làm gì cả
-                }
-            });
-        });
+        // tao fixed rồi nha
+    //     function handleDeleteClick(deleteBtn) {
+    // console.log("da nhan vo nuts xoa don hang");
+    // var deleteUrl = deleteBtn.getAttribute('data-delete-url');
+    // var rowToDelete = deleteBtn.closest('.table-row');
+    // console.log(rowToDelete);
+    // var confirmDelete = confirm('Bạn có chắc chắn muốn xóa đơn hàng này không?');
+    // console.log(deleteUrl);
+    // if (confirmDelete) {
+    //     $.ajax({
+    //         url: deleteUrl,
+    //         type: 'GET',
+    //         success: function(response) {
+    //             // Xử lý phản hồi thành công (nếu cần)
+    //             if (rowToDelete) { // Kiểm tra nếu rowToDelete tồn tại
+    //                 rowToDelete.classList.add("hidden")// Ẩn dòng bằng jQuery hide()
+    //             }
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Xử lý lỗi (nếu cần)
+    //         }
+    //     });
+    // } else {
+    //     // Nếu người dùng không đồng ý, không làm gì cả
+    // }
+// }
     </script>
     <script src="js/sapxep.js"></script>
 </body>

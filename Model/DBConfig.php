@@ -276,11 +276,23 @@ class Database
     return $data;
   }
   // thêm giỏ hàng
-  public function InsertCart($id_user, $id_product, $amount, $idTicket, $status)
-  {
-    $sql = "INSERT INTO cart (id_user, id_product, amount, status, idTicket) VALUES ('$id_user', '$id_product', '$amount', '$status', '$idTicket')";
-    return $this->execute($sql);
-  }
+  public function InsertOrUpdateCart($id_user, $id_product, $amount, $idTicket, $status)
+{
+    // Kiểm tra xem có bản ghi nào trong bảng cart có id_user và idTicket đã cho hay không
+    $sql_check = "SELECT * FROM cart WHERE id_user = '$id_user' AND idTicket = '$idTicket'";
+    $result = $this->execute($sql_check);
+
+    if ($result->num_rows > 0) {
+        // Nếu tìm thấy bản ghi, cập nhật số lượng bằng cách cộng thêm giá trị mới
+        $sql_update = "UPDATE cart SET amount = amount + $amount WHERE id_user = '$id_user' AND idTicket = '$idTicket'";
+        return $this->execute($sql_update);
+    } else {
+        // Nếu không tìm thấy bản ghi, thêm bản ghi mới vào bảng cart
+        $sql_insert = "INSERT INTO cart (id_user, id_product, amount, status, idTicket) VALUES ('$id_user', '$id_product', '$amount', '$status', '$idTicket')";
+        return $this->execute($sql_insert);
+    }
+}
+
 
   // public function checkAvailableTour($idTour){
   //   $sql="SELECT * FROM product WHERE id = $idTour and soLuongConLai>0;";
@@ -438,7 +450,7 @@ class Database
     return $this->execute($sql);
   }
   //edit Tour
-  public function UpdateTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $dateUpdate, $address, $acount)
+  public function UpdateTour($id, $id_cate, $id_user, $id_provin, $title, $price, $content, $dateUpdate, $address)
   {
     $sql = "UPDATE product SET 
             id_category = '$id_cate', 
@@ -481,6 +493,19 @@ class Database
   public function UpdateImg($id, $img)
   {
     $sql = 'Update image_product SET image = "' . $img . '"  WHERE id = ' . $id;
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute();
+    $affectedRows = $stmt->affected_rows;
+    // Nếu có ít nhất một dòng được cập nhật, trả về true
+    if ($affectedRows > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  public function DeleteImg($id)
+  {
+    $sql = 'delete from image_product where  id = ' . $id;
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
@@ -636,7 +661,7 @@ class Database
         'total_money' => 2,
         'id' => 3,
       ];
-      if ($namecoll != '' && $namecoll != 'price' && $namecoll != 'date_go') {
+      if ($namecoll != '') {
         $column = [];
         foreach ($objects as $keyx => $value) {
           $column[$keyx] = $value[$listOrder[$namecoll]]; // Chỉ lấy giá trị cột 1
@@ -652,7 +677,7 @@ class Database
       return $objects;
     }
 
-    $sql = ' SELECT  p.title , od.price , SUM(od.amount) as amount , SUM(od.total_money) as total_money 
+    $sql = ' SELECT  p.title , AVG(od.price) as price , SUM(od.amount) as amount , SUM(od.total_money) as total_money 
               FROM product as p , order_detail as od , orders as o
               where p.id = od.id_product and o.id = od.id_order ';
     ///chon san pham theo ten loai
@@ -668,7 +693,7 @@ class Database
       $sql = $sql . ' and o.date_order <= ? ';
     }
 
-    $sql = $sql . ' group by p.title ,od.price ';
+    $sql = $sql . ' group by p.title  ';
 
     $result = null;
     if ($dateStart != '' && $dateEnd == '') {
@@ -732,17 +757,50 @@ class Database
 
   public function resultEmailUser($idUser, $emailChange)
   {
+
     $sql = 'select * from nguoidung where id = ' . $idUser;
     $result = mysqli_query($this->conn, $sql);
     $row = mysqli_fetch_array($result);
+
+    if ($emailChange != '') {
+      $sql1 = 'select * from nguoidung where email =  ?';
+      $stmt = $this->conn->prepare($sql1);
+      $stmt->bind_param('s', $emailChange);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      if (mysqli_num_rows($result) > 0) {
+        echo '
+        <script> alert("Tên email đã tồn tại"); </script>
+        ' . $row['email'];
+        return;
+      }
+    }
 
     $fullemailprofile = $row['email'];
     if ($emailChange != '') {
       $fullemailprofile = $_POST['emailChange'];
       $sql = 'Update nguoidung SET email = "' . $fullemailprofile . '"  WHERE id = ' . $idUser;
       mysqli_query($this->conn, $sql);
+      echo '
+        <script> alert("Thay đổi email thành công"); </script>
+        ';
     }
     echo $fullemailprofile;
+  }
+
+  public function resultAddressUser($idUser, $addressChange)
+  {
+    $sql = 'select * from nguoidung where id = ' . $idUser;
+    $result = mysqli_query($this->conn, $sql);
+    $row = mysqli_fetch_array($result);
+
+    $fulladdressprofile = $row['address'];
+    if ($addressChange != '') {
+      $fulladdressprofile = $addressChange;
+      $sql = 'Update nguoidung SET address = "' . $fulladdressprofile . '"  WHERE id = ' . $idUser;
+      mysqli_query($this->conn, $sql);
+    }
+    echo $fulladdressprofile;
   }
   public function getIdByEmail($email)
   {
@@ -779,6 +837,7 @@ class Database
       $sql = 'Update nguoidung SET fullname = "' . $fullnameprofile . '"  WHERE id = ' . $idUser;
       mysqli_query($this->conn, $sql);
     }
+
     echo $fullnameprofile;
   }
 
@@ -794,6 +853,7 @@ class Database
       $sql = 'Update nguoidung SET phone_number = ' . $sdtprofile . '  WHERE id = ' . $idUser;
       mysqli_query($this->conn, $sql);
     }
+
     echo $sdtprofile;
   }
 

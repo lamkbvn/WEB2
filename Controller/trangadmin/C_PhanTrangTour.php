@@ -125,7 +125,7 @@ switch ($table) {
             $htmlTable .= "<td class='table-cell'>$stt</td>";
             $htmlTable .= "<td class='table-cell id'>{$value['id']}</td>";
             $htmlTable .= "<td class='table-cell'>{$value['fullname']}</td>";
-            $htmlTable .= "<td class='table-cell table-roww'>{$value['date_order']}</td>";
+            $htmlTable .= "<td class='table-cell table-roww date'>{$value['date_order']}</td>";
             $htmlTable .= "<td class='table-cell'>" . number_format($value['total_money'], 0, ',', '.') . "</td>";
             $htmlTable .= "<td class='table-cell'>";
             switch ($value['status']) {
@@ -152,7 +152,7 @@ switch ($table) {
             $htmlTable .= "<td class='table-cell'>";
             $htmlTable .= "<a class='edit-btn table-btn' href='index.php?controller=trang-admin&action=detailOrder&id={$value['id']}'>Detail</a>";
             if ($isDelete) {
-                $htmlTable .= "<a class='delete-btn table-btn' data-delete-url='index.php?controller=trang-admin&action=deleteOrder&id={$value['id']}'>Delete</a>";
+                $htmlTable .= "<a class='delete-btn table-btn' onclick='handleDeleteClick(this)' data-delete-url='index.php?controller=trang-admin&action=deleteOrder&id={$value['id']}'>Delete</a>";
             }
             $htmlTable .= "</td>";
             $htmlTable .= "</tr>";
@@ -184,6 +184,34 @@ switch ($table) {
         # code...
         break;
 }
+$scriptDelete = "$(document).ready(function() {
+    $('.delete-btn').on('click', function(e) {
+        e.preventDefault();
+        var deleteUrl = $(this).attr('data-delete-url');
+        var rowToDelete = $(this).closest('.table-row');
+        var confirmDelete = confirm('Bạn có chắc chắn muốn xóa tour này không?');
+        if (confirmDelete) {
+            $.ajax({
+                url: deleteUrl,
+                type: 'GET',
+                success: function(response) {
+                    // Xử lý phản hồi thành công (nếu cần)
+                    if (rowToDelete.length > 0) { // Kiểm tra nếu rowToDelete tồn tại
+                        rowToDelete.hide(); // Ẩn dòng bằng jQuery hide()
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Xử lý lỗi (nếu cần)
+                }
+            });
+        } else {
+            // Nếu người dùng không đồng ý, không làm gì cả
+        }
+    });
+});";
+
+$htmlTable .= "<script>$scriptDelete</script>";
+
 $numPaging = "";
 $numPaging .= "<span style='border-radius: 5px;display: block; border: solid 1px #000; padding: 5px 8px; margin-right: 6px; cursor: pointer;' class='prevPage' data-page='-1' data-table='$table'>Prev</span>";
 for ($i = 1; $i <= $totalPages; $i++) {

@@ -77,7 +77,6 @@ function searchDiscount($idUser)
 
 function nameUser($idUser)
 {
-
   $db = new Database();
   $db->connect();
   $nameChange = isset($_POST['nameChange']) ? $_POST['nameChange'] : '';
@@ -87,7 +86,6 @@ function nameUser($idUser)
 
 function emailUser($idUser)
 {
-
   $db = new Database();
   $db->connect();
   $emailChange = isset($_POST['emailChange']) ? $_POST['emailChange'] : '';
@@ -95,9 +93,17 @@ function emailUser($idUser)
   $db->disconnect();
 }
 
+function addressUser($idUser)
+{
+  $db = new Database();
+  $db->connect();
+  $addressChange = isset($_POST['addressChange']) ? $_POST['addressChange'] : '';
+  $db->resultAddressUser($idUser, $addressChange);
+  $db->disconnect();
+}
+
 function sdtUser($idUser)
 {
-
   $db = new Database();
   $db->connect();
   $sdtChange = isset($_POST['sdtChange']) ? $_POST['sdtChange'] : '';
@@ -156,6 +162,13 @@ if (isset($_POST['action'])) {
     }
     emailUser($_SESSION['idUserLogin']);
   }
+  if ($_POST['action'] == 'addressUser') {
+    require_once ('../Model/DBConfig.php');
+    if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+    }
+    addressUser($_SESSION['idUserLogin']);
+  }
   if ($_POST['action'] == 'sdtUser') {
     require_once ('../Model/DBConfig.php');
     if (session_status() == PHP_SESSION_NONE) {
@@ -203,6 +216,7 @@ if (isset($_POST['action'])) {
     $i = 1;
     $result = loadDataDonHang();
     while ($row = mysqli_fetch_array($result)) {
+      $trangThai = "";
       if ($row['status'] != 4) {
         echo '
       <div class="item-dh ' . $row['id'] . '">

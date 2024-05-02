@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="css/cssadmin.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
 
 <body>
 	<div class="trangchuadmin">
@@ -51,7 +53,8 @@
 							<?php
 							if ($soLuongSPPercent < 0)
 								echo $soLuongSPPercent * -1;
-							else echo $soLuongSPPercent; ?>%
+							else
+								echo $soLuongSPPercent; ?>%
 						</div>
 						<p class="trangchuadmin--total__percent-desc">from yesterday</p>
 					</div>
@@ -78,7 +81,8 @@
 							<?php
 							if ($soLuongDHPercent < 0)
 								echo $soLuongDHPercent * -1;
-							else echo $soLuongDHPercent; ?>%
+							else
+								echo $soLuongDHPercent; ?>%
 						</div>
 						<p class="trangchuadmin--total__percent-desc">from yesterday</p>
 					</div>
@@ -106,7 +110,8 @@
 							<?php
 							if ($soLuongFBPercent < 0)
 								echo $soLuongFBPercent * -1;
-							else echo $soLuongFBPercent; ?>%
+							else
+								echo $soLuongFBPercent; ?>%
 						</div>
 						<p class="trangchuadmin--total__percent-desc">from yesterday</p>
 					</div>
@@ -131,21 +136,26 @@
 						<tbody class="table-body">
 							<?php $stt = 0;
 							if ($tourSellToday != null) {
-								foreach ($tourSellToday as $tour) :  $stt++;
-									if ($stt == 6) break;
+								foreach ($tourSellToday as $tour):
+									$stt++;
+									if ($stt == 6)
+										break;
 									$style = "color: black;";
-									if ($stt == 1) $style = "color: #8280ff; font-weight:600; font-size: 20px;";
-									elseif ($stt == 2) $style = "color: #fec53d; font-weight:600; font-size: 17px;";
-									elseif ($stt == 3) $style = "color: #4ad991; font-weight:600; font-size: 17px;";
-							?>
+									if ($stt == 1)
+										$style = "color: #8280ff; font-weight:600; font-size: 20px;";
+									elseif ($stt == 2)
+										$style = "color: #fec53d; font-weight:600; font-size: 17px;";
+									elseif ($stt == 3)
+										$style = "color: #4ad991; font-weight:600; font-size: 17px;";
+									?>
 
-									<tr class="table-row" height="42px" style="<?php echo $style ?>;">
-										<td class="table-cell id">#<?php echo $stt ?></td>
-										<td class="table-cell id"><?php echo $tour['title']; ?></td>
-										<td class="table-cell id"><?php echo $tour['total_quantity']; ?></td>
-										</td>
-									</tr>
-							<?php endforeach;
+																	<tr class="table-row" height="42px" style="<?php echo $style ?>;">
+																		<td class="table-cell id">#<?php echo $stt ?></td>
+																		<td class="table-cell id"><?php echo $tour['title']; ?></td>
+																		<td class="table-cell id"><?php echo $tour['total_quantity']; ?></td>
+																		</td>
+																	</tr>
+											<?php endforeach;
 							} ?>
 						</tbody>
 					</table>
@@ -176,7 +186,7 @@
 			labels: ['Tour hủy', 'Tour đặt'],
 			datasets: [{
 				label: 'Dataset',
-				data: [<?php echo json_encode($tourHuy).','.json_encode($tongTour); ?>], // Dữ liệu
+				data: [<?php echo json_encode($tourHuy) . ',' . json_encode($tongTour); ?>], // Dữ liệu
 				backgroundColor: [
 					'rgba(255, 99, 132, 0.5)',
 					'rgba(54, 162, 235, 0.5)'
