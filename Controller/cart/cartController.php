@@ -7,7 +7,7 @@ if (isset($_REQUEST['action'])) {
 }
 
 
-include("../../Model/DBConfig.php");
+include ("../../Model/DBConfig.php");
 $db = new Database;
 $db->connect();
 
@@ -39,11 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $price = $product['price'];
             $date = $product['date'];
             $dateBuy = date('y-m-d');
-            $hoTen = $product['hoTen']; 
-            $email = $product['email']; 
-            $sodienthoai = $product['sodienthoai']; 
-            $diachi = $product['diachi']; 
-            $note_book_tour = $product['note_book_tour']; 
+            $hoTen = $product['hoTen'];
+            $email = $product['email'];
+            $sodienthoai = $product['sodienthoai'];
+            $diachi = $product['diachi'];
+            $note_book_tour = $product['note_book_tour'];
             $tongTien = $product['tongTien'];
             $idTicket = $product['idTicket'];
             $numTicketAvailable = $product['numTicketAvailable'];
@@ -51,11 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $db->InsertOrder($id, $idUser, $hoTen, $email, $sodienthoai, $diachi, $note_book_tour, $dateBuy, $tongTien, 1);
                 $first = 0;
             }
-            
+
             $db->InsertDetailOrder($id, $id_product, $price, $amount, $price * $amount, $date);
-            $numTicketAvai=$numTicketAvailable-$amount;
+            $numTicketAvai = $numTicketAvailable - $amount;
             $db->updateNumTicketAvailable($idTicket, $numTicketAvai);
-             $db->deleteItemCart($cart_id);
+            $db->deleteItemCart($cart_id);
             echo "ID sản phẩm: $id_product, Số lượng book/tour: $amount, Tổng tiền: $tongTien, Số lượng: $amount, Giá: $price, Ngày: $date, cart: $cart_id,numTicketAvai:$numTicketAvai<br>";
             // Sau đó, bạn có thể thực hiện các thao tác xử lý dữ liệu khác tại đây
         }

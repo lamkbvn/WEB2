@@ -36,37 +36,37 @@
             </thead>
 
             <tbody class="table-body">
-                <?php foreach ($listbinhluan as $binhluan) : ?>
+                <?php foreach ($listbinhluan as $binhluan): ?>
 
-                    <tr class="table-row">
+                                    <tr class="table-row">
 
-                        <td class="table-cell id"><?php echo $binhluan['id']; ?></td>
-                        <td class="table-cell fullname"><?php echo $binhluan['fullname']; ?></td>
-                        <td class="table-cell note"><?php echo $binhluan['note']; ?></td>
-                        <td class="table-cell title"><?php echo $binhluan['title']; ?></td>
-                        <td class="table-cell create_at"><?php echo $binhluan['create_at']; ?></td>
-                        <td class="table-cell">
-                            <?php
-                            $isDelete = 0;
-                            foreach ($role as $rowRole) {
-                                if ($rowRole['id_chucNang'] == 3) {
-                                    switch ($rowRole['HD']) {
-                                        case 'Delete':
-                                            $isDelete = 1;
-                                            break;
-                                        default:
-                                            # code...
-                                            break;
-                                    }
-                                }
-                            }
-                            if ($isDelete == 1) {
-                                echo "<a class='delete-btn table-btn' href='index.php?controller=trang-admin&action=xoabl&id={$binhluan['id']}'>Delete</a>";
-                            }
-                            ?>
+                                        <td class="table-cell id"><?php echo $binhluan['id_f']; ?></td>
+                                        <td class="table-cell fullname"><?php echo $binhluan['fullname']; ?></td>
+                                        <td class="table-cell note"><?php echo $binhluan['note']; ?></td>
+                                        <td class="table-cell title"><?php echo $binhluan['title']; ?></td>
+                                        <td class="table-cell create_at"><?php echo $binhluan['create_at']; ?></td>
+                                        <td class="table-cell">
+                                            <?php
+                                            $isDelete = 0;
+                                            foreach ($role as $rowRole) {
+                                                if ($rowRole['id_chucNang'] == 3) {
+                                                    switch ($rowRole['HD']) {
+                                                        case 'Delete':
+                                                            $isDelete = 1;
+                                                            break;
+                                                        default:
+                                                            # code...
+                                                            break;
+                                                    }
+                                                }
+                                            }
+                                            if ($isDelete == 1) {
+                                                echo "<a class='delete-btn table-btn' href='index.php?controller=trang-admin&action=xoabl&id={$binhluan['id_f']}'>Delete</a>";
+                                            }
+                                            ?>
 
-                        </td>
-                    </tr>
+                                        </td>
+                                    </tr>
                 <?php endforeach; ?>
 
             </tbody>
