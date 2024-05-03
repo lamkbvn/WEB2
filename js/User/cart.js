@@ -66,8 +66,9 @@ btnMuaNgay.addEventListener('click', function (e) {
         var price = productDetails.find('input[name="price"]').val();
         var date = productDetails.find('input[name="date"]').val();
         var idTicket = productDetails.find('input[name="idTicket"]').val();
-        var numTicketAvailable =
-          productDetails.find('input[name="numTicketAvailable"]').val() - 1;
+        var numTicketAvailable = productDetails
+          .find('input[name="numTicketAvailable"]')
+          .val();
 
         var hoTen = $('.hoTen').val();
         var email = $('.email').val();

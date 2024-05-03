@@ -177,7 +177,6 @@
 	</div>
 </body>
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
 		var ctxDonut = document.getElementById('myDoughnutChart').getContext('2d');
 
 		// Khởi tạo biểu đồ Doughnut
@@ -283,7 +282,6 @@
 				}
 			}
 		});
-	});
 
 	// Lấy phần tử có id là "percentNumber"
 	var percentKH = document.getElementById("percentKH");
