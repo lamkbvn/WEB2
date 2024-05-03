@@ -36,6 +36,14 @@ if (isset($_GET['code'])) {
         $idGoogle = $getData[0]['idGoogle'];
         if ($idGoogle == null) {
             echo '<p class="exist-email">Account with this email already exists</p>';
+            // $id_account = $db->getIdAcountByEmail($email);
+            // $db->updateIdGoogle($id_account, $idGoogle);
+            // $idUser = $db->getIdByEmail($email);
+            // $objuser = array($name, $password);
+            // $_SESSION['objuser'] = $objuser;
+            // $_SESSION['idUserLogin'] = $idUser;
+            // $_SESSION['isLogin'] = 1;
+            // header("Location: index.php?controller=trang-chu");
         } else {
             echo "Logged in with Google successfully.";
             $idUser = $db->getIdByEmail($email);
