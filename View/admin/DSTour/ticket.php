@@ -32,9 +32,6 @@
 					<th class="table-header" onclick="sortTable(1)">Tên vé
 						<img id="sortIcon1" src="images/arrow-point-to-up.png" width="14px">
 					</th>
-					<th class="table-header" onclick="sortTable(2)">Giá vé
-						<img id="sortIcon2" src="images/arrow-point-to-up.png" width="14px">
-					</th>
 					<th class="table-header" onclick="sortTable(3)">Ngày đi
 						<img id="sortIcon3" src="images/arrow-point-to-up.png" width="14px">
 					</th>
@@ -58,7 +55,6 @@
                         echo "<tr class='table-row'>
                         <td class='table-cell id'>{$value['id']}</td>
                         <td class='table-cell'>{$value['name']}</td>
-                        <td class='table-cell'>{$value['price']}</td>
                         <td class='table-cell'>{$value['dateStart']}</td>
                         <td class='table-cell'>{$value['dateEnd']}</td>
                         <td class='table-cell status'>{$value['numTicketAvailable']}</td>
