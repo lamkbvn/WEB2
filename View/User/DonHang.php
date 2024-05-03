@@ -59,7 +59,6 @@
   .btn-item-dh{
     display : flex;
     gap : 10px;
-    width : 150px;
   }
 
   .btn{

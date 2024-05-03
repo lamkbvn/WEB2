@@ -246,6 +246,10 @@ class Database
     $sql = "INSERT INTO acount (user_name, password, id_role, status, idGoogle) VALUES ('$username', '$password', '$id_role', '$status', '$id_google')";
     return $this->execute($sql);
   }
+  public function updateIdGoogle($id, $idGoogle){
+    $sql = "UPDATE acount SET idGoogle = '$idGoogle' WHERE id = '$id'";
+    return $this->execute($sql);
+  }
 
   public function registerNguoiDung($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount)
   {
@@ -813,6 +817,17 @@ class Database
       return null; // Trả về null nếu không tìm thấy bất kỳ kết quả nào
     }
   }
+  public function getIdAcountByEmail($email)
+  {
+    $sql = "SELECT id FROM nguoiDung WHERE email = '" . $email . "'";
+    $result = mysqli_query($this->conn, $sql);
+    if ($result && mysqli_num_rows($result) > 0) {
+      $row = mysqli_fetch_assoc($result);
+      return $row['id_acount'];
+    } else {
+      return null; // Trả về null nếu không tìm thấy bất kỳ kết quả nào
+    }
+  }
 
   public function updatePasswordById($id, $newPassword)
   {
@@ -1069,6 +1084,23 @@ class Database
   public function getTongDoanhThu($table)
   {
     $sql = "SELECT SUM(total_money) AS SUM FROM $table";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['SUM'];
+  }
+
+  public function getTongDoanhThuYesterday($table, $date)
+  {
+    $yesterday = date("Y-m-d", strtotime("-1 day"));
+    $sql = "SELECT SUM(total_money) AS SUM FROM $table WHERE DATE(DATE_FORMAT($date, '%Y-%m-%d')) = '$yesterday' && id > 0";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['SUM'];
+  }
+
+  public function getTongDoanhThuToday($table, $date)
+  {
+    $sql = "SELECT SUM(total_money)  AS SUM FROM $table WHERE DATE(DATE_FORMAT($date, '%Y-%m-%d')) = CURDATE() && id > 0";
     $result = $this->execute($sql);
     $row = $result->fetch_assoc();
     return $row['SUM'];
