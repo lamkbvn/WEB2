@@ -174,6 +174,8 @@
 		</div>
 	</div>
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		var ctxDonut = document.getElementById('myDoughnutChart').getContext('2d');
@@ -327,6 +329,3 @@
 		});
 	});
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
