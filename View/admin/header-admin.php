@@ -57,7 +57,7 @@
     </header>
 
     <div class="navigation-admin">
-        <a href="index.php?controller=trang-admin&action=trangChuAdmin" id="nav-item--logo" class="nav-admin-item-a">
+        <a href="index.php?controller=trang-admin&action=trangChuAdmin" id="nav-item--logo" class="">
             <img src="css/icons/Logo-admin.png" alt="" class="nav-item--logo">
         </a>
         <div class="nav-admin-list">
