@@ -671,7 +671,7 @@ class Database
           array_multisort($column, SORT_ASC, $objects);
         else
           if ($orderby == 'DESC')
-          array_multisort($column, SORT_DESC, $objects);
+            array_multisort($column, SORT_DESC, $objects);
       }
 
       return $objects;
@@ -749,7 +749,7 @@ class Database
         array_multisort($column, SORT_ASC, $objects);
       else
         if ($orderby == 'DESC')
-        array_multisort($column, SORT_DESC, $objects);
+          array_multisort($column, SORT_DESC, $objects);
     }
 
     return $objects;
@@ -966,7 +966,7 @@ class Database
   {
     $this->connect();
     // Chuẩn bị truy vấn xóa
-    $sql = "Update orders Set status = 4 WHERE id = " . $orderId;
+    $sql = "Update orders Set status = 5 WHERE id = " . $orderId;
     $result = $this->execute($sql);
     $this->disconnect();
   }
