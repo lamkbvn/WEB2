@@ -24,7 +24,7 @@ if(isset($_REQUEST['addRole'])){
     $isSuccess = $db->UpdateNameRole($idRole, $nameRole);
     if($isSuccess){
         echo "Cập nhật thành công";
-    } else echo "Không có gì thay đổi";
+    }
     $db->DeleteRoleLinhDong($idRole);
     foreach ($rowsCN as $rowCN) {
         $idCN = $rowCN['id'];

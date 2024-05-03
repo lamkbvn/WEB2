@@ -1089,6 +1089,23 @@ class Database
     return $row['SUM'];
   }
 
+  public function getTongDoanhThuYesterday($table, $date)
+  {
+    $yesterday = date("Y-m-d", strtotime("-1 day"));
+    $sql = "SELECT SUM(total_money) AS SUM FROM $table WHERE DATE(DATE_FORMAT($date, '%Y-%m-%d')) = '$yesterday' && id > 0";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['SUM'];
+  }
+
+  public function getTongDoanhThuToday($table, $date)
+  {
+    $sql = "SELECT SUM(total_money)  AS SUM FROM $table WHERE DATE(DATE_FORMAT($date, '%Y-%m-%d')) = CURDATE() && id > 0";
+    $result = $this->execute($sql);
+    $row = $result->fetch_assoc();
+    return $row['SUM'];
+  }
+
   public function getCountYesterday($table, $date)
   {
     $yesterday = date("Y-m-d", strtotime("-1 day"));
