@@ -177,7 +177,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
 		var ctxDonut = document.getElementById('myDoughnutChart').getContext('2d');
 
 		// Khởi tạo biểu đồ Doughnut
@@ -283,7 +282,6 @@
 				}
 			}
 		});
-	});
 
 	// Lấy phần tử có id là "percentNumber"
 	var percentKH = document.getElementById("percentKH");

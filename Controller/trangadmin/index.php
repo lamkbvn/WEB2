@@ -453,6 +453,7 @@ switch ($action) {
 		}
 
 		//cập nhật xong thì hiện thị lại ds voucher đã cập nhật
+		$table = "discount";
 		$sql = "SELECT * FROM discount order by id desc";
 		$result = $db->execute($sql);
 		$listvoucher = $db->getAll();
