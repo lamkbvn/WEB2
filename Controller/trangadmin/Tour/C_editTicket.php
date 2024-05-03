@@ -6,12 +6,12 @@ if(isset($_REQUEST['updateTicket'])){
     $idTour = $_REQUEST['id'];
     $id = $_REQUEST['idTicket'];
     $name = $_REQUEST['name'];
-    $price = $_REQUEST['price'];
+    // $price = $_REQUEST['price'];
     $dateStart = $_REQUEST['dateStart'];
     $dateEnd = $_REQUEST['dateEnd'];
     $sove = $_REQUEST['numTicket'];
     $status = $_REQUEST['status'];
-    $rs = $db->updateTicket($id, $name, $price, $dateStart, $dateEnd, $sove, $status);
+    $rs = $db->updateTicket($id, $name, $dateStart, $dateEnd, $sove, $status);
     if($rs){
         echo "<script> alert('Cập nhật thành công') </script>";
     } else echo "<script> alert('Không có gì thay đổi') </script>";

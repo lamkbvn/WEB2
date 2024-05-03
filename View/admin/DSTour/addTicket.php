@@ -83,9 +83,9 @@
 						<input type="text" id="name" name="name"><br>
 						<span id="nameValidation" class="validation"></span>
 
-						<label for="email">Giá vé:</label><br>
+						<!-- <label for="email">Giá vé:</label><br>
 						<input type="number" id="price" name="price"><br>
-						<span id="priceValidation" class="validation"></span>
+						<span id="priceValidation" class="validation"></span> -->
 
 						<label for="phone_number">Ngày đi:</label><br>
 						<input type="date" id="dateStart" name="dateStart"><br>
@@ -111,7 +111,7 @@
 <script>
 	function validateForm() {
         var name = document.getElementById('name').value;
-        var price = document.getElementById('price').value;
+        // var price = document.getElementById('price').value;
         var dateStart = document.getElementById('dateStart').value;
         var dateEnd = document.getElementById('dateEnd').value;
         var numTicket = document.getElementById('numTicket').value;
@@ -126,12 +126,12 @@
         }
 
         // Kiểm tra trường Giá vé
-        if (isNaN(price) || price <= 0) {
-            document.getElementById('priceValidation').textContent = 'Giá vé phải là số dương';
-            isValid = false;
-        } else {
-            document.getElementById('priceValidation').textContent = '';
-        }
+        // if (isNaN(price) || price <= 0) {
+        //     document.getElementById('priceValidation').textContent = 'Giá vé phải là số dương';
+        //     isValid = false;
+        // } else {
+        //     document.getElementById('priceValidation').textContent = '';
+        // }
 
         // Kiểm tra trường Ngày đi
         if (dateStart.trim() === '') {

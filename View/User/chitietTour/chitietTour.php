@@ -81,16 +81,16 @@
                 <div class="tam-tinh">
                     <div class="money-tamtinh" id="<?php echo $rowTour['price']; ?>">
                         <?php
-                        if (mysqli_num_rows($listTicket0) > 0) {
-                            $maxPrice = 0;
-                            // Duyệt qua từng dòng dữ liệu
-                            while ($row = mysqli_fetch_assoc($listTicket0)) {
-                                if ($maxPrice < $row['price']) $maxPrice = $row['price'];
-                            }
-                        }
-                        // $price = $rowTour['price'];
-                        $formatted_price = number_format($maxPrice, 0, '.', ',');
-                        echo "Giá từ: " . $formatted_price . " đ";
+                        // if (mysqli_num_rows($listTicket0) > 0) {
+                        //     $maxPrice = 0;
+                        //     // Duyệt qua từng dòng dữ liệu
+                        //     while ($row = mysqli_fetch_assoc($listTicket0)) {
+                        //         if ($maxPrice < $row['price']) $maxPrice = $row['price'];
+                        //     }
+                        // }
+                        // // $price = $rowTour['price'];
+                        // $formatted_price = number_format($maxPrice, 0, '.', ',');
+                        echo "Giá từ: " . number_format($rowTour['price'], 0, '.', ',') . " đ";
                         ?>
                     </div>
                     <div class="btn-chosse-dichvu">Chọn các gói dịch vụ</div>
@@ -124,7 +124,7 @@
                                     $dateStartTimestamp = strtotime($row['dateStart']);
                                     if($row['status']==1 && ($dateStartTimestamp >= $currentDateTimestamp)){
                                         echo "<div class='wrapper'>";
-                                        echo "<div data-idTicket=" . $row['id'] . " id=" . $row['price'] . " class='select-date'>" . $row['dateStart'] . "</div>";
+                                        echo "<div data-idTicket=" . $row['id'] . " id=" . $rowTour['price'] . " class='select-date'>" . $row['dateStart'] . "</div>";
                                         echo "<div class='numTicket' id=" . $row['numTicketAvailable'] . "> Còn " . $row['numTicketAvailable'] . " vé</div>";
                                         echo "</div>";
                                     }

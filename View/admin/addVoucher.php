@@ -110,7 +110,9 @@ input[type="submit"]:hover {
     </form>
     <?php
 			if (isset($alert) && $alert == 'add_success') {
-				echo "<p style='color: green;  margin-left: 360px; margin-top: 10px;'>Thêm thành công</p>";
+				echo '<script>alert("Thêm voucher thành công")</script>';
+            } else if (isset($alert) && $alert == 'add_fail') {
+                echo '<script>alert("Thêm voucher thất bại")</script>';
 			} else return;
 	?>
 </body>

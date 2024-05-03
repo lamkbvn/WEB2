@@ -375,9 +375,9 @@ class Database
       return false;
     }
   }
-  public function addTicket($idTour, $name, $price, $dateStart, $dateEnd, $sove)
+  public function addTicket($idTour, $name, $dateStart, $dateEnd, $sove)
   {
-    $sql = "insert into tickettour (idTour, dateStart, dateEnd, price, numTicketAvailable, name, num_bought, status) values ('$idTour', '$dateStart', '$dateEnd', '$price', '$sove', '$name', 0, 1);";
+    $sql = "insert into tickettour (idTour, dateStart, dateEnd, numTicketAvailable, name, num_bought, status) values ('$idTour', '$dateStart', '$dateEnd', '$sove', '$name', 0, 1);";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
@@ -401,9 +401,9 @@ class Database
       return false;
     }
   }
-  public function updateTicket($id, $name, $price, $dateStart, $dateEnd, $sove, $status)
+  public function updateTicket($id, $name, $dateStart, $dateEnd, $sove, $status)
   {
-    $sql = "UPDATE tickettour SET dateStart = '$dateStart', dateEnd = '$dateEnd', price = '$price', numTicketAvailable = '$sove', name = '$name', status = '$status' WHERE id = '$id';";
+    $sql = "UPDATE tickettour SET dateStart = '$dateStart', dateEnd = '$dateEnd', numTicketAvailable = '$sove', name = '$name', status = '$status' WHERE id = '$id';";
     $stmt = $this->conn->prepare($sql);
     $stmt->execute();
     $affectedRows = $stmt->affected_rows;
