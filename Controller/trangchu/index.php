@@ -96,10 +96,11 @@ switch ($action) {
 			if ($result) {
 				$idUser = $_SESSION['idUserLogin'];
 
-				$sql = "SELECT cart.*, product.* , cart.id AS cart_id
-						FROM cart 
-						INNER JOIN product ON cart.id_product = product.id
-						WHERE cart.id_user = $idUser";
+				$sql = "SELECT cart.*, product.*, tickettour.*,tickettour.id AS ticket_id, cart.id AS cart_id
+				FROM cart 
+				INNER JOIN product ON cart.id_product = product.id
+				INNER JOIN tickettour ON cart.idTicket = tickettour.id
+				WHERE cart.id_user = $idUser";
 
 				$result = $db->execute($sql);
 

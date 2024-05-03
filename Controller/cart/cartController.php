@@ -51,10 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $db->InsertOrder($id, $idUser, $hoTen, $email, $sodienthoai, $diachi, $note_book_tour, $dateBuy, $tongTien, 1);
                 $first = 0;
             }
+            
             $db->InsertDetailOrder($id, $id_product, $price, $amount, $price * $amount, $date);
+            $numTicketAvai=$numTicketAvailable-$amount;
+            $db->updateNumTicketAvailable($idTicket, $numTicketAvai);
              $db->deleteItemCart($cart_id);
-            $db->updateNumTicketAvailable($idTicket, $numTicketAvailable);
-            echo "ID sản phẩm: $id_product, Số lượng book/tour: $amount, Tổng tiền: $tongTien, Số lượng: $amount, Giá: $price, Ngày: $date, cart: $cart_id<br>";
+            echo "ID sản phẩm: $id_product, Số lượng book/tour: $amount, Tổng tiền: $tongTien, Số lượng: $amount, Giá: $price, Ngày: $date, cart: $cart_id,numTicketAvai:$numTicketAvai<br>";
             // Sau đó, bạn có thể thực hiện các thao tác xử lý dữ liệu khác tại đây
         }
     } else {
