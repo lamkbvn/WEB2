@@ -623,7 +623,7 @@ class Database
     return $roles;
   }
 
-  public function resultThongKe($orderby, $selectCategory, $dateStart, $dateEnd, $namecoll)
+  public function resultThongKe($orderby, $selectCategory, $dateStart, $dateEnd, $namecoll, $soDongHienThi, $sanPhamBanChayNhat)
   {
 
     if ($selectCategory == 0) {
@@ -694,6 +694,10 @@ class Database
     }
 
     $sql = $sql . ' group by p.title  ';
+    if ($sanPhamBanChayNhat == 1) {
+      $sql = $sql . ' order by amount desc';
+    }
+    $sql = $sql . ' LIMIT ' . $soDongHienThi;
 
     $result = null;
     if ($dateStart != '' && $dateEnd == '') {
@@ -742,7 +746,7 @@ class Database
     if ($namecoll != '') {
       $column = [];
       foreach ($objects as $keyx => $value) {
-        $column[$keyx] = $value[$listOrder[$namecoll]]; // Chỉ lấy giá trị cột 1
+        $column[$keyx] = $value[$listOrder[$namecoll]];
       }
       // Sắp xếp mảng dựa trên giá trị của cột
       if ($orderby == 'ASC')
@@ -1203,11 +1207,11 @@ ORDER BY
     return $data;
   }
 
-    public function updateNumTicketAvailable($idTicket,$numTicketAvai)
-    {
+  public function updateNumTicketAvailable($idTicket, $numTicketAvai)
+  {
     $sql = "update tickettour set numTicketAvailable = $numTicketAvai where id = $idTicket";
     return $this->execute($sql);
-   }
+  }
 
-  
+
 }

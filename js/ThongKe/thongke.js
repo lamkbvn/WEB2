@@ -7,6 +7,8 @@ function selectDateStart(event){
   if(inputEnd.value <  inputStart.value && inputEnd.value != '')
       alert('Ngày bắt đầu phải nhỏ hơn ngày kết thúc');
   // console.log(inputStart.value) ;
+  if(inputStart.value == '')
+    inputEnd.value ='';
 }
 
 function selectDateEnd(event){
@@ -40,6 +42,54 @@ function resetOrder(){
       if(!desc[i].classList.contains('hide'))
         desc[i].classList.add('hide');
     }
+}
+
+function sanPhamBanChay(event){
+  let button =  event.target ;
+  if(button.classList.contains('0'))
+  {
+    button.classList.remove('0');
+    button.classList.add('1');
+    button.style.backgroundColor = 'blue';
+    button.style.color = 'white';
+  }
+  else{
+    button.classList.remove('1');
+    button.classList.add('0');
+    button.style.backgroundColor = 'white';
+    button.style.color = 'black';
+  }
+  filterThongKe(event);
+}
+
+function filterTheoThang(event){
+  let button = event.target ;
+  let parent = button.parentNode ;
+  let dateStart = parent.querySelector('.input-date-start');
+  let dateEnd = parent.querySelector('.input-date-end');
+  let now1 = new Date();
+  let year = now1.getFullYear();
+  let month = now1.getMonth() + 1;
+  let date = new Date(year, month , 0).getDate();
+  dateStart.value = year +  '-' + month.toString().padStart(2 , 0) + '-' + '01';
+  dateEnd.value =  year + '-' + month.toString().padStart(2 , 0) + '-' + date ;
+  console.log(date);
+}
+
+function filterTheoTuan(event){
+  let button = event.target ;
+  let parent = button.parentNode ;
+  let dateStart = parent.querySelector('.input-date-start');
+  let dateEnd = parent.querySelector('.input-date-end');
+  let now = new Date();
+  let hientai = new Date(now.toISOString().split('T')[0]);
+  let ngayBatDau = new Date(hientai);
+  ngayBatDau.setDate(hientai.getDate() - now.getDay() + 1);
+  let ngayKetThuc = new Date(hientai);
+  ngayKetThuc.setDate(hientai.getDate() + (7 - now.getDay()));
+  dateStart.value = ngayBatDau.toISOString().split('T')[0];
+  dateEnd.value = ngayKetThuc.toISOString().split('T')[0];
+  filterThongKe(event);
 }
 
 function filterThongKe(event){
@@ -88,8 +138,12 @@ function filterThongKe(event){
       tableData.classList.add('hide');
     }
   }
+  let soDongHienThi = parent.querySelector('.so-dong-hien-thi');
+  soDongHienThi.parentNode.classList.remove('hide');
+  let sanPhamBanChayNhat = parent.querySelector('.san-pham-ban-chay-nhat');
+  sanPhamBanChayNhat.classList.remove('hide');
 
-  console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData.value,namecoll);
+  console.log(selectCategory ,dateStart, dateEnd ,orderby,buttonTypeData.value,namecoll,soDongHienThi.value);
   let displayTitleTable = document.querySelector('.titleTable');
   displayTitleTable.classList.remove('hide');
   $.ajax({
@@ -101,7 +155,9 @@ function filterThongKe(event){
         dateStart : dateStart,
         dateEnd : dateEnd,
         orderby : orderby,
-        namecoll : namecoll
+        namecoll : namecoll,
+        soDongHienThi : soDongHienThi.value,
+        sanPhamBanChayNhat: sanPhamBanChayNhat.classList[1]
       },
       success : function(response){
         $('.bodyTable').html(response);

@@ -18,7 +18,7 @@
   }
   .header{
     width: 100%;
-    height: 50px;
+    height: 80px;
     background-color:red;
   }
   .main{
@@ -52,11 +52,19 @@
 
 
   .date-start{
-    margin-left : 50px;
+    margin-left : 20px;
   }
 
   .date-end{
-    margin-left : 50px;
+    margin-left : 20px;
+  }
+
+  .input-date-start{
+    margin-top: 3px;
+  }
+
+  .input-date-end{
+    margin-top: 3px;
   }
 
   .submit{
@@ -100,6 +108,49 @@
   .chartData{
     width : 1000px;
   }
+
+  .so-dong-hien-thi{
+    width: 50px;
+  }
+
+  .san-pham-ban-chay-nhat{
+    border: 1px solid black;
+    padding :2px;
+    cursor: pointer;
+    border-radius : 10px;
+  }
+
+  .san-pham-ban-chay-nhat:active{
+    background-color: blue;
+    color : white;
+  }
+
+  .btn-tuan{
+    width: 120px;
+
+  }
+
+  .btn-thang{
+    width: 140px;
+    margin-left : 20px;
+
+  }
+
+  .btn{
+    display :flex ;
+    align-items : center;
+    justify-content : center;
+    border: 1px solid black;
+    height: 39px;
+    cursor: pointer;
+    border-radius : 10px;
+  }
+
+  .btn:active{
+    background-color: blue;
+    color : white;
+  }
+
 </style>
 
 <body>
@@ -125,6 +176,8 @@
       <label for="input-date-end">Ngày kết thúc : </label>
       <input type="date" name="input-date-end" id="input-date-end" class="input-date-end" onchange = "selectDateEnd(event)">
     </div>
+    <div class="btn-tuan btn" onclick = "filterTheoTuan(event)">Theo tuần</div>
+    <div class="btn-thang btn" onclick = "filterTheoThang(event)">Theo tháng</div>
   </fieldset>
   </div>
   <div class="typeData">
@@ -137,6 +190,11 @@
       <option value="0">Bảng</option>
       <option value="1">Biểu đồ</option>
     </select>
+    <div class="input-so-dong-hien-thi hide" onchange = "filterThongKe(event)">
+      <label for="">Số dòng : </label>
+      <input type="number" class ="so-dong-hien-thi" value ="5">
+    </div>
+    <div class="san-pham-ban-chay-nhat 0 hide" onclick = "sanPhamBanChay(event)">Sản phẩm bán chạy nhất</div>
   </div>
   <table border="1" class = "tableData custom-table">
     <thead class = "titleTable hide table-head">
