@@ -15,16 +15,18 @@
 					</div>
 					<div class="trangchuadmin--total-item__percent">
 						<?php
-						if ($soLuongKHPercent > 0) {
+						if ($tongDoanhThuPercent > 0) {
 							echo '<img src="css/icons/total-item-increse.svg" alt="" class="trangchuadmin--total__percent-img">';
-						} else if ($soLuongKHPercent < 0) {
+						} else if ($tongDoanhThuPercent < 0) {
+							$tongDoanhThuPercent = $tongDoanhThuPercent * -1;
+
 							echo '<img src="css/icons/total-item-decrease.svg" alt="" class="trangchuadmin--total__percent-img">';
 						} else {
 							echo '<img src="css/icons/math-almost-equal-to-svgrepo-com (2).svg" alt="" class="trangchuadmin--total__percent-img-a">';
 						}
 						?>
 						<div class="trangchuadmin--total__percent-number" id="percentKH">
-							<?php echo $soLuongKHPercent; ?>%
+							<?php echo $tongDoanhThuPercent; ?>%
 						</div>
 						<p class="trangchuadmin--total__percent-desc">from yesterday</p>
 					</div>
