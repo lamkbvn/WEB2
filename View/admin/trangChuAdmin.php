@@ -15,18 +15,16 @@
 					</div>
 					<div class="trangchuadmin--total-item__percent">
 						<?php
-						if ($tongDoanhThuPercent > 0) {
+						if ($soLuongKHPercent > 0) {
 							echo '<img src="css/icons/total-item-increse.svg" alt="" class="trangchuadmin--total__percent-img">';
-						} else if ($tongDoanhThuPercent < 0) {
-							$tongDoanhThuPercent = $tongDoanhThuPercent * -1;
-
+						} else if ($soLuongKHPercent < 0) {
 							echo '<img src="css/icons/total-item-decrease.svg" alt="" class="trangchuadmin--total__percent-img">';
 						} else {
 							echo '<img src="css/icons/math-almost-equal-to-svgrepo-com (2).svg" alt="" class="trangchuadmin--total__percent-img-a">';
 						}
 						?>
 						<div class="trangchuadmin--total__percent-number" id="percentKH">
-							<?php echo $tongDoanhThuPercent; ?>%
+							<?php echo $soLuongKHPercent; ?>%
 						</div>
 						<p class="trangchuadmin--total__percent-desc">from yesterday</p>
 					</div>
@@ -177,6 +175,7 @@
 	</div>
 </body>
 <script>
+	document.addEventListener("DOMContentLoaded", function() {
 		var ctxDonut = document.getElementById('myDoughnutChart').getContext('2d');
 
 		// Khởi tạo biểu đồ Doughnut
@@ -282,6 +281,7 @@
 				}
 			}
 		});
+	});
 
 	// Lấy phần tử có id là "percentNumber"
 	var percentKH = document.getElementById("percentKH");
