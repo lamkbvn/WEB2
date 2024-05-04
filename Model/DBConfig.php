@@ -1003,10 +1003,18 @@ class Database
     return $result;
   }
   public function updateOrder($orderId, $status)
-  {
-    $sql = "update orders set status = $status where id = $orderId";
+{
+    // Sanitize input
+    $orderId = intval($orderId); // Convert to integer
+    $status = intval($status); // Convert to integer
+    $userId = intval($_SESSION['idUserLogin']); // Assuming idUserLogin is an integer, convert to integer
+
+    // Prepare SQL query
+    $sql = "UPDATE orders SET status = $status, id_nguoiXacNhanOrder = $userId WHERE id = $orderId";
+
+    // Execute the query
     return $this->execute($sql);
-  }
+}
   public function getMailByIdOrder($orderId)
   {
     $this->connect();
