@@ -304,8 +304,10 @@ class Database
   // thêm orrder
   public function InsertOrder($id, $id_user, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount)
   {
-    $sql = "INSERT INTO orders (id, id_user, fullname, email, phone_number, address, note, date_order, total_money, status, id_discount)
+    if ($id_discount != 0) $sql = "INSERT INTO orders (id, id_user, fullname, email, phone_number, address, note, date_order, total_money, status, id_discount)
     VALUES ('$id', '$id_user', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1', '$id_discount')";
+    else $sql = "INSERT INTO orders (id, id_user, fullname, email, phone_number, address, note, date_order, total_money, status)
+    VALUES ('$id', '$id_user', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1')";
     $rs = $this->execute($sql);
     if ($rs) {
       return true;
@@ -873,6 +875,7 @@ class Database
   }
   public function getAll()
   {
+    $data=null;
     if (!$this->result) {
       $data = 0;
     } else {

@@ -56,7 +56,7 @@ switch ($action) {
                 $rs0 = $db->buyTicket($idTicket, $soLuong);
                 // $id = date('dmyHis');
                 $idVoucher = $_REQUEST['idVoucher'];
-                $rs = $db->InsertOrder($id, $idUser, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, 1);
+                $rs = $db->InsertOrder($id, $idUser, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $idVoucher);
                 $rs2 = $db->InsertDetailOrder($id, $idPro, $priceAtour, $soLuong, $priceAtour*$soLuong,  $dateBook);
                 if($rs && $rs2 && $rs0) echo '<script>alert("Mua tour này thành công!")</script>';
                 if ($idVoucher != 0) $db->XoaVoucherKhiAddMa($idVoucher, $idUser);
