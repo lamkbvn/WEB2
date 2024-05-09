@@ -30,10 +30,15 @@ if (
 	$email = $_POST['email'];
 	$phone_number = $_POST['phone_number'];
 	$address = $_POST['address'];
-	$role = $_POST['role'];
+
 	$create_at = $_POST['create_at'];
 
 	$status = "1";
+	
+	$role = 0;
+	if (isset($_POST['role'])) {
+		$role = $_POST['role'];
+	}
 
 	$usernameExists = false;
 	$emailExists = false;

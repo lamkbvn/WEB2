@@ -147,7 +147,7 @@ switch ($table) {
                     }
                 }
                 if ($isDelete == 1) {
-                    $htmlTable .= "<a class='delete-btn table-btn ' href='index.php?controller=trang-admin&action=delete&id={$value['id']}'>Delete</a>";
+                    $htmlTable .= "<a class='delete-btn table-btn' onclick='handleDeleteClick(this)' data-delete-url='index.php?controller=trang-admin&action=delete&id={$value['id']}'>Delete</a>";
                 }
 
                 $htmlTable .= "</td></tr>";

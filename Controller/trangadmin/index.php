@@ -125,15 +125,18 @@ switch ($action) {
 		}
 
 	case 'trangChuAdmin': {
-			$tongDoanhThu = $db->getTongDoanhThu('orders');
+			$soLuongND = $db->getSoLuong('nguoidung', 'id > 0');
 			$soLuongSP = $db->getSoLuong('product', 'id > 0');
 			$soLuongDH = $db->getSoLuong('orders', 'id > 0');
 			$soLuongFB = $db->getSoLuong('feedback', 'id > 0');
 
-			$soLuongKHPercent = 0;
+			$soLuongNDPercent = 0;
 			$soLuongSPPercent = 0;
 			$soLuongDHPercent = 0;
 			$soLuongFBPercent = 0;
+
+			$soLuongNDToDay = $db->getCountToday('product', 'create_at');
+			$soLuongNDYesterday = $db->getCountYesterday('product', 'create_at');
 
 			$soLuongSPToDay = $db->getCountToday('product', 'create_at');
 			$soLuongSPYesterday = $db->getCountYesterday('product', 'create_at');
@@ -143,6 +146,11 @@ switch ($action) {
 
 			$soLuongFBToDay = $db->getCountToday('feedback', 'create_at');
 			$soLuongFBYesterday = $db->getCountYesterday('feedback', 'create_at');
+
+			if ($soLuongNDToDay > 0 && $soLuongNDYesterday >= 0) {
+				$soLuongNDPercent = ($soLuongNDToDay / $soLuongND - $soLuongNDYesterday / $soLuongND) * 100;
+				$soLuongNDPercent = round($soLuongNDPercent, 2);
+			}
 
 			if ($soLuongSPToDay > 0 && $soLuongSPYesterday >= 0) {
 				$soLuongSPPercent = ($soLuongSPToDay / $soLuongSP - $soLuongSPYesterday / $soLuongSP) * 100;

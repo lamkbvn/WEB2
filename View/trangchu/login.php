@@ -51,8 +51,7 @@ include_once 'includes/login_orther.php';
                     </div>
                     <div class="login-google">
                         <a href="<?php echo $client->createAuthUrl() ?>">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="34" viewBox="0 0 35 34"
-                                fill="none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="34" viewBox="0 0 35 34" fill="none">
                                 <circle cx="17.9824" cy="17" r="16.5" fill="white" stroke="#757575" />
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.416 13.1802C10.7697 12.4189 11.2695 11.7546 11.8556 11.1536C13.1818 9.79329 14.7875 8.92223 16.6882 8.62512C19.3487 8.20923 21.7297 8.8231 23.7873 10.5568C23.9173 10.6664 23.9494 10.7304 23.8081 10.8659C23.0818 11.5618 22.367 12.2691 21.648 12.9723C21.5743 13.0444 21.5245 13.1325 21.3935 13.015C19.582 11.3908 16.625 11.4093 14.7001 13.1611C14.0392 13.7625 13.5693 14.4832 13.2616 15.3095C13.2167 15.2807 13.1695 15.255 13.1272 15.2231C12.2231 14.5426 11.3196 13.8613 10.416 13.1802Z" fill="#D7282A" />
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2396 18.6267C13.4992 19.2721 13.8219 19.8823 14.3015 20.4006C15.521 21.7185 17.0326 22.287 18.8438 22.103C19.6852 22.0175 20.452 21.7386 21.1683 21.3101C21.2371 21.3702 21.3025 21.4344 21.3749 21.4899C22.2133 22.1304 23.0529 22.7696 23.892 23.4092C22.9667 24.2692 21.874 24.8417 20.645 25.1457C17.7471 25.8625 15.0759 25.4095 12.7039 23.5778C11.7233 22.8205 10.9519 21.8851 10.4082 20.7778C11.3521 20.0608 12.2958 19.3437 13.2396 18.6267Z" fill="#45AC43" />
@@ -180,7 +179,7 @@ include_once 'includes/login_orther.php';
     });
 
     phoneNumber.addEventListener("blur", function() {
-        validateFieldRegex(phoneNumber, /^\d{10,11}$/, "Số điện thoại không hợp lệ", spansValidation[4]);
+        validateFieldRegex(phoneNumber, /^\d{10}$/, "Số điện thoại không hợp lệ", spansValidation[4]);
     });
 
     address.addEventListener("blur", function() {
