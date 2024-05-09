@@ -97,17 +97,21 @@
                     <div class="filter-body">
                         <div class="filter-content">
                             <div class="filter-content-wrapper">
-                                <!-- <div class="filter-content-item">
-                                    <h3 class="title">Ngày tham gia</h3>
-                                    <div class="item">
-                                        <div class="quick-item">
+                                <div class="filter-content-item">
+                                    <h3 class="title">Tên sản phẩm</h3>
+                                    <div class="item item-position-relative">
+                                        <!-- <div class="quick-item">
                                             <div class="category">Hôm nay</div>
                                             <div class="category">Ngày mai</div>
                                             <div class="category">Ngày khác</div>
                                         </div>
-                                        <div class="select-date"></div>
+                                        <div class="select-date"></div> -->
+                                        <div class="icon">
+                                            <img src="View/icon/search-icon.svg" alt="" srcset="" />
+                                        </div>
+                                        <input type="text" placeholder="Nhập tên tour" class="search-input" name="keyword" id="keyword-inform" />
                                     </div>
-                                </div> -->
+                                </div>
                                 <div class="filter-content-item">
                                     <h3 class="title">Lọc theo giá</h3>
                                     <div class="wrapper-filter-all">

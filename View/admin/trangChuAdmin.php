@@ -8,23 +8,23 @@
 				<div class="trangchuadmin--total-item blue">
 					<div class="trangchuadmin--total-item__row">
 						<div class="trangchuadmin--total-item__info">
-							<h2 class="trangchuadmin--total-item__heading">Tổng doanh thu</h2>
-							<p class="trangchuadmin--total-item__number"><?php echo $tongDoanhThu; ?></p>
+							<h2 class="trangchuadmin--total-item__heading">Người dùng</h2>
+							<p class="trangchuadmin--total-item__number"><?php echo $soLuongND; ?></p>
 						</div>
 						<img src="css/icons/total-item-01.svg" alt="" class="trangchuadmin--total-item__icon">
 					</div>
 					<div class="trangchuadmin--total-item__percent">
 						<?php
-						if ($soLuongKHPercent > 0) {
+						if ($soLuongNDPercent > 0) {
 							echo '<img src="css/icons/total-item-increse.svg" alt="" class="trangchuadmin--total__percent-img">';
-						} else if ($soLuongKHPercent < 0) {
+						} else if ($soLuongNDPercent < 0) {
 							echo '<img src="css/icons/total-item-decrease.svg" alt="" class="trangchuadmin--total__percent-img">';
 						} else {
 							echo '<img src="css/icons/math-almost-equal-to-svgrepo-com (2).svg" alt="" class="trangchuadmin--total__percent-img-a">';
 						}
 						?>
-						<div class="trangchuadmin--total__percent-number" id="percentKH">
-							<?php echo $soLuongKHPercent; ?>%
+						<div class="trangchuadmin--total__percent-number" id="percentND">
+							<?php echo $soLuongNDPercent; ?>%
 						</div>
 						<p class="trangchuadmin--total__percent-desc">from yesterday</p>
 					</div>
@@ -177,115 +177,115 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 <script>
-		var ctxDonut = document.getElementById('myDoughnutChart').getContext('2d');
+	var ctxDonut = document.getElementById('myDoughnutChart').getContext('2d');
 
-		// Khởi tạo biểu đồ Doughnut
-		var myDoughnutChart = new Chart(ctxDonut, {
-			type: 'doughnut',
-			data: {
-				labels: ['Tour hủy', 'Tour đặt'],
-				datasets: [{
-					label: 'Dataset',
-					data: [<?php echo json_encode($tourHuy) . ',' . json_encode($tongTour); ?>], // Dữ liệu
-					backgroundColor: [
-						'rgba(255, 99, 132, 0.5)',
-						'rgba(54, 162, 235, 0.5)'
-					],
-					borderColor: [
-						'rgba(255, 99, 132, 1)',
-						'rgba(54, 162, 235, 1)'
-					],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Số tour bị hủy so với tổng tour đã đặt thành công',
-						align: 'center', // Canh giữa tiêu đề
-						position: 'bottom',
-						padding: {
-							bottom: 20,
-							top: 20 // Khoảng cách dưới tiêu đề
-						}
+	// Khởi tạo biểu đồ Doughnut
+	var myDoughnutChart = new Chart(ctxDonut, {
+		type: 'doughnut',
+		data: {
+			labels: ['Tour hủy', 'Tour đặt'],
+			datasets: [{
+				label: 'Dataset',
+				data: [<?php echo json_encode($tourHuy) . ',' . json_encode($tongTour); ?>], // Dữ liệu
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.5)',
+					'rgba(54, 162, 235, 0.5)'
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			plugins: {
+				title: {
+					display: true,
+					text: 'Số tour bị hủy so với tổng tour đã đặt thành công',
+					align: 'center', // Canh giữa tiêu đề
+					position: 'bottom',
+					padding: {
+						bottom: 20,
+						top: 20 // Khoảng cách dưới tiêu đề
 					}
 				}
 			}
-		});
+		}
+	});
 
-		// Lấy danh sách các hàng của bảng
-		var rows = document.querySelectorAll(".tableTopTour tr");
+	// Lấy danh sách các hàng của bảng
+	var rows = document.querySelectorAll(".tableTopTour tr");
 
-		// Duyệt qua từng hàng và áp dụng hiệu ứng nhảy vào
-		rows.forEach(function(row, index) {
-			setTimeout(function() {
-				row.classList.add("show");
-			}, index * 200); // Tạo khoảng cách thời gian giữa các hiệu ứng
-		});
+	// Duyệt qua từng hàng và áp dụng hiệu ứng nhảy vào
+	rows.forEach(function(row, index) {
+		setTimeout(function() {
+			row.classList.add("show");
+		}, index * 200); // Tạo khoảng cách thời gian giữa các hiệu ứng
+	});
 
-		var data = [1, 2, 3, 4, 5, 6, 7]
-		var ctx = document.getElementById('myChart').getContext('2d');
+	var data = [1, 2, 3, 4, 5, 6, 7]
+	var ctx = document.getElementById('myChart').getContext('2d');
 
-		var myChart = new Chart(ctx, {
-			type: 'line',
-			data: {
-				labels: ['Sunday', 'Monday', 'Tuesday', 'Webnesday', 'Thursday', 'Friday', 'Saturday'],
-				datasets: [{
-					label: 'This week',
-					data: <?php echo json_encode($dataPoints1); ?>,
-					fill: true,
-					backgroundColor: 'rgba(75, 192, 192, 0.3)',
-					borderColor: 'rgb(75, 192, 192)',
-					tension: 0.3
-				}, {
-					label: 'Last week',
-					data: <?php echo json_encode($dataPoints2); ?>,
-					fill: true,
-					backgroundColor: 'rgba(255, 99, 132, 0.3)',
-					borderColor: 'rgb(255, 99, 132)',
-					tension: 0.3
-				}]
-			},
-			options: {
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ['Sunday', 'Monday', 'Tuesday', 'Webnesday', 'Thursday', 'Friday', 'Saturday'],
+			datasets: [{
+				label: 'This week',
+				data: <?php echo json_encode($dataPoints1); ?>,
+				fill: true,
+				backgroundColor: 'rgba(75, 192, 192, 0.3)',
+				borderColor: 'rgb(75, 192, 192)',
+				tension: 0.3
+			}, {
+				label: 'Last week',
+				data: <?php echo json_encode($dataPoints2); ?>,
+				fill: true,
+				backgroundColor: 'rgba(255, 99, 132, 0.3)',
+				borderColor: 'rgb(255, 99, 132)',
+				tension: 0.3
+			}]
+		},
+		options: {
 
-			}
-		});
+		}
+	});
 
-		var ctx2 = document.getElementById('myChartDuDoan').getContext('2d');
+	var ctx2 = document.getElementById('myChartDuDoan').getContext('2d');
 
-		var myChart2 = new Chart(ctx2, {
-			type: 'line',
-			data: {
-				labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-				datasets: [{
-					label: '2024',
-					data: <?php echo json_encode($predicted_sales_this_year); ?>,
-					fill: true,
-					backgroundColor: 'rgba(74, 217, 145, 0.3)',
-					borderColor: '#4ad991',
-					tension: 0.3
-				}]
-			},
-			options: {
-				plugins: {
-					title: {
-						display: true,
-						text: 'Dự đoán số lượng tour bán theo tháng trong năm nay',
-						align: 'center', // Canh giữa tiêu đề
-						position: 'bottom',
-						padding: {
-							bottom: 20,
-							top: 20 // Khoảng cách dưới tiêu đề
-						}
+	var myChart2 = new Chart(ctx2, {
+		type: 'line',
+		data: {
+			labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+			datasets: [{
+				label: '2024',
+				data: <?php echo json_encode($predicted_sales_this_year); ?>,
+				fill: true,
+				backgroundColor: 'rgba(74, 217, 145, 0.3)',
+				borderColor: '#4ad991',
+				tension: 0.3
+			}]
+		},
+		options: {
+			plugins: {
+				title: {
+					display: true,
+					text: 'Dự đoán số lượng tour bán theo tháng trong năm nay',
+					align: 'center', // Canh giữa tiêu đề
+					position: 'bottom',
+					padding: {
+						bottom: 20,
+						top: 20 // Khoảng cách dưới tiêu đề
 					}
 				}
 			}
-		});
+		}
+	});
 
 	// Lấy phần tử có id là "percentNumber"
-	var percentKH = document.getElementById("percentKH");
-	var soLuongKHPercent = <?php echo $soLuongKHPercent; ?>;
+	var percentND = document.getElementById("percentND");
+	var soLuongNDPercent = <?php echo $soLuongNDPercent; ?>;
 
 	var percentSP = document.getElementById("percentSP");
 	var soLuongSPPercent = <?php echo $soLuongSPPercent; ?>;
@@ -306,7 +306,7 @@
 		}
 	}
 
-	checkPercent(percentKH, soLuongKHPercent);
+	checkPercent(percentND, soLuongNDPercent);
 	checkPercent(percentSP, soLuongSPPercent);
 	checkPercent(percentDH, soLuongDHPercent);
 	checkPercent(percentFB, soLuongFBPercent);

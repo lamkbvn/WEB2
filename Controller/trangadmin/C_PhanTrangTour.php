@@ -28,6 +28,19 @@ if ($result === false) {
     }
 }
 
+$sqlTaikhoan = "SELECT * FROM acount ";
+$resultTK = $conn->query($sqlTaikhoan);
+$dataTK = [];
+if ($resultTK === false) {
+    // Xử lý lỗi nếu có
+} else {
+    $dataTK = [];
+    while ($row = $resultTK->fetch_assoc()) {
+        $dataTK[] = $row;
+    }
+}
+
+
 // $data = $pagination->getRecords('product', $page, $recordsPerPage);
 
 $sql = "SELECT COUNT(*) AS total FROM $table";
@@ -76,7 +89,7 @@ switch ($table) {
     case 'nguoidung':
         foreach ($data as  $value) {
             if (
-                isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin']) && $value['id'] != $_SESSION['idUserLogin']
+                isset($_SESSION['objuser']) && isset($_SESSION['idUserLogin']) && $_SESSION['idUserLogin'] !== $value['id_acount']
             ) {
                 $htmlTable .= "<tr class='table-row'>
                 <td class='table-cell id'>{$value['id']}</td>
@@ -86,6 +99,7 @@ switch ($table) {
                 <td class='table-cell create_at'>{$value['create_at']}</td>
                 <td class='table-cell diachi'>{$value['address']}</td>
                 <td class='table-cell tourhuy'>";
+
 
                 $valueTourHuy;
                 foreach ($dataTourHuy as $valueTourHuy) {
@@ -97,11 +111,34 @@ switch ($table) {
                     }
                 }
                 $htmlTable .= "0</td>";
+                $htmlTable .= "<td class='table-cell taikhoan'>";
+
+
+                $valueTK;
+                $object = array(); // Khởi tạo một mảng rỗng để lưu trữ object
+
+                foreach ($dataTK as $valueTK) {
+                    if ($valueTK['id'] == $value['id_acount']) {
+                        if ($valueTK != 0) {
+                            $valueTK = $valueTK['user_name'];
+                            // Tạo một object mới và gán giá trị
+                            $object[$value['id']] = 1;
+                        } else {
+                            $valueTK = 0;
+                        }
+                        $htmlTable .= "$valueTK</td>";
+                    }
+                }
+
+                // $htmlTable .= "0</td>";
                 $htmlTable .= "<td class='table-cell'>";
 
                 if ($isEdit == 1) {
-                    $htmlTable .= "<a class='edit-btn table-btn a-href-ajax' href='index.php?controller=trang-admin&action=edit&id={$value['id']}'>Edit</a>";
-
+                    if (isset($object[$value['id']]) && $object[$value['id']] === 1) {
+                        $htmlTable .= "<a class='edit-btn table-btn a-href-ajax' href='index.php?controller=trang-admin&action=edit&id={$value['id']}'>Edit</a>";
+                    } else {
+                        $htmlTable .= "<a class='edit-btn table-btn a-href-ajax' href='index.php?controller=trang-admin&action=editHaveAcount&id={$value['id']}'>Edit</a>";
+                    }
                     $status = $value['status'];
                     if ($status == 0) {
                         $htmlTable .= "<a class='unban-user table-btn ' href='index.php?controller=trang-admin&action=unbanuser&id={$value['id']}'>Unban</a>";
@@ -110,7 +147,7 @@ switch ($table) {
                     }
                 }
                 if ($isDelete == 1) {
-                    $htmlTable .= "<a class='delete-btn table-btn ' href='index.php?controller=trang-admin&action=delete&id={$value['id']}'>Delete</a>";
+                    $htmlTable .= "<a class='delete-btn table-btn' onclick='handleDeleteClick(this)' data-delete-url='index.php?controller=trang-admin&action=delete&id={$value['id']}'>Delete</a>";
                 }
 
                 $htmlTable .= "</td></tr>";

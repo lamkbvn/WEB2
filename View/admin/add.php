@@ -9,16 +9,18 @@
 						<div class="form--inner--fill">
 							<label class="add-user--label" for="fullname">Họ Tên:</label><br>
 							<input placeholder="Họ tên" class="add-user--input" type="text" id="fullname" name="fullname"><br>
-
+							<span id="validation" class="error_msg" style="color: red;"></span>
 						</div>
 						<div class="form--inner--fill">
 							<label class="add-user--label" for="email">Email:</label><br>
 							<input placeholder="Email" class="add-user--input" type="email" id="email" name="email"><br>
+							<span id="validation" class="error_msg" style="color: red;"></span>
 
 						</div>
 						<div class="form--inner--fill">
 							<label class="add-user--label" for="phone_number">Số Điện Thoại:</label><br>
 							<input placeholder="Phone number" class="add-user--input" type="text" id="phone_number" name="phone_number"><br>
+							<span id="validation" class="error_msg" style="color: red;"></span>
 
 						</div>
 					</div>
@@ -31,17 +33,20 @@
 						<div class="form--inner--fill">
 							<label class="add-user--label" for="address">Địa Chỉ:</label><br>
 							<input placeholder="Địa chỉ" class="add-user--input" type="text" id="address" name="address"><br>
+							<span id="validation" class="error_msg" style="color: red;"></span>
 
 						</div>
 
 						<div class="form--inner--fill">
 							<label class="add-user--label" for="username">Tài khoản</label><br>
 							<input placeholder="Tài khoản" class="add-user--input" type="text" id="username" name="username"><br><br>
+							<span id="validation" class="error_msg" style="color: red;"></span>
 						</div>
 
 						<div class="form--inner--fill">
 							<label class="add-user--label" for="password">Mật khẩu</label><br>
 							<input placeholder="Mật khẩu" class="add-user--input" type="text" id="password" name="password"><br><br>
+							<span id="validation" class="error_msg" style="color: red;"></span>
 						</div>
 						<div class="form--inner--fill">
 							<select name="role" id="role" class="editrole-select">
@@ -66,46 +71,89 @@
 <script>
 	let checkValid = 0;
 
-	function validateForm() {
-		var fullname = document.getElementById("fullname").value.trim();
-		var username = document.getElementById("username").value.trim();
-		var password = document.getElementById("password").value.trim();
-		var email = document.getElementById("email").value.trim();
-		var phoneNumber = document.getElementById("phone_number").value.trim();
-		var address = document.getElementById("address").value.trim();
+	let fullname = document.getElementById("fullname");
+	let email = document.getElementById("email");
+	let phone_number = document.getElementById("phone_number");
+	let address = document.getElementById("address");
+	let create_at = document.getElementById("create_at");
+	let spansValidation = document.querySelectorAll('#validation');
 
-		var error = false;
-
-		// Kiểm tra điều kiện và hiển thị thông báo lỗi nếu cần
-		if (fullname === "" && fullname.length() < 6) {
-			error = true;
-		}
-
-		if (address === "" && address.length() < 6) {
-			error = true;
-		}
-
-		var email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		var phone_regex = /^\d{10,11}$/;
-
-		// Kiểm tra email
-		if (!email_regex.test(email)) {
-			error = true;
-		}
-
-		if (!/^\d{10,11}$/.test(phoneNumber)) {
-			error = true;
-		} else if (phoneNumber === "") {
-			error = true;
-		}
-
-		if (error) {
+	// Function to validate a field and display error message
+	function validateField(input, mess, span) {
+		if (input.value.trim() === "") {
+			span.textContent = mess;
 			return false;
+		} else {
+			span.textContent = "";
+			return true;
 		}
-		checkValid = 1;
-
-		return true;
 	}
+
+	function validateFieldUserName(input, mess, span) {
+		if (input.value.length > 0 && input.value.length < 6) {
+			span.textContent = mess;
+			return false;
+		} else {
+			span.textContent = "";
+			return true;
+		}
+	}
+
+	// Function to validate a field against a regular expression and display error message
+	function validateFieldRegex(input, regex, mess, span) {
+		if (!regex.test(input.value)) {
+			span.textContent = mess;
+			return false;
+		} else {
+			span.textContent = "";
+			return true;
+		}
+	}
+
+	// Event listeners to trigger validation on blur
+	fullname.addEventListener("blur", function() {
+		validateField(fullname, "Vui lòng nhập họ và tên", spansValidation[0]);
+	});
+
+	email.addEventListener("blur", function() {
+		validateFieldRegex(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email không hợp lệ", spansValidation[1]);
+	});
+
+	phone_number.addEventListener("blur", function() {
+		validateFieldRegex(phone_number, /^\d{10,11}$/, "Số điện thoại không hợp lệ", spansValidation[2]);
+	});
+
+	address.addEventListener("blur", function() {
+		validateField(address, "Vui lòng nhập địa chỉ", spansValidation[3]);
+	});
+
+	username.addEventListener("blur", function() {
+		validateField(username, "Vui lòng nhập tài khoản", spansValidation[4]);
+	});
+
+	password.addEventListener("blur", function() {
+		validateField(password, "Vui lòng nhập mật khẩu", spansValidation[5]);
+	});
+
+
+
+	// Function to validate the entire form
+	function validateForm() {
+		const isValidFullName = validateField(fullname, "Vui lòng nhập họ và tên", spansValidation[0]);
+		const isValidEmail = validateFieldRegex(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email không hợp lệ", spansValidation[1]);
+		const isValidPhoneNumber = validateFieldRegex(phone_number, /^\d{10,11}$/, "Số điện thoại không hợp lệ", spansValidation[2]);
+		const isValidAddress = validateField(address, "Vui lòng nhập địa chỉ", spansValidation[3]);
+		const isValidUsername = validateFieldUserName(username, "Tài khoản phải có ít nhất 6 ký tự", spansValidation[4]);
+		const isValidPassword = validateFieldUserName(password, "Mật khẩu phải có ít nhất 6 ký tự", spansValidation[5]);
+
+
+		if (isValidFullName && isValidEmail && isValidPhoneNumber && isValidAddress) {
+			checkValid = 1;
+		} else {
+			checkValid = 0;
+		}
+	}
+
 
 	$(document).ready(function() {
 		$('.add-user--inner form').submit(function(e) {
@@ -143,10 +191,15 @@
 						alert("Nhập sai Email, vui lòng nhập lại!");
 					} else if (response.trim() === "invalid phone") {
 						alert("Nhập sai số điện thoại, vui lòng nhập lại!");
+					} else if (response.trim() === "invalid username") {
+						alert("Tài khoản phải lớn hơn 6 kí tự, vui lòng nhập lại!");
+					} else if (response.trim() === "invalid password") {
+						alert("Mật khẩu phải lớn hơn 6 kí tự, vui lòng nhập lại!");
 					} else if (response.trim() === "exists phone") {
 						alert("Số điện thoại đã tồn tại, vui lòng nhập lại!");
 					} else if (response.trim() === "valid") {
 						alert("Đăng kí thành công");
+						window.location.href = `index.php?controller=trang-admin&action=indexAdmin`;
 					} else {
 						alert("Vui lòng nhập đầy đủ thông tin");
 					}

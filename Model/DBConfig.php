@@ -129,12 +129,45 @@ class Database
     return $this->checkUpdate(); // Kiểm tra kết quả của câu lệnh UPDATE
   }
 
+  public function updateEditDataEdit($id, $fullname, $email, $phone_number, $create_at, $address, $id_acount)
+  {
+    $sql = "UPDATE nguoidung SET fullname='$fullname', email='$email', phone_number='$phone_number', create_at='$create_at', address='$address', id_acount='$id_acount' WHERE id='$id'";
+    $this->execute($sql);
+    return $this->checkUpdate(); // Kiểm tra kết quả của câu lệnh UPDATE
+  }
+
+
+  public function updateEditDataAcount($id, $id_acount)
+  {
+    $sql = "UPDATE nguoidung SET id_acount='$id_acount' WHERE id='$id'";
+    $this->execute($sql);
+    return $this->checkUpdate(); // Kiểm tra kết quả của câu lệnh UPDATE
+  }
+
   public function roleAccount($id, $role)
   {
     $sql = "UPDATE acount SET id_role = '$role' WHERE id = '$id'";
     $this->execute($sql);
     return $this->checkUpdate();
   }
+
+  public function idAccount($id, $id_acount)
+  {
+    $sql = "UPDATE nguoidung SET id_acount = '$id_acount' WHERE id = '$id'";
+    $this->execute($sql);
+    return $this->checkUpdate();
+  }
+
+
+
+
+  public function acountAccount($id, $acount, $password)
+  {
+    $sql = "UPDATE acount SET acount = '$acount',password = '$password' WHERE id = '$id'";
+    $this->execute($sql);
+    return $this->checkUpdate();
+  }
+
 
   // delete user
   public function deleteUser($table, $id)
@@ -236,11 +269,19 @@ class Database
     return $accounts;
   }
 
+
+  public function registerAcountOnly($username, $password)
+  {
+    $sql = "INSERT INTO acount (user_name, password) VALUES ('$username', '$password')";
+    return $this->execute($sql);
+  }
+
   public function registerAcount($username, $password, $id_role, $status)
   {
     $sql = "INSERT INTO acount (user_name, password, id_role, status) VALUES ('$username', '$password', '$id_role', '$status')";
     return $this->execute($sql);
   }
+
   public function registerAcountWithGoogle($username, $password, $id_role, $status, $id_google)
   {
     $sql = "INSERT INTO acount (user_name, password, id_role, status, idGoogle) VALUES ('$username', '$password', '$id_role', '$status', '$id_google')";
@@ -304,8 +345,10 @@ class Database
   // thêm orrder
   public function InsertOrder($id, $id_user, $hoten, $email, $sdt, $diachi, $note, $date, $totalPrice, $id_discount)
   {
-    $sql = "INSERT INTO orders (id, id_user, fullname, email, phone_number, address, note, date_order, total_money, status, id_discount)
+    if ($id_discount != 0) $sql = "INSERT INTO orders (id, id_user, fullname, email, phone_number, address, note, date_order, total_money, status, id_discount)
     VALUES ('$id', '$id_user', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1', '$id_discount')";
+    else $sql = "INSERT INTO orders (id, id_user, fullname, email, phone_number, address, note, date_order, total_money, status)
+    VALUES ('$id', '$id_user', '$hoten', '$email', '$sdt', '$diachi', '$note', '$date', '$totalPrice','1')";
     $rs = $this->execute($sql);
     if ($rs) {
       return true;
@@ -671,7 +714,7 @@ class Database
           array_multisort($column, SORT_ASC, $objects);
         else
           if ($orderby == 'DESC')
-            array_multisort($column, SORT_DESC, $objects);
+          array_multisort($column, SORT_DESC, $objects);
       }
 
       return $objects;
@@ -753,7 +796,7 @@ class Database
         array_multisort($column, SORT_ASC, $objects);
       else
         if ($orderby == 'DESC')
-          array_multisort($column, SORT_DESC, $objects);
+        array_multisort($column, SORT_DESC, $objects);
     }
 
     return $objects;
@@ -873,6 +916,7 @@ class Database
   }
   public function getAll()
   {
+    $data = null;
     if (!$this->result) {
       $data = 0;
     } else {
@@ -1004,7 +1048,15 @@ class Database
   }
   public function updateOrder($orderId, $status)
   {
-    $sql = "update orders set status = $status where id = $orderId";
+    // Sanitize input
+    $orderId = intval($orderId); // Convert to integer
+    $status = intval($status); // Convert to integer
+    $userId = intval($_SESSION['idUserLogin']); // Assuming idUserLogin is an integer, convert to integer
+
+    // Prepare SQL query
+    $sql = "UPDATE orders SET status = $status, id_nguoiXacNhanOrder = $userId WHERE id = $orderId";
+
+    // Execute the query
     return $this->execute($sql);
   }
   public function getMailByIdOrder($orderId)
@@ -1212,6 +1264,4 @@ ORDER BY
     $sql = "update tickettour set numTicketAvailable = $numTicketAvai where id = $idTicket";
     return $this->execute($sql);
   }
-
-
 }

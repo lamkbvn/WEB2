@@ -58,7 +58,7 @@ if (
 		echo "exists phone";
 	} else if (!preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $email)) {
 		echo "invalid email";
-	} else if (!preg_match("/^\d{10,11}$/", $phone_number)) {
+	} else if (!preg_match("/^\d{10}$/", $phone_number)) {
 		echo "invalid phone";
 	} else {
 		$db->registerAcount($username, $password, $id_role, $status);
