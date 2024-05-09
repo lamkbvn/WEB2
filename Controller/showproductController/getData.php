@@ -70,6 +70,10 @@ if (isset($_POST['action'])) {
             // Thêm điều kiện vào câu truy vấn
             $sql .= " AND price >= $minPrice and price <= $maxPrice";
         }
+        if (isset($_POST['keyword'])) {
+            $keyword = $_POST['keyword'];
+            $sql .= " AND title LIKE '%$keyword%'";
+        }
         if (isset($_POST['categories']) && !empty($_POST['categories'])) {
             $categories = implode(",", $_POST['categories']);
             $sql .= " AND id_category IN ($categories)";

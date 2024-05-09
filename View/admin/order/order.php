@@ -179,18 +179,20 @@
         <table id="tableData" class="custom-table">
             <thead class="table-head">
                 <tr class="table--head">
-                    <th>STT</th>
-                    <th class="table-header" onclick="sortTable(0)">Mã đơn hàng
-                        <img id="sortIcon0" src="images/arrow-point-to-up.png" width="14px">
+                    <th onclick="sortTable(0)">STT
+                        <img id="sortIcon0" src="images/arrow-point-to-down.png" width="14px">
                     </th>
-                    <th class="table-header" onclick="sortTable(1)">Tên người đặt
+                    <th class="table-header" onclick="sortTable(1)">Mã đơn hàng
                         <img id="sortIcon1" src="images/arrow-point-to-up.png" width="14px">
                     </th>
-                    <th class="table-header" onclick="sortTable(2)">Thời gian đặt
+                    <th class="table-header" onclick="sortTable(2)">Tên người đặt
                         <img id="sortIcon2" src="images/arrow-point-to-up.png" width="14px">
                     </th>
-                    <th class="table-header" onclick="sortTable(3)">Tổng giá trị
+                    <th class="table-header" onclick="sortTable(3)">Thời gian đặt
                         <img id="sortIcon3" src="images/arrow-point-to-up.png" width="14px">
+                    </th>
+                    <th class="table-header" onclick="sortTable(4)">Tổng giá trị
+                        <img id="sortIcon4" src="images/arrow-point-to-up.png" width="14px">
                     </th>
                     <th class="table-header">Trạng thái</th>
                     <th class="table-header">Hành động</th>

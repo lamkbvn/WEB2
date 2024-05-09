@@ -16,8 +16,8 @@ function sortTable(columnIndex) {
             shouldSwitch = false;
             var x = rows[i].getElementsByTagName('td')[columnIndex];
             var y = rows[i + 1].getElementsByTagName('td')[columnIndex];
-            var xContent = x.innerHTML.trim();
-            var yContent = y.innerHTML.trim();
+            var xContent = removeDots(x.innerHTML.trim());
+            var yContent = removeDots(y.innerHTML.trim());
 
             // Kiểm tra nếu dữ liệu là số
             var isNumeric = !isNaN(parseFloat(xContent)) && isFinite(xContent);
@@ -75,4 +75,8 @@ function resetImg() {
         if(iconSort != null)
         iconSort.src = "images/arrow-point-to-up.png";
     }
+}
+function removeDots(str) {
+    // Sử dụng phương thức replace với biểu thức chính quy
+    return str.replace(/\./g, '');
 }
