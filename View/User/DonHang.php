@@ -101,7 +101,7 @@
 
   .container-dh{
     overflow : auto;
-    height :98%;
+    height :65%;
     margin-top : 5px;
   }
 
@@ -195,6 +195,13 @@
     width : 135px;
   }
 }
+.display-tong-tien{
+  margin-top : 20px;
+  padding : 10px;
+  width: 90%;
+  border-top : 1px solid black;
+}
+
 </style>
 <body>
   <div class="quay-lai-profile" onclick = "onSideBar()">
@@ -259,7 +266,7 @@
       <div class="layout"></div>
       <div class="display">
         <div class="exit" onclick ="exitDetailDH(event)">X</div>
-        <div class="container-dh">
+        <div class="container-dh ">
           <!-- <div class="detail-dh">
             <img src="images/heart.png" alt="" class = "col-1 img">
             <div class="col-2">
@@ -267,7 +274,42 @@
               <div class="date-go"> Đặt ngày : 30-1-2024</div>
               <div class="col-3 price">Tổng tiền : 3000000 VNĐ</div>
             </div>
+          </div>
+          <div class="detail-dh">
+            <img src="images/heart.png" alt="" class = "col-1 img">
+            <div class="col-2">
+              <div class="name">Tour đảo cô tô</div>
+              <div class="date-go"> Đặt ngày : 30-1-2024</div>
+              <div class="col-3 price">Tổng tiền : 3000000 VNĐ</div>
+            </div>
+          </div>
+          <div class="detail-dh">
+            <img src="images/heart.png" alt="" class = "col-1 img">
+            <div class="col-2">
+              <div class="name">Tour đảo cô tô</div>
+              <div class="date-go"> Đặt ngày : 30-1-2024</div>
+              <div class="col-3 price">Tổng tiền : 3000000 VNĐ</div>
+            </div>
+          </div>
+          <div class="detail-dh">
+            <img src="images/heart.png" alt="" class = "col-1 img">
+            <div class="col-2">
+              <div class="name">Tour đảo cô tô</div>
+              <div class="date-go"> Đặt ngày : 30-1-2024</div>
+              <div class="col-3 price">Tổng tiền : 3000000 VNĐ</div>
+            </div>
+          </div>
+          <div class="detail-dh">
+            <img src="images/heart.png" alt="" class = "col-1 img">
+            <div class="col-2">
+              <div class="name">Tour đảo cô tô</div>
+              <div class="date-go"> Đặt ngày : 30-1-2024</div>
+              <div class="col-3 price">Tổng tiền : 3000000 VNĐ</div>
+            </div>
           </div> -->
+        </div>
+        <div class="display-tong-tien">
+          
         </div>
       </div>
   </div>

@@ -1039,9 +1039,9 @@ class Database
 
   public function getDataChiTietDonHang($idOrder, $idUser)
   {
-    $sql = 'select p.id ,p.title , p.id_category , p.content , od.total_money , od.date_go , ip.image
-            from order_detail as od , product as p , image_product as ip
-            where od.id_product = p.id and od.id_order = ' . $idOrder . ' and p.id = ip.id_product and ip.id_user = 1 ';
+    $sql = 'select p.id ,p.title , p.id_category , p.content , p.price , od.amount , od.total_money , od.date_go , ip.image ,d.percent as percent
+            from order_detail as od , product as p , image_product as ip, orders as o , discount as d
+            where od.id_product = p.id and od.id_order = ' . $idOrder . ' and p.id = ip.id_product and ip.id_user = 1 and o.id  = ' . $idOrder . ' and d.id = o.id_discount ';
     $result = $this->execute($sql);
     return $result;
   }

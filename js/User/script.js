@@ -113,7 +113,12 @@ function displayDetailDH(event){
       action : 'orderDetail' },
     
     success: function(response) {
-      $('.container-dh').html(response);
+      let array = response.toString().split('(');
+      let detail = array[0];
+      let tongtien = array[1].split(')')[0];
+      let percent = array[2].split(')')[0];
+      $('.container-dh').html(detail);
+      $('.display-tong-tien').html(" <div class = \"tong-tien\"> Tổng tiền : " + tongtien + "VNĐ</div></br><div class = \"discount\">Giảm giá : " + percent + "% </div></br><div class =\"tong-tien-cuoi\"> Tổng thanh toán : " + tongtien * ( 1 - percent/100) + "VNĐ</div>");
     }
 });
 
@@ -124,17 +129,21 @@ function destroyDetailDH(event){
 
   let idOrder = button.parentNode.parentNode.classList[1];
   console.log(idOrder);
-  $.ajax({
-    type: 'POST',
-    url: './Controller/User.php',
-    data: {
-      idOrder : idOrder,
-      action : 'destroyOrder' },
-    
-    success: function(response) {
-      $('.body-dh').html(response);
+  let result = confirm("Bạn có chắc chắn muốn hủy không?");
+    if (result) {
+        // Xử lý hủy ở đây nếu người dùng chọn OK
+        $.ajax({
+          type: 'POST',
+          url: './Controller/User.php',
+          data: {
+            idOrder : idOrder,
+            action : 'destroyOrder' },
+          
+          success: function(response) {
+            $('.body-dh').html(response);
+          }
+      });
     }
-});
 
 }
 
