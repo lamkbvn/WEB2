@@ -14,17 +14,13 @@ if (
 	$_POST['address'] !== '' &&
 	$_POST['userID'] !== '' &&
 	isset($_POST['checkValid']) && $_POST['checkValid'] == 1
-
+	&& isset($_POST['role'])
 ) {
-
-	$username;
-	$password;
-	if (
-		isset($_POST['username']) && isset($_POST['password'])
-	) {
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-	}
+	$username = $_POST['username'];
+	$password = $_POST['password'];
+	$accountEND = end($accounts);
+	$id_acount = $accountEND['id'] + 1;
+	$status = "1";
 
 	$emailOfUser = $_POST['emailOfUser'];
 	$phoneOfUser = $_POST['phoneOfUser'];
@@ -34,15 +30,15 @@ if (
 	$email = $_POST['email'];
 	$phone_number = $_POST['phone_number'];
 	$address = $_POST['address'];
-	$create_at = $_POST['create_at'];
 	$role = $_POST['role'];
+	$create_at = $_POST['create_at'];
+
 	$status = "1";
-
-
 
 	$usernameExists = false;
 	$emailExists = false;
 	$phone_numberExists = false;
+	$usernameExists = false;
 
 	foreach ($nguoidungs as $nguoidung) {
 		if ($nguoidung['email'] === $email) {
@@ -55,10 +51,9 @@ if (
 		}
 	}
 
-	$id_acount;
-	foreach ($nguoidungs as $nguoidung) {
-		if ($nguoidung['id'] === $userID) {
-			$id_acount = $nguoidung['id_acount'];
+	foreach ($accounts as $account) {
+		if ($account['user_name'] === $username) {
+			$usernameExists = true;
 			break;
 		}
 	}
@@ -68,17 +63,34 @@ if (
 		echo "exists email";
 	} else if ($phone_numberExists && $phone_number != $phoneOfUser) {
 		echo "exists phone";
+	} else if ($usernameExists) {
+		echo "exists username";
 	} else if (!preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $email)) {
 		echo "invalid email";
 	} else if (!preg_match("/^\d{10}$/", $phone_number)) {
 		echo "invalid phone";
+	} else if (strlen($username) < 6) {
+		echo "invalid username";
+	} else if (strlen($password) < 6) {
+		echo "invalid password";
 	} else {
+
 		$updateResult = $db->updateEditData($userID, $fullname, $email, $phone_number, $create_at, $address);
+		$accountEND = end($accounts);
+		$id_acount = $accountEND['id'] + 1;
 		if (
-			$updateResult && $db->roleAccount($id_acount, $role)
+			$updateResult
+			&& $db->registerAcount($username, $password, $role, $status)
+			&& $db->roleAccount($userID, $role)
+			&& $db->updateEditDataEdit($userID, $fullname, $email, $phone_number, $create_at, $address, $id_acount)
 		) {
 			echo "valid1";
-		} elseif ($db->roleAccount($id_acount, $role)) {
+		} elseif ($db->roleAccount($userID, $role)) {
+			echo "valid1";
+		} else if ($db->registerAcount($username, $password, $role, $status)) {
+			$db->idAccount($userID, $id_acount);
+			echo "valid1";
+		} else if ($db->updateEditDataEdit($userID, $fullname, $email, $phone_number, $create_at, $address, $id_acount)) {
 			echo "valid1";
 		} elseif ($updateResult) {
 			echo "valid1";

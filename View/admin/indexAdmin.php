@@ -74,6 +74,10 @@
 						<img id="sortIcon5" src="images/arrow-point-to-up.png" width="14px">
 					</th>
 
+					<th class="table-header" onclick="sortTable(7)">Tài khoản
+						<img id="sortIcon5" src="images/arrow-point-to-up.png" width="14px">
+					</th>
+
 					<th class="table-header">Hành Động</th>
 				</tr>
 			</thead>
@@ -150,41 +154,3 @@
 </script>
 <script src="js/sapxep.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	$(document).ready(function() {
-		// Bắt sự kiện click trên các liên kết
-		$('.a-href-ajax').click(function(e) {
-			e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
-
-			var url = $(this).attr('href'); // Lấy đường dẫn từ thuộc tính href của liên kết
-			// Thực hiện yêu cầu AJAX
-			$.ajax({
-				url: url,
-				type: 'GET',
-				success: function(response) {
-					// Xử lý phản hồi từ máy chủ (nếu cần)
-					// Ví dụ: cập nhật nội dung của một phần của trang với dữ liệu mới
-					// Ví dụ: $('.content').html(response);
-
-					// Thay đổi URL mà không làm tải lại trang
-					history.pushState(null, null, url);
-
-					// Cập nhật nội dung của trang
-					document.open();
-					document.write(response);
-					document.close();
-				},
-				error: function(xhr, status, error) {
-					// Xử lý lỗi (nếu cần)
-					console.error(error);
-				}
-			});
-		});
-
-		// Bắt sự kiện popstate để xử lý khi người dùng điều hướng qua lịch sử trình duyệt
-		$(window).on('popstate', function() {
-			// Load lại nội dung hoặc thực hiện các hành động cần thiết khi người dùng quay lại từ lịch sử trình duyệt
-			// Ví dụ: load lại nội dung tương ứng với URL hiện tại
-		});
-	});
-</script>

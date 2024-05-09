@@ -23,6 +23,7 @@ if (
 	$password;
 	if (
 		isset($_POST['username']) && isset($_POST['password'])
+		// && strlen($_POST['username']) > 6 && strlen($_POST['password']) > 6
 	) {
 		$username = $_POST['username'];
 		$password = $_POST['password'];
@@ -64,10 +65,10 @@ if (
 		echo "exists phone";
 	} else if (!preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $email)) {
 		echo "invalid email";
-	} else if (!preg_match("/^\d{10,11}$/", $phone_number)) {
+	} else if (!preg_match("/^\d{10}$/", $phone_number)) {
 		echo "invalid phone";
 	} else {
-		if ($username !== '' && $password !== '') {
+		if ($username !== '' && $password !== '' && strlen($username) > 6 && strlen($password) > 6) {
 			$accountEND = end($accounts);
 			$id_acount = $accountEND['id'] + 1;
 			$db->registerAcount($username, $password, $id_role, $status);
