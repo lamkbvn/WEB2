@@ -1196,7 +1196,7 @@ ORDER BY
   {
     $sql = "SELECT 
     order_detail.id_product, 
-    COUNT(order_detail.id_product) AS total_quantity, 
+    SUM(order_detail.amount) AS total_quantity, 
     product.title
 FROM 
     orders
