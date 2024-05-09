@@ -71,11 +71,11 @@
 					</th>
 
 					<th class="table-header" onclick="sortTable(6)">Tour hủy
-						<img id="sortIcon5" src="images/arrow-point-to-up.png" width="14px">
+						<img id="sortIcon6" src="images/arrow-point-to-up.png" width="14px">
 					</th>
 
 					<th class="table-header" onclick="sortTable(7)">Tài khoản
-						<img id="sortIcon5" src="images/arrow-point-to-up.png" width="14px">
+						<img id="sortIcon7" src="images/arrow-point-to-up.png" width="14px">
 					</th>
 
 					<th class="table-header">Hành Động</th>
