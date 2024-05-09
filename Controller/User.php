@@ -124,6 +124,7 @@ function loadDataDonHang()
   return $result;
 }
 
+$tongTien = 0;
 function getDataDetailDH($idOrder)
 {
   include_once "../Model/DBConfig.php";
@@ -184,25 +185,34 @@ if (isset($_POST['action'])) {
     }
     $idOrder = isset($_POST['idOrder']) ? $_POST['idOrder'] : '';
     $result = getDataDetailDH($idOrder);
+    $tongTien = 0;
+    $detail = '';
+    $percent = 0;
+    $n = 0;
     if (mysqli_num_rows($result) <= 0)
       echo "khong co ket qua";
-    else
+    else {
       while ($row = mysqli_fetch_array($result)) {
         $urlIMG = '../../images/heart.png';
         $imageData = $row['image'];
         $urlIMG = 'data:image/jpeg;base64,' . base64_encode($imageData) . '';
         echo '
-        <a class="detail-dh" href = "./Controller/chitietTour/buyTour.php?id=' . $row['id'] . '&category=' . $row['id_category'] . '">
-        <img loading="lazy" src=" ' . $urlIMG . '" alt="" class = "col-1 img">
-        <div class="col-2">
-          <div class="name">' . $row['title'] . '</div>
-          <div class="date-go"> Ngày đi : ' . $row['date_go'] . '</div>
-          <div class="col-3 price"> Tổng tiền : ' . number_format($row['total_money']) . ' VNĐ</div>
-        </div>
-        
-      </a>
-        ';
+          <a class="detail-dh" href = "./Controller/chitietTour/buyTour.php?id=' . $row['id'] . '&category=' . $row['id_category'] . '">
+            <img loading="lazy" src=" ' . $urlIMG . '" alt="" class = "col-1 img">
+            <div class="col-2">
+              <div class="name">' . $row['title'] . '</div>
+              <div class="date-go"> Ngày đi : ' . $row['date_go'] . '</div>
+              <div class="amount">Số lượng : ' . $row['amount'] . '</div>
+              <div class="col-3 price"> Tổng tiền : ' . number_format($row['price'] * $row['amount']) . ' VNĐ</div>
+            </div>
+          </a>
+          ';
+        $tongTien = $tongTien + $row['price'] * $row['amount'];
+        $percent = $percent + $row['percent'];
+        $n++;
       }
+    }
+    echo '(' . $tongTien . ')(' . $percent / $n . ')';
   }
 
   if ($_POST['action'] == 'destroyOrder') {
