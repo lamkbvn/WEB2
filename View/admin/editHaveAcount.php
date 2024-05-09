@@ -128,14 +128,23 @@
 						<input type="text" id="phone_number" name="phone_number" value="<?= isset($phone_number) ? $phone_number : '' ?>"><br>
 						<span id="validation" class="error_msg" style="color: red;"></span>
 
+						<label for="address">Địa Chỉ:</label><br>
+						<input type="text" id="address" name="address" value="<?= isset($address) ? $address : '' ?>"><br><br>
+						<span id="validation" class="error_msg" style="color: red;"></span>
+
 					</div>
 					<div class="flex">
 						<label for="create_at">Ngày Tạo:</label><br>
 						<input type="date" id="create_at" name="create_at" value="<?= isset($create_at) ? $create_at : '' ?>"><br>
 						<span id="validation" class="error_msg" style="color: red;"></span>
 
-						<label for="address">Địa Chỉ:</label><br>
-						<input type="text" id="address" name="address" value="<?= isset($address) ? $address : '' ?>"><br><br>
+
+						<label for="username">Tài khoản:</label><br>
+						<input type="text" id="username" name="username"><br><br>
+						<span id="validation" class="error_msg" style="color: red;"></span>
+
+						<label for="password">Mật khẩu:</label><br>
+						<input type="text" id="password" name="password"><br><br>
 						<span id="validation" class="error_msg" style="color: red;"></span>
 
 						<div class="editrole-form--inner">
@@ -169,6 +178,8 @@
 	let phone_number = document.getElementById("phone_number");
 	let address = document.getElementById("address");
 	let create_at = document.getElementById("create_at");
+	let username = document.getElementById("username");
+	let password = document.getElementById("password");
 	let spansValidation = document.querySelectorAll('#validation');
 
 	// Hàm kiểm tra điều kiện và hiển thị thông báo lỗi
@@ -213,14 +224,24 @@
 		validateField(address, "Vui lòng nhập địa chỉ", spansValidation[4]);
 	});
 
+	username.addEventListener("blur", function() {
+		validateField(username, "Vui lòng nhập tài khoản", spansValidation[5]);
+	});
+	password.addEventListener("blur", function() {
+		validateField(password, "Vui lòng nhập mật khẩu", spansValidation[6]);
+	});
+
+
 
 
 	function validateForm() {
 		const isValidFullName = validateField(fullname, "Vui lòng nhập họ và tên", spansValidation[0]);
 		const isValidEmail = validateFieldRegex(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email không hợp lệ", spansValidation[1]);
-		const isValidPhoneNumber = validateFieldRegex(phone_number, /^\d{10,11}$/, "Số điện thoại không hợp lệ", spansValidation[2]);
+		const isValidPhoneNumber = validateFieldRegex(phone_number, /^\d{10}$/, "Số điện thoại không hợp lệ", spansValidation[2]);
 		const isValidAddress = validateField(address, "Vui lòng nhập địa chỉ", spansValidation[3]);
 		const isValidCreate_at = validateField(create_at, "Vui lòng nhập địa chỉ", spansValidation[4]);
+		const isValidUsername = validateField(username, "Vui lòng nhập tài khoản", spansValidation[5]);
+		const isValidPassword = validateField(password, "Vui lòng nhập mật khẩu", spansValidation[6]);
 
 		if (isValidFullName && isValidEmail && isValidPhoneNumber &&
 			isValidAddress && isValidCreate_at) {
@@ -234,7 +255,6 @@
 	let emailOfUser = <?php echo json_encode($email); ?>;
 	let phoneOfUser = <?php echo json_encode($phone_number); ?>;
 
-
 	$(document).ready(function() {
 		$('.form').submit(function(e) {
 			e.preventDefault(); // Ngăn chặn việc gửi form mặc định
@@ -244,19 +264,23 @@
 			var phone_number = $('#phone_number').val();
 			var address = $('#address').val();
 			var create_at = $('#create_at').val();
+			var username = $('#username').val();
+			var password = $('#password').val();
 			var role = $('#role').val();
 
 
 			// Gửi AJAX request
 			$.ajax({
 				type: 'POST',
-				url: 'Controller/trangadmin/checkEditUser.php',
+				url: 'Controller/trangadmin/checkEditUserAcount.php',
 				data: {
 					fullname: fullname,
 					email: email,
 					phone_number: phone_number,
 					address: address,
 					create_at: create_at,
+					username: username,
+					password: password,
 					role: role,
 					userID: userID,
 					emailOfUser: emailOfUser,
@@ -273,6 +297,12 @@
 						alert("Nhập sai số điện thoại, vui lòng nhập lại!");
 					} else if (response.trim() === "exists phone") {
 						alert("Số điện thoại đã tồn tại, vui lòng nhập lại!");
+					} else if (response.trim() === "exists username") {
+						alert("Tài khoản đã tồn tại, vui lòng nhập lại!");
+					} else if (response.trim() === "invalid username") {
+						alert("Tài khoản phải lớn hơn 6 kí tự, vui lòng nhập lại!");
+					} else if (response.trim() === "invalid password") {
+						alert("Mật khẩu phải lớn hơn 6 kí tự, vui lòng nhập lại!");
 					} else if (response.trim() === "valid1") {
 						alert("Sửa thành công");
 						window.location.href = `index.php?controller=trang-admin&action=indexAdmin`;
