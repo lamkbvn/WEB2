@@ -213,7 +213,7 @@
 	});
 
 	phone_number.addEventListener("blur", function() {
-		validateFieldRegex(phone_number, /^\d{10,11}$/, "Số điện thoại không hợp lệ", spansValidation[2]);
+		validateFieldRegex(phone_number, /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/, "Số điện thoại không hợp lệ", spansValidation[2]);
 	});
 
 	create_at.addEventListener("blur", function() {
@@ -237,7 +237,7 @@
 	function validateForm() {
 		const isValidFullName = validateField(fullname, "Vui lòng nhập họ và tên", spansValidation[0]);
 		const isValidEmail = validateFieldRegex(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email không hợp lệ", spansValidation[1]);
-		const isValidPhoneNumber = validateFieldRegex(phone_number, /^\d{10}$/, "Số điện thoại không hợp lệ", spansValidation[2]);
+		const isValidPhoneNumber = validateFieldRegex(phone_number, /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/, "Số điện thoại không hợp lệ", spansValidation[2]);
 		const isValidAddress = validateField(address, "Vui lòng nhập địa chỉ", spansValidation[3]);
 		const isValidCreate_at = validateField(create_at, "Vui lòng nhập địa chỉ", spansValidation[4]);
 		const isValidUsername = validateField(username, "Vui lòng nhập tài khoản", spansValidation[5]);

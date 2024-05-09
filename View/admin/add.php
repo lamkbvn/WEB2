@@ -120,7 +120,7 @@
 	});
 
 	phone_number.addEventListener("blur", function() {
-		validateFieldRegex(phone_number, /^\d{10,11}$/, "Số điện thoại không hợp lệ", spansValidation[2]);
+		validateFieldRegex(phone_number, /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/, "Số điện thoại không hợp lệ", spansValidation[2]);
 	});
 
 	address.addEventListener("blur", function() {
@@ -141,7 +141,7 @@
 	function validateForm() {
 		const isValidFullName = validateField(fullname, "Vui lòng nhập họ và tên", spansValidation[0]);
 		const isValidEmail = validateFieldRegex(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email không hợp lệ", spansValidation[1]);
-		const isValidPhoneNumber = validateFieldRegex(phone_number, /^\d{10,11}$/, "Số điện thoại không hợp lệ", spansValidation[2]);
+		const isValidPhoneNumber = validateFieldRegex(phone_number, /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/, "Số điện thoại không hợp lệ", spansValidation[2]);
 		const isValidAddress = validateField(address, "Vui lòng nhập địa chỉ", spansValidation[3]);
 		const isValidUsername = validateFieldUserName(username, "Tài khoản phải có ít nhất 6 ký tự", spansValidation[4]);
 		const isValidPassword = validateFieldUserName(password, "Mật khẩu phải có ít nhất 6 ký tự", spansValidation[5]);
@@ -198,7 +198,10 @@
 					} else if (response.trim() === "exists phone") {
 						alert("Số điện thoại đã tồn tại, vui lòng nhập lại!");
 					} else if (response.trim() === "valid") {
-						alert("Đăng kí thành công");
+						alert("Đăng kí người dùng thành công");
+						window.location.href = `index.php?controller=trang-admin&action=indexAdmin`;
+					} else if (response.trim() === "valid1") {
+						alert("Đăng kí người dùng có tài khoản thành công");
 						window.location.href = `index.php?controller=trang-admin&action=indexAdmin`;
 					} else {
 						alert("Vui lòng nhập đầy đủ thông tin");

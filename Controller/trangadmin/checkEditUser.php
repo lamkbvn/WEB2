@@ -70,7 +70,7 @@ if (
 		echo "exists phone";
 	} else if (!preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $email)) {
 		echo "invalid email";
-	} else if (!preg_match("/^\d{10}$/", $phone_number)) {
+	} else if (!preg_match("/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/", $phone_number)) {
 		echo "invalid phone";
 	} else {
 		$updateResult = $db->updateEditData($userID, $fullname, $email, $phone_number, $create_at, $address);

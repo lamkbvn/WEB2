@@ -65,16 +65,19 @@ if (
 		echo "exists phone";
 	} else if (!preg_match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/", $email)) {
 		echo "invalid email";
-	} else if (!preg_match("/^\d{10}$/", $phone_number)) {
+	} else if (!preg_match("/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/", $phone_number)) {
 		echo "invalid phone";
 	} else {
+		$dankitk = 0;
 		if ($username !== '' && $password !== '' && strlen($username) > 6 && strlen($password) > 6) {
 			$accountEND = end($accounts);
 			$id_acount = $accountEND['id'] + 1;
 			$db->registerAcount($username, $password, $id_role, $status);
+			$dankitk = 1;
 		}
 		$db->registerNguoiDung($fullname, $email, $phone_number, $create_at, $status, $address, $id_acount);
-		echo "valid";
+		if ($dankitk == 1) echo "valid1";
+		else echo "valid";
 	}
 } else {
 	echo "invalid request";

@@ -179,7 +179,7 @@ include_once 'includes/login_orther.php';
     });
 
     phoneNumber.addEventListener("blur", function() {
-        validateFieldRegex(phoneNumber, /^\d{10}$/, "Số điện thoại không hợp lệ", spansValidation[4]);
+        validateFieldRegex(phoneNumber, /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/, "Số điện thoại không hợp lệ", spansValidation[4]);
     });
 
     address.addEventListener("blur", function() {
@@ -198,7 +198,7 @@ include_once 'includes/login_orther.php';
         const isValidEmail = validateFieldRegex(email,
             /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Email không hợp lệ", spansValidation[3]);
         const isValidPhoneNumber = validateFieldRegex(phoneNumber,
-            /^\d{10,11}$/, "Số điện thoại không hợp lệ", spansValidation[4]);
+            /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/, "Số điện thoại không hợp lệ", spansValidation[4]);
         const isValidAddress = validateField(address,
             "Vui lòng nhập địa chỉ", spansValidation[5]);
 
