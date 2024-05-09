@@ -66,18 +66,20 @@ $connect = new mysqli("localhost", "root", "", "web2");
       var action = currentAction;
       var page = currentPage;
       var sort = getSelectedSortOption();
-      var keyword = getKeywordOutForm();
-
+      var keyword = ""
       var categories = [];
       if (action === "getData") { // xử lí lọc nâng cao
+        console.log("Đã chọn getData - loc nang cao");
         var minPriceInForm = $('#price-min').val();
         var maxPriceInForm = $('#price-max').val();
         categories = getFilterInForm('category-advance');
+        keyword = getKeywordInForm();
       } else if (action === "categoryFilter") { // xử lí lọc theo danh mục bên ngoài
-        console.log("Đã chọn categoryFilter");
+        console.log("Đã chọn categoryFilter - loc co ban");
         categories = getFilterInForm('category-out-form');
         var minPriceInForm = $('#price-min-out-form').val();
         var maxPriceInForm = $('#price-max-out-form').val();
+        keyword = getKeywordOutForm();
       }
 
       $.ajax({
@@ -210,6 +212,12 @@ $connect = new mysqli("localhost", "root", "", "web2");
 
     function getKeywordOutForm() {
       let keyword = document.querySelector("#keyword-outform").value.trim();
+      console.log("key word outform: ", keyword)
+      return keyword;
+    }
+    function getKeywordInForm() {
+      let keyword = document.querySelector("#keyword-inform").value.trim();
+      console.log("key word inform: ", keyword)
       return keyword;
     }
 
@@ -237,7 +245,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
       if (e.which === 13) { // Kiểm tra xem phím được nhấn có phải là phím "Enter" không
         e.preventDefault();
         console.log("Đã nhấn phím Enter trên trường nhập liệu");
-        currentAction = 'getData'; // Cập nhật action
+        currentAction = 'categoryFilter'; // Cập nhật action
         currentPage = 1;
         filterDataInForm(); // Gọi lại hàm filterDataInForm() để tải dữ liệu mới sau khi nhấn phím "Enter"
       } else {
@@ -507,6 +515,7 @@ $connect = new mysqli("localhost", "root", "", "web2");
   });
   // ========================== js nút xoá các giá trị form =========
   function deleteFormValues() {
+    document.querySelector("#keyword-inform").value = "";
     console.log("Đã xóa");
 
     // Xóa giá trị của các input
